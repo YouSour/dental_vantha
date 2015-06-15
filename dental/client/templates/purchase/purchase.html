@@ -1,0 +1,166 @@
+<!--Index-->
+<template name="clinic_purchase">
+    <p>
+        <button type="button" class="btn btn-primary insert">{{fa "plus"}} Add New</button>
+    </p>
+    {{> tabular table=Clinic.TabularTable.Purchase class="table table-striped table-bordered table-condensed table-hover"}}
+</template>
+
+<!--Action-->
+<template name="clinic_purchaseAction">
+    {{#tabularAction}}
+        <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
+        <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
+        <li><a href="#" class="show">{{fa "eye"}} Show</a></li>
+    {{/tabularAction}}
+</template>
+
+<!--Insert-->
+<template name="clinic_purchaseInsert">
+
+    {{#autoForm collection=Clinic.Collection.Purchase id="clinic_purchaseInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
+        <div class="row">
+            <div class="col-md-4">
+                {{> afQuickField name='purchaseDate' class='purchaseDate'}}
+            </div>
+            <div class="col-md-4">
+                {{> afQuickField name='supplierId'}}
+            </div>
+            <div class="col-md-4">
+                {{> afQuickField name='registerId'}}
+            </div>
+        </div>
+
+        {{> afArrayField name="items" id="items" template="customArrayFieldPurchase" subtemplate="customObjectFieldPurchase"}}
+
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                {{> afFieldInput name='total'}}
+                <div class="panel panel-custom panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title panel-title-custom">Total : <b class="totalAmount">0</b></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
+        <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+    {{/autoForm}}
+</template>
+
+<!--Update-->
+<template name="clinic_purchaseUpdate">
+
+    {{#autoForm collection=Clinic.Collection.Purchase id="clinic_purchaseUpdate" doc=this type="update" afFieldInput-placeholder="schemaLabel"}}
+        <div class="row">
+            <div class="col-md-4">
+                {{> afQuickField name='purchaseDate' class='purchaseDate'}}
+            </div>
+            <div class="col-md-4">
+                {{> afQuickField name='supplierId'}}
+            </div>
+            <div class="col-md-4">
+                {{> afQuickField name='registerId'}}
+            </div>
+        </div>
+
+        {{> afArrayField name="items" id="items" template="customArrayFieldPurchase" subtemplate="customObjectFieldPurchase"}}
+
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                {{> afFieldInput name='total'}}
+                <div class="panel panel-custom panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title panel-title-custom">Total : <b class="totalAmount">0</b></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
+        <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+    {{/autoForm}}
+</template>
+
+<!--Show-->
+<template name="clinic_purchaseShow">
+    <dl class="dl-horizontal">
+        <dt>ID</dt>
+        <dd>{{_id}}</dd>
+        <dt>Purchase Date</dt>
+        <dd>{{purchaseDateFormat}}</dd>
+        <dt>Supplier</dt>
+        <dd>{{supplierId}}</dd>
+        <dt>Register</dt>
+        <dd>{{registerId}}</dd>
+        <dt>Purchase Detail</dt>
+        <dd>{{purchaseDetailFormat}}</dd>
+        <dt>Total</dt>
+        <dd>{{total}}</dd>
+    </dl>
+</template>
+
+<!--Custom array field-->
+<template name="afArrayField_customArrayFieldPurchase">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{fa "shopping-cart"}} {{afFieldLabelText name=this.atts.name}}</div>
+        <div class="panel-body">
+
+            {{#if afFieldIsInvalid name=this.atts.name}}
+                <div class="has-error">
+                    <span class="help-block">{{{afFieldMessage name=this.atts.name}}}</span>
+                </div>
+            {{/if}}
+
+            {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+                <div class="row">
+                    {{> UI.dynamic template=../atts.subtemplate}}
+
+                    <div class="col-sm-1">
+                        {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
+                            <button type="button" class="btn btn-sm btn-danger autoform-remove-item btnRemove">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                        {{/if}}
+                    </div>
+                </div>
+            {{/afEachArrayItem}}
+
+            {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+                <div class="row">
+                    <div class="col-sm-1 col-md-offset-11">
+                        <button type="button" class="btn btn-primary autoform-add-item btn-sm btnAdd"
+                                data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}"
+                                data-autoform-maxCount="{{this.atts.maxCount}}">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div>
+                </div>
+            {{/if}}
+
+        </div>
+    </div>
+</template>
+
+<!--Custom object field-->
+<template name="customObjectFieldPurchase">
+    <div class="col-sm-5">
+        {{> afQuickField name=current.orderItemId template="bootstrap3" label=false class="input-sm orderItemId"}}
+    </div>
+    <div class="col-sm-2">
+        {{> afQuickField name=current.qty template="bootstrap3" label=false class="input-sm qty"}}
+    </div>
+    <div class="col-sm-2">
+        {{> afQuickField name=current.price template="bootstrap3" label=false class="input-sm price"}}
+    </div>
+    <div class="col-sm-2">
+        {{> afQuickField name=current.amount template="bootstrap3" label=false class="input-sm amount" readonly=true}}
+    </div>
+</template>
