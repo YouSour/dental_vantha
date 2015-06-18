@@ -14,7 +14,7 @@ Template.clinic_register.events({
             .maximize();
     },
     'click .update': function () {
-        var data = Clinic.Collection.Register.findOne({_id: this._id});
+        var data = Clinic.Collection.Register.findOne({_id: this._id });
         alertify.register(renderTemplate(Template.clinic_registerUpdate, data))
             .set({
                 title: fa("pencil", "Register")
@@ -60,11 +60,11 @@ Template.clinic_registerInsert.events({
 
         var thisObj = $(e.currentTarget);
         var diagnosisId = $(e.currentTarget).val();
-        if(diagnosisId != "") {
+        if (diagnosisId != "") {
             var dataDiagnosis = Clinic.Collection.Disease.findOne({_id: diagnosisId});
-            $('.btnAdd').attr('disabled',false);
+            $('.btnAdd').attr('disabled', false);
         }
-        else{
+        else {
             $('.btnAdd').attr('disabled', true);
         }
 
@@ -139,11 +139,11 @@ Template.clinic_registerUpdate.events({
 
         var thisObj = $(e.currentTarget);
         var diagnosisId = $(e.currentTarget).val();
-        if(diagnosisId != "") {
+        if (diagnosisId != "") {
             var dataDiagnosis = Clinic.Collection.Disease.findOne({_id: diagnosisId});
-            $('.btnAdd').attr('disabled',false);
+            $('.btnAdd').attr('disabled', false);
         }
-        else{
+        else {
             $('.btnAdd').attr('disabled', true);
         }
 
@@ -158,6 +158,7 @@ Template.clinic_registerUpdate.events({
 
     'click .btnRemove': function (e) {
 
+        alert(e.currentTarget.val());
         setTimeout(function () {
             var enable = true;
             $('.amount').each(function () {
@@ -210,11 +211,13 @@ Template.clinic_registerShow.helpers({
         var diagnosis = "";
         var data = this.diagnosis;
         data.forEach(function (obj) {
-            diagnosis +=
-                "Diagnosis Id = " + obj.diagnosisId +
-                ", Qty = " + obj.qty +
-                ", Price = " + obj.price +
-                ", Amount = " + obj.amount + "<br>";
+            if (obj != null) {
+                diagnosis +=
+                    "Diagnosis Id = " + obj.diagnosisId +
+                    ", Qty = " + obj.qty +
+                    ", Price = " + obj.price +
+                    ", Amount = " + obj.amount + "<br>";
+            }
         });
 
         return new Spacebars.SafeString(diagnosis);

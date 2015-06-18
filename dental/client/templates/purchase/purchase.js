@@ -14,7 +14,8 @@ Template.clinic_purchase.events({
             .maximize();
     },
     'click .update': function () {
-        alertify.purchase(renderTemplate(Template.clinic_purchaseUpdate, this))
+        var data = Clinic.Collection.Purchase.findOne({_id: this._id});
+        alertify.purchase(renderTemplate(Template.clinic_purchaseUpdate, data))
             .set({
                 title: fa("pencil", "Purchase")
             })
@@ -59,18 +60,15 @@ Template.clinic_purchaseInsert.events({
 
         var thisObj = $(e.currentTarget);
         var orderItemId = $(e.currentTarget).val();
-
-        debugger;
-        if(orderItemId != "") {
-            $('.btnAdd').attr('disabled',false);
-        }
-        else{
-            $('.btnAdd').attr('disabled', true);
-        }
         var price = thisObj.parents('div.row').find('.price').val();
-        thisObj.parents('div.row').find('.qty').val(1);
-        thisObj.parents('div.row').find('.amount').val(price);
-        calculateTotal();
+        var qty = thisObj.parents('div.row').find('.qty').val(1);
+        var amount = thisObj.parents('div.row').find('.amount').val(price);
+
+        if (orderItemId != "" && price != 0 && qty != 0) {
+            $('.btnAdd').removeAttr('disabled');
+        } else {
+            $('.btnAdd').attr('disabled', "disabled");
+        }
 
     },
     'click .btnRemove': function (e) {
@@ -130,11 +128,9 @@ Template.clinic_purchaseUpdate.events({
 
         var thisObj = $(e.currentTarget);
         var orderItemId = $(e.currentTarget).val();
-
         var price = thisObj.parents('div.row').find('.price').val();
         var qty = thisObj.parents('div.row').find('.qty').val(1);
-        thisObj.parents('div.row').find('.amount').val(price);
-        //calculateTotal();
+        var amount = thisObj.parents('div.row').find('.amount').val(price);
 
         if (orderItemId != "" && price != 0 && qty != 0) {
             $('.btnAdd').removeAttr('disabled');
@@ -208,7 +204,6 @@ Template.clinic_purchaseShow.helpers({
                 "OrderItem Id = " + obj.orderItemId +
                 ", Qty = " + obj.qty +
                 ", Price = " + obj.price +
-                ", Discount = " + obj.discount +
                 ", Amount = " + obj.amount + "<br>";
         });
 
@@ -252,7 +247,7 @@ AutoForm.hooks({
  * Calculate all amount to total
  */
 function calculateTotal() {
-    var total = 0
+    var total = 0;
     $('.amount').each(function () {
         var amount = $(this).val() == "" ? 0 : parseFloat($(this).val());
         total += amount;
