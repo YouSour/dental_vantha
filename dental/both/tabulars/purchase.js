@@ -14,8 +14,20 @@ Clinic.TabularTable.Purchase = new Tabular.Table({
                 return moment(val).format("YYYY-MM-DD");
             }
         },
-        {data: "supplierId", title: "Suppiler"},
-        {data: "registerId", title: "Register"},
+        {
+            data: "supplierId",
+            title: "Suppiler",
+            render: function (val, doc, type) {
+                return labelCon(val, val, "primary");
+            }
+        },
+        {
+            data: "registerId",
+            title: "Register",
+            render: function (val, doc, type) {
+                return labelCon(val, val, "primary");
+            }
+        },
         {
             data: "items",
             title: "Purchase Detail",
@@ -25,23 +37,23 @@ Clinic.TabularTable.Purchase = new Tabular.Table({
                 val.forEach(function (obj) {
                     if (obj != null) {
                         purchaseDetail +=
-                            "<label class='label label-info'>"+
+                            "<label class='label label-info'>" +
                             "OrderItem Id : " + obj.orderItemId +
                             " | Qty : " + obj.qty +
                             " | Price : " + obj.price +
                             " | Amount : " + obj.amount +
-                            "</label>"+"<br>";
+                            "</label>" + "<br>";
                     }
                 });
 
-                return purchaseDetail ;
+                return purchaseDetail;
             }
         },
         {
             data: "total",
             title: "Total",
-            render: function (val,doc,type) {
-                return labelCon(val , val ,"success");
+            render: function (val, doc, type) {
+                return labelCon(val, val, "success");
             }
         }
     ],
