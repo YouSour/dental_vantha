@@ -14,7 +14,7 @@ Template.clinic_deposit.events({
             .maximize();
     },
     'click .update': function () {
-        var data = this;
+        var data = Clinic.Collection.Deposit.findOne({_id: this._id});
         alertify.deposit(renderTemplate(Template.clinic_depositUpdate, data))
             .set({
                 title: fa("pencil", "Deposit")

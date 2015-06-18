@@ -24,7 +24,19 @@
                 {{> afQuickField name="registerId"}}
             </div>
             <div class="col-md-6">
-                {{> afQuickField name="amount"}}
+                <div class="form-group{{#if afFieldIsInvalid name='amount'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="address">Amount</label>
+
+                    <div class="input-group">
+                        {{> afFieldInput name='amount'}}
+                        <span class="input-group-addon">
+                            {{fa "usd"}}
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='amount'}}
+                        <span class="help-block">{{afFieldMessage name='amount'}}</span>
+                    {{/if}}
+                </div>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
@@ -41,7 +53,19 @@
                 {{> afQuickField name="registerId"}}
             </div>
             <div class="col-md-6">
-                {{> afQuickField name="amount"}}
+                <div class="form-group{{#if afFieldIsInvalid name='amount'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="address">Amount</label>
+
+                    <div class="input-group">
+                        {{> afFieldInput name='amount'}}
+                        <span class="input-group-addon">
+                            {{fa "usd"}}
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='amount'}}
+                        <span class="help-block">{{afFieldMessage name='amount'}}</span>
+                    {{/if}}
+                </div>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
@@ -59,6 +83,6 @@
         <dt>Register ID</dt>
         <dd>{{registerId}}</dd>
         <dt>Amount</dt>
-        <dd>{{amount}}</dd>
+        <dd>{{labelCon amount amount "success"}}</dd>
     </dl>
 </template>

@@ -8,27 +8,40 @@ Clinic.TabularTable.Register = new Tabular.Table({
         },
         {data: "_id", title: "ID"},
         {data: "registerDate", title: "Register Date"},
-        {data: "patientId", title: "Patient"},
+        {
+            data: "patientId",
+            title: "Patient",
+            render: function (val, doc, type) {
+                return labelCon(val, val, "primary")
+            }
+        },
         {
             data: "diagnosis", title: "Diagnosis",
             render: function (val, type, doc) {
                 //return JSON.stringify(val);
                 var diagnosis = "";
-                if (val != null) {
-                    val.forEach(function (o) {
+                val.forEach(function (o) {
+                    if (o != null) {
                         diagnosis +=
+                            "<label class='label label-info'>" +
                             "Diagnosis Id = " + o.diagnosisId +
-                            ", Qty = " + o.qty +
-                            ", Price = " + o.price +
-                            ", Discount = " + o.discount +
-                            ", Amount = " + o.amount +
-                            "<br>";
-                    })
-                }
+                            " | Qty : " + o.qty +
+                            " | Price : " + o.price +
+                            " | Discount : " + o.discount +
+                            " | Amount : " + o.amount +
+                            "</label>" + "<br>";
+                    }
+                });
                 return diagnosis;
             }
         },
-        {data: "total", title: "Total"},
+        {
+            data: "total",
+            title: "Total",
+            render: function (val, doc, type) {
+                return labelCon(val, val, "success", "")
+            }
+        },
         {data: "des", title: "Description"}
     ],
     order: [['1', 'desc']],

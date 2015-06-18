@@ -23,11 +23,36 @@
             <div class="col-md-6">
                 {{> afQuickField name='code'}}
                 {{> afQuickField name='name'}}
-                {{> afQuickField name='price'}}
+
+                <div class="form-group{{#if afFieldIsInvalid name='price'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="price">Price</label>
+
+                    <div class="input-group">
+                        {{> afFieldInput name='price'}}
+                        <span class="input-group-addon">
+                            {{fa "usd"}}
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='price'}}
+                        <span class="help-block">{{afFieldMessage name='price'}}</span>
+                    {{/if}}
+                </div>
 
             </div>
             <div class="col-md-6">
-                {{> afQuickField name='memberPrice'}}
+                <div class="form-group{{#if afFieldIsInvalid name='memberPrice'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="memberPrice">Member Price</label>
+
+                    <div class="input-group">
+                        {{> afFieldInput name='memberPrice'}}
+                        <span class="input-group-addon">
+                            {{fa "usd"}}
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='memberPrice'}}
+                        <span class="help-block">{{afFieldMessage name='memberPrice'}}</span>
+                    {{/if}}
+                </div>
                 {{> afQuickField name='diseaseCategoryId'}}
             </div>
         </div>
@@ -45,11 +70,35 @@
             <div class="col-md-6">
                 {{> afQuickField name='code'}}
                 {{> afQuickField name='name'}}
-                {{> afQuickField name='price'}}
+                <div class="form-group{{#if afFieldIsInvalid name='price'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="price">Price</label>
+
+                    <div class="input-group">
+                        {{> afFieldInput name='price'}}
+                        <span class="input-group-addon">
+                            {{fa "usd"}}
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='price'}}
+                        <span class="help-block">{{afFieldMessage name='price'}}</span>
+                    {{/if}}
+                </div>
 
             </div>
             <div class="col-md-6">
-                {{> afQuickField name='memberPrice'}}
+                <div class="form-group{{#if afFieldIsInvalid name='memberPrice'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="memberPrice">Member Price</label>
+
+                    <div class="input-group">
+                        {{> afFieldInput name='memberPrice'}}
+                        <span class="input-group-addon">
+                            {{fa "usd"}}
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='memberPrice'}}
+                        <span class="help-block">{{afFieldMessage name='memberPrice'}}</span>
+                    {{/if}}
+                </div>
                 {{> afQuickField name='diseaseCategoryId'}}
             </div>
         </div>

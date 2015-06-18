@@ -19,13 +19,19 @@ Clinic.TabularTable.Expense = new Tabular.Table({
             title: "Expense Type",
             render: function (val, doc, type) {
                 var tempExpenseTypeId = Clinic.Collection.expenseType.findOne({_id: val});
-                return labelCon(tempExpenseTypeId.name, tempExpenseTypeId.name, "primary", "");
+                return labelCon(tempExpenseTypeId.name, tempExpenseTypeId.name, "primary");
             }
         },
-        {data: "amount", title: "Amount"},
+        {
+            data: "amount",
+            title: "Amount",
+            render: function (val, doc, type) {
+                return labelCon(val, val, "success");
+            }
+        },
         {data: "des", title: "Description"}
     ],
-    autoWidth:false,
+    autoWidth: false,
     order: [['1', 'desc']],
     colummDefs: [{"width": "12px", "target": 0}]
 });

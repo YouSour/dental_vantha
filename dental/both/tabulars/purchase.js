@@ -21,20 +21,29 @@ Clinic.TabularTable.Purchase = new Tabular.Table({
             title: "Purchase Detail",
             render: function (val, doc, type) {
                 var purchaseDetail = "";
-                if (val != null) {
-                    val.forEach(function (obj) {
+
+                val.forEach(function (obj) {
+                    if (obj != null) {
                         purchaseDetail +=
-                            "OrderItem Id = " + obj.orderItemId +
-                            ", Qty = " + obj.qty +
-                            ", Price = " + obj.price +
-                            ", Amount = " + obj.amount +
-                            "<br>";
-                    })
-                }
-                return purchaseDetail;
+                            "<label class='label label-info'>"+
+                            "OrderItem Id : " + obj.orderItemId +
+                            " | Qty : " + obj.qty +
+                            " | Price : " + obj.price +
+                            " | Amount : " + obj.amount +
+                            "</label>"+"<br>";
+                    }
+                });
+
+                return purchaseDetail ;
             }
         },
-        {data: "total", title: "Total"}
+        {
+            data: "total",
+            title: "Total",
+            render: function (val,doc,type) {
+                return labelCon(val , val ,"success");
+            }
+        }
     ],
     order: [["0", "desc"]],
     autoWidth: false,
