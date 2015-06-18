@@ -8,7 +8,13 @@ Clinic.TabularTable.Deposit = new Tabular.Table({
         },
         {data: "_id", title: "ID"},
         {data: "depositDate", title: "Deposit Date"},
-        {data: "registerId", title: "Register ID"},
+        {
+            data: "registerId",
+            title: "Register ID",
+            render: function (val, doc, type) {
+                return labelCon(val, val, "primary");
+            }
+        },
         {
             data: "amount",
             title: "Amount",
