@@ -1,10 +1,10 @@
-Router.route('clinic/orderItem',function(){
-   this.render(Template.clinic_orderItem);
+Router.route('dental/orderItem',function(){
+   this.render(Template.dental_orderItem);
 },{
-    name:"clinic.orderItem",
+    name:"dental.orderItem",
     header:{title:"orderItem",sub:"",icon:"fa fa-shopping-cart"},
     title:"OrderItem",
     waitOn:function(){
-        return Meteor.subscribe('clinicOrderItem');
+        return Meteor.subscribe('dentalOrderItem');
     }
 });

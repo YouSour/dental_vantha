@@ -1,10 +1,10 @@
-Clinic.TabularTable.orderCategory = new Tabular.Table({
-    name: "clinicOrderCategoryList",
-    collection: Clinic.Collection.orderCategory,
+Dental.TabularTable.orderCategory = new Tabular.Table({
+    name: "dentalOrderCategoryList",
+    collection: Dental.Collection.orderCategory,
     columns: [
         {
             title: "<i class='fa fa-bars'></i>",
-            tmpl: Meteor.isClient && Template.clinic_orderCategoryAction
+            tmpl: Meteor.isClient && Template.dental_orderCategoryAction
         },
         {data: "_id", title: "ID"},
         {data: "name", title: "Name"},

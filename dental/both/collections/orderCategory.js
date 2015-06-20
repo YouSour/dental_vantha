@@ -3,14 +3,14 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.orderCategory = new Mongo.Collection('clinic_orderCategory');
+Dental.Collection.orderCategory = new Mongo.Collection('dental_orderCategory');
 
 /***
  * Schema
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.orderCategory = new SimpleSchema({
+Dental.Schema.orderCategory = new SimpleSchema({
     name: {
         type: String,
         unique: true,
@@ -41,4 +41,4 @@ Clinic.Schema.orderCategory = new SimpleSchema({
 /**
  * attachSchema
  */
-Clinic.Collection.orderCategory.attachSchema(Clinic.Schema.orderCategory);
+Dental.Collection.orderCategory.attachSchema(Dental.Schema.orderCategory);

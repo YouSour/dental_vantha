@@ -2,21 +2,21 @@
  * Index
  */
 
-Template.clinic_supplier.onRendered(function () {
+Template.dental_supplier.onRendered(function () {
     createNewAlertify('supplier');
 });
 
-Template.clinic_supplier.events({
+Template.dental_supplier.events({
     'click .insert': function () {
-        alertify.supplier(renderTemplate(Template.clinic_supplierInsert))
+        alertify.supplier(renderTemplate(Template.dental_supplierInsert))
             .set({
                 title: fa("plus", "Supplier")
             })
             .maximize();
     },
     'click .update': function () {
-        var data = Clinic.Collection.Supplier.findOne({_id: this._id});
-        alertify.supplier(renderTemplate(Template.clinic_supplierUpdate, data))
+        var data = Dental.Collection.Supplier.findOne({_id: this._id});
+        alertify.supplier(renderTemplate(Template.dental_supplierUpdate, data))
             .set({
                 title: fa("pencil", "Supplier")
             })
@@ -27,7 +27,7 @@ Template.clinic_supplier.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (closeEvent) {
-                    Clinic.Collection.Supplier.remove(id, function (error) {
+                    Dental.Collection.Supplier.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -39,7 +39,7 @@ Template.clinic_supplier.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.clinic_supplierShow, this))
+        alertify.alert(renderTemplate(Template.dental_supplierShow, this))
             .set({
                 title: fa("eye", "Supplier")
             })
@@ -50,10 +50,10 @@ Template.clinic_supplier.events({
  * Hook
  */
 AutoForm.hooks({
-    clinic_supplierInsert: {
+    dental_supplierInsert: {
         before: {
             insert: function (doc) {
-                doc._id = idGenerator.gen(Clinic.Collection.Supplier, 3);
+                doc._id = idGenerator.gen(Dental.Collection.Supplier, 3);
                 return doc;
             }
         },
@@ -64,7 +64,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_supplierUpdate: {
+    dental_supplierUpdate: {
         onSuccess: function () {
             alertify.supplier().close();
             alertify.success("Success");

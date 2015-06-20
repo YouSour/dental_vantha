@@ -1,17 +1,30 @@
-# Rateor
-Meteor boilerplate for Rabbit Training Center.
+# Meteor Cpanel
+Meteor Cpanel for Rabbit Training Center.
 
 ## v.Next
 - add sample events track on report
 - create backup/restore package
 - create sample report on excel file
 
+## v0.4.4, 2014-06-20
+- add `ecwyne:mathjs` package
+- add `theara:round-khr` package
+
+## v0.4.3, 2014-06-18
+- test `jeanfredrik:denormalize` package
+
+## v0.4.2, 2014-06-17
+- add `jeanfredrik:denormalize` package
+- upgrade version
+
+## v0.4.1, 2014-06-09
+- add file upload package
+
 ## v0.4.0, 2014-06-05
 - upgrade packages
 
 ## v0.3.9, 2014-06-05
 - fix tabular
-
 
 ## v0.3.8, 2014-06-04
 - fix sample tabular (column with)

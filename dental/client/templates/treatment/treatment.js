@@ -1,13 +1,13 @@
 /*
  * Index
  */
-Template.clinic_treatment.onRendered(function () {
+Template.dental_treatment.onRendered(function () {
     createNewAlertify('treatment');
 });
 
-Template.clinic_treatment.events({
+Template.dental_treatment.events({
     'click .insert': function () {
-        alertify.treatment(renderTemplate(Template.clinic_treatmentInsert))
+        alertify.treatment(renderTemplate(Template.dental_treatmentInsert))
             .set({
                 title: fa("plus", "Treatment")
             })
@@ -15,7 +15,7 @@ Template.clinic_treatment.events({
     },
     'click .update': function () {
         var data = this;
-        alertify.treatment(renderTemplate(Template.clinic_treatmentUpdate, data))
+        alertify.treatment(renderTemplate(Template.dental_treatmentUpdate, data))
             .set({
                 title: fa("pencil", "Treatment")
             })
@@ -27,7 +27,7 @@ Template.clinic_treatment.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (result, id) {
-                    Clinic.Collection.Treatment.remove(id, function (error) {
+                    Dental.Collection.Treatment.remove(id, function (error) {
                         if (error) {
                             alertify.success(error.message);
                         } else {
@@ -38,7 +38,7 @@ Template.clinic_treatment.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.clinic_treatmentShow, this))
+        alertify.alert(renderTemplate(Template.dental_treatmentShow, this))
             .set({
                 title: fa("eye", "Treatment")
             })
@@ -48,23 +48,23 @@ Template.clinic_treatment.events({
 /**
  * Insert
  */
-Template.clinic_treatmentInsert.onRendered(function () {
+Template.dental_treatmentInsert.onRendered(function () {
     datepicker();
 });
 
 /**
  * Update
  */
-Template.clinic_treatmentUpdate.onRendered(function () {
+Template.dental_treatmentUpdate.onRendered(function () {
     datepicker();
 });
 
 /*
  * Show
  */
-Template.clinic_treatmentShow.helpers({
+Template.dental_treatmentShow.helpers({
     imageFormat: function () {
-        var data = Images.findOne(this.attachFile);
+        var data = Files.findOne(this.attachFile);
         return new Spacebars.SafeString('<img src="' + data.url() + '" width="125px" class="img-responsive img-thumbnail" >');
     }
 });
@@ -73,11 +73,11 @@ Template.clinic_treatmentShow.helpers({
  *Hook
  */
 AutoForm.hooks({
-    clinic_treatmentInsert: {
+    dental_treatmentInsert: {
         before: {
             insert: function (doc) {
                 var registerId = doc.registerId + "-";
-                doc._id = idGenerator.genWithPrefix(Clinic.Collection.Treatment, registerId, 3);
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Treatment, registerId, 3);
                 return doc;
             }
         },
@@ -88,7 +88,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_treatmentUpdate: {
+    dental_treatmentUpdate: {
         onSuccess: function (formType, result) {
             alertify.treatment().close();
             alertify.success("Success");

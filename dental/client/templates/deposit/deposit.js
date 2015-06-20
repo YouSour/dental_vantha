@@ -1,21 +1,21 @@
 /*
  * Index
  */
-Template.clinic_deposit.onRendered(function () {
+Template.dental_deposit.onRendered(function () {
     createNewAlertify('deposit');
 });
 
-Template.clinic_deposit.events({
+Template.dental_deposit.events({
     'click .insert': function () {
-        alertify.deposit(renderTemplate(Template.clinic_depositInsert))
+        alertify.deposit(renderTemplate(Template.dental_depositInsert))
             .set({
                 title: fa("plus", "Deposit")
             })
             .maximize();
     },
     'click .update': function () {
-        var data = Clinic.Collection.Deposit.findOne({_id: this._id});
-        alertify.deposit(renderTemplate(Template.clinic_depositUpdate, data))
+        var data = Dental.Collection.Deposit.findOne({_id: this._id});
+        alertify.deposit(renderTemplate(Template.dental_depositUpdate, data))
             .set({
                 title: fa("pencil", "Deposit")
             })
@@ -26,8 +26,8 @@ Template.clinic_deposit.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (result) {
-                    Images.remove({_id: id});
-                    Clinic.Collection.Deposit.remove(id, function (error) {
+                    Files.remove({_id: id});
+                    Dental.Collection.Deposit.remove(id, function (error) {
                         if (error) {
                             alertify.success(error.message);
                         } else {
@@ -38,7 +38,7 @@ Template.clinic_deposit.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.clinic_depositShow, this))
+        alertify.alert(renderTemplate(Template.dental_depositShow, this))
             .set({
                 title: fa("eye", "Deposit")
             })
@@ -48,14 +48,14 @@ Template.clinic_deposit.events({
 /**
  * Insert
  */
-Template.clinic_depositInsert.onRendered(function () {
+Template.dental_depositInsert.onRendered(function () {
     datepicker();
 });
 
 /**
  * Update
  */
-Template.clinic_depositUpdate.onRendered(function () {
+Template.dental_depositUpdate.onRendered(function () {
     datepicker();
 });
 
@@ -63,11 +63,11 @@ Template.clinic_depositUpdate.onRendered(function () {
  *Hook
  */
 AutoForm.hooks({
-    clinic_depositInsert: {
+    dental_depositInsert: {
         before: {
             insert: function (doc) {
                 var registerId = doc.registerId + "-";
-                doc._id = idGenerator.genWithPrefix(Clinic.Collection.Deposit, registerId, 2);
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Deposit, registerId, 2);
                 return doc;
             }
         },
@@ -78,7 +78,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_depositUpdate: {
+    dental_depositUpdate: {
         onSuccess: function (formType, result) {
             alertify.deposit().close();
             alertify.success("Success");

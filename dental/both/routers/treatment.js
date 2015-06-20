@@ -1,11 +1,11 @@
-Router.route('clinic/treatment', function () {
-        this.render('clinic_treatment');
+Router.route('dental/treatment', function () {
+        this.render('dental_treatment');
     }, {
-        name: 'clinic.treatment',
+        name: 'dental.treatment',
         header: {title: 'treatment', sub: '', icon: 'medkit'},
         title: "Treatment",
         waitOn: function () {
-            return Meteor.subscribe('clinicTreatment');
+            return Meteor.subscribe('dentalTreatment');
         }
     }
 );

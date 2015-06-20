@@ -1,4 +1,4 @@
-# Sample
-Sample module for rateor
+# Dental
+Dental Clinic System
 
 ## v0.0.1, 2014-04-01

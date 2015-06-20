@@ -3,14 +3,14 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Supplier = new Mongo.Collection('clinic_supplier');
+Dental.Collection.Supplier = new Mongo.Collection('dental_supplier');
 
 /***
  * Schema
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.Supplier = new SimpleSchema({
+Dental.Schema.Supplier = new SimpleSchema({
     name: {
         type: String,
         unique: true,
@@ -49,4 +49,4 @@ Clinic.Schema.Supplier = new SimpleSchema({
 /**
  * attachSchema
  */
-Clinic.Collection.Supplier.attachSchema(Clinic.Schema.Supplier);
+Dental.Collection.Supplier.attachSchema(Dental.Schema.Supplier);

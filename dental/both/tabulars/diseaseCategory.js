@@ -1,16 +1,15 @@
-Clinic.TabularTable.diseaseCategory = new Tabular.Table({
-    name: "clinicDiseaseCategoryList",
-    collection: Clinic.Collection.diseaseCategory,
+Dental.TabularTable.DiseaseCategory = new Tabular.Table({
+    name: "dentalDiseaseCategoryList",
+    collection: Dental.Collection.DiseaseCategory,
     columns: [
-        {
-            title: '<i class="fa fa-bars"></i>',
-            tmpl: Meteor.isClient && Template.clinic_diseaseCategoryAction
-        },
+        {title: '<i class="fa fa-bars"></i>', tmpl: Meteor.isClient && Template.dental_diseaseCategoryAction},
         {data: "_id", title: "ID"},
-        {data: "name", title: "Name"}
+        {data: "code", title: "Code"},
+        {data: "name", title: "Name"},
+        {data: "itemCount", title: "Item Count"}
     ],
     order: [['1', 'desc']],
-    autoWidth:false,
+    autoWidth: false,
     columnDefs: [
         {"width": "12px", "targets": 0}
     ]

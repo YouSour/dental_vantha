@@ -1,21 +1,21 @@
 /***
  * Index
  */
-Template.clinic_register.onRendered(function () {
+Template.dental_register.onRendered(function () {
     createNewAlertify('register');
 });
 
-Template.clinic_register.events({
+Template.dental_register.events({
     'click .insert': function () {
-        alertify.register(renderTemplate(Template.clinic_registerInsert))
+        alertify.register(renderTemplate(Template.dental_registerInsert))
             .set({
                 title: fa("plus", "Register")
             })
             .maximize();
     },
     'click .update': function () {
-        var data = Clinic.Collection.Register.findOne({_id: this._id });
-        alertify.register(renderTemplate(Template.clinic_registerUpdate, data))
+        var data = Dental.Collection.Register.findOne({_id: this._id });
+        alertify.register(renderTemplate(Template.dental_registerUpdate, data))
             .set({
                 title: fa("pencil", "Register")
             })
@@ -26,7 +26,7 @@ Template.clinic_register.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (result) {
-                    Clinic.Collection.Register.remove(id, function (error) {
+                    Dental.Collection.Register.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -38,7 +38,7 @@ Template.clinic_register.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.clinic_registerShow, this))
+        alertify.alert(renderTemplate(Template.dental_registerShow, this))
             .set({
                 title: fa("eye", "Register")
             })
@@ -48,20 +48,20 @@ Template.clinic_register.events({
 /**
  * Insert
  */
-Template.clinic_registerInsert.onRendered(function () {
+Template.dental_registerInsert.onRendered(function () {
     datepicker();
     $('.btnAdd').attr('disabled', "disabled");
 });
 
-Template.clinic_registerInsert.helpers({});
+Template.dental_registerInsert.helpers({});
 
-Template.clinic_registerInsert.events({
+Template.dental_registerInsert.events({
     'change .diagnosisId': function (e) {
 
         var thisObj = $(e.currentTarget);
         var diagnosisId = $(e.currentTarget).val();
         if (diagnosisId != "") {
-            var dataDiagnosis = Clinic.Collection.Disease.findOne({_id: diagnosisId});
+            var dataDiagnosis = Dental.Collection.Disease.findOne({_id: diagnosisId});
             $('.btnAdd').attr('disabled', false);
         }
         else {
@@ -125,22 +125,22 @@ Template.clinic_registerInsert.events({
 /**
  * Update
  */
-Template.clinic_registerUpdate.onRendered(function () {
+Template.dental_registerUpdate.onRendered(function () {
     datepicker();
 
     //run this function when on update get value for total
     calculateTotal();
 });
 
-Template.clinic_registerUpdate.helpers({});
+Template.dental_registerUpdate.helpers({});
 
-Template.clinic_registerUpdate.events({
+Template.dental_registerUpdate.events({
     'change .diagnosisId': function (e) {
 
         var thisObj = $(e.currentTarget);
         var diagnosisId = $(e.currentTarget).val();
         if (diagnosisId != "") {
-            var dataDiagnosis = Clinic.Collection.Disease.findOne({_id: diagnosisId});
+            var dataDiagnosis = Dental.Collection.Disease.findOne({_id: diagnosisId});
             $('.btnAdd').attr('disabled', false);
         }
         else {
@@ -205,7 +205,7 @@ Template.clinic_registerUpdate.events({
  * Show
  */
 
-Template.clinic_registerShow.helpers({
+Template.dental_registerShow.helpers({
     diagnosisFormat: function () {
 
         var diagnosis = "";
@@ -228,11 +228,11 @@ Template.clinic_registerShow.helpers({
  * Hook
  */
 AutoForm.hooks({
-    clinic_registerInsert: {
+    dental_registerInsert: {
         before: {
             insert: function (doc) {
                 var patientId = doc.patientId + "-";
-                doc._id = idGenerator.genWithPrefix(Clinic.Collection.Register, patientId, 3);
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Register, patientId, 3);
                 return doc;
             }
         },
@@ -243,7 +243,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_registerUpdate: {
+    dental_registerUpdate: {
         onSuccess: function (formType, result) {
             alertify.register().close();
             alertify.success('Success');

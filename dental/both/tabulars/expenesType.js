@@ -1,10 +1,10 @@
-Clinic.TabularTable.expenseType = new Tabular.Table({
-    name: "clinicExpenesTypeList",
-    collection: Clinic.Collection.expenseType,
+Dental.TabularTable.expenseType = new Tabular.Table({
+    name: "dentalExpenesTypeList",
+    collection: Dental.Collection.expenseType,
     columns: [
         {
             title: "<i class='fa fa-bars'></i>",
-            tmpl: Meteor.isClient && Template.clinic_expenseTypeAction
+            tmpl: Meteor.isClient && Template.dental_expenseTypeAction
         },
         {data: "_id", title: "ID"},
         {data: "name", title: "Name"},

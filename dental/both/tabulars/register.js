@@ -1,10 +1,10 @@
-Clinic.TabularTable.Register = new Tabular.Table({
-    name: "clinicRegisterList",
-    collection: Clinic.Collection.Register,
+Dental.TabularTable.Register = new Tabular.Table({
+    name: "dentalRegisterList",
+    collection: Dental.Collection.Register,
     columns: [
         {
             title: '<i class="fa fa-bars"></i>',
-            tmpl: Meteor.isClient && Template.clinic_registerAction
+            tmpl: Meteor.isClient && Template.dental_registerAction
         },
         {data: "_id", title: "ID"},
         {data: "registerDate", title: "Register Date"},

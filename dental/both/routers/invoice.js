@@ -1,7 +1,7 @@
-Router.route('clinic/invoice', function () {
-    this.render('clinic_invoice');
+Router.route('dental/invoice', function () {
+    this.render('dental_invoice');
 }, {
-    name: 'clinic.invoice',
+    name: 'dental.invoice',
     header: {title: 'invoice', sub: '', icon: 'fa-file-text'},
     title: 'Invoice',
     waitOn: function () {

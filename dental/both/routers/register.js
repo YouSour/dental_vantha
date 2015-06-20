@@ -1,10 +1,10 @@
-Router.route('clinic/register', function () {
-    this.render('clinic_register');
+Router.route('dental/register', function () {
+    this.render('dental_register');
 }, {
-    name: "clinic.register",
+    name: "dental.register",
     header: {title: "register", sub: "", icon: "fa fa-list-alt"},
     title: "Register",
     waitOn: function () {
-        return Meteor.subscribe('clinicRegister');
+        return Meteor.subscribe('dentalRegister');
     }
 });

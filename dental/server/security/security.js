@@ -1,103 +1,96 @@
 /**
- * Customer
- */
-//Sample.Collection.Customer.permit(['insert', 'update', 'remove'])
-//    .sampleIfGeneral()
-//    .apply();
-
-/**
  * Staff
  */
-Clinic.Collection.Staff.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.Staff.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
- * DiseaseCategory
+ * Disease Category
  */
 
-Clinic.Collection.diseaseCategory.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.DiseaseCategory.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
- * Disease
+ * Disease Item
  */
 
-Clinic.Collection.Disease.permit(['insert', 'update', 'remove'])
-    .clinicIfAdmin()
+Dental.Collection.DiseaseItem.permit(['insert', 'update', 'remove'])
+    .dental_ifAdmin()
     .apply();
 
 /*
  * Patient
  */
 
-Clinic.Collection.Patient.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.Patient.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
  * Expense Type
  */
 
-Clinic.Collection.expenseType.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.expenseType.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
  *Expense
  */
 
-Clinic.Collection.Expense.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.Expense.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
  *Supplier
  */
-Clinic.Collection.Supplier.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.Supplier.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
  * Order Category
  */
-Clinic.Collection.orderCategory.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.orderCategory.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
  *Order Item
  */
-Clinic.Collection.orderItem.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.orderItem.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
  *Register
  */
-Clinic.Collection.Register.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.Register.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
  *Treatment
  */
-Clinic.Collection.Treatment.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral().
+Dental.Collection.Treatment.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral().
     apply();
 
 /*
  *Deposit
  */
-Clinic.Collection.Deposit.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.Deposit.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 
 /*
  *Purchase
  */
-Clinic.Collection.Purchase.permit(['insert', 'update', 'remove'])
-    .clinicIfGeneral()
+Dental.Collection.Purchase.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
     .apply();
 

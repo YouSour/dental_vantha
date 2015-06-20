@@ -3,48 +3,39 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Staff = new Mongo.Collection("clinic_staff");
+Dental.Collection.Staff = new Mongo.Collection("dental_staff");
 
 /**
  * Schema
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.Staff = new SimpleSchema({
-    branchId: {
-        type: String,
-        max: 25
-    },
+Dental.Schema.Staff = new SimpleSchema({
     name: {
         type: String,
-        label: "Name",
         unique: true,
         max: 250
     },
     gender: {
         type: String,
-        label: "Gender",
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.gender();
+                return Dental.List.gender();
             }
-        },
-        max: 10
+        }
     },
     position: {
         type: String,
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.position();
+                return Dental.List.position();
             }
-        },
-        max: 50
+        }
     },
-    startDate: {
-        type: Date,
-        label: "Register Date",
+    registerDate: {
+        type: String,
         defaultValue: function () {
             var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');
             return currentDate;
@@ -52,12 +43,10 @@ Clinic.Schema.Staff = new SimpleSchema({
     },
     address: {
         type: String,
-        label: "Address",
         max: 500
     },
     telephone: {
         type: String,
-        label: "Telephone",
         optional: true,
         max: 50
     },
@@ -75,10 +64,13 @@ Clinic.Schema.Staff = new SimpleSchema({
         autoValue: function () {
             return new Date();
         }
+    },
+    branchId: {
+        type: String
     }
 });
 
 /**
  * Attach schema
  */
-Clinic.Collection.Staff.attachSchema(Clinic.Schema.Staff);
+Dental.Collection.Staff.attachSchema(Dental.Schema.Staff);

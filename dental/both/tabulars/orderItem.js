@@ -1,10 +1,10 @@
-Clinic.TabularTable.orderItem = new Tabular.Table({
-    name: "clinicOrderList",
-    collection: Clinic.Collection.orderItem,
+Dental.TabularTable.orderItem = new Tabular.Table({
+    name: "dentalOrderList",
+    collection: Dental.Collection.orderItem,
     columns: [
         {
             title: "<i class='fa fa-bars'></i>",
-            tmpl: Meteor.isClient && Template.clinic_orderItemAction
+            tmpl: Meteor.isClient && Template.dental_orderItemAction
         },
         {data: "_id", title: "ID"},
         {data: "name", title: "Name"},
@@ -13,7 +13,7 @@ Clinic.TabularTable.orderItem = new Tabular.Table({
             data: "orderCategoryId",
             title: "Category",
             render: function (val, doc, type) {
-                var tempOrderCategoery = Clinic.Collection.orderCategory.findOne({_id: val});
+                var tempOrderCategoery = Dental.Collection.orderCategory.findOne({_id: val});
                 return labelCon(tempOrderCategoery.name, tempOrderCategoery.name, "primary", "");
             }
         }

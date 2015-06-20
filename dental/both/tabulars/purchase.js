@@ -1,10 +1,10 @@
-Clinic.TabularTable.Purchase = new Tabular.Table({
-    name: "clinicPurchaseList",
-    collection: Clinic.Collection.Purchase,
+Dental.TabularTable.Purchase = new Tabular.Table({
+    name: "dentalPurchaseList",
+    collection: Dental.Collection.Purchase,
     columns: [
         {
             title: "<i class='fa fa-bars'></i>",
-            tmpl: Meteor.isClient && Template.clinic_purchaseAction
+            tmpl: Meteor.isClient && Template.dental_purchaseAction
         },
         {data: "_id", title: "ID"},
         {

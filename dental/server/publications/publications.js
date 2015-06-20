@@ -1,39 +1,30 @@
 /**
- * Customer
- */
-//Meteor.publish('sampleCustomer', function () {
-//    if (this.userId) {
-//        return Sample.Collection.Customer.find();
-//    }
-//});
-
-/**
  * Staff
  */
 
-Meteor.publish('clinicStaff', function () {
+Meteor.publish('dental_staff', function () {
     if (this.userId) {
-        return Clinic.Collection.Staff.find();
+        return Dental.Collection.Staff.find();
     }
 });
 
 /**
- * diseaseCategory
+ * Disease Category
  */
 
-Meteor.publish('clinicDiseaseCategory', function () {
+Meteor.publish('dental_diseaseCategory', function () {
     if (this.userId) {
-        return Clinic.Collection.diseaseCategory.find();
+        return Dental.Collection.DiseaseCategory.find();
     }
 });
 
 /**
- * Disease
+ * Disease Item
  */
 
-Meteor.publish('clinicDisease', function () {
+Meteor.publish('dental_diseaseItem', function () {
     if (this.userId) {
-        return Clinic.Collection.Disease.find();
+        return Dental.Collection.DiseaseItem.find();
     }
 });
 
@@ -41,9 +32,9 @@ Meteor.publish('clinicDisease', function () {
  * Patient
  */
 
-Meteor.publish('clinicPatient', function () {
+Meteor.publish('dental_patient', function () {
     if (this.userId) {
-        return Clinic.Collection.Patient.find();
+        return Dental.Collection.Patient.find();
     }
 });
 
@@ -51,9 +42,9 @@ Meteor.publish('clinicPatient', function () {
  * Expense Type
  */
 
-Meteor.publish('clinicExpenseType', function () {
+Meteor.publish('dental_expenseType', function () {
     if (this.userId) {
-        return Clinic.Collection.expenseType.find();
+        return Dental.Collection.expenseType.find();
     }
 });
 
@@ -61,65 +52,55 @@ Meteor.publish('clinicExpenseType', function () {
  * Expense
  */
 
-Meteor.publish('clinicExpense', function () {
-    return Clinic.Collection.Expense.find();
+Meteor.publish('dental_expense', function () {
+    return Dental.Collection.Expense.find();
 });
 
 /*
  *Supplier
  */
-Meteor.publish('clinicSupplier', function () {
-    return Clinic.Collection.Supplier.find();
+Meteor.publish('dental_supplier', function () {
+    return Dental.Collection.Supplier.find();
 });
 
 /*
  * Order Category
  */
-Meteor.publish('clinicOrderCategory', function () {
-    return Clinic.Collection.orderCategory.find();
+Meteor.publish('dental_orderCategory', function () {
+    return Dental.Collection.orderCategory.find();
 });
 
 /*
  *Order Item
  */
 
-Meteor.publish('clinicOrderItem', function () {
-    return Clinic.Collection.orderItem.find();
+Meteor.publish('dental_orderItem', function () {
+    return Dental.Collection.orderItem.find();
 });
 /*
  *Register
  */
-Meteor.publish('clinicRegister', function () {
-    return Clinic.Collection.Register.find();
+Meteor.publish('dental_register', function () {
+    return Dental.Collection.Register.find();
 });
 
 /*
  * Treatment
  */
-Meteor.publish('clinicTreatment', function () {
-    return Clinic.Collection.Treatment.find();
-});
-
-/*
- *Upload Image Treatment
- */
-Meteor.publish('images', function () {
-    return Images.find();
+Meteor.publish('dental_treatment', function () {
+    return Dental.Collection.Treatment.find();
 });
 
 /*
  * Deposit
  */
-Meteor.publish('clinicDeposit', function () {
-    return Clinic.Collection.Deposit.find();
+Meteor.publish('dental_deposit', function () {
+    return Dental.Collection.Deposit.find();
 });
 
 /*
  * Purchase
  */
-Meteor.publish('clinicPurchase', function () {
-    return Clinic.Collection.Purchase.find();
+Meteor.publish('dental_purchase', function () {
+    return Dental.Collection.Purchase.find();
 });
-
-
-

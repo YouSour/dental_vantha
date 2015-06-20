@@ -1,10 +1,10 @@
-Clinic.TabularTable.Patient = new Tabular.Table({
-    name: "clinicPatientList",
-    collection: Clinic.Collection.Patient,
+Dental.TabularTable.Patient = new Tabular.Table({
+    name: "dentalPatientList",
+    collection: Dental.Collection.Patient,
     columns: [
         {
             title: '<i class="fa fa-bars"></i>',
-            tmpl: Meteor.isClient && Template.clinic_patientAction
+            tmpl: Meteor.isClient && Template.dental_patientAction
         },
         {data: "_id", title: "ID"},
         {data: "name", title: "Name"},

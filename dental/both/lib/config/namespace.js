@@ -1,15 +1,15 @@
 /**
  * Namespace
  */
-Clinic = {};
+Dental = {};
 
-Meteor.isClient && Template.registerHelper('Clinic', Clinic);
+Meteor.isClient && Template.registerHelper('Dental', Dental);
 
 /* Collection */
-Clinic.Collection = {};
+Dental.Collection = {};
 
 /* Schema */
-Clinic.Schema = {};
+Dental.Schema = {};
 
 /* Tabular */
-Clinic.TabularTable = {};
+Dental.TabularTable = {};

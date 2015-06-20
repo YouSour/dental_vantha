@@ -3,14 +3,14 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.expenseType = new Mongo.Collection('clinic_expenseType');
+Dental.Collection.expenseType = new Mongo.Collection('dental_expenseType');
 
 /**
  * Schema
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.expenseType = new SimpleSchema({
+Dental.Schema.expenseType = new SimpleSchema({
     name: {
         type: String,
         max: 250,
@@ -42,4 +42,4 @@ Clinic.Schema.expenseType = new SimpleSchema({
  * Attach schema
  */
 
-Clinic.Collection.expenseType.attachSchema(Clinic.Schema.expenseType);
+Dental.Collection.expenseType.attachSchema(Dental.Schema.expenseType);

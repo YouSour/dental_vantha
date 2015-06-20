@@ -1,12 +1,9 @@
-Router.route('clinic/staff', function () {
+Router.route('dental/staff', function () {
 
-    this.render('clinic_staff');
+    this.render('dental_staff');
 
 }, {
-    name: 'clinic.staff',
-    header: {title: 'staff', sub: '', icon: 'user-plus'},
-    title: "Staff",
-    waitOn: function () {
-        return Meteor.subscribe('clinicStaff');
-    }
+    name: 'dental.staff',
+    header: {title: 'Staff', sub: '', icon: 'list'},
+    title: "Staff"
 });

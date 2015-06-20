@@ -1,10 +1,10 @@
-Clinic.TabularTable.Expense = new Tabular.Table({
-    name: "clinicExpenseList",
-    collection: Clinic.Collection.Expense,
+Dental.TabularTable.Expense = new Tabular.Table({
+    name: "dentalExpenseList",
+    collection: Dental.Collection.Expense,
     columns: [
         {
             title: "<i class='fa fa-bars'></i>",
-            tmpl: Meteor.isClient && Template.clinic_expenseAction
+            tmpl: Meteor.isClient && Template.dental_expenseAction
         },
         {data: "_id", title: "ID"},
         {
@@ -18,7 +18,7 @@ Clinic.TabularTable.Expense = new Tabular.Table({
             data: "expenseTypeId",
             title: "Expense Type",
             render: function (val, doc, type) {
-                var tempExpenseTypeId = Clinic.Collection.expenseType.findOne({_id: val});
+                var tempExpenseTypeId = Dental.Collection.expenseType.findOne({_id: val});
                 return labelCon(tempExpenseTypeId.name, tempExpenseTypeId.name, "primary");
             }
         },

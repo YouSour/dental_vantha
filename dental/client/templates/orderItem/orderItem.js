@@ -1,21 +1,21 @@
 /**
  * Index
  */
-Template.clinic_orderItem.onRendered(function () {
+Template.dental_orderItem.onRendered(function () {
     createNewAlertify('orderItem');
 });
 
-Template.clinic_orderItem.events({
+Template.dental_orderItem.events({
     'click .insert': function () {
-        alertify.orderItem(renderTemplate(Template.clinic_orderItemInsert))
+        alertify.orderItem(renderTemplate(Template.dental_orderItemInsert))
             .set({
                 title: fa("plus", "Order Item")
             })
             .maximize();
     },
     'click .update': function () {
-        var data = Clinic.Collection.orderItem.findOne({_id: this._id});
-        alertify.orderItem(renderTemplate(Template.clinic_orderItemUpdate, data))
+        var data = Dental.Collection.orderItem.findOne({_id: this._id});
+        alertify.orderItem(renderTemplate(Template.dental_orderItemUpdate, data))
             .set({
                 title: fa("pencil", "Order Item")
             })
@@ -26,7 +26,7 @@ Template.clinic_orderItem.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (closeEvent) {
-                    Clinic.Collection.orderItem.remove(id, function (error) {
+                    Dental.Collection.orderItem.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -38,7 +38,7 @@ Template.clinic_orderItem.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.clinic_orderItemShow, this))
+        alertify.alert(renderTemplate(Template.dental_orderItemShow, this))
             .set({
                 title: fa("eye", "Order Item")
             })
@@ -48,9 +48,9 @@ Template.clinic_orderItem.events({
 /*
  * Show
  */
-Template.clinic_orderItemShow.helpers({
+Template.dental_orderItemShow.helpers({
     formatOrderCategoryId: function () {
-        var tempOrderCategory = Clinic.Collection.orderCategory.findOne({_id:this.orderCategoryId});
+        var tempOrderCategory = Dental.Collection.orderCategory.findOne({_id:this.orderCategoryId});
         return tempOrderCategory.name;
     }
 });
@@ -59,12 +59,12 @@ Template.clinic_orderItemShow.helpers({
  * Hook
  */
 AutoForm.hooks({
-    clinic_orderItemInsert: {
+    dental_orderItemInsert: {
         before: {
             insert: function (doc) {
-                var tempOrderCategoty = Clinic.Collection.orderCategory.findOne({_id: $('[name="orderCategoryId"]').val()});
+                var tempOrderCategoty = Dental.Collection.orderCategory.findOne({_id: $('[name="orderCategoryId"]').val()});
                 var orderCategory = tempOrderCategoty._id + "-";
-                doc._id = idGenerator.genWithPrefix(Clinic.Collection.orderItem, orderCategory, 3);
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.orderItem, orderCategory, 3);
                 return doc;
             }
         },
@@ -75,7 +75,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_orderItemUpdate: {
+    dental_orderItemUpdate: {
         onSuccess: function (fromType, result) {
             alertify.orderItem().close();
             alertify.success("Success");

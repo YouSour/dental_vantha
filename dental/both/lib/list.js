@@ -1,38 +1,31 @@
 /**
  * List
  */
-Clinic.List = {
-    gender: function (selectOne) {
+Dental.List = {
+    gender: function () {
         var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "(Select One)", value: ""});
-        }
-
+        list.push({label: "(Select One)", value: ""});
         list.push({label: 'Male', value: 'M'});
         list.push({label: 'Female', value: 'F'});
 
         return list;
     },
-    position: function (selectOne) {
+    position: function () {
         var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "(Select One)", value: ""});
-        }
-
+        list.push({label: "(Select One)", value: ""});
         list.push({label: 'Doctor', value: "Doctor"});
         list.push({label: 'Admin', value: "Admin"});
         list.push({label: 'Cashier', value: "Cashier"});
 
         return list;
     },
-    diseaseCategory: function (selectOne) {
+    diseaseCategory: function () {
         var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "(SelectOne)", value: ""});
-        }
-        Clinic.Collection.diseaseCategory.find().forEach(function (obj) {
-            list.push({label: obj._id + ' : ' + obj.name, value: obj._id});
-        });
+        list.push({label: "(SelectOne)", value: ""});
+        Dental.Collection.DiseaseCategory.find()
+            .forEach(function (obj) {
+                list.push({label: obj.code + ' : ' + obj.name, value: obj._id});
+            });
 
         return list;
     },
@@ -42,7 +35,7 @@ Clinic.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(SelectOne)", value: ""});
         }
-        Clinic.Collection.expenseType.find().forEach(function (obj) {
+        Dental.Collection.expenseType.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
 
@@ -53,7 +46,7 @@ Clinic.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(SelectOne)", value: ""});
         }
-        Clinic.Collection.orderCategory.find().forEach(function (obj) {
+        Dental.Collection.orderCategory.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
         return list;
@@ -63,7 +56,7 @@ Clinic.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(SelectOne)", value: ""});
         }
-        Clinic.Collection.Patient.find().forEach(function (obj) {
+        Dental.Collection.Patient.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
 
@@ -74,7 +67,7 @@ Clinic.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(Select One)", value: ""});
         }
-        Clinic.Collection.Disease.find().forEach(function (obj) {
+        Dental.Collection.Disease.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
 
@@ -85,7 +78,7 @@ Clinic.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "Select One", value: ""});
         }
-        Clinic.Collection.Staff.find().forEach(function (obj) {
+        Dental.Collection.Staff.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
 
@@ -96,7 +89,7 @@ Clinic.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "Select One", value: ""});
         }
-        Clinic.Collection.Register.find().forEach(function (obj) {
+        Dental.Collection.Register.find().forEach(function (obj) {
             list.push({label: obj._id, value: obj._id});
         });
 
@@ -107,7 +100,7 @@ Clinic.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "Select One", value: ""});
         }
-        Clinic.Collection.Supplier.find().forEach(function (obj) {
+        Dental.Collection.Supplier.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
 
@@ -118,7 +111,7 @@ Clinic.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "Select One", value: ""});
         }
-        Clinic.Collection.orderItem.find().forEach(function (obj) {
+        Dental.Collection.orderItem.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
 

@@ -2,10 +2,10 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Invoice = new Mongo.Collection('clinic_invoice');
-Clinic.Collection.shareInvoice = new Mongo.Collection('clinic_shareInvoice');
+Dental.Collection.Invoice = new Mongo.Collection('dental_invoice');
+Dental.Collection.shareInvoice = new Mongo.Collection('dental_shareInvoice');
 
-Clinic.Schema.Invoice = new SimpleSchema({
+Dental.Schema.Invoice = new SimpleSchema({
     invoiceDate: {
         type: String,
         defaultValue: function () {

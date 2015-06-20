@@ -2,21 +2,21 @@
  * Index
  */
 
-Template.clinic_orderCategory.onRendered(function () {
+Template.dental_orderCategory.onRendered(function () {
     createNewAlertify('orderCategory');
 });
 
-Template.clinic_orderCategory.events({
+Template.dental_orderCategory.events({
     'click .insert': function () {
-        alertify.orderCategory(renderTemplate(Template.clinic_orderCategoryInsert))
+        alertify.orderCategory(renderTemplate(Template.dental_orderCategoryInsert))
             .set({
                 title: fa("plus", "Order Category")
             })
             .maximize();
     },
     'click .update': function () {
-        var data = Clinic.Collection.orderCategory.findOne({_id: this._id});
-        alertify.orderCategory(renderTemplate(Template.clinic_orderCategoryUpdate, data))
+        var data = Dental.Collection.orderCategory.findOne({_id: this._id});
+        alertify.orderCategory(renderTemplate(Template.dental_orderCategoryUpdate, data))
             .set({
                 title: fa("pencil", "Order Category")
             })
@@ -27,7 +27,7 @@ Template.clinic_orderCategory.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (closeEvent) {
-                    Clinic.Collection.orderCategory.remove(id, function (error) {
+                    Dental.Collection.orderCategory.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -39,7 +39,7 @@ Template.clinic_orderCategory.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.clinic_orderCategoryShow, this))
+        alertify.alert(renderTemplate(Template.dental_orderCategoryShow, this))
             .set({
                 title: fa("eye", "Order Category")
             })
@@ -50,10 +50,10 @@ Template.clinic_orderCategory.events({
  * Hook
  */
 AutoForm.hooks({
-    clinic_orderCategoryInsert: {
+    dental_orderCategoryInsert: {
         before: {
             insert: function (doc) {
-                doc._id = idGenerator.gen(Clinic.Collection.orderCategory, 3);
+                doc._id = idGenerator.gen(Dental.Collection.orderCategory, 3);
                 return doc;
             }
         },
@@ -64,7 +64,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_orderCategoryUpdate: {
+    dental_orderCategoryUpdate: {
         onSuccess: function (fromType, result){
             alertify.orderCategory().close();
             alertify.success("Success");

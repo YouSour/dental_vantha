@@ -1,11 +1,11 @@
-Router.route('clinic/deposit', function () {
-        this.render('clinic_deposit');
+Router.route('dental/deposit', function () {
+        this.render('dental_deposit');
     }, {
-        name: 'clinic.deposit',
+        name: 'dental.deposit',
         header: {title: 'deposit', sub: '', icon: 'fa fa-credit-card'},
         title: "Deposit",
         waitOn: function () {
-            return Meteor.subscribe('clinicDeposit');
+            return Meteor.subscribe('dentalDeposit');
         }
     }
 );

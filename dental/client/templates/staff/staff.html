@@ -1,14 +1,14 @@
 <!--Index-->
-<template name="clinic_staff">
+<template name="dental_staff">
     <p>
         <button type="button" class="btn btn-primary insert">{{fa "plus"}} Add New</button>
     </p>
 
-    {{> tabular table=Clinic.TabularTable.Staff class="table table-striped table-bordered table-condensed table-hover"}}
+    {{> tabular table=Dental.TabularTable.Staff class="table table-striped table-bordered table-condensed table-hover"}}
 </template>
 
 <!--Action-->
-<template name="clinic_staffAction">
+<template name="dental_staffAction">
     {{#tabularAction}}
         <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
         <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
@@ -17,8 +17,8 @@
 </template>
 
 <!--Insert-->
-<template name="clinic_staffInsert">
-    {{#autoForm collection=Clinic.Collection.Staff id="clinic_staffInsert" type="insert"}}
+<template name="dental_staffInsert">
+    {{#autoForm collection=Dental.Collection.Staff id="dental_staffInsert" type="insert"}}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name='name'}}
@@ -26,7 +26,7 @@
                 {{> afQuickField name='position'}}
             </div>
             <div class="col-md-6">
-                {{> afQuickField name='startDate'}}
+                {{> afQuickField name='registerDate'}}
                 {{> afQuickField name='address'}}
                 {{> afQuickField name='telephone'}}
             </div>
@@ -38,9 +38,9 @@
 </template>
 
 <!--Update-->
-<template name="clinic_staffUpdate">
+<template name="dental_staffUpdate">
 
-    {{#autoForm collection=Clinic.Collection.Staff id="clinic_staffUpdate" doc=this type="update"}}
+    {{#autoForm collection=Dental.Collection.Staff id="dental_staffUpdate" doc=this type="update"}}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name='name'}}
@@ -48,7 +48,7 @@
                 {{> afQuickField name='position'}}
             </div>
             <div class="col-md-6">
-                {{> afQuickField name='startDate'}}
+                {{> afQuickField name='registerDate'}}
                 {{> afQuickField name='address'}}
                 {{> afQuickField name='telephone'}}
             </div>
@@ -61,7 +61,7 @@
 </template>
 
 <!--Show-->
-<template name="clinic_staffShow">
+<template name="dental_staffShow">
     <dl class="dl-horizontal">
         <dt>Id</dt>
         <dd>{{_id}}</dd>
@@ -72,7 +72,7 @@
         <dt>Position</dt>
         <dd>{{position}}</dd>
         <dt>Register Date</dt>
-        <dd>{{formatStartDate}}</dd>
+        <dd>{{registerDate}}</dd>
         <dt>Address</dt>
         <dd>{{address}}</dd>
         <dt>Telephone</dt>

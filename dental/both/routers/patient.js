@@ -1,12 +1,12 @@
-Router.route('clinic/patient', function () {
+Router.route('dental/patient', function () {
 
-    this.render('clinic_patient');
+    this.render('dental_patient');
 
 }, {
-    name: 'clinic.patient',
+    name: 'dental.patient',
     header: {title: 'patient', sub: '', icon: 'fa fa-wheelchair'},
     title: "Patient",
     waitOn: function () {
-        return Meteor.subscribe('clinicPatient');
+        return Meteor.subscribe('dentalPatient');
     }
 });

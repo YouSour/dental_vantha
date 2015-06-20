@@ -2,13 +2,13 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Deposit = new Mongo.Collection('clinic_deposit');
+Dental.Collection.Deposit = new Mongo.Collection('dental_deposit');
 
 /**
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.Deposit = new SimpleSchema({
+Dental.Schema.Deposit = new SimpleSchema({
     depositDate: {
         type: String,
         label: "Deposit Date",
@@ -23,7 +23,7 @@ Clinic.Schema.Deposit = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.register();
+                return Dental.List.register();
             }
         }
     },
@@ -48,4 +48,4 @@ Clinic.Schema.Deposit = new SimpleSchema({
     }
 });
 
-Clinic.Collection.Deposit.attachSchema(Clinic.Schema.Deposit);
+Dental.Collection.Deposit.attachSchema(Dental.Schema.Deposit);

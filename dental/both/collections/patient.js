@@ -3,14 +3,14 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Patient = new Mongo.Collection("clinic_patient");
+Dental.Collection.Patient = new Mongo.Collection("dental_patient");
 
 /**
  * Schema
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.Patient = new SimpleSchema({
+Dental.Schema.Patient = new SimpleSchema({
     branchId: {
         type: String,
         max: 25
@@ -27,7 +27,7 @@ Clinic.Schema.Patient = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.gender();
+                return Dental.List.gender();
             }
         },
         max: 10
@@ -83,4 +83,4 @@ Clinic.Schema.Patient = new SimpleSchema({
 /**
  * Attach schema
  */
-Clinic.Collection.Patient.attachSchema(Clinic.Schema.Patient);
+Dental.Collection.Patient.attachSchema(Dental.Schema.Patient);

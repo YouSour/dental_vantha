@@ -3,14 +3,14 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Register = new Mongo.Collection('clinic_register');
+Dental.Collection.Register = new Mongo.Collection('dental_register');
 
 /***
  * Schema
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.Register = new SimpleSchema({
+Dental.Schema.Register = new SimpleSchema({
 
     registerDate: {
         type: String,
@@ -26,7 +26,7 @@ Clinic.Schema.Register = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.patient();
+                return Dental.List.patient();
             }
         }
     }, diagnosis: {
@@ -43,7 +43,7 @@ Clinic.Schema.Register = new SimpleSchema({
             type: "select2",
             //type: "selectize",
             options: function () {
-                return Clinic.List.diagnosis();
+                return Dental.List.diagnosis();
             }
         }
     },
@@ -103,4 +103,4 @@ Clinic.Schema.Register = new SimpleSchema({
 /***
  *AttachSchema
  */
-Clinic.Collection.Register.attachSchema(Clinic.Schema.Register);
+Dental.Collection.Register.attachSchema(Dental.Schema.Register);

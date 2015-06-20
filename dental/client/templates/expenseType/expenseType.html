@@ -1,13 +1,13 @@
 <!--Index-->
-<template name="clinic_expenseType">
+<template name="dental_expenseType">
     <p>
         <button type="button" class="btn btn-primary insert">{{fa "plus"}} Add New</button>
     </p>
-    {{> tabular table=Clinic.TabularTable.expenseType class="table table-striped table-bordered table-condensed table-hover"}}
+    {{> tabular table=Dental.TabularTable.expenseType class="table table-striped table-bordered table-condensed table-hover"}}
 </template>
 
 <!--Action-->
-<template name="clinic_expenseTypeAction">
+<template name="dental_expenseTypeAction">
     {{#tabularAction}}
         <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
         <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
@@ -16,8 +16,8 @@
 </template>
 
 <!--Insert-->
-<template name="clinic_expenseTypeInsert">
-    {{#autoForm collection=Clinic.Collection.expenseType id="clinic_expenseTypeInsert" type="insert"}}
+<template name="dental_expenseTypeInsert">
+    {{#autoForm collection=Dental.Collection.expenseType id="dental_expenseTypeInsert" type="insert"}}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name="name"}}
@@ -32,8 +32,8 @@
 </template>
 
 <!--Update-->
-<template name="clinic_expenseTypeUpdate">
-    {{#autoForm collection=Clinic.Collection.expenseType id="clinic_expenseTypeUpdate" doc=this type="update" }}
+<template name="dental_expenseTypeUpdate">
+    {{#autoForm collection=Dental.Collection.expenseType id="dental_expenseTypeUpdate" doc=this type="update" }}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name="name"}}
@@ -48,7 +48,7 @@
 </template>
 
 <!--Show-->
-<template name="clinic_expenseTypeShow">
+<template name="dental_expenseTypeShow">
     <dl class="dl-horizontal">
         <dt>ID</dt>
         <dd>{{_id}}</dd>

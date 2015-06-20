@@ -1,9 +1,9 @@
-Router.route('clinic/home', function () {
+Router.route('dental/home', function () {
 
-    this.render('clinic_home');
+    this.render('dental_home');
 
 }, {
-    name: 'clinic.home',
+    name: 'dental.home',
     header: {title: 'home', sub: '', icon: 'home'},
     title: "Home"
 });

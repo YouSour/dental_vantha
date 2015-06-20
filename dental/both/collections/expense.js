@@ -3,14 +3,14 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Expense = new Mongo.Collection('clinic_expense');
+Dental.Collection.Expense = new Mongo.Collection('dental_expense');
 
 /***
  * Schema
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.Expense = new SimpleSchema({
+Dental.Schema.Expense = new SimpleSchema({
     expenseDate: {
         type: Date,
         defaultValue: function () {
@@ -23,7 +23,7 @@ Clinic.Schema.Expense = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.expenseType();
+                return Dental.List.expenseType();
             }
         }
     },
@@ -55,4 +55,4 @@ Clinic.Schema.Expense = new SimpleSchema({
 /***
  * AttachSchema
  */
-Clinic.Collection.Expense.attachSchema(Clinic.Schema.Expense);
+Dental.Collection.Expense.attachSchema(Dental.Schema.Expense);

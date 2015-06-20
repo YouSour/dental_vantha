@@ -1,32 +1,32 @@
 /**
  * Admin
  */
-Security.defineMethod("clinicIfAdmin", {
+Security.defineMethod("dental_ifAdmin", {
     fetch: [],
     transform: null,
     deny: function (type, arg, userId) {
-        return !Roles.userIsInRole(userId, ['admin'], 'Clinic');
+        return !Roles.userIsInRole(userId, ['admin'], 'Dental');
     }
 });
 
 /**
  * General
  */
-Security.defineMethod("clinicIfGeneral", {
+Security.defineMethod("dental_ifGeneral", {
     fetch: [],
     transform: null,
     deny: function (type, arg, userId) {
-        return !Roles.userIsInRole(userId, ['general'], 'Clinic');
+        return !Roles.userIsInRole(userId, ['general'], 'Dental');
     }
 });
 
 /**
  * Reporter
  */
-Security.defineMethod("clinicIfReporter", {
+Security.defineMethod("dental_ifReporter", {
     fetch: [],
     transform: null,
     deny: function (type, arg, userId) {
-        return !Roles.userIsInRole(userId, ['reporter'], 'Clinic');
+        return !Roles.userIsInRole(userId, ['reporter'], 'Dental');
     }
 });

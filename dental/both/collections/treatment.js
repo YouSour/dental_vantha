@@ -1,4 +1,4 @@
-Images = new FS.Collection('images', {
+Files = new FS.Collection('images', {
     stores: [new FS.Store.GridFS("images", {})]
 });
 
@@ -6,13 +6,13 @@ Images = new FS.Collection('images', {
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Treatment = new Mongo.Collection('clinic_treatment');
+Dental.Collection.Treatment = new Mongo.Collection('dental_treatment');
 
 /**
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.Treatment = new SimpleSchema({
+Dental.Schema.Treatment = new SimpleSchema({
     treatmentDate: {
         type: String,
         label: "Treatment Date",
@@ -27,7 +27,7 @@ Clinic.Schema.Treatment = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.staff();
+                return Dental.List.staff();
             }
         }
     },
@@ -37,7 +37,7 @@ Clinic.Schema.Treatment = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.register();
+                return Dental.List.register();
             }
         }
     },
@@ -50,7 +50,7 @@ Clinic.Schema.Treatment = new SimpleSchema({
         autoform: {
             afFieldInput: {
                 type: 'fileUpload',
-                collection: 'Images'
+                collection: 'Files'
             }
         },
         label: 'Choose file'
@@ -73,19 +73,4 @@ Clinic.Schema.Treatment = new SimpleSchema({
 
 });
 
-Clinic.Collection.Treatment.attachSchema(Clinic.Schema.Treatment);
-
-Images.allow({
-    insert: function (userId, doc) {
-        return true;
-    },
-    update: function (userId, doc) {
-        return true;
-    },
-    remove: function (userId, doc) {
-        return true;
-    },
-    download: function (userId, doc) {
-        return true;
-    }
-});
+Dental.Collection.Treatment.attachSchema(Dental.Schema.Treatment);

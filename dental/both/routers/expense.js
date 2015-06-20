@@ -1,10 +1,10 @@
-Router.route('clinic/expense', function () {
-    this.render('clinic_expense');
+Router.route('dental/expense', function () {
+    this.render('dental_expense');
 }, {
-    name: "clinic.expense",
+    name: "dental.expense",
     header: {title: "Expense", sub: "", icon: "fa fa-hospital-o"},
     title: "Expense",
     waitOn: function () {
-        return Meteor.subscribe('clinicExpense');
+        return Meteor.subscribe('dentalExpense');
     }
 });

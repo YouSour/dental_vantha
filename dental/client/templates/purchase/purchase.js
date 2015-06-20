@@ -1,21 +1,21 @@
 /*
  *Index
  */
-Template.clinic_purchase.onRendered(function () {
+Template.dental_purchase.onRendered(function () {
     createNewAlertify('purchase');
 });
 
-Template.clinic_purchase.events({
+Template.dental_purchase.events({
     'click .insert': function () {
-        alertify.purchase(renderTemplate(Template.clinic_purchaseInsert))
+        alertify.purchase(renderTemplate(Template.dental_purchaseInsert))
             .set({
                 title: fa("plus", "Purchase")
             })
             .maximize();
     },
     'click .update': function () {
-        var data = Clinic.Collection.Purchase.findOne({_id: this._id});
-        alertify.purchase(renderTemplate(Template.clinic_purchaseUpdate, data))
+        var data = Dental.Collection.Purchase.findOne({_id: this._id});
+        alertify.purchase(renderTemplate(Template.dental_purchaseUpdate, data))
             .set({
                 title: fa("pencil", "Purchase")
             })
@@ -26,7 +26,7 @@ Template.clinic_purchase.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (result) {
-                    Clinic.Collection.Purchase.remove(id, function (error) {
+                    Dental.Collection.Purchase.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -38,7 +38,7 @@ Template.clinic_purchase.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.clinic_purchaseShow, this))
+        alertify.alert(renderTemplate(Template.dental_purchaseShow, this))
             .set({
                 title: fa("eye", "Purchase")
             })
@@ -48,14 +48,14 @@ Template.clinic_purchase.events({
 /**
  * Insert
  */
-Template.clinic_purchaseInsert.onRendered(function () {
+Template.dental_purchaseInsert.onRendered(function () {
     datepicker();
     $('.btnAdd').attr('disabled', "disabled");
 });
 
-Template.clinic_purchaseInsert.helpers({});
+Template.dental_purchaseInsert.helpers({});
 
-Template.clinic_purchaseInsert.events({
+Template.dental_purchaseInsert.events({
     'change .orderItemId': function (e) {
 
         var thisObj = $(e.currentTarget);
@@ -116,14 +116,14 @@ Template.clinic_purchaseInsert.events({
 /**
  * Update
  */
-Template.clinic_purchaseUpdate.onRendered(function () {
+Template.dental_purchaseUpdate.onRendered(function () {
     datepicker();
     calculateTotal();
 });
 
-Template.clinic_purchaseUpdate.helpers({});
+Template.dental_purchaseUpdate.helpers({});
 
-Template.clinic_purchaseUpdate.events({
+Template.dental_purchaseUpdate.events({
     'change .orderItemId': function (e) {
 
         var thisObj = $(e.currentTarget);
@@ -195,7 +195,7 @@ Template.clinic_purchaseUpdate.events({
 /**
  * Show
  */
-Template.clinic_purchaseShow.helpers({
+Template.dental_purchaseShow.helpers({
     purchaseDetailFormat: function () {
         var purchaseDetail = "";
         var data = this.items;
@@ -217,11 +217,11 @@ Template.clinic_purchaseShow.helpers({
  * Hook
  */
 AutoForm.hooks({
-    clinic_purchaseInsert: {
+    dental_purchaseInsert: {
         before: {
             insert: function (doc) {
                 var purchasePrefix = Session.get('currentBranch') + '-' + moment($('.purchaseDate').val()).format("YYYYMMDD");
-                doc._id = idGenerator.genWithPrefix(Clinic.Collection.Purchase, purchasePrefix, 3);
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Purchase, purchasePrefix, 3);
                 return doc;
             }
         },
@@ -232,7 +232,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_purchaseUpdate: {
+    dental_purchaseUpdate: {
         onSuccess: function () {
             alertify.purchase().close();
             alertify.success('Success');

@@ -2,13 +2,13 @@
  *
  * @type {Mongo.Collection}
  */
-Clinic.Collection.Purchase = new Mongo.Collection('clinic_purchase');
+Dental.Collection.Purchase = new Mongo.Collection('dental_purchase');
 
 /**
  *
  * @type {SimpleSchema}
  */
-Clinic.Schema.Purchase = new SimpleSchema({
+Dental.Schema.Purchase = new SimpleSchema({
     purchaseDate: {
         type: Date,
         label: "Purchase Date",
@@ -24,7 +24,7 @@ Clinic.Schema.Purchase = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.supplier();
+                return Dental.List.supplier();
             }
         }
     },
@@ -35,7 +35,7 @@ Clinic.Schema.Purchase = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Clinic.List.register();
+                return Dental.List.register();
             }
         }
     },
@@ -53,7 +53,7 @@ Clinic.Schema.Purchase = new SimpleSchema({
             //type: "select2",
             type: "selectize",
             options: function () {
-                return Clinic.List.orderItem();
+                return Dental.List.orderItem();
             }
         }
     },
@@ -98,4 +98,4 @@ Clinic.Schema.Purchase = new SimpleSchema({
 
 });
 
-Clinic.Collection.Purchase.attachSchema(Clinic.Schema.Purchase);
+Dental.Collection.Purchase.attachSchema(Dental.Schema.Purchase);

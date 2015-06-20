@@ -1,10 +1,10 @@
-Router.route('clinic/supplier', function () {
-    this.render(Template.clinic_supplier);
+Router.route('dental/supplier', function () {
+    this.render(Template.dental_supplier);
 }, {
-    name: "clinic.supplier",
+    name: "dental.supplier",
     header: {title: "Supplier", sub: "", icon: "fa fa-truck"},
     title: "Supplier",
     waitOn: function () {
-        return Meteor.subscribe('clinicSupplier');
+        return Meteor.subscribe('dentalSupplier');
     }
 });

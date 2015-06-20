@@ -1,22 +1,22 @@
 /**
  * Index
  */
-Template.clinic_expenseType.onRendered(function () {
+Template.dental_expenseType.onRendered(function () {
         createNewAlertify('expenseType');
     }
 );
 
-Template.clinic_expenseType.events({
+Template.dental_expenseType.events({
     'click .insert': function (e, t) {
-        alertify.expenseType(renderTemplate(Template.clinic_expenseTypeInsert))
+        alertify.expenseType(renderTemplate(Template.dental_expenseTypeInsert))
             .set({
                 title: fa("plus", "Expense Type")
             })
             .maximize();
     },
     'click .update': function (e, t) {
-        var data = Clinic.Collection.expenseType.findOne({_id: this._id});
-        alertify.expenseType(renderTemplate(Template.clinic_expenseTypeUpdate, data))
+        var data = Dental.Collection.expenseType.findOne({_id: this._id});
+        alertify.expenseType(renderTemplate(Template.dental_expenseTypeUpdate, data))
             .set({
                 title: fa("pencil", "Expense Type")
             })
@@ -27,7 +27,7 @@ Template.clinic_expenseType.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (closeEvent) {
-                    Clinic.Collection.expenseType.remove(id, function (error) {
+                    Dental.Collection.expenseType.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -39,7 +39,7 @@ Template.clinic_expenseType.events({
             })
     },
     'click .show': function (e, t) {
-        alertify.alert(renderTemplate(Template.clinic_expenseTypeShow,this))
+        alertify.alert(renderTemplate(Template.dental_expenseTypeShow,this))
             .set({
                 title:fa("eye","Expense Type")
             })
@@ -51,10 +51,10 @@ Template.clinic_expenseType.events({
  */
 
 AutoForm.hooks({
-    clinic_expenseTypeInsert: {
+    dental_expenseTypeInsert: {
         before: {
             insert: function (doc) {
-                doc._id = idGenerator.gen(Clinic.Collection.expenseType, 3);
+                doc._id = idGenerator.gen(Dental.Collection.expenseType, 3);
                 return doc;
             }
         },
@@ -65,7 +65,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_expenseTypeUpdate: {
+    dental_expenseTypeUpdate: {
         onSuccess: function (formType, result) {
             alertify.expenseType().close();
             alertify.success('Success');

@@ -8,6 +8,7 @@ meteor-platform
 jquery
 underscore
 underscorestring:underscore.string
+erasaur:meteor-lodash
 coffeescript
 markdown
 twbs:bootstrap
@@ -46,7 +47,9 @@ meteorhacks:subs-manager
 dburles:spacebars-tohtml
 raix:handlebar-helpers
 netanelgilad:excel
-pcel:accounting
+ecwyne:mathjs
+lepozepo:accounting
+numeral:numeral
 bigdsk:inputmask
 manuelschoebel:wait-on-lib
 risul:chance
@@ -56,13 +59,12 @@ theara:relation-exist
 theara:moneyjs
 theara:fa-helpers
 reactive-var
-numeral:numeral
 theara:events
 xamfoo:reactive-obj
 frozeman:template-var
-yousour:label-condition
-comerc:autoform-selectize
-chhib:selectize-bootstrap-3
-yogiben:autoform-file
 cfs:standard-packages
 cfs:gridfs
+yogiben:autoform-file
+jeanfredrik:denormalize
+theara:round-khr
+yousour:label-condition

@@ -1,15 +1,15 @@
 /**
  * Index
  */
-Template.clinic_patient.onRendered(function () {
+Template.dental_patient.onRendered(function () {
     // Create new  alertify
     createNewAlertify("patient");
 });
 
-Template.clinic_patient.events({
+Template.dental_patient.events({
     'click .insert': function (e, t) {
 
-        alertify.patient(renderTemplate(Template.clinic_patientInsert))
+        alertify.patient(renderTemplate(Template.dental_patientInsert))
             .set({
                 title: fa("plus", "Patient")
             })
@@ -18,9 +18,9 @@ Template.clinic_patient.events({
     },
     'click .update': function (e, t) {
 
-        var data = Clinic.Collection.Patient.findOne(this._id);
+        var data = Dental.Collection.Patient.findOne(this._id);
 
-        alertify.patient(renderTemplate(Template.clinic_patientUpdate, data))
+        alertify.patient(renderTemplate(Template.dental_patientUpdate, data))
             .set({
                 title: fa("pencil", "Patient")
             })
@@ -35,7 +35,7 @@ Template.clinic_patient.events({
             .set({
                 onok: function (closeEvent) {
 
-                    Clinic.Collection.Patient.remove(id, function (error) {
+                    Dental.Collection.Patient.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -49,7 +49,7 @@ Template.clinic_patient.events({
     },
     'click .show': function (e, t) {
 
-        alertify.alert(renderTemplate(Template.clinic_patientShow, this))
+        alertify.alert(renderTemplate(Template.dental_patientShow, this))
             .set({
                 title: fa("eye", "Patient")
             });
@@ -60,15 +60,15 @@ Template.clinic_patient.events({
 /**
  * Insert
  */
-Template.clinic_patientInsert.onRendered(function () {
+Template.dental_patientInsert.onRendered(function () {
     datePicker();
 
 });
 
-Template.clinic_patientInsert.rendered = function () {
+Template.dental_patientInsert.rendered = function () {
 };
 
-//Template.clinic_staffInsert.events({
+//Template.dental_staffInsert.events({
 //    'click .addressInsertAddon': function (e, t) {
 //
 //        alertify.addressAddon(renderTemplate(Template.sample_addressInsertAddon))
@@ -82,7 +82,7 @@ Template.clinic_patientInsert.rendered = function () {
 /**
  * Update
  */
-Template.clinic_patientUpdate.onRendered(function () {
+Template.dental_patientUpdate.onRendered(function () {
     datePicker();
 });
 
@@ -102,11 +102,11 @@ Template.clinic_patientUpdate.onRendered(function () {
  */
 AutoForm.hooks({
     // Customer
-    clinic_patientInsert: {
+    dental_patientInsert: {
         before: {
             insert: function (doc) {
                 var branchPre = Session.get('currentBranch') + '-';
-                doc._id = idGenerator.genWithPrefix(Clinic.Collection.Patient, branchPre, 6);
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Patient, branchPre, 6);
                 doc.branchId = Session.get('currentBranch');
                 return doc;
             }
@@ -118,7 +118,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    clinic_patientUpdate: {
+    dental_patientUpdate: {
         onSuccess: function (formType, result) {
             alertify.patient().close();
             alertify.success('Success');

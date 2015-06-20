@@ -1,5 +1,5 @@
-# Rateor Boilerplate 
-Meteor boilerplate for Rabbit Training Center.
+# Meteor Cpanel 
+Meteor Cpanel for Rabbit Training Center.
 
 ## Usage
 - Copy the sample module and rename
@@ -355,9 +355,10 @@ var currentDate = ReactiveMethod.call("currentDate"); // 'YYYY-MM-DD H:mm:ss'
 ## Note
 - Session: `currentModule` and `currentBranch`
 - Collections:
-    - Setting()
-    - Company()
-    - Branch()
-    - Currency()
-    - User()
-    - Exchange()
+    - Cpanel.Collection.Setting()
+    - Cpanel.Collection.Company()
+    - Cpanel.Collection.Branch()
+    - Cpanel.Collection.Currency()
+    - Cpanel.Collection.User()
+    - Cpanel.Collection.Exchange()
+    - Files() for manage file upload like images, .pdf ...

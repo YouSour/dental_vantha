@@ -1,21 +1,21 @@
 /***
  * Index
  */
-Template.clinic_expense.onRendered(function () {
+Template.dental_expense.onRendered(function () {
     createNewAlertify('expense');
 });
 
-Template.clinic_expense.events({
+Template.dental_expense.events({
     'click .insert': function () {
-        alertify.expense(renderTemplate(Template.clinic_expenseInsert))
+        alertify.expense(renderTemplate(Template.dental_expenseInsert))
             .set({
                 title: fa("plus", "Expense")
             })
             .maximize();
     },
     'click .update': function () {
-        var data = Clinic.Collection.Expense.findOne({_id: this._id});
-        alertify.expense(renderTemplate(Template.clinic_expenseUpdate, data))
+        var data = Dental.Collection.Expense.findOne({_id: this._id});
+        alertify.expense(renderTemplate(Template.dental_expenseUpdate, data))
             .set({
                 title: fa("pencil", "Expense")
             })
@@ -26,7 +26,7 @@ Template.clinic_expense.events({
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (closeEvent) {
-                    Clinic.Collection.Expense.remove(id, function (error) {
+                    Dental.Collection.Expense.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -39,7 +39,7 @@ Template.clinic_expense.events({
 
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.clinic_expenseShow, this))
+        alertify.alert(renderTemplate(Template.dental_expenseShow, this))
             .set({
                 title: fa("eye", "Expense")
             })
@@ -49,30 +49,30 @@ Template.clinic_expense.events({
 /**
  * Insert
  */
-Template.clinic_expenseInsert.onRendered(function () {
+Template.dental_expenseInsert.onRendered(function () {
     datepicker();
 });
 
-Template.clinic_expenseInsert.rendered = function () {
+Template.dental_expenseInsert.rendered = function () {
 
 };
 
 /**
  * update
  */
-Template.clinic_expenseUpdate.onRendered(function () {
+Template.dental_expenseUpdate.onRendered(function () {
     datepicker();
 });
 
 /**
  * Show
  */
-Template.clinic_expenseShow.helpers({
+Template.dental_expenseShow.helpers({
     formatExpenseDate: function () {
         return moment(this.expenseDate).format("YYYY-MM-DD");
     },
     formatExpenseTypeId: function () {
-        var tempExpenseTypeId = Clinic.Collection.expenseType.findOne({_id: this.expenseTypeId});
+        var tempExpenseTypeId = Dental.Collection.expenseType.findOne({_id: this.expenseTypeId});
         return tempExpenseTypeId.name;
     }
 });
@@ -81,11 +81,11 @@ Template.clinic_expenseShow.helpers({
  * Hook
  */
 AutoForm.hooks({
-    clinic_expenseInsert: {
+    dental_expenseInsert: {
         before: {
             insert: function (doc) {
                 var branchPre = Session.get('currentBranch') + '-' + moment($('.expenseDate').val()).format("YYYYMMDD");
-                doc._id = idGenerator.genWithPrefix(Clinic.Collection.Expense, branchPre, 3);
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Expense, branchPre, 3);
                 return doc;
             }
         },
@@ -96,7 +96,7 @@ AutoForm.hooks({
             alertify.error(error);
         }
     },
-    clinic_expenseUpdate: {
+    dental_expenseUpdate: {
         onSuccess: function (formType, result) {
             alertify.expense().close();
             alertify.success("Success");
