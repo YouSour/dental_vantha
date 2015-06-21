@@ -3,7 +3,7 @@
     <p>
         <button class="btn btn-primary insert">{{fa "plus"}} Add New</button>
     </p>
-        {{> tabular table=Dental.TabularTable.orderItem class="table table-responsive table-striped table-bordered table-condensed table-hover"}}
+    {{> tabular table=Dental.TabularTable.OrderItem class="table table-responsive table-striped table-bordered table-condensed table-hover"}}
 </template>
 
 <!--Action-->
@@ -17,14 +17,14 @@
 
 <!--Insert-->
 <template name="dental_orderItemInsert">
-    {{#autoForm collection=Dental.Collection.orderItem id="dental_orderItemInsert" type="insert"}}
+    {{#autoForm collection=Dental.Collection.OrderItem id="dental_orderItemInsert" type="insert"}}
         <div class="row">
             <div class="col-md-6">
+                {{> afQuickField name="orderCategoryId"}}
                 {{> afQuickField name="name"}}
-                {{> afQuickField name="unit"}}
             </div>
             <div class="col-md-6">
-                {{> afQuickField name="orderCategoryId"}}
+                {{> afQuickField name="unit"}}
             </div>
         </div>
         <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
@@ -34,14 +34,14 @@
 
 <!--Update-->
 <template name="dental_orderItemUpdate">
-    {{#autoForm collection=Dental.Collection.orderItem id="dental_orderItemUpdate"  doc=this type="update"}}
+    {{#autoForm collection=Dental.Collection.OrderItem id="dental_orderItemUpdate"  doc=this type="update"}}
         <div class="row">
             <div class="col-md-6">
+                {{> afQuickField name="orderCategoryId"}}
                 {{> afQuickField name="name"}}
-                {{> afQuickField name="unit"}}
             </div>
             <div class="col-md-6">
-                {{> afQuickField name="orderCategoryId"}}
+                {{> afQuickField name="unit"}}
             </div>
         </div>
         <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
@@ -56,10 +56,10 @@
         <dd>{{_id}}</dd>
         <dt>Name</dt>
         <dd>{{name}}</dd>
-        <dt>Description</dt>
+        <dt>Unit</dt>
         <dd>{{unit}}</dd>
         <dt>Order Category</dt>
-        <dd>{{labelCon formatOrderCategoryId formatOrderCategoryId "primary" "" }}</dd>
+        <dd>{{_orderCategory.name}}</dd>
     </dl>
 </template>
 

@@ -24,8 +24,8 @@ Template.mainLayout.helpers({
         if (_.isUndefined(getHeader)) {
             return header;
         }
-        header.title = s.humanize(getHeader.title);
-        header.sub = s.humanize(getHeader.sub);
+        header.title = s.titleize(s.humanize(getHeader.title));
+        header.sub = s.titleize(s.humanize(getHeader.sub));
         header.icon = getHeader.icon;
         return header;
     }

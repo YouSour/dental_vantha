@@ -3,14 +3,14 @@
  *
  * @type {Mongo.Collection}
  */
-Dental.Collection.orderItem = new Mongo.Collection('dental_orderItem');
+Dental.Collection.OrderItem = new Mongo.Collection('dental_orderItem');
 
 /***
  * Schema
  *
  * @type {SimpleSchema}
  */
-Dental.Schema.orderItem = new SimpleSchema({
+Dental.Schema.OrderItem = new SimpleSchema({
     name: {
         type: String,
         unique: true,
@@ -22,27 +22,11 @@ Dental.Schema.orderItem = new SimpleSchema({
     },
     orderCategoryId: {
         type: String,
-        max: 5,
         autoform: {
             type: "select2",
             options: function () {
                 return Dental.List.orderCategory();
             }
-        }
-    },
-    createdDate: {
-        type: Date,
-        autoValue: function () {
-            if (this.isInsert) {
-                return new Date();
-            }
-        },
-        denyUpdate: true
-    },
-    updatedDate: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
         }
     }
 });
@@ -50,4 +34,4 @@ Dental.Schema.orderItem = new SimpleSchema({
 /**
  * attachSchema
  */
-Dental.Collection.orderItem.attachSchema(Dental.Schema.orderItem);
+Dental.Collection.OrderItem.attachSchema(Dental.Schema.OrderItem);

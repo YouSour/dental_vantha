@@ -47,13 +47,13 @@ Dental.Schema.Purchase = new SimpleSchema({
     'items.$': {
         type: Object
     },
-    'items.$.orderItemId': {
+    'items.$.OrderItemId': {
         type: String,
         autoform: {
             //type: "select2",
             type: "selectize",
             options: function () {
-                return Dental.List.orderItem();
+                return Dental.List.OrderItem();
             }
         }
     },

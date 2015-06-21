@@ -56,7 +56,7 @@ Template.dental_purchaseInsert.onRendered(function () {
 Template.dental_purchaseInsert.helpers({});
 
 Template.dental_purchaseInsert.events({
-    'change .orderItemId': function (e) {
+    'change .OrderItemId': function (e) {
 
         var thisObj = $(e.currentTarget);
         var orderItemId = $(e.currentTarget).val();
@@ -124,7 +124,7 @@ Template.dental_purchaseUpdate.onRendered(function () {
 Template.dental_purchaseUpdate.helpers({});
 
 Template.dental_purchaseUpdate.events({
-    'change .orderItemId': function (e) {
+    'change .OrderItemId': function (e) {
 
         var thisObj = $(e.currentTarget);
         var orderItemId = $(e.currentTarget).val();
@@ -201,7 +201,7 @@ Template.dental_purchaseShow.helpers({
         var data = this.items;
         data.forEach(function (obj) {
             purchaseDetail +=
-                "OrderItem Id = " + obj.orderItemId +
+                "OrderItem Id = " + obj.OrderItemId +
                 ", Qty = " + obj.qty +
                 ", Price = " + obj.price +
                 ", Amount = " + obj.amount + "<br>";

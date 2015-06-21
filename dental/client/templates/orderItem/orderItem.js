@@ -14,7 +14,7 @@ Template.dental_orderItem.events({
             .maximize();
     },
     'click .update': function () {
-        var data = Dental.Collection.orderItem.findOne({_id: this._id});
+        var data = Dental.Collection.OrderItem.findOne({_id: this._id});
         alertify.orderItem(renderTemplate(Template.dental_orderItemUpdate, data))
             .set({
                 title: fa("pencil", "Order Item")
@@ -23,10 +23,11 @@ Template.dental_orderItem.events({
     },
     'click .remove': function () {
         var id = this._id;
+
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (closeEvent) {
-                    Dental.Collection.orderItem.remove(id, function (error) {
+                    Dental.Collection.OrderItem.remove(id, function (error) {
                         if (error) {
                             alertify.error(error.message);
                         } else {
@@ -38,20 +39,12 @@ Template.dental_orderItem.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.dental_orderItemShow, this))
+        var data = Dental.Collection.OrderItem.findOne({_id: this._id});
+
+        alertify.alert(renderTemplate(Template.dental_orderItemShow, data))
             .set({
                 title: fa("eye", "Order Item")
             })
-    }
-});
-
-/*
- * Show
- */
-Template.dental_orderItemShow.helpers({
-    formatOrderCategoryId: function () {
-        var tempOrderCategory = Dental.Collection.orderCategory.findOne({_id:this.orderCategoryId});
-        return tempOrderCategory.name;
     }
 });
 
@@ -62,9 +55,7 @@ AutoForm.hooks({
     dental_orderItemInsert: {
         before: {
             insert: function (doc) {
-                var tempOrderCategoty = Dental.Collection.orderCategory.findOne({_id: $('[name="orderCategoryId"]').val()});
-                var orderCategory = tempOrderCategoty._id + "-";
-                doc._id = idGenerator.genWithPrefix(Dental.Collection.orderItem, orderCategory, 3);
+                doc._id = idGenerator.gen(Dental.Collection.OrderItem, 6);
                 return doc;
             }
         },

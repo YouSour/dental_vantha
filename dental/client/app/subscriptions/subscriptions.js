@@ -1,6 +1,6 @@
 Meteor.subscribe('dental_staff');
 Meteor.subscribe('dental_diseaseCategory');
-Meteor.subscribe('dental_disease');
+Meteor.subscribe('dental_diseaseItem');
 Meteor.subscribe('dental_patient');
 Meteor.subscribe('dental_expenseType');
 Meteor.subscribe('dental_expense');

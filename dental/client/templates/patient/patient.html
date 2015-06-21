@@ -24,13 +24,14 @@
                 {{> afQuickField name='name'}}
                 {{> afQuickField name='gender'}}
                 {{> afQuickField name='age'}}
+                {{> afQuickField name='address'}}
                 {{> afQuickField name='telephone'}}
             </div>
             <div class="col-md-6">
                 {{> afQuickField name='memberId'}}
                 {{> afQuickField name='memberDate'}}
-                {{> afQuickField name='address'}}
                 {{> afQuickField name='des'}}
+                {{> afQuickField name='photo'}}
             </div>
         </div>
 
@@ -48,13 +49,14 @@
                 {{> afQuickField name='name'}}
                 {{> afQuickField name='gender'}}
                 {{> afQuickField name='age'}}
+                {{> afQuickField name='address'}}
                 {{> afQuickField name='telephone'}}
             </div>
             <div class="col-md-6">
                 {{> afQuickField name='memberId'}}
                 {{> afQuickField name='memberDate'}}
-                {{> afQuickField name='address'}}
                 {{> afQuickField name='des'}}
+                {{> afQuickField name='photo'}}
             </div>
         </div>
 
@@ -75,15 +77,17 @@
         <dd>{{gender}}</dd>
         <dt>Age</dt>
         <dd>{{age}}</dd>
+        <dt>Address</dt>
+        <dd>{{address}}</dd>
         <dt>Telephone</dt>
         <dd>{{telephone}}</dd>
         <dt>Member ID</dt>
         <dd>{{memberId}}</dd>
         <dt>Member Date</dt>
         <dd>{{memberDate}}</dd>
-        <dt>Address</dt>
-        <dd>{{address}}</dd>
         <dt>Description</dt>
         <dd>{{des}}</dd>
+        <dt>Photo</dt>
+        <dd><img src="{{photoUrl}}" class="img-thumbnail" width="50px" height="50px"></dd>
     </dl>
 </template>

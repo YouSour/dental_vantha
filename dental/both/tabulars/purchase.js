@@ -38,7 +38,7 @@ Dental.TabularTable.Purchase = new Tabular.Table({
                     if (obj != null) {
                         purchaseDetail +=
                             "<label class='label label-info'>" +
-                            "OrderItem Id : " + obj.orderItemId +
+                            "OrderItem Id : " + obj.OrderItemId +
                             " | Qty : " + obj.qty +
                             " | Price : " + obj.price +
                             " | Amount : " + obj.amount +

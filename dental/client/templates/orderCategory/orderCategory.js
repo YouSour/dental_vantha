@@ -7,20 +7,21 @@ Template.dental_orderCategory.onRendered(function () {
 
 Template.dental_orderCategory.events({
     'click .insert': function () {
-        alertify.OrderCategory(renderTemplate(Template.dental_orderCategoryInsert))
+        alertify.orderCategory(renderTemplate(Template.dental_orderCategoryInsert))
             .set({
                 title: fa("plus", "Order Category")
             });
     },
     'click .update': function () {
         var data = Dental.Collection.OrderCategory.findOne({_id: this._id});
-        alertify.OrderCategory(renderTemplate(Template.dental_orderCategoryUpdate, data))
+        alertify.orderCategory(renderTemplate(Template.dental_orderCategoryUpdate, data))
             .set({
                 title: fa("pencil", "Order Category")
             });
     },
     'click .remove': function () {
         var id = this._id;
+
         alertify.confirm("Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (closeEvent) {
@@ -36,7 +37,9 @@ Template.dental_orderCategory.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.dental_orderCategoryShow, this))
+        var data = Dental.Collection.OrderCategory.findOne({_id: this._id});
+
+        alertify.alert(renderTemplate(Template.dental_orderCategoryShow, data))
             .set({
                 title: fa("eye", "Order Category")
             })
@@ -62,8 +65,8 @@ AutoForm.hooks({
         }
     },
     dental_orderCategoryUpdate: {
-        onSuccess: function (fromType, result){
-            alertify.OrderCategory().close();
+        onSuccess: function (fromType, result) {
+            alertify.orderCategory().close();
             alertify.success("Success");
         },
         onError: function (formType, error) {

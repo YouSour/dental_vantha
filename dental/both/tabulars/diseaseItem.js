@@ -10,14 +10,14 @@ Dental.TabularTable.DiseaseItem = new Tabular.Table({
             data: "price",
             title: "Price",
             render: function (val, doc, type) {
-                return labelCon(val, val, "success");
+                return numeral(val).format('0,0.00');
             }
         },
         {
             data: "memberPrice",
             title: "Member Price",
             render: function (val, doc, type) {
-                return labelCon(val, val, "warning");
+                return numeral(val).format('0,0.00');
             }
         },
         {data: "_diseaseCategory.code", title: "Category"}

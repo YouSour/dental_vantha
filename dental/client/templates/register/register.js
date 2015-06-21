@@ -2,7 +2,7 @@
  * Index
  */
 Template.dental_register.onRendered(function () {
-    createNewAlertify('register');
+    createNewAlertify(['register', 'patientAddon']);
 });
 
 Template.dental_register.events({
@@ -14,7 +14,8 @@ Template.dental_register.events({
             .maximize();
     },
     'click .update': function () {
-        var data = Dental.Collection.Register.findOne({_id: this._id });
+        var data = Dental.Collection.Register.findOne({_id: this._id});
+
         alertify.register(renderTemplate(Template.dental_registerUpdate, data))
             .set({
                 title: fa("pencil", "Register")
@@ -38,7 +39,9 @@ Template.dental_register.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.dental_registerShow, this))
+        var data = Dental.Collection.Register.findOne({_id: this._id});
+
+        alertify.alert(renderTemplate(Template.dental_registerShow, data))
             .set({
                 title: fa("eye", "Register")
             })
@@ -56,29 +59,37 @@ Template.dental_registerInsert.onRendered(function () {
 Template.dental_registerInsert.helpers({});
 
 Template.dental_registerInsert.events({
-    'change .diagnosisId': function (e) {
-
+    'click .patientAddon': function (e, t) {
+        alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    },
+    'change .item': function (e, t) {
         var thisObj = $(e.currentTarget);
-        var diagnosisId = $(e.currentTarget).val();
-        if (diagnosisId != "") {
-            var dataDiagnosis = Dental.Collection.Disease.findOne({_id: diagnosisId});
+        var itemId = $(e.currentTarget).val();
+        var qty, price, discount, amount;
+
+        if (itemId != "") {
+            var itemDoc = Dental.Collection.DiseaseItem.findOne({_id: itemId});
+
+            qty = 1;
+            price = itemDoc.price;
+            discount = 0;
+            amount = qty * price;
+
             $('.btnAdd').attr('disabled', false);
         }
         else {
             $('.btnAdd').attr('disabled', true);
         }
 
-        var price = dataDiagnosis.price;
+        thisObj.parents('div.row').find('.qty').val(qty);
         thisObj.parents('div.row').find('.price').val(price);
-        thisObj.parents('div.row').find('.qty').val(1);
-        thisObj.parents('div.row').find('.discount').val(0);
-        thisObj.parents('div.row').find('.amount').val(price);
+        thisObj.parents('div.row').find('.discount').val(discount);
+        thisObj.parents('div.row').find('.amount').val(amount);
 
         calculateTotal();
     },
 
-    'click .btnRemove': function (e) {
-
+    'click .btnRemove': function (e, t) {
         setTimeout(function () {
             var enable = true;
             $('.amount').each(function () {
@@ -102,16 +113,17 @@ Template.dental_registerInsert.events({
 
     },
 
-    'keyup .price,.qty,.discount, click .price,.qty,.discount': function (e) {
-
+    'keyup .qty,.discount, click .qty,.discount': function (e, t) {
         var thisObj = $(e.currentTarget);
-        var price = thisObj.parents('div.row').find('.price').val();
         var qty = thisObj.parents('div.row').find('.qty').val();
-        var amount = price * qty;
+        var price = thisObj.parents('div.row').find('.price').val();
         var discount = thisObj.parents('div.row').find('.discount').val();
-        thisObj.parents('div.row').find('.amount').val(amount - (amount * discount / 100));
+        var amount = math.round(qty * price, 2);
+        var amountAfterDiscount = math.round(amount - (amount * discount / 100), 2);
 
-        if (price != 0 && qty != 0 || discount != 0) {
+        thisObj.parents('div.row').find('.amount').val(amountAfterDiscount);
+
+        if (qty > 0 && (discount >= 0 && discount <= 100)) {
             $('.btnAdd').removeAttr('disabled');
         } else {
             $('.btnAdd').attr('disabled', "disabled");
@@ -135,6 +147,9 @@ Template.dental_registerUpdate.onRendered(function () {
 Template.dental_registerUpdate.helpers({});
 
 Template.dental_registerUpdate.events({
+    'click .patientAddon': function (e, t) {
+        alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    },
     'change .diagnosisId': function (e) {
 
         var thisObj = $(e.currentTarget);
@@ -263,21 +278,18 @@ var datepicker = function () {
 };
 
 /**
- * Return current date after Insert Success
- *
- * @returns {currentDate}
- */
-
-
-/**
  * Calculate all amount to total
  */
 function calculateTotal() {
     var total = 0;
+
+    // Each amount
     $('.amount').each(function () {
-        var amount = $(this).val() == "" ? 0 : parseFloat($(this).val());
+        var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
         total += amount;
     });
+
+    // set value on total
     $('[name="total"]').val(total);
 
     var decimal_places = 2;

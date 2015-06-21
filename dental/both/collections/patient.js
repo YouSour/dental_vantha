@@ -11,26 +11,18 @@ Dental.Collection.Patient = new Mongo.Collection("dental_patient");
  * @type {SimpleSchema}
  */
 Dental.Schema.Patient = new SimpleSchema({
-    branchId: {
-        type: String,
-        max: 25
-    },
     name: {
         type: String,
-        label: "Name",
-        unique: true,
         max: 250
     },
     gender: {
         type: String,
-        label: "Gender",
         autoform: {
             type: "select2",
             options: function () {
                 return Dental.List.gender();
             }
-        },
-        max: 10
+        }
     },
     age: {
         type: Number,
@@ -43,40 +35,41 @@ Dental.Schema.Patient = new SimpleSchema({
     },
     telephone: {
         type: String,
-        max: 50
+        max: 50,
+        optional: true
     },
     memberId: {
         type: String,
-        label: "Member ID"
+        max: 50,
+        optional: true
     },
     memberDate: {
         type: String,
-        label: "Member Date",
         defaultValue: function () {
-            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
+            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');
             return currentDate;
-        }
+        },
+        optional: true
     },
     des: {
         type: String,
         label: "Description",
         optional: true,
-        max: 50
+        max: 500
     },
-    createdDate: {
-        type: Date,
-        autoValue: function () {
-            if (this.isInsert) {
-                return new Date();
+    photo: {
+        type: String,
+        autoform: {
+            afFieldInput: {
+                type: 'fileUpload',
+                collection: 'Files',
+                accept: 'image/*'
             }
         },
-        denyUpdate: true
+        optional: true
     },
-    updatedDate: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        }
+    branchId: {
+        type: String
     }
 });
 

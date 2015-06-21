@@ -11,57 +11,54 @@ Dental.Collection.Register = new Mongo.Collection('dental_register');
  * @type {SimpleSchema}
  */
 Dental.Schema.Register = new SimpleSchema({
-
-    registerDate: {
-        type: String,
-        label:"Register Date",
-        defaultValue: function () {
-            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
-            return currentDate;
-        }
-    },
     patientId: {
         type: String,
-        label: "Patient",
         autoform: {
             type: "select2",
             options: function () {
                 return Dental.List.patient();
             }
         }
-    }, diagnosis: {
-        label: "Diagnosis",
+    },
+    registerDate: {
+        type: String,
+        defaultValue: function () {
+            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
+            return currentDate;
+        }
+    },
+    disease: {
         type: Array,
         minCount: 1
     },
-    'diagnosis.$': {
+    'disease.$': {
         type: Object
     },
-    'diagnosis.$.diagnosisId': {
+    'disease.$.item': {
         type: String,
         autoform: {
-            type: "select2",
+            type: "select",
             //type: "selectize",
             options: function () {
-                return Dental.List.diagnosis();
+                return Dental.List.diseaseItem();
             }
         }
     },
-    'diagnosis.$.qty': {
+    'disease.$.qty': {
         type: Number,
-        min:1
+        min: 1
     },
-    'diagnosis.$.price': {
+    'disease.$.price': {
         type: Number,
         decimal: true,
-        min:1
+        min: 1
     },
-    'diagnosis.$.discount': {
+    'disease.$.discount': {
         type: Number,
-        min:0,
-        max:100
+        min: 0,
+        max: 100
     },
-    'diagnosis.$.amount': {
+    'disease.$.amount': {
         type: Number,
         decimal: true
     },
@@ -76,27 +73,7 @@ Dental.Schema.Register = new SimpleSchema({
     },
     des: {
         type: String,
-        label: "Description",
-        autoform: {
-            afFieldInput: {
-                type: "textarea"
-            }
-        }
-    },
-    createdDate: {
-        type: Date,
-        autoValue: function () {
-            if (this.isInsert) {
-                return new Date();
-            }
-        },
-        denyUpdate: true
-    },
-    updatedDate: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        }
+        label: "Description"
     }
 });
 

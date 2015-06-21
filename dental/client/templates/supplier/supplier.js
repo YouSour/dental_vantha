@@ -1,4 +1,4 @@
-/*
+/**
  * Index
  */
 Template.dental_supplier.onRendered(function () {
@@ -10,16 +10,14 @@ Template.dental_supplier.events({
         alertify.supplier(renderTemplate(Template.dental_supplierInsert))
             .set({
                 title: fa("plus", "Supplier")
-            })
-            .maximize();
+            });
     },
     'click .update': function () {
         var data = Dental.Collection.Supplier.findOne({_id: this._id});
         alertify.supplier(renderTemplate(Template.dental_supplierUpdate, data))
             .set({
                 title: fa("pencil", "Supplier")
-            })
-            .maximize();
+            });
     },
     'click .remove': function () {
         var id = this._id;

@@ -67,7 +67,7 @@ Meteor.publish('dental_supplier', function () {
  * Order Category
  */
 Meteor.publish('dental_orderCategory', function () {
-    return Dental.Collection.orderCategory.find();
+    return Dental.Collection.OrderCategory.find();
 });
 
 /*
@@ -75,7 +75,7 @@ Meteor.publish('dental_orderCategory', function () {
  */
 
 Meteor.publish('dental_orderItem', function () {
-    return Dental.Collection.orderItem.find();
+    return Dental.Collection.OrderItem.find();
 });
 /*
  *Register

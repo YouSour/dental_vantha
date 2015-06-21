@@ -34,41 +34,45 @@ Dental.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(SelectOne)", value: ""});
         }
-        Dental.Collection.expenseType.find().forEach(function (obj) {
-            list.push({label: obj._id + " : " + obj.name, value: obj._id});
-        });
+        Dental.Collection.expenseType.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.name, value: obj._id});
+            });
 
         return list;
     },
-    orderCategory: function (selectOne) {
+    orderCategory: function () {
         var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "(SelectOne)", value: ""});
-        }
-        Dental.Collection.orderCategory.find().forEach(function (obj) {
-            list.push({label: obj._id + " : " + obj.name, value: obj._id});
-        });
-        return list;
-    },
-    patient: function (selectOne) {
-        var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "(SelectOne)", value: ""});
-        }
-        Dental.Collection.Patient.find().forEach(function (obj) {
-            list.push({label: obj._id + " : " + obj.name, value: obj._id});
-        });
+        list.push({label: "(SelectOne)", value: ""});
+
+        Dental.Collection.OrderCategory.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.name, value: obj._id});
+            });
 
         return list;
     },
-    diagnosis: function (selectOne) {
+    patient: function () {
         var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "(Select One)", value: ""});
-        }
-        Dental.Collection.Disease.find().forEach(function (obj) {
-            list.push({label: obj._id + " : " + obj.name, value: obj._id});
-        });
+        list.push({label: "(SelectOne)", value: ""});
+        Dental.Collection.Patient.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.name + ' (' + obj.gender + ')', value: obj._id});
+            });
+
+        return list;
+    },
+    diseaseItem: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
+
+        Dental.Collection.DiseaseItem.find()
+            .forEach(function (obj) {
+                var label = obj.name + ' (' + obj._diseaseCategory.name + ')'
+                    + ' | Price: ' + numeral(obj.price).format('0,0.00');
+
+                list.push({label: label, value: obj._id});
+            });
 
         return list;
     },
@@ -110,7 +114,7 @@ Dental.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "Select One", value: ""});
         }
-        Dental.Collection.orderItem.find().forEach(function (obj) {
+        Dental.Collection.OrderItem.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
 

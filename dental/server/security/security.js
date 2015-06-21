@@ -55,14 +55,14 @@ Dental.Collection.Supplier.permit(['insert', 'update', 'remove'])
 /*
  * Order Category
  */
-Dental.Collection.orderCategory.permit(['insert', 'update', 'remove'])
+Dental.Collection.OrderCategory.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
 
 /*
  *Order Item
  */
-Dental.Collection.orderItem.permit(['insert', 'update', 'remove'])
+Dental.Collection.OrderItem.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
 
