@@ -20,14 +20,7 @@ Dental.TabularTable.DiseaseItem = new Tabular.Table({
                 return labelCon(val, val, "warning");
             }
         },
-        {
-            data: "diseaseItemCategoryId",
-            title: "Disease Category",
-            render: function (val, type, doc) {
-                var diseaseCategory = Dental.Collection.diseaseCategory.findOne({_id: val});
-                return labelCon(diseaseCategory.name, diseaseCategory.name, "primary");
-            }
-        }
+        {data: "_diseaseCategory.code", title: "Category"}
     ],
     order: [['1', 'desc']],
     autoWidth: false,

@@ -8,7 +8,7 @@ Template.dental_diseaseCategory.onRendered(function () {
 
 Template.dental_diseaseCategory.events({
     'click .insert': function (e, t) {
-        alertify.DiseaseCategory(renderTemplate(Template.dental_diseaseCategoryInsert))
+        alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryInsert))
             .set({
                 title: fa("plus", "Disease Category")
             });
@@ -16,7 +16,7 @@ Template.dental_diseaseCategory.events({
     'click .update': function (e, t) {
         var data = Dental.Collection.DiseaseCategory.findOne(this._id);
 
-        alertify.DiseaseCategory(renderTemplate(Template.dental_diseaseCategoryUpdate, data))
+        alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryUpdate, data))
             .set({
                 title: fa("pencil", "Disease Category")
             });

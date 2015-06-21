@@ -29,7 +29,6 @@ Dental.List = {
 
         return list;
     },
-
     expenseType: function (selectOne) {
         var list = [];
         if (!_.isEqual(selectOne, false)) {

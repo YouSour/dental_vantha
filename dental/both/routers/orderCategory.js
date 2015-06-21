@@ -1,10 +1,7 @@
 Router.route('dental/orderCategory', function () {
-    this.render(Template.dental_orderCategory);
+    this.render('dental_orderCategory');
 }, {
     name: "dental.orderCategory",
-    header: {title: "orderCategory", sub: "", icon: "fa fa-shopping-cart"},
-    title: "OrderCategory",
-    waitOn: function () {
-        return Meteor.subscribe('dentalOrderCategory');
-    }
+    header: {title: "Order Category", sub: "", icon: "fa fa-shopping-cart"},
+    title: "Order Category"
 });

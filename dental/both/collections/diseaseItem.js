@@ -38,21 +38,6 @@ Dental.Schema.DiseaseItem = new SimpleSchema({
     memberPrice: {
         type: Number,
         decimal: true
-    },
-    createdDate: {
-        type: Date,
-        autoValue: function () {
-            if (this.isInsert) {
-                return new Date();
-            }
-        },
-        denyUpdate: true
-    },
-    updatedDate: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        }
     }
 });
 

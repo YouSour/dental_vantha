@@ -50,21 +50,6 @@ Dental.Schema.Staff = new SimpleSchema({
         optional: true,
         max: 50
     },
-    createdDate: {
-        type: Date,
-        autoValue: function () {
-            if (this.isInsert) {
-                return new Date();
-            }
-        },
-        denyUpdate: true
-    },
-    updatedDate: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        }
-    },
     branchId: {
         type: String
     }

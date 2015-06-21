@@ -3,8 +3,5 @@ Router.route('dental/supplier', function () {
 }, {
     name: "dental.supplier",
     header: {title: "Supplier", sub: "", icon: "fa fa-truck"},
-    title: "Supplier",
-    waitOn: function () {
-        return Meteor.subscribe('dentalSupplier');
-    }
+    title: "Supplier"
 });

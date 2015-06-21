@@ -1,7 +1,6 @@
 /*
  * Index
  */
-
 Template.dental_supplier.onRendered(function () {
     createNewAlertify('supplier');
 });

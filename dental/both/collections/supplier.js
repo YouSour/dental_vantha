@@ -28,21 +28,6 @@ Dental.Schema.Supplier = new SimpleSchema({
         type: String,
         max: 500,
         optional: true
-    },
-    createdDate: {
-        type: Date,
-        autoValue: function () {
-            if (this.isInsert) {
-                return new Date();
-            }
-        },
-        denyUpdate: true
-    },
-    updatedDate: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        }
     }
 });
 

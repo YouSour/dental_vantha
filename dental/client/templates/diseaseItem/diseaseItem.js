@@ -3,7 +3,7 @@
  */
 Template.dental_diseaseItem.onRendered(function () {
     // Create new  alertify
-    createNewAlertify("diseaseItem");
+    createNewAlertify(["diseaseItem", 'diseaseCategory']);
 });
 
 Template.dental_diseaseItem.events({
@@ -51,16 +51,37 @@ Template.dental_diseaseItem.events({
 });
 
 /**
+ * Insert
+ */
+Template.dental_diseaseCategoryInsert.events({
+    'click [name="diseaseCategoryId"]': function (e, t) {
+        alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryInsert))
+            .set({
+                title: fa("plus", "Disease Category")
+            });
+    }
+});
+
+/**
+ * Update
+ */
+Template.dental_diseaseCategoryUpdate.events({
+    'click [name="diseaseCategoryId"]': function (e, t) {
+        alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryInsert))
+            .set({
+                title: fa("plus", "Disease Category")
+            });
+    }
+});
+
+/**
  * Hook
  */
 AutoForm.hooks({
     dental_diseaseItemInsert: {
         before: {
             insert: function (doc) {
-                var categoryId = doc.diseaseCategoryId;
-
                 doc._id = idGenerator.gen(Dental.Collection.DiseaseItem, 6);
-                doc.code = categoryId + doc.code;
 
                 return doc;
             }
