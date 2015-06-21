@@ -5,6 +5,13 @@ Template.dental_register.onRendered(function () {
     createNewAlertify(['register', 'patientAddon']);
 });
 
+Template.dental_register.helpers({
+    selector: function () {
+        var pattern = Session.get('currentBranch');
+        return {branchId: pattern};
+    }
+});
+
 Template.dental_register.events({
     'click .insert': function () {
         alertify.register(renderTemplate(Template.dental_registerInsert))
@@ -246,8 +253,11 @@ AutoForm.hooks({
     dental_registerInsert: {
         before: {
             insert: function (doc) {
-                var patientId = doc.patientId + "-";
-                doc._id = idGenerator.genWithPrefix(Dental.Collection.Register, patientId, 3);
+                var prefix = Session.get('currentBranch') + "-";
+
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Register, prefix, 9);
+                doc.branchId = Session.get('currentBranch');
+
                 return doc;
             }
         },

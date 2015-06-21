@@ -38,18 +38,14 @@ Dental.Schema.Patient = new SimpleSchema({
         max: 50,
         optional: true
     },
-    memberId: {
+    member: {
         type: String,
-        max: 50,
-        optional: true
-    },
-    memberDate: {
-        type: String,
-        defaultValue: function () {
-            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');
-            return currentDate;
-        },
-        optional: true
+        autoform: {
+            type: "select2",
+            options: function () {
+                return Dental.List.member();
+            }
+        }
     },
     des: {
         type: String,

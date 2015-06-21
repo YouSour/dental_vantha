@@ -9,22 +9,21 @@ Dental.TabularTable.Register = new Tabular.Table({
         {
             data: "disease", title: "Disease",
             render: function (val, type, doc) {
-                //return JSON.stringify(val);
-                var disease = "";
-                val.forEach(function (obj) {
-                    if (obj != null) {
-                        diagnosis +=
-                            "<label class='label label-info'>"
-                            + "Diagnosis Id = " + obj.item
-                            + " | Qty : " + obj.qty
-                            + " | Price : " + obj.price
-                            + " | Discount : " + obj.discount
-                            + " | Amount : " + obj.amount
-                            + "</label>" + "<br>";
-                    }
-                });
+                var items = '<ul>';
 
-                return disease;
+                _.each(val, function (obj) {
+                    items +=
+                        "<li>"
+                        + 'Item: ' + obj.item
+                        + ' | Qty: ' + obj.qty
+                        + ' | Price : ' + obj.price
+                        + ' | Dis: ' + obj.discount
+                        + ' | Amount: ' + obj.amount
+                        + '</li>';
+                });
+                items += '</ul>';
+
+                return items;
             }
         },
         {

@@ -52,6 +52,14 @@ Dental.List = {
 
         return list;
     },
+    member: function () {
+        var list = [];
+        list.push({label: "(SelectOne)", value: ""});
+        list.push({label: "Yes", value: "Yes"});
+        list.push({label: "No", value: "No"});
+
+        return list;
+    },
     patient: function () {
         var list = [];
         list.push({label: "(SelectOne)", value: ""});

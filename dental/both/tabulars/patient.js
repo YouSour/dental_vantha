@@ -9,8 +9,8 @@ Dental.TabularTable.Patient = new Tabular.Table({
         {data: "age", title: "Age"},
         {data: "address", title: "Address"},
         {data: "telephone", title: "Telephone"},
-        {data: "memberId", title: "Member ID"},
-        {data: "memberDate", title: "Member Date"},
+        {data: "member", title: "Member"},
+        {data: "des", title: "Description"},
         {
             data: "photo",
             title: "Photo",
