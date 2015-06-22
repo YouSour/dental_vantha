@@ -4,8 +4,8 @@ Dental.TabularTable.Register = new Tabular.Table({
     columns: [
         {title: '<i class="fa fa-bars"></i>', tmpl: Meteor.isClient && Template.dental_registerAction},
         {data: "_id", title: "ID"},
-        {data: "registerDate", title: "Register Date"},
         {data: "patientId", title: "Patient"},
+        {data: "registerDate", title: "Register Date"},
         {
             data: "disease", title: "Disease",
             render: function (val, type, doc) {
