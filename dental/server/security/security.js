@@ -5,7 +5,14 @@ Dental.Collection.Staff.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
 
-/*
+/**
+ * Doctor
+ */
+Dental.Collection.Doctor.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/**
  * Disease Category
  */
 

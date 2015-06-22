@@ -142,6 +142,6 @@ AutoForm.hooks({
  * Config date picker
  */
 var datePicker = function () {
-    var startDate = $('[name="registerDate"]');
+    var startDate = $('[name="startDate"]');
     DateTimePicker.date(startDate);
 };

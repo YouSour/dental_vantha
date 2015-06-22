@@ -1,7 +1,3 @@
-Files = new FS.Collection('images', {
-    stores: [new FS.Store.GridFS("images", {})]
-});
-
 /**
  *
  * @type {Mongo.Collection}
@@ -13,31 +9,37 @@ Dental.Collection.Treatment = new Mongo.Collection('dental_treatment');
  * @type {SimpleSchema}
  */
 Dental.Schema.Treatment = new SimpleSchema({
-    treatmentDate: {
+    patientId: {
         type: String,
-        label: "Treatment Date",
-        defaultValue: function () {
-            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
-            return currentDate;
-        }
-    },
-    staffId: {
-        type: String,
-        label: "Staff",
         autoform: {
             type: "select2",
             options: function () {
-                return Dental.List.staff();
+                return Dental.List.patient();
             }
         }
     },
     registerId: {
         type: String,
-        label: "Register ID",
         autoform: {
             type: "select2",
             options: function () {
-                return Dental.List.register();
+                return Dental.List.registerForPatient();
+            }
+        }
+    },
+    treatmentDate: {
+        type: String,
+        defaultValue: function () {
+            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
+            return currentDate;
+        }
+    },
+    doctorId: {
+        type: String,
+        autoform: {
+            type: "select2",
+            options: function () {
+                return Dental.List.doctor();
             }
         }
     },
@@ -45,32 +47,23 @@ Dental.Schema.Treatment = new SimpleSchema({
         type: String,
         label: "Description"
     },
-    attachFile: {
-        type: String,
-        autoform: {
-            afFieldInput: {
-                type: 'fileUpload',
-                collection: 'Files'
-            }
-        },
-        label: 'Choose file'
-    },
-    createdDate: {
-        type: Date,
-        autoValue: function () {
-            if (this.isInsert) {
-                return new Date();
-            }
-        },
-        denyUpdate: true
-    },
-    updatedDate: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        }
+    //attachFile: {
+    //    type: String,
+    //    label: 'Choose file',
+    //    autoform: {
+    //        afFieldInput: {
+    //            type: 'fileUpload',
+    //            collection: 'Files'
+    //        }
+    //    },
+    //    optional: true
+    //},
+    branchId: {
+        type: String
     }
-
 });
 
+/**
+ * Attache schema
+ */
 Dental.Collection.Treatment.attachSchema(Dental.Schema.Treatment);

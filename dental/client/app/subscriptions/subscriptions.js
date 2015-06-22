@@ -1,4 +1,5 @@
 Meteor.subscribe('dental_staff');
+Meteor.subscribe('dental_doctor');
 Meteor.subscribe('dental_diseaseCategory');
 Meteor.subscribe('dental_diseaseItem');
 Meteor.subscribe('dental_patient');

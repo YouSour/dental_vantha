@@ -1,8 +1,15 @@
 /*
  * Index
  */
-Template.dental_treatment.onRendered(function () {
-    createNewAlertify('treatment');
+Template.dental_treatment.onCreated(function () {
+    createNewAlertify(['treatment', 'patientAddon', 'registerAddon', 'doctorAddon']);
+});
+
+Template.dental_treatment.helpers({
+    selector: function () {
+        var pattern = Session.get('currentBranch');
+        return {branchId: pattern};
+    }
 });
 
 Template.dental_treatment.events({
@@ -38,7 +45,13 @@ Template.dental_treatment.events({
             })
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.dental_treatmentShow, this))
+        var data = Dental.Collection.Treatment.findOne(this._id);
+        //data.attachFileUrl = null;
+        //
+        //if (!_.isUndefined(data.attachFile)) {
+        //    data.attachFileUrl = Files.findOne(data.attachFile).url();
+        //}
+        alertify.alert(renderTemplate(Template.dental_treatmentShow, data))
             .set({
                 title: fa("eye", "Treatment")
             })
@@ -52,6 +65,49 @@ Template.dental_treatmentInsert.onRendered(function () {
     datepicker();
 });
 
+Template.dental_treatmentInsert.events({
+    'change [name="patientId"]': function (e, t) {
+        var patientId = t.$('[name="patientId"]').val();
+
+        // Set list state
+        Dental.ListState.set('patientId', patientId);
+    },
+    'change [name="registerId"]': function (e, t) {
+        var registerId = t.$('[name="registerId"]').val();
+        var treatmentDate = t.$('[name="treatmentDate"]');
+
+        // Set treatment date
+        if (!_.isEmpty(registerId)) {
+            var registerDoc = Dental.Collection.Register.findOne(registerId);
+            treatmentDate.data("DateTimePicker").minDate(registerDoc.registerDate);
+
+            // Check last treatment
+            var getLastTreatment = lastTreatment(registerId);
+            if (!_.isUndefined(getLastTreatment)) {
+                treatmentDate.data("DateTimePicker").minDate(getLastTreatment.treatmentDate);
+            }
+        }
+    },
+    'click .patientAddon': function (e, t) {
+        alertify.patientAddon(
+            fa("plus", "Patient"),
+            renderTemplate(Template.dental_patientInsert)
+        ).maximize();
+    },
+    'click .registerAddon': function (e, t) {
+        alertify.registerAddon(
+            fa("plus", "Register"),
+            renderTemplate(Template.dental_registerInsert)
+        ).maximize();
+    },
+    'click .doctorAddon': function (e, t) {
+        alertify.doctorAddon(
+            fa("plus", "Doctor"),
+            renderTemplate(Template.dental_staffInsert)
+        ).maximize();
+    }
+});
+
 /**
  * Update
  */
@@ -59,25 +115,42 @@ Template.dental_treatmentUpdate.onRendered(function () {
     datepicker();
 });
 
-/*
- * Show
- */
-Template.dental_treatmentShow.helpers({
-    imageFormat: function () {
-        var data = Files.findOne(this.attachFile);
-        return new Spacebars.SafeString('<img src="' + data.url() + '" width="125px" class="img-responsive img-thumbnail" >');
+Template.dental_treatmentUpdate.events({
+    'change [name="patientId"]': function (e, t) {
+        var patientId = t.$('[name="patientId"]').val();
+
+        // Set list state
+        Dental.ListState.set('patientId', patientId);
+    },
+    'change [name="registerId"]': function (e, t) {
+        var registerId = t.$('[name="registerId"]').val();
+        var treatmentDate = t.$('[name="treatmentDate"]');
+
+        // Set treatment date
+        if (!_.isEmpty(registerId)) {
+            var registerDoc = Dental.Collection.Register.findOne(registerId);
+            treatmentDate.data("DateTimePicker").minDate(registerDoc.registerDate);
+
+            // Check last treatment
+            var getLastTreatment = lastTreatment(registerId);
+            if (!_.isUndefined(getLastTreatment)) {
+                treatmentDate.data("DateTimePicker").minDate(getLastTreatment.treatmentDate);
+            }
+        }
     }
 });
 
-/*
- *Hook
+/**
+ * Hook
  */
 AutoForm.hooks({
     dental_treatmentInsert: {
         before: {
             insert: function (doc) {
-                var registerId = doc.registerId + "-";
-                doc._id = idGenerator.genWithPrefix(Dental.Collection.Treatment, registerId, 3);
+                var currentBranch = Session.get('currentBranch');
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Treatment, currentBranch + '-', 12);
+                doc.branchId = currentBranch;
+
                 return doc;
             }
         },
@@ -99,8 +172,8 @@ AutoForm.hooks({
     }
 });
 
-/*
- *Config date picker
+/**
+ * Config date picker
  */
 var datepicker = function () {
     var treatmentDate = $('[name="treatmentDate"]');

@@ -4,6 +4,6 @@ Router.route('dental/patient', function () {
 
 }, {
     name: 'dental.patient',
-    header: {title: 'patient', sub: '', icon: 'fa fa-wheelchair'},
+    header: {title: 'Patient', sub: '', icon: 'fa fa-wheelchair'},
     title: "Patient"
 });

@@ -34,7 +34,7 @@ Dental.Schema.Staff = new SimpleSchema({
             }
         }
     },
-    registerDate: {
+    startDate: {
         type: String,
         defaultValue: function () {
             var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');

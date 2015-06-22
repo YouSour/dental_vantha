@@ -9,6 +9,16 @@ Meteor.publish('dental_staff', function () {
 });
 
 /**
+ * Doctor
+ */
+
+Meteor.publish('dental_doctor', function () {
+    if (this.userId) {
+        return Dental.Collection.Doctor.find();
+    }
+});
+
+/**
  * Disease Category
  */
 

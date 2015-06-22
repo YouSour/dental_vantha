@@ -1,9 +1,16 @@
 /**
  * Index
  */
-Template.dental_patient.onRendered(function () {
+Template.dental_patient.onCreated(function () {
     // Create new  alertify
     createNewAlertify("patient");
+});
+
+Template.dental_patient.helpers({
+    selector: function () {
+        var pattern = Session.get('currentBranch');
+        return {branchId: pattern};
+    }
 });
 
 Template.dental_patient.events({

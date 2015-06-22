@@ -12,6 +12,7 @@
         <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
         <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
         <li><a href="#" class="show">{{fa "eye"}} Show</a></li>
+        <li><a href="#" class="treatment">{{fa "medkit"}} Treatment</a></li>
     {{/tabularAction}}
 </template>
 
@@ -103,11 +104,18 @@
         <dt>Register Date</dt>
         <dd>{{registerDate}}</dd>
         <dt>Patient</dt>
-        <dd>{{labelCon patientId patientId "primary"}}</dd>
-        <dt>Diagnosis</dt>
-        <dd>{{diagnosisFormat}}</dd>
+        <dd>{{patientId}}</dd>
+        <dt>Disease</dt>
+        <dd>
+            <ul>
+                {{#each disease}}
+                    <li>Item: {{item}} | Qty: {{qty}} | Price: {{price}} | Discount: {{discount}} |
+                        Amount: {{amount}}</li>
+                {{/each}}
+            </ul>
+        </dd>
         <dt>Total</dt>
-        <dd>{{labelCon total total "success"}}</dd>
+        <dd>{{total}}</dd>
         <dt>Description</dt>
         <dd>{{des}}</dd>
     </dl>

@@ -7,7 +7,7 @@ Dental.TabularTable.Staff = new Tabular.Table({
         {data: "name", title: "Name"},
         {data: "gender", title: "Gender"},
         {data: "position", title: "Position"},
-        {data: "registerDate", title: "Register Date"},
+        {data: "startDate", title: "Start Date"},
         {data: "address", title: "Address"},
         {data: "telephone", title: "Telephone"}
     ],

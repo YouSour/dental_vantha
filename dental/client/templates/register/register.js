@@ -1,8 +1,8 @@
 /***
  * Index
  */
-Template.dental_register.onRendered(function () {
-    createNewAlertify(['register', 'patientAddon']);
+Template.dental_register.onCreated(function () {
+    createNewAlertify(['register', 'patientAddon', 'treatment']);
 });
 
 Template.dental_register.helpers({
@@ -52,6 +52,12 @@ Template.dental_register.events({
             .set({
                 title: fa("eye", "Register")
             })
+    },
+    'click .treatment': function () {
+        alertify.treatment(
+            fa("eye", "Treatment"),
+            renderTemplate(Template.dental_treatment)
+        ).maximize();
     }
 });
 
@@ -220,29 +226,6 @@ Template.dental_registerUpdate.events({
         }
 
         calculateTotal();
-    }
-});
-
-/**
- * Show
- */
-
-Template.dental_registerShow.helpers({
-    diagnosisFormat: function () {
-
-        var diagnosis = "";
-        var data = this.diagnosis;
-        data.forEach(function (obj) {
-            if (obj != null) {
-                diagnosis +=
-                    "Diagnosis Id = " + obj.diagnosisId +
-                    ", Qty = " + obj.qty +
-                    ", Price = " + obj.price +
-                    ", Amount = " + obj.amount + "<br>";
-            }
-        });
-
-        return new Spacebars.SafeString(diagnosis);
     }
 });
 
