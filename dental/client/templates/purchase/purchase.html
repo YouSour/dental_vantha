@@ -34,16 +34,8 @@
         {{> afArrayField name="items" id="items" template="customArrayFieldPurchase" subtemplate="customObjectFieldPurchase"}}
 
         <div class="row">
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-md-offset-6">
                 {{> afFieldInput name='total'}}
-                <div class="panel panel-custom panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title panel-title-custom">Total : <b class="totalAmount">0</b></h3>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -71,16 +63,8 @@
         {{> afArrayField name="items" id="items" template="customArrayFieldPurchase" subtemplate="customObjectFieldPurchase"}}
 
         <div class="row">
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-md-offset-6">
                 {{> afFieldInput name='total'}}
-                <div class="panel panel-custom panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title panel-title-custom">Total : <b class="totalAmount">0</b></h3>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -97,13 +81,16 @@
         <dt>Purchase Date</dt>
         <dd>{{purchaseDateFormat}}</dd>
         <dt>Supplier</dt>
-        <dd>{{labelCon supplierId supplierId "primary"}}</dd>
+        <!--<dd>{{labelCon supplierId supplierId "primary"}}</dd>-->
+        <dd>{{supplierId}}</dd>
         <dt>Register</dt>
-        <dd>{{labelCon registerId registerId "primary"}}</dd>
+        <!--<dd>{{labelCon registerId registerId "primary"}}</dd>-->
+        <dd>{{registerId}}</dd>
         <dt>Purchase Detail</dt>
         <dd>{{purchaseDetailFormat}}</dd>
         <dt>Total</dt>
-        <dd>{{labelCon total total "success"}}</dd>
+        <!--<dd>{{labelCon total total "success"}}</dd>-->
+        <dd>{{total}}</dd>
     </dl>
 </template>
 
@@ -135,7 +122,14 @@
 
             {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
                 <div class="row">
-                    <div class="col-sm-1 col-md-offset-11">
+                    <div class="col-sm-9 text-right">
+                        <strong>Total :</strong>
+                    </div>
+                    <div class="col-sm-2">
+                        {{> afFieldInput name='total'}}
+                        <p class="bg-primary"><strong class="totalAmount">0</strong></p>
+                    </div>
+                    <div class="col-sm-1">
                         <button type="button" class="btn btn-primary autoform-add-item btn-sm btnAdd"
                                 data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}"
                                 data-autoform-maxCount="{{this.atts.maxCount}}">

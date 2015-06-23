@@ -8,47 +8,37 @@ Template.dental_staff.onRendered(function () {
 
 Template.dental_staff.events({
     'click .insert': function (e, t) {
-        alertify.staff(renderTemplate(Template.dental_staffInsert))
-            .set({
-                title: fa("plus", "Staff")
-            })
-            .maximize();
+        alertify.staff(fa("plus", "Staff"), renderTemplate(Template.dental_staffInsert)).maximize();
     },
     'click .update': function (e, t) {
         var data = Dental.Collection.Staff.findOne(this._id);
 
-        alertify.staff(renderTemplate(Template.dental_staffUpdate, data))
-            .set({
-                title: fa("pencil", "Staff")
-            })
-            .maximize();
+        alertify.staff(fa("pencil", "Staff"), renderTemplate(Template.dental_staffUpdate, data)).maximize();
     },
     'click .remove': function (e, t) {
-        var id = this._id;
+        var self = this;
 
-        alertify.confirm("Are you sure to delete [" + id + "]?")
-            .set({
-                onok: function (closeEvent) {
-                    Dental.Collection.Staff.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                },
-                title: fa("remove", "Staff")
-            });
+        alertify.confirm(
+            fa("remove", "Staff"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (closeEvent) {
+                Dental.Collection.Staff.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            }, null
+        );
     },
     'click .show': function (e, t) {
         var data = Dental.Collection.Staff.findOne(this._id);
 
-        alertify.alert(renderTemplate(Template.dental_staffShow, data))
-            .set({
-                title: fa("eye", "Staff")
-            });
+        alertify.alert(fa("eye", "Staff"), renderTemplate(Template.dental_staffShow, data));
     }
-});
+})
+;
 
 /**
  * Insert

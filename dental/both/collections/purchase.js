@@ -50,10 +50,9 @@ Dental.Schema.Purchase = new SimpleSchema({
     'items.$.OrderItemId': {
         type: String,
         autoform: {
-            //type: "select2",
-            type: "selectize",
+            type: "select",
             options: function () {
-                return Dental.List.OrderItem();
+                return Dental.List.orderItem();
             }
         }
     },
@@ -79,23 +78,7 @@ Dental.Schema.Purchase = new SimpleSchema({
                 type: "hidden"
             }
         }
-    },
-    createdDate: {
-        type: Date,
-        autoValue: function () {
-            if (this.isInsert) {
-                return new Date();
-            }
-        },
-        denyUpdate: true
-    },
-    updatedDate: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        }
     }
-
 });
 
 Dental.Collection.Purchase.attachSchema(Dental.Schema.Purchase);

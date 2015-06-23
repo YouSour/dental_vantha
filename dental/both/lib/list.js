@@ -148,9 +148,9 @@ Dental.List = {
     },
     orderItem: function (selectOne) {
         var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "Select One", value: ""});
-        }
+        //if (!_.isEqual(selectOne, false)) {
+        //    list.push({label: "Select One", value: ""});
+        //}
         Dental.Collection.OrderItem.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });

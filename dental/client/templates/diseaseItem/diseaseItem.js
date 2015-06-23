@@ -8,64 +8,52 @@ Template.dental_diseaseItem.onRendered(function () {
 
 Template.dental_diseaseItem.events({
     'click .insert': function (e, t) {
-        alertify.diseaseItem(renderTemplate(Template.dental_diseaseItemInsert))
-            .set({
-                title: fa("plus", "Disease Item")
-            })
-            .maximize();
+        alertify.diseaseItem(fa("plus", "Disease Item"), renderTemplate(Template.dental_diseaseItemInsert)).maximize();
     },
     'click .update': function (e, t) {
         var data = Dental.Collection.DiseaseItem.findOne(this._id);
 
-        alertify.diseaseItem(renderTemplate(Template.dental_diseaseItemUpdate, data))
-            .set({
-                title: fa("pencil", "Disease Item")
-            })
-            .maximize();
+        alertify.diseaseItem(fa("pencil", "Disease Item"), renderTemplate(Template.dental_diseaseItemUpdate, data)).maximize();
     },
     'click .remove': function (e, t) {
-        var id = this._id;
+        var self = this;
 
-        alertify.confirm("Are you sure to delete [" + id + "]?")
-            .set({
-                onok: function (closeEvent) {
-                    Dental.Collection.DiseaseItem.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                },
-                title: fa("remove", "Disease Item")
-            });
+        alertify.confirm(
+            fa("remove", "Disease Item"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (closeEvent) {
+                Dental.Collection.DiseaseItem.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function (e, t) {
         var data = Dental.Collection.DiseaseItem.findOne(this._id);
 
-        alertify.alert(renderTemplate(Template.dental_diseaseItemShow, data))
-            .set({
-                title: fa("eye", "Disease Item")
-            });
+        alertify.alert(fa("eye", "Disease Item"), renderTemplate(Template.dental_diseaseItemShow, data));
     }
 });
 
 /**
  * Insert
  */
-Template.dental_diseaseCategoryInsert.events({
-    'click [name="diseaseCategoryId"]': function (e, t) {
-        alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryInsert))
-            .set({
-                title: fa("plus", "Disease Category")
-            });
+Template.dental_diseaseItemInsert.events({
+    'click ['name="diseaseCategoryId"]': function (e, t) {
+        alertify.diseaseCategory(fa("plus", "Disease Category"), renderTemplate(Template.dental_diseaseCategoryInsert));
     }
+
 });
 
 /**
  * Update
  */
-Template.dental_diseaseCategoryUpdate.events({
+Template.dental_diseaseItemUpdate.events({
     'click [name="diseaseCategoryId"]': function (e, t) {
         alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryInsert))
             .set({

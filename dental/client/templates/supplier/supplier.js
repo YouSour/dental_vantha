@@ -7,39 +7,33 @@ Template.dental_supplier.onRendered(function () {
 
 Template.dental_supplier.events({
     'click .insert': function () {
-        alertify.supplier(renderTemplate(Template.dental_supplierInsert))
-            .set({
-                title: fa("plus", "Supplier")
-            });
+        alertify.supplier(fa("plus", "Supplier"), renderTemplate(Template.dental_supplierInsert));
     },
     'click .update': function () {
         var data = Dental.Collection.Supplier.findOne({_id: this._id});
-        alertify.supplier(renderTemplate(Template.dental_supplierUpdate, data))
-            .set({
-                title: fa("pencil", "Supplier")
-            });
+        alertify.supplier(fa("", "Supplier"), renderTemplate(Template.dental_supplierUpdate, data));
     },
     'click .remove': function () {
-        var id = this._id;
-        alertify.confirm("Are you sure to delete [" + id + "] ?")
-            .set({
-                onok: function (closeEvent) {
-                    Dental.Collection.Supplier.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                },
-                title: fa("remove", "Remove")
-            })
+        var self = this;
+
+        alertify.confirm(
+            fa("remove", "Supplier"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (closeEvent) {
+                Dental.Collection.Supplier.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
+
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.dental_supplierShow, this))
-            .set({
-                title: fa("eye", "Supplier")
-            })
+        alertify.alert(fa("eye", "Suppiler"), renderTemplate(Template.dental_supplierShow, this));
     }
 });
 
@@ -51,6 +45,7 @@ AutoForm.hooks({
         before: {
             insert: function (doc) {
                 doc._id = idGenerator.gen(Dental.Collection.Supplier, 3);
+                doc.branchId = Session.get('currentBranch');
                 return doc;
             }
         },
