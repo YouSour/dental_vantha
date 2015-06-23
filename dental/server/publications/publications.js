@@ -48,24 +48,6 @@ Meteor.publish('dental_patient', function () {
     }
 });
 
-/**
- * Expense Type
- */
-
-Meteor.publish('dental_expenseType', function () {
-    if (this.userId) {
-        return Dental.Collection.expenseType.find();
-    }
-});
-
-/*
- * Expense
- */
-
-Meteor.publish('dental_expense', function () {
-    return Dental.Collection.Expense.find();
-});
-
 /*
  *Supplier
  */
@@ -106,6 +88,13 @@ Meteor.publish('dental_treatment', function () {
  */
 Meteor.publish('dental_deposit', function () {
     return Dental.Collection.Deposit.find();
+});
+
+/*
+ * Invoice
+ */
+Meteor.publish('dental_invoice', function () {
+    return Dental.Collection.Invoice.find();
 });
 
 /*

@@ -3,7 +3,13 @@ Dental.RegisterState = new ReactiveObj();
  * Index
  */
 Template.dental_register.onCreated(function () {
-    createNewAlertify(['register', 'patientAddon', 'treatmentAction']);
+    createNewAlertify([
+        'register',
+        'patientAddon',
+        'treatmentAction',
+        'depositAction',
+        'invoiceAction'
+    ]);
 });
 
 Template.dental_register.helpers({
@@ -55,21 +61,37 @@ Template.dental_register.events({
             })
     },
     'click .treatmentAction': function () {
-        var data = Dental.Collection.Register.findOne({_id: this._id});
-        var patientDoc = Dental.Collection.Patient.findOne(data.patientId);
-        var photo = Files.findOne(patientDoc.photo);
-        if (photo) {
-            patientDoc.photoUrl = photo.url();
-        }
-        data._patient = patientDoc;
-
-        // Set state for treatment
-        Dental.RegisterState.set('data', data);
+        registerState(this);
 
         alertify.treatmentAction(
             fa("list", "Treatment"),
             renderTemplate(Template.dental_treatment)
         ).maximize();
+    },
+    'click .depositAction': function () {
+        registerState(this);
+
+        alertify.depositAction(
+            fa("list", "Deposit"),
+            renderTemplate(Template.dental_deposit)
+        ).maximize();
+    },
+    'click .invoiceAction': function () {
+        registerState(this);
+
+        // Check invoice exist
+        var invoiceExist = Dental.Collection.Invoice.findOne({registerId: this._id});
+        if (_.isUndefined(invoiceExist)) {
+            alertify.invoiceAction(
+                fa("plus", "Invoice"),
+                renderTemplate(Template.dental_invoiceInsert)
+            ).maximize();
+        } else {
+            alertify.invoiceAction(
+                fa("pencil", "Invoice"),
+                renderTemplate(Template.dental_invoiceUpdate, invoiceExist)
+            ).maximize();
+        }
     }
 });
 
@@ -323,3 +345,35 @@ function calculateTotal() {
         200
     );
 }
+
+/**
+ * Register state
+ */
+var registerState = function (param) {
+    var registerDoc = Dental.Collection.Register.findOne({_id: param._id});
+    var patientDoc = Dental.Collection.Patient.findOne(registerDoc.patientId);
+    var photo = Files.findOne(patientDoc.photo);
+    if (photo) {
+        patientDoc.photoUrl = photo.url();
+    }
+    registerDoc._patient = patientDoc;
+
+    // Get deposit
+    var deposit = 0;
+    Dental.Collection.Deposit.find({registerId: param._id})
+        .forEach(function (obj) {
+            deposit += obj.amount;
+        });
+    registerDoc.deposit = deposit;
+
+    console.log(registerDoc.deposit);
+
+    // Get treatment
+    var treatment = Dental.Collection.Treatment.find({registerId: param._id});
+    registerDoc._treatment = treatment;
+
+    console.log(registerDoc.deposit);
+
+    // Set state for treatment
+    Dental.RegisterState.set('data', registerDoc);
+};

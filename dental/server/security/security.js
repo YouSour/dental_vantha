@@ -37,22 +37,6 @@ Dental.Collection.Patient.permit(['insert', 'update', 'remove'])
     .apply();
 
 /*
- * Expense Type
- */
-
-Dental.Collection.expenseType.permit(['insert', 'update', 'remove'])
-    .dental_ifGeneral()
-    .apply();
-
-/*
- *Expense
- */
-
-Dental.Collection.Expense.permit(['insert', 'update', 'remove'])
-    .dental_ifGeneral()
-    .apply();
-
-/*
  *Supplier
  */
 Dental.Collection.Supplier.permit(['insert', 'update', 'remove'])
@@ -91,6 +75,13 @@ Dental.Collection.Treatment.permit(['insert', 'update', 'remove'])
  *Deposit
  */
 Dental.Collection.Deposit.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/*
+ * Invoice
+ */
+Dental.Collection.Invoice.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
 

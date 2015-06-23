@@ -6,7 +6,7 @@ Template.dental_treatment.onCreated(function () {
 });
 
 Template.dental_treatment.helpers({
-    data: function () {
+    register: function () {
         return Dental.RegisterState.get('data');
     },
     selector: function () {

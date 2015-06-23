@@ -3,9 +3,14 @@
  * @type {Mongo.Collection}
  */
 Dental.Collection.Invoice = new Mongo.Collection('dental_invoice');
-Dental.Collection.shareInvoice = new Mongo.Collection('dental_shareInvoice');
 
 Dental.Schema.Invoice = new SimpleSchema({
+    patientId: {
+        type: String
+    },
+    registerId: {
+        type: String
+    },
     invoiceDate: {
         type: String,
         defaultValue: function () {
@@ -13,53 +18,64 @@ Dental.Schema.Invoice = new SimpleSchema({
             return currentDate;
         }
     },
-    type: {
+    des: {
         type: String,
-        max: 50
+        label: 'Description',
+        optional: true
     },
-    registerId: {
-        type: String,
-        max: 20
-    },
-    depositId: {
-        type: String,
-        max: 25
-    },
-    diagnosis: {
+    disease: {
         type: Array,
-        label: "Diagnosis",
         minCount: 1
     },
-    'diagnosis.$': {
+    'disease.$': {
         type: Object
     },
-    'diagnosis.$.diagnosisId': {
+    'disease.$.item': {
         type: String,
-        max: 20
+        autoform: {
+            type: "select",
+            //type: "selectize",
+            options: function () {
+                return Dental.List.diseaseItem();
+            }
+        }
     },
-    'diagnosis.$.qty': {
+    'disease.$.qty': {
         type: Number,
         min: 1
     },
-    'diagnosis.$.price': {
+    'disease.$.price': {
         type: Number,
         decimal: true,
-        min: 0
+        min: 1
     },
-    'diagnosis.$.amount': {
+    'disease.$.discount': {
+        type: Number,
+        min: 0,
+        max: 100
+    },
+    'disease.$.amount': {
         type: Number,
         decimal: true
     },
-    subTotal: {
+    subtotal: {
+        type: Number,
+        decimal: true
+    },
+    deposit: {
         type: Number,
         decimal: true
     },
     total: {
         type: Number,
         decimal: true
+    },
+    branchId: {
+        type: String
     }
-
-    //shareInvoice
-
-
 });
+
+/***
+ *AttachSchema
+ */
+Dental.Collection.Invoice.attachSchema(Dental.Schema.Invoice);

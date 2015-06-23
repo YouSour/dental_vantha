@@ -1,0 +1,16 @@
+<template name="dental_registerInfo">
+    {{#with data}}
+        <div class="bs-callout bs-callout-info">
+            <!--<h4>Patient Info</h4>-->
+            <div class="row">
+                <div class="col-md-6">
+                    Register ID: {{_id}} | Date: {{registerDate}}<br>
+                </div>
+                <div class="col-md-6">
+                    Patient ID: {{patientId}} | Name: {{_patient.name}} | Gender: {{_patient.gender}}
+                    <img src="{{_patient.photoUrl}}" class="img-circle" width="50px" height="50px">
+                </div>
+            </div>
+        </div>
+    {{/with}}
+</template>

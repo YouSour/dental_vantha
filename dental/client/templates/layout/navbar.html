@@ -9,14 +9,15 @@
             <ul class="dropdown-menu" role="menu">
                 <li class="{{isActiveRoute name='dental.patient'}}"><a href="{{pathFor 'dental.patient'}}">Patient</a>
                 </li>
-                <li class="{{isActiveRoute name='dental.register'}}"><a
-                        href="{{pathFor 'dental.register'}}">Register</a></li>
-                <li class="{{isActiveRoute name='dental.treatment'}}"><a
-                        href="{{pathFor 'dental.treatment'}}">Treatment</a></li>
-                <li class="{{isActiveRoute name='dental.deposit'}}"><a href="{{pathFor 'dental.deposit'}}">Deposit</a>
+                <li class="{{isActiveRoute name='dental.register'}}">
+                    <a href="{{pathFor 'dental.register'}}">Register</a>
                 </li>
-                <li class="{{isActiveRoute name='dental.purchase'}}"><a
-                        href="{{pathFor 'dental.purchase'}}">Purchase</a></li>
+
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Purchase</li>
+                <li class="{{isActiveRoute name='dental.purchase'}}">
+                    <a href="{{pathFor 'dental.purchase'}}">Purchase</a>
+                </li>
             </ul>
         </li>
 
@@ -53,14 +54,6 @@
                 </li>
                 <li class="{{isActiveRoute name='dental.diseaseItem'}}">
                     <a href="{{pathFor 'dental.diseaseItem'}}">Item</a>
-                </li>
-
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">In-Expense</li>
-                <li class="{{isActiveRoute name='dental.expenseType'}}">
-                    <a href="{{pathFor 'dental.expenseType'}}">Expense Type</a></li>
-                <li class="{{isActiveRoute name='dental.expense'}}">
-                    <a href="{{pathFor 'dental.expense'}}">Expense</a>
                 </li>
 
                 <li role="separator" class="divider"></li>
