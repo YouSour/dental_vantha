@@ -2,7 +2,7 @@
  * Index
  */
 Template.dental_register.onCreated(function () {
-    createNewAlertify(['register', 'patientAddon', 'treatment']);
+    createNewAlertify(['register', 'patientAddon', 'treatmentAction']);
 });
 
 Template.dental_register.helpers({
@@ -53,10 +53,21 @@ Template.dental_register.events({
                 title: fa("eye", "Register")
             })
     },
-    'click .treatment': function () {
-        alertify.treatment(
-            fa("eye", "Treatment"),
-            renderTemplate(Template.dental_treatment)
+    'click .treatmentAction': function () {
+        var data = Dental.Collection.Register.findOne({_id: this._id});
+        var patientDoc = Dental.Collection.Patient.findOne(data.patientId);
+        var photo = Files.findOne(patientDoc.photo);
+        if (photo) {
+            patientDoc.photoUrl = photo.url();
+        }
+        data._patient = patientDoc;
+
+        // Set session for selector of tabular
+        Session.set('registerId', data._id);
+
+        alertify.treatmentAction(
+            fa("plus", "Treatment"),
+            renderTemplate(Template.dental_treatment, data)
         ).maximize();
     }
 });

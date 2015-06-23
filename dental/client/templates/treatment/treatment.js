@@ -2,24 +2,26 @@
  * Index
  */
 Template.dental_treatment.onCreated(function () {
-    createNewAlertify(['treatment', 'patientAddon', 'registerAddon', 'doctorAddon']);
+    createNewAlertify('doctorAddon');
 });
 
 Template.dental_treatment.helpers({
     selector: function () {
-        var pattern = Session.get('currentBranch');
-        return {branchId: pattern};
+
+        console.log(Session.get('registerId'));
+
+        return {registerId: Session.get('registerId')};
     }
 });
 
 Template.dental_treatment.events({
-    'click .insert': function () {
-        alertify.treatment(renderTemplate(Template.dental_treatmentInsert))
-            .set({
-                title: fa("plus", "Treatment")
-            })
-            .maximize();
-    },
+    //'click .insert': function () {
+    //    alertify.treatment(renderTemplate(Template.dental_treatmentInsert))
+    //        .set({
+    //            title: fa("plus", "Treatment")
+    //        })
+    //        .maximize();
+    //},
     'click .update': function () {
         var data = this;
         alertify.treatment(renderTemplate(Template.dental_treatmentUpdate, data))
