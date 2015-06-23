@@ -7,8 +7,8 @@ Dental.TabularTable.Treatment = new Tabular.Table({
         {data: "treatmentDate", title: "Treatment Date"},
         //{data: "patientId", title: "Patient"},
         //{data: "registerId", title: "Register"},
-        {data: "doctorId", title: "Doctor"},
         {data: "des", title: "Description"},
+        {data: "doctorId", title: "Doctor"},
         {
             data: "attachFile", title: "Attache",
             render: function (val, type, doc) {

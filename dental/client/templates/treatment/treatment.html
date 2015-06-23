@@ -1,15 +1,23 @@
 <!--Index-->
 <template name="dental_treatment">
     <!--Info-->
-    <div class="bs-callout bs-callout-info">
-        <!--<h4>Patient Info</h4>-->
-        Register ID: {{_id}} | Date: {{registerDate}}<br>
-        Patient ID: {{patientId}} | Name: {{_patient.name}} | Gender: {{_patient.gender}}
-        <img src="{{_patient.photoUrl}}" class="img-circle" width="50px" height="50px">
-    </div>
+    {{#with data}}
+        <div class="bs-callout bs-callout-info">
+            <!--<h4>Patient Info</h4>-->
+            <div class="row">
+                <div class="col-md-6">
+                    Register ID: {{_id}} | Date: {{registerDate}}<br>
+                </div>
+                <div class="col-md-6">
+                    Patient ID: {{patientId}} | Name: {{_patient.name}} | Gender: {{_patient.gender}}
+                    <img src="{{_patient.photoUrl}}" class="img-circle" width="50px" height="50px">
+                </div>
+            </div>
+        </div>
+    {{/with}}
 
-    <p>
-    <button type="button" class="btn btn-primary insert">{{fa "plus"}} Add New</button>
+    <p style="margin-bottom: 10px">
+        <button type="button" class="btn btn-primary insert">{{fa "plus"}} Add New</button>
     </p>
 
     {{> tabular table=Dental.TabularTable.Treatment selector=selector class="table table-striped table-bordered table-condensed table-hover"}}
@@ -28,12 +36,18 @@
 <template name="dental_treatmentInsert">
     {{#autoForm collection=Dental.Collection.Treatment id="dental_treatmentInsert" type="insert"}}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
+
                 {{> afQuickField name="patientId" type="hidden" value=patientId}}
                 {{> afQuickField name="registerId"  type="hidden" value=_id}}
 
+                {{> afQuickField name="treatmentDate"}}
+
+                <!--</div>-->
+
+                <!--<div class="col-md-6">-->
                 <!--{{> afQuickField name="doctorId"}}-->
-                <div class="form-group{{#if afFieldIsInvalid name='doctorId'}} has-error{{/if}}">
+                <div class="form-group{{#if afFieldIsInvalid name='doctorId'}} has-error{{/if}}" data-required="true">
                     <label class="control-label" for="doctorId">Doctor</label>
 
                     <div class="input-group  select2-bootstrap-append">
@@ -48,13 +62,12 @@
                         <span class="help-block">{{afFieldMessage name='doctorId'}}</span>
                     {{/if}}
                 </div>
+                {{> afQuickField name="des" rows=3}}
+                {{> afQuickField name="attachFile"}}
 
                 {{> afQuickField name="treatmentDate"}}
                 {{> afQuickField name="attachFile"}}
 
-            </div>
-            <div class="col-md-6">
-                {{> afQuickField name="des" rows=5}}
             </div>
         </div>
 
@@ -67,45 +80,19 @@
 <template name="dental_treatmentUpdate">
     {{#autoForm collection=Dental.Collection.Treatment doc=this id="dental_treatmentUpdate" type="update"}}
         <div class="row">
-            <div class="col-md-6">
-                <!--{{> afQuickField name="patientId"}}-->
-                <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}">
-                    <label class="control-label" for="patientId">Patient</label>
+            <div class="col-md-12">
 
-                    <div class="input-group  select2-bootstrap-append">
-                        {{> afFieldInput name='patientId'}}
-                        <span class="input-group-addon">
-                            <a href="#" class="patientAddon">
-                                {{fa "plus"}}
-                            </a>
-                        </span>
-                    </div>
-                    {{#if afFieldIsInvalid name='patientId'}}
-                        <span class="help-block">{{afFieldMessage name='patientId'}}</span>
-                    {{/if}}
-                </div>
-
-                <!--{{> afQuickField name="registerId"}}-->
-                <div class="form-group{{#if afFieldIsInvalid name='registerId'}} has-error{{/if}}">
-                    <label class="control-label" for="registerId">Register</label>
-
-                    <div class="input-group  select2-bootstrap-append">
-                        {{> afFieldInput name='registerId'}}
-                        <span class="input-group-addon">
-                            <a href="#" class="registerAddon">
-                                {{fa "plus"}}
-                            </a>
-                        </span>
-                    </div>
-                    {{#if afFieldIsInvalid name='registerId'}}
-                        <span class="help-block">{{afFieldMessage name='registerId'}}</span>
-                    {{/if}}
-                </div>
+                {{> afQuickField name="patientId" type="hidden"}}
+                {{> afQuickField name="registerId"  type="hidden"}}
 
                 {{> afQuickField name="treatmentDate"}}
 
+                <!--</div>-->
+
+                <!--<div class="col-md-6">-->
+
                 <!--{{> afQuickField name="doctorId"}}-->
-                <div class="form-group{{#if afFieldIsInvalid name='doctorId'}} has-error{{/if}}">
+                <div class="form-group{{#if afFieldIsInvalid name='doctorId'}} has-error{{/if}}" data-required="true">
                     <label class="control-label" for="doctorId">Doctor</label>
 
                     <div class="input-group  select2-bootstrap-append">
@@ -121,10 +108,9 @@
                     {{/if}}
                 </div>
 
-            </div>
-            <div class="col-md-6">
-                {{> afQuickField name="des" rows=5}}
-                <!--{{> afQuickField name="attachFile"}}-->
+                {{> afQuickField name="des" rows=3}}
+                {{> afQuickField name="attachFile"}}
+
             </div>
         </div>
 
@@ -148,7 +134,7 @@
         <dd>{{doctorId}}</dd>
         <dt>Description</dt>
         <dd>{{des}}</dd>
-        <!--<dt>File</dt>-->
-        <!--<dd><img src="{{attachFileUrl}}" class="img-thumbnail" width="50px" height="50px"></dd>-->
+        <dt>File</dt>
+        <dd><img src="{{attachFileUrl}}" class="img-thumbnail" width="50px" height="50px"></dd>
     </dl>
 </template>

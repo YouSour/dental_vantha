@@ -1,3 +1,4 @@
+Dental.RegisterState = new ReactiveObj();
 /***
  * Index
  */
@@ -62,12 +63,12 @@ Template.dental_register.events({
         }
         data._patient = patientDoc;
 
-        // Set session for selector of tabular
-        Session.set('registerId', data._id);
+        // Set state for treatment
+        Dental.RegisterState.set('data', data);
 
         alertify.treatmentAction(
-            fa("plus", "Treatment"),
-            renderTemplate(Template.dental_treatment, data)
+            fa("list", "Treatment"),
+            renderTemplate(Template.dental_treatment)
         ).maximize();
     }
 });
