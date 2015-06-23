@@ -28,20 +28,22 @@ Template.dental_treatment.events({
         alertify.treatment(fa("pencil", "Treatment"), renderTemplate(Template.dental_treatmentUpdate, data));
     },
     'click .remove': function () {
-        var id = this._id;
+        var self = this;
 
-        alertify.confirm("Are you sure to delete [" + id + "] ?")
-            .set({
-                onok: function (result, id) {
-                    Dental.Collection.Treatment.remove(id, function (error) {
-                        if (error) {
-                            alertify.success(error.message);
-                        } else {
-                            alertify.success('Success');
-                        }
-                    })
-                }
-            })
+        alertify.confirm(
+            fa("remove", "Treatment"),
+            "Are you sure to delete [" + self._id + "]?",
+            function () {
+                Dental.Collection.Treatment.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function () {
         var data = Dental.Collection.Treatment.findOne(this._id);
