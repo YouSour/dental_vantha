@@ -8,37 +8,30 @@ Template.dental_doctor.onCreated(function () {
 
 Template.dental_doctor.events({
     'click .insert': function (e, t) {
-        alertify.doctor(renderTemplate(Template.dental_doctorInsert))
-            .set({
-                title: fa("plus", "Doctor")
-            })
-            .maximize();
+        alertify.doctor(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert)).maximize();
     },
     'click .update': function (e, t) {
         var data = Dental.Collection.Doctor.findOne(this._id);
 
-        alertify.doctor(renderTemplate(Template.dental_doctorUpdate, data))
-            .set({
-                title: fa("pencil", "Doctor")
-            })
-            .maximize();
+        alertify.doctor(fa("pencil", "Doctor"), renderTemplate(Template.dental_doctorUpdate, data)).maximize();
     },
     'click .remove': function (e, t) {
-        var id = this._id;
+        var self = this;
 
-        alertify.confirm("Are you sure to delete [" + id + "]?")
-            .set({
-                onok: function (closeEvent) {
-                    Dental.Collection.Doctor.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                },
-                title: fa("remove", "Doctor")
-            });
+        alertify.confirm(
+            fa("remove", "Doctor"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (closeEvent) {
+                Dental.Collection.Doctor.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function (e, t) {
         var data = Dental.Collection.Doctor.findOne(this._id);
@@ -47,10 +40,7 @@ Template.dental_doctor.events({
         if (!_.isUndefined(data.photo)) {
             data.photoUrl = Files.findOne(data.photo).url();
         }
-        alertify.alert(renderTemplate(Template.dental_doctorShow, data))
-            .set({
-                title: fa("eye", "Doctor")
-            });
+        alertify.alert(fa("eye", "Doctor"), renderTemplate(Template.dental_doctorShow, data));
     }
 });
 

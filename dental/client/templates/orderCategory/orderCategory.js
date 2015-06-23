@@ -7,44 +7,37 @@ Template.dental_orderCategory.onRendered(function () {
 
 Template.dental_orderCategory.events({
     'click .insert': function () {
-        alertify.orderCategory(renderTemplate(Template.dental_orderCategoryInsert))
-            .set({
-                title: fa("plus", "Order Category")
-            });
+        alertify.orderCategory(fa("plus", "Order Catogory"), renderTemplate(Template.dental_orderCategoryInsert));
     },
     'click .update': function () {
         var data = Dental.Collection.OrderCategory.findOne({_id: this._id});
-        alertify.orderCategory(renderTemplate(Template.dental_orderCategoryUpdate, data))
-            .set({
-                title: fa("pencil", "Order Category")
-            });
+        alertify.orderCategory(fa("pencil", "Order Category"), renderTemplate(Template.dental_orderCategoryUpdate, data));
     },
     'click .remove': function () {
-        var id = this._id;
+        var self = this;
 
-        alertify.confirm("Are you sure to delete [" + id + "] ?")
-            .set({
-                onok: function (closeEvent) {
-                    Dental.Collection.OrderCategory.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                },
-                title: fa("remove", "Remove")
-            })
+        alertify.confirm(
+            fa("remove", "Order Catogory"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (closeEvent) {
+                Dental.Collection.OrderCategory.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function () {
         var data = Dental.Collection.OrderCategory.findOne({_id: this._id});
 
-        alertify.alert(renderTemplate(Template.dental_orderCategoryShow, data))
-            .set({
-                title: fa("eye", "Order Category")
-            })
+        alertify.alert(fa("eye", "Order Category"), renderTemplate(Template.dental_orderCategoryShow, data));
     }
-});
+})
+;
 
 /**
  * Hook

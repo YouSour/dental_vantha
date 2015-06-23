@@ -5,7 +5,7 @@ Router.route('dental/purchase', function () {
         header: {title: 'purchase', sub: '', icon: 'fa fa-cart-plus'},
         title: "Purchase",
         waitOn: function () {
-            return Meteor.subscribe('dentalPurchase');
+            return Meteor.subscribe('dental_purchase');
         }
     }
 );

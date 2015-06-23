@@ -8,44 +8,36 @@ Template.dental_diseaseCategory.onRendered(function () {
 
 Template.dental_diseaseCategory.events({
     'click .insert': function (e, t) {
-        alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryInsert))
-            .set({
-                title: fa("plus", "Disease Category")
-            });
+        alertify.diseaseCategory(fa("plus", "Disease Category"), renderTemplate(Template.dental_diseaseCategoryInsert));
     },
     'click .update': function (e, t) {
         var data = Dental.Collection.DiseaseCategory.findOne(this._id);
 
-        alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryUpdate, data))
-            .set({
-                title: fa("pencil", "Disease Category")
-            });
+        alertify.diseaseCategory(fa("pencil", "Disease Category"), renderTemplate(Template.dental_diseaseCategoryUpdate, data));
     },
     'click .remove': function (e, t) {
-        var id = this._id;
+        var self = this;
 
-        alertify.confirm("Are you sure to delete [" + id + "]?")
-            .set({
-                onok: function (closeEvent) {
+        alertify.confirm(
+            fa("remove", "Disease Category"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (closeEvent) {
 
-                    Dental.Collection.DiseaseCategory.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                },
-                title: fa("remove", "Disease Category")
-            });
+                Dental.Collection.DiseaseCategory.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function (e, t) {
         var data = Dental.Collection.DiseaseCategory.findOne(this._id);
 
-        alertify.alert(renderTemplate(Template.dental_diseaseCategoryShow, data))
-            .set({
-                title: fa("eye", "Disease Category")
-            });
+        alertify.alert(fa("eye", "Disease Category"),renderTemplate(Template.dental_diseaseCategoryShow, data));
     }
 });
 
@@ -69,7 +61,7 @@ AutoForm.hooks({
     },
     dental_diseaseCategoryUpdate: {
         onSuccess: function (formType, result) {
-            alertify.DiseaseCategory().close();
+            alertify.diseaseCategory().close();
             alertify.success('Success');
         },
         onError: function (formType, error) {

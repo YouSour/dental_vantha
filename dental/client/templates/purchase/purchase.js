@@ -7,41 +7,32 @@ Template.dental_purchase.onRendered(function () {
 
 Template.dental_purchase.events({
     'click .insert': function () {
-        alertify.purchase(renderTemplate(Template.dental_purchaseInsert))
-            .set({
-                title: fa("plus", "Purchase")
-            })
-            .maximize();
+        alertify.purchase(fa("plus", "Purchase"), renderTemplate(Template.dental_purchaseInsert)).maximize();
     },
     'click .update': function () {
         var data = Dental.Collection.Purchase.findOne({_id: this._id});
-        alertify.purchase(renderTemplate(Template.dental_purchaseUpdate, data))
-            .set({
-                title: fa("pencil", "Purchase")
-            })
-            .maximize();
+        alertify.purchase(fa("pencil", "Purchase"), renderTemplate(Template.dental_purchaseUpdate, data)).maximize();
     },
     'click .remove': function () {
-        var id = this._id;
-        alertify.confirm("Are you sure to delete [" + id + "] ?")
-            .set({
-                onok: function (result) {
-                    Dental.Collection.Purchase.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success('Success');
-                        }
-                    });
-                },
-                title: fa("remove", "Purchase")
-            })
+        var self = this;
+
+        alertify.confirm(
+            fa("remove", "Purchase"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (result) {
+                Dental.Collection.Purchase.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success('Success');
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function () {
-        alertify.alert(renderTemplate(Template.dental_purchaseShow, this))
-            .set({
-                title: fa("eye", "Purchase")
-            })
+        alertify.alert(fa("eye","Purchase"),renderTemplate(Template.dental_purchaseShow, this));
     }
 });
 

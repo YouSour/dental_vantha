@@ -28,6 +28,9 @@ Dental.Schema.Supplier = new SimpleSchema({
         type: String,
         max: 500,
         optional: true
+    },
+    branchId: {
+        type:String
     }
 });
 

@@ -16,17 +16,19 @@ Dental.TabularTable.Purchase = new Tabular.Table({
         },
         {
             data: "supplierId",
-            title: "Suppiler",
-            render: function (val, doc, type) {
-                return labelCon(val, val, "primary");
-            }
+            title: "Suppiler"
+            //,
+            //render: function (val, doc, type) {
+            //    return labelCon(val, val, "primary");
+            //}
         },
         {
             data: "registerId",
-            title: "Register",
-            render: function (val, doc, type) {
-                return labelCon(val, val, "primary");
-            }
+            title: "Register"
+            //,
+            //render: function (val, doc, type) {
+            //    return labelCon(val, val, "primary");
+            //}
         },
         {
             data: "items",
@@ -51,10 +53,11 @@ Dental.TabularTable.Purchase = new Tabular.Table({
         },
         {
             data: "total",
-            title: "Total",
-            render: function (val, doc, type) {
-                return labelCon(val, val, "success");
-            }
+            title: "Total"
+            //,
+            //render: function (val, doc, type) {
+            //    return labelCon(val, val, "success");
+            //}
         }
     ],
     order: [["0", "desc"]],
