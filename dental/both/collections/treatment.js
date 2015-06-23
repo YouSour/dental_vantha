@@ -10,22 +10,10 @@ Dental.Collection.Treatment = new Mongo.Collection('dental_treatment');
  */
 Dental.Schema.Treatment = new SimpleSchema({
     patientId: {
-        type: String,
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.List.patient();
-            }
-        }
+        type: String
     },
     registerId: {
-        type: String,
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.List.registerForPatient();
-            }
-        }
+        type: String
     },
     treatmentDate: {
         type: String,
@@ -47,17 +35,17 @@ Dental.Schema.Treatment = new SimpleSchema({
         type: String,
         label: "Description"
     },
-    //attachFile: {
-    //    type: String,
-    //    label: 'Choose file',
-    //    autoform: {
-    //        afFieldInput: {
-    //            type: 'fileUpload',
-    //            collection: 'Files'
-    //        }
-    //    },
-    //    optional: true
-    //},
+    attachFile: {
+        type: String,
+        label: 'Choose file',
+        autoform: {
+            afFieldInput: {
+                type: 'fileUpload',
+                collection: 'Files'
+            }
+        },
+        optional: true
+    },
     branchId: {
         type: String
     }

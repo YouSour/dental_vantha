@@ -12,7 +12,9 @@
         <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
         <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
         <li><a href="#" class="show">{{fa "eye"}} Show</a></li>
-        <li><a href="#" class="treatment">{{fa "medkit"}} Treatment</a></li>
+        <li role="separator" class="divider"></li>
+        <!--<li class="dropdown-header">Additional</li>-->
+        <li><a href="#" class="treatmentAction">{{fa "medkit"}} Treatment</a></li>
     {{/tabularAction}}
 </template>
 
@@ -24,7 +26,7 @@
             <div class="col-md-4">
 
                 <!--{{> afQuickField name='patientId'}}-->
-                <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}">
+                <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}" data-required="true">
                     <label class="control-label" for="patientId">Patient</label>
 
                     <div class="input-group  select2-bootstrap-append">
@@ -64,7 +66,7 @@
             <div class="col-md-4">
 
                 <!--{{> afQuickField name='patientId'}}-->
-                <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}">
+                <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}" data-required="true">
                     <label class="control-label" for="patientId">Patient</label>
 
                     <div class="input-group  select2-bootstrap-append">
