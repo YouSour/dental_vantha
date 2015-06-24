@@ -44,21 +44,17 @@ Template.dental_diseaseItem.events({
  * Insert
  */
 Template.dental_diseaseItemInsert.events({
-    'click [name="diseaseCategoryId"]': function (e, t) {
+    'click .diseaseCategoryAddon': function (e, t) {
         alertify.diseaseCategory(fa("plus", "Disease Category"), renderTemplate(Template.dental_diseaseCategoryInsert));
     }
-
 });
 
 /**
  * Update
  */
 Template.dental_diseaseItemUpdate.events({
-    'click [name="diseaseCategoryId"]': function (e, t) {
-        alertify.diseaseCategory(renderTemplate(Template.dental_diseaseCategoryInsert))
-            .set({
-                title: fa("plus", "Disease Category")
-            });
+    'click .diseaseCategoryAddon': function (e, t) {
+        alertify.diseaseCategory(fa("plus", "Disease Category"),renderTemplate(Template.dental_diseaseCategoryInsert));
     }
 });
 
