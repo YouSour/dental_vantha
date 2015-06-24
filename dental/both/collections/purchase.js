@@ -58,17 +58,17 @@ Dental.Schema.Purchase = new SimpleSchema({
     },
     'items.$.qty': {
         type: Number,
-        min:1
+        min: 1
     },
     'items.$.price': {
         type: Number,
         decimal: true,
-        min:1
+        min: 1
     },
     'items.$.amount': {
         type: Number,
         decimal: true,
-        optional:true
+        optional: true
     },
     total: {
         type: Number,
@@ -78,6 +78,9 @@ Dental.Schema.Purchase = new SimpleSchema({
                 type: "hidden"
             }
         }
+    },
+    branchId: {
+        type: String
     }
 });
 

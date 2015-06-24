@@ -2,7 +2,7 @@
  *Index
  */
 Template.dental_purchase.onRendered(function () {
-    createNewAlertify('purchase');
+    createNewAlertify(['purchase','supplierAddon','registerAddon']);
 });
 
 Template.dental_purchase.events({
@@ -32,7 +32,7 @@ Template.dental_purchase.events({
         );
     },
     'click .show': function () {
-        alertify.alert(fa("eye","Purchase"),renderTemplate(Template.dental_purchaseShow, this));
+        alertify.alert(fa("eye", "Purchase"), renderTemplate(Template.dental_purchaseShow, this));
     }
 });
 
@@ -47,6 +47,12 @@ Template.dental_purchaseInsert.onRendered(function () {
 Template.dental_purchaseInsert.helpers({});
 
 Template.dental_purchaseInsert.events({
+    'click .supplierAddon': function () {
+        alertify.supplierAddon(fa("plus","Supplier"),renderTemplate(Template.dental_supplierInsert));
+    },
+    'click .registerAddon': function () {
+        alertify.registerAddon(fa("plus","Register"),renderTemplate(Template.dental_registerInsert)).maximize();
+    },
     'change .OrderItemId': function (e) {
 
         var thisObj = $(e.currentTarget);
@@ -115,6 +121,12 @@ Template.dental_purchaseUpdate.onRendered(function () {
 Template.dental_purchaseUpdate.helpers({});
 
 Template.dental_purchaseUpdate.events({
+    'click .supplierAddon': function () {
+        alertify.supplierAddon(fa("plus","Supplier"),renderTemplate(Template.dental_supplierInsert));
+    },
+    'click .registerAddon': function () {
+        alertify.registerAddon(fa("plus","Register"),renderTemplate(Template.dental_registerInsert)).maximize();
+    },
     'change .OrderItemId': function (e) {
 
         var thisObj = $(e.currentTarget);
@@ -213,6 +225,7 @@ AutoForm.hooks({
             insert: function (doc) {
                 var purchasePrefix = Session.get('currentBranch') + '-' + moment($('.purchaseDate').val()).format("YYYYMMDD");
                 doc._id = idGenerator.genWithPrefix(Dental.Collection.Purchase, purchasePrefix, 3);
+                doc.branchId = Session.get('currentBranch');
                 return doc;
             }
         },
