@@ -24,10 +24,40 @@
                 {{> afQuickField name='purchaseDate' class='purchaseDate'}}
             </div>
             <div class="col-md-4">
-                {{> afQuickField name='supplierId'}}
+                <!--{{> afQuickField name='supplierId'}}-->
+                <div class="form-group{{#if afFieldIsInvalid name='supplierId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="supplierId">Supplier</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='supplierId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="supplierAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='supplierId'}}
+                        <span class="help-block">{{afFieldMessage name='supplierId'}}</span>
+                    {{/if}}
+                </div>
             </div>
             <div class="col-md-4">
-                {{> afQuickField name='registerId'}}
+                <!--{{> afQuickField name='registerId'}}-->
+                <div class="form-group{{#if afFieldIsInvalid name='registerId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="registerId">Register ID</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='registerId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="registerAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='registerId'}}
+                        <span class="help-block">{{afFieldMessage name='registerId'}}</span>
+                    {{/if}}
+                </div>
             </div>
         </div>
 
@@ -53,10 +83,40 @@
                 {{> afQuickField name='purchaseDate' class='purchaseDate'}}
             </div>
             <div class="col-md-4">
-                {{> afQuickField name='supplierId'}}
+                <!--{{> afQuickField name='supplierId'}}-->
+                <div class="form-group{{#if afFieldIsInvalid name='supplierId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="supplierId">Supplier</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='supplierId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="supplierAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='supplierId'}}
+                        <span class="help-block">{{afFieldMessage name='supplierId'}}</span>
+                    {{/if}}
+                </div>
             </div>
             <div class="col-md-4">
-                {{> afQuickField name='registerId'}}
+                <!--{{> afQuickField name='registerId'}}-->
+                <div class="form-group{{#if afFieldIsInvalid name='registerId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="registerId">Register ID</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='registerId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="registerAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='registerId'}}
+                        <span class="help-block">{{afFieldMessage name='registerId'}}</span>
+                    {{/if}}
+                </div>
             </div>
         </div>
 
