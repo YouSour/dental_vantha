@@ -81,6 +81,10 @@ Template.dental_register.events({
                 renderTemplate(Template.dental_invoiceUpdate, invoiceExist)
             ).maximize();
         }
+    },
+    'click .invoiceReportAction': function () {
+        var url = 'invoiceReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
+        window.open(url, '_blank');
     }
 });
 
