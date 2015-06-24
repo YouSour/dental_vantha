@@ -23,7 +23,7 @@ Dental.List = {
     },
     diseaseCategory: function () {
         var list = [];
-        list.push({label: "(SelectOne)", value: ""});
+        list.push({label: "(Select One)", value: ""});
         Dental.Collection.DiseaseCategory.find()
             .forEach(function (obj) {
                 list.push({label: obj.code + ' : ' + obj.name, value: obj._id});
@@ -31,21 +31,9 @@ Dental.List = {
 
         return list;
     },
-    expenseType: function (selectOne) {
-        var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "(SelectOne)", value: ""});
-        }
-        Dental.Collection.expenseType.find()
-            .forEach(function (obj) {
-                list.push({label: obj._id + " : " + obj.name, value: obj._id});
-            });
-
-        return list;
-    },
     orderCategory: function () {
         var list = [];
-        list.push({label: "(SelectOne)", value: ""});
+        list.push({label: "(Select One)", value: ""});
 
         Dental.Collection.OrderCategory.find()
             .forEach(function (obj) {
@@ -56,7 +44,7 @@ Dental.List = {
     },
     member: function () {
         var list = [];
-        list.push({label: "(SelectOne)", value: ""});
+        list.push({label: "(Select One)", value: ""});
         list.push({label: "Yes", value: "Yes"});
         list.push({label: "No", value: "No"});
 
@@ -64,7 +52,7 @@ Dental.List = {
     },
     patient: function () {
         var list = [];
-        list.push({label: "(SelectOne)", value: ""});
+        list.push({label: "(Select One)", value: ""});
 
         var currentBranch = Session.get('currentBranch');
         Dental.Collection.Patient.find({branchId: currentBranch})
@@ -112,7 +100,7 @@ Dental.List = {
     },
     registerForPatient: function () {
         var list = [];
-        list.push({label: "Select One", value: ""});
+        list.push({label: "(Select One)", value: ""});
 
         var patientId = Dental.ListState.get('patientId');
         Dental.Collection.Register.find({
@@ -124,11 +112,10 @@ Dental.List = {
 
         return list;
     },
-    register: function (selectOne) {
+    register: function () {
         var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "Select One", value: ""});
-        }
+        list.push({label: "(Select One)", value: ""});
+
         Dental.Collection.Register.find().forEach(function (obj) {
             list.push({label: obj._id, value: obj._id});
         });
@@ -138,7 +125,7 @@ Dental.List = {
     supplier: function (selectOne) {
         var list = [];
         if (!_.isEqual(selectOne, false)) {
-            list.push({label: "Select One", value: ""});
+            list.push({label: "(Select One)", value: ""});
         }
         Dental.Collection.Supplier.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
@@ -146,27 +133,13 @@ Dental.List = {
 
         return list;
     },
-    orderItem: function (selectOne) {
+    orderItem: function () {
         var list = [];
-        //if (!_.isEqual(selectOne, false)) {
-        //    list.push({label: "Select One", value: ""});
-        //}
+        list.push({label: "(Select One)", value: ""});
+
         Dental.Collection.OrderItem.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
         });
-
-        return list;
-    },
-    address: function (selectOne) {
-        var list = [];
-        if (!_.isEqual(selectOne, false)) {
-            list.push({label: "(Select One)", value: ""});
-        }
-
-        Sample.Collection.Address.find()
-            .forEach(function (obj) {
-                list.push({label: obj._id + ' : ' + obj.name, value: obj._id});
-            });
 
         return list;
     }
