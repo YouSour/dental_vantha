@@ -44,7 +44,7 @@ Template.dental_diseaseItem.events({
  * Insert
  */
 Template.dental_diseaseItemInsert.events({
-    'click ['name="diseaseCategoryId"]': function (e, t) {
+    'click [name="diseaseCategoryId"]': function (e, t) {
         alertify.diseaseCategory(fa("plus", "Disease Category"), renderTemplate(Template.dental_diseaseCategoryInsert));
     }
 
