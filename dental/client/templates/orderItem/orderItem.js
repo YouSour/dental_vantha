@@ -7,44 +7,34 @@ Template.dental_orderItem.onRendered(function () {
 
 Template.dental_orderItem.events({
     'click .insert': function () {
-        alertify.orderItem(renderTemplate(Template.dental_orderItemInsert))
-            .set({
-                title: fa("plus", "Order Item")
-            })
-            .maximize();
+        alertify.orderItem(fa("plus", "Order Item"), renderTemplate(Template.dental_orderItemInsert)).maximize();
     },
     'click .update': function () {
         var data = Dental.Collection.OrderItem.findOne({_id: this._id});
-        alertify.orderItem(renderTemplate(Template.dental_orderItemUpdate, data))
-            .set({
-                title: fa("pencil", "Order Item")
-            })
-            .maximize();
+        alertify.orderItem(fa("pencil", "Order Item"), renderTemplate(Template.dental_orderItemUpdate, data)).maximize();
     },
     'click .remove': function () {
-        var id = this._id;
+        var self = this;
 
-        alertify.confirm("Are you sure to delete [" + id + "] ?")
-            .set({
-                onok: function (closeEvent) {
-                    Dental.Collection.OrderItem.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                },
-                title: fa("remove", "Remove")
-            })
+        alertify.confirm(
+            fa("remove", "Remove"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (closeEvent) {
+                Dental.Collection.OrderItem.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function () {
         var data = Dental.Collection.OrderItem.findOne({_id: this._id});
 
-        alertify.alert(renderTemplate(Template.dental_orderItemShow, data))
-            .set({
-                title: fa("eye", "Order Item")
-            })
+        alertify.alert(fa("eye", "Order Item"),renderTemplate(Template.dental_orderItemShow, data));
     }
 });
 
