@@ -29,7 +29,8 @@ Dental.Schema.Register = new SimpleSchema({
     },
     disease: {
         type: Array,
-        minCount: 1
+        minCount: 0,
+        optional: true
     },
     'disease.$': {
         type: Object
@@ -69,12 +70,12 @@ Dental.Schema.Register = new SimpleSchema({
             afFieldInput: {
                 type: "hidden"
             }
-        }
+        },
+        optional: true
     },
     des: {
         type: String,
-        label: "Description",
-        optional: true
+        label: "Description"
     },
     branchId: {
         type: String

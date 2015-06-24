@@ -58,6 +58,33 @@ Dental.Schema.Invoice = new SimpleSchema({
         type: Number,
         decimal: true
     },
+    doctorShare: {
+        type: Array,
+        minCount: 0,
+        optional: true
+    },
+    'doctorShare.$': {
+        type: Object
+    },
+    'doctorShare.$.doctor': {
+        type: String,
+        autoform: {
+            type: "select",
+            //type: "selectize",
+            options: function () {
+                return Dental.List.doctor();
+            }
+        }
+    },
+    'doctorShare.$.amount': {
+        type: Number,
+        decimal: true
+    },
+    doctorShareTotal: {
+        type: Number,
+        decimal: true,
+        defaultValue: 0
+    },
     subtotal: {
         type: Number,
         decimal: true
@@ -65,6 +92,13 @@ Dental.Schema.Invoice = new SimpleSchema({
     deposit: {
         type: Number,
         decimal: true
+    },
+    subDiscount: {
+        type: Number,
+        decimal: true,
+        min: 0,
+        max: 100,
+        defaultValue: 0
     },
     total: {
         type: Number,
