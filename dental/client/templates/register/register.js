@@ -84,11 +84,11 @@ Template.dental_register.events({
     },
     // Print action
     'click .treatmentPrintAction': function () {
-        var url = 'invoiceReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
+        var url = 'treatmentReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
         window.open(url, '_blank');
     },
     'click .depositPrintAction': function () {
-        var url = 'invoiceReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
+        var url = 'depositReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
         window.open(url, '_blank');
     },
     'click .invoiceReportPrintAction': function () {
