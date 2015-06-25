@@ -3,6 +3,7 @@ Dental.TabularTable.Register = new Tabular.Table({
     collection: Dental.Collection.Register,
     columns: [
         {title: '<i class="fa fa-bars"></i>', tmpl: Meteor.isClient && Template.dental_registerAction},
+        {title: '<i class="fa fa-print"></i>', tmpl: Meteor.isClient && Template.dental_registerPrintAction},
         {data: "_id", title: "ID"},
         {data: "patientId", title: "Patient"},
         {data: "registerDate", title: "Register Date"},
@@ -33,15 +34,12 @@ Dental.TabularTable.Register = new Tabular.Table({
         //        return numeral(val).format('0,0.00');
         //    }
         //}
-        {data: "des", title: "Description"},
-        {
-            title: 'Print',
-            tmpl: Meteor.isClient && Template.dental_registerPrintAction
-        }
+        {data: "des", title: "Description"}
     ],
-    order: [['1', 'desc']],
+    order: [['2', 'desc']],
     autoWidth: false,
     columnDefs: [
-        {"width": "12px", "targets": 0}
+        {"width": "12px", "targets": 0},
+        {"width": "12px", "targets": 1}
     ]
 });

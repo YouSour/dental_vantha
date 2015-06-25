@@ -26,11 +26,11 @@
 </template>
 
 <template name="dental_registerPrintAction">
-    <a href="#" class="treatmentPrintAction" title="Treatment">{{fa "medkit"}}</a>
-    &nbsp;&nbsp;
-    <a href="#" class="depositPrintAction" title="Deposit">{{fa "ticket"}}</a>
-    &nbsp;&nbsp;
-    <a href="#" class="invoiceReportPrintAction" title="Invoice">{{fa "money"}}</a>
+    {{#tabularAction icon="print"}}
+        <li><a href="#" class="treatmentPrintAction">{{fa "medkit"}} Treatment</a></li>
+        <li><a href="#" class="depositPrintAction">{{fa "ticket"}} Deposit</a></li>
+        <li><a href="#" class="invoiceReportPrintAction">{{fa "money"}} Invoice</a></li>
+    {{/tabularAction}}
 </template>
 
 <!--Insert-->

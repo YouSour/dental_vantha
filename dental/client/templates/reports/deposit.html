@@ -1,6 +1,6 @@
 <!--Form-->
-<template name="dental_treatmentReport">
-    {{#autoForm schema=Dental.Schema.TreatmentReport id="dental_treatmentReport" action="treatmentReportGen" target="_blank"}}
+<template name="dental_depositReport">
+    {{#autoForm schema=Dental.Schema.DepositReport id="dental_depositReport" action="depositReportGen" target="_blank"}}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name='patient'}}
@@ -17,14 +17,13 @@
 
 
 <!--Generate-->
-<template name="dental_treatmentReportGen">
+<template name="dental_depositReportGen">
     {{#with data}}
         <!--Title-->
         <div class="report-title">
             <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
             <span class="report-company-name">{{title.company.enName}}</span><br>
-            ព័ត៌មានលំអិត<br>
-            Patient's Record<br>
+            <u> វិក្កយបត្រកក់ប្រាក់ (Deposit Invoice)</u><br>
             {{title.company.khAddress}}, {{title.company.telephone}}
         </div>
 
@@ -45,8 +44,7 @@
             <tr>
                 <th>No</th>
                 <th>Date</th>
-                <th>Description</th>
-                <th>Doctor</th>
+                <th>Amount</th>
             </tr>
             </thead>
 
@@ -54,9 +52,8 @@
             {{#each content}}
                 <tr>
                     <td>{{index}}</td>
-                    <td>{{treatmentDate}}</td>
-                    <td>{{des}}</td>
-                    <td>{{doctorId}}</td>
+                    <td>{{depositDate}}</td>
+                    <td>{{amount}}</td>
                 </tr>
             {{/each}}
             </tbody>
@@ -64,11 +61,11 @@
     {{/with}}
 
     <!--Sign-->
-    {{> dental_treatmentReportGenFooterSign}}
+    {{> dental_depositReportGenFooterSign}}
 </template>
 
 <!--Footer Sign-->
-<template name="dental_treatmentReportGenFooterSign">
+<template name="dental_depositReportGenFooterSign">
     <table width="100%" border="0" style="text-align: center">
         <tr>
             <td width="33%">
