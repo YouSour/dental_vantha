@@ -94,7 +94,7 @@ Template.dental_register.events({
     'click .invoiceReportPrintAction': function () {
         var url = 'invoiceReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
         window.open(url, '_blank');
-    },
+    }
 });
 
 /**
