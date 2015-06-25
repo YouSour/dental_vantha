@@ -36,7 +36,7 @@ Template.dental_invoiceReportGen.helpers({
         var patientDoc = Dental.Collection.Patient.findOne(self.patient);
         data.header = [
             {col1: 'Patient ID: ' + self.patient, col2: 'Gender: ' + patientDoc.gender, col3: 'No: ' + self.register},
-            {col1: 'Patient Name: ' + patientDoc.name, col2: 'Age: ' + patientDoc.age, col3: 'Date: ' + self.date},
+            {col1: 'Name: ' + patientDoc.name, col2: 'Age: ' + patientDoc.age, col3: 'Date: ' + self.date},
         ];
 
         /********** Content & Footer **********/
