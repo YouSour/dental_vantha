@@ -22,105 +22,61 @@ Template.dental_invoiceReportGen.helpers({
             title: {},
             header: [],
             content: [],
-            footer: []
+            footer: [],
+            deposit: []
         };
 
         /********* Title *********/
         var company = Cpanel.Collection.Company.findOne();
         data.title = {
-            company: company,
-            date: self.date
+            company: company
         };
 
         /********* Header ********/
+        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
         data.header = [
-            {col1: 'Patient: ' + self.patient, col2: 'Register: ' + self.register},
+            {col1: 'Patient ID: ' + self.patient, col2: 'Gender: ' + patientDoc.gender, col3: 'No: ' + self.register},
+            {col1: 'Patient Name: ' + patientDoc.name, col2: 'Age: ' + patientDoc.age, col3: 'Date: ' + self.date},
         ];
 
         /********** Content & Footer **********/
         var content = [];
-        //var date = s.words(self.date, ' To ');
-        //var fDate = moment(date[0], 'YYYY-MM-DD').toDate();
-        //var tDate = moment(date[1], 'YYYY-MM-DD').add(1, 'day').toDate();
 
-        // Get account selector
-        //var accountSelector = {};
-        //if (!_.isEmpty(self.branch)) {
-        //    accountSelector.cpanel_branchId = {$regex: self.branch};
-        //}
-        //if (!_.isEmpty(self.currency)) {
-        //    accountSelector.cpanel_currencyId = {$regex: self.currency};
-        //}
-        //if (!_.isEmpty(self.product)) {
-        //    accountSelector.productId = {$regex: self.product};
-        //}
-        //if (!_.isEmpty(self.staff)) {
-        //    accountSelector.staffId = {$regex: self.staff};
-        //}
-        //var getAccount = Saving.Collection.Account.find(accountSelector)
-        //    .map(function (obj) {
-        //        return obj._id;
-        //    });
-        //
-        //// Get content
-        //var getPerform = Saving.Collection.Perform.find({
-        //    amount: {$gt: 0},
-        //    accountId: {$in: getAccount},
-        //    performDate: {$gte: date[0], $lte: date[1]}
-        //}, {
-        //    sort: {performDate: 1}
-        //});
-        //
-        //var index = 1;
-        //var totalAmount = {KHR: 0, USD: 0, THB: 0, all: 0};
-        //getPerform.forEach(function (obj) {
-        //    var account = Saving.Collection.Account.findOne(obj.accountId);
-        //    var client = Saving.Collection.Client.findOne(account.clientId);
-        //    var product = Saving.Collection.Product.findOne(account.productId);
-        //    var amount = obj.amount;
-        //
-        //    // Check currency
-        //    if (account.cpanel_currencyId == 'KHR') {
-        //        totalAmount.KHR += amount;
-        //        totalAmount.all += fx.convert(amount, {from: 'KHR', to: 'USD'});
-        //    } else if (account.cpanel_currencyId == 'USD') {
-        //        totalAmount.USD += amount;
-        //        totalAmount.all += amount;
-        //    } else {
-        //        totalAmount.THB += amount;
-        //        totalAmount.all += fx.convert(amount, {from: 'THB', to: 'USD'});
-        //    }
-        //
-        //    content.push(
-        //        {
-        //            index: index,
-        //            accountId: obj.accountId,
-        //            client: client.khName + ' (' + client.enName + ')',
-        //            product: account.productId,
-        //            activeDate: obj.performDate,
-        //            amount: numeral(amount).format('0,0.00'),
-        //            currency: account.cpanel_currencyId,
-        //            status: obj.status,
-        //            voucherId: obj.voucherId,
-        //            branch: obj.cpanel_branchId
-        //        }
-        //    );
-        //    index += 1;
-        //});
+        // Get deposit
+        var indexOfDeposit = 1;
+        Dental.Collection.Deposit.find({registerId: self.register})
+            .forEach(function (obj) {
+                obj.index = indexOfDeposit;
+                obj.amount = numeral(obj.amount).format('$0,0.00');
 
-        content.push({index: 1, item: 'A', qty: 1, price: 50, subtotal: 50, discount: 0, amount: 50});
-        content.push({index: 2, item: 'A', qty: 1, price: 50, subtotal: 50, discount: 0, amount: 50});
+                data.deposit.push(obj);
+
+                indexOfDeposit += 1;
+            });
+
+        // Get invoie
+        var getInvoice = Dental.Collection.Invoice.findOne({registerId: self.register});
+        var index = 1;
+        _.each(getInvoice.disease, function (obj) {
+            var itemDoc = Dental.Collection.DiseaseItem.findOne(obj.item);
+            obj.index = index;
+            obj.itemName = itemDoc.name;
+            obj.price = numeral(obj.price).format('0,0.00');
+            obj.amount = numeral(obj.amount).format('0,0.00');
+
+            content.push(obj);
+
+            index += 1;
+        });
 
         if (content.length > 0) {
             data.content = content;
-            //data.footer = [
-            //    {
-            //        col1: numeral(totalAmount.KHR).format('0,0.00'),
-            //        col2: numeral(totalAmount.USD).format('0,0.00'),
-            //        col3: numeral(totalAmount.THB).format('0,0.00'),
-            //        col4: numeral(totalAmount.all).format('0,0.00')
-            //    }
-            //];
+            data.footer = [
+                {col1: 'Subtotal:', col2: numeral(getInvoice.subtotal).format('$0,0.00')},
+                {col1: 'Deposit:', col2: numeral(getInvoice.deposit).format('$0,0.00')},
+                {col1: 'Discount:', col2: numeral(getInvoice.subDiscount).format('0,0.00')},
+                {col1: 'Total:', col2: numeral(getInvoice.total).format('$0,0.00')}
+            ];
 
             return data;
         } else {

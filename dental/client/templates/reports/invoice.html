@@ -11,18 +11,18 @@
 
                 <!--{{> afQuickField name='exchange'}}-->
                 <!--<div class="form-group{{#if afFieldIsInvalid name='exchange'}} has-error{{/if}}" data-required="true">-->
-                    <!--<label class="control-label" for="exchange">Exchange</label>-->
+                <!--<label class="control-label" for="exchange">Exchange</label>-->
 
-                    <!--<div class="input-group select2-bootstrap-append">-->
-                        <!--{{> afFieldInput name='exchange'}}-->
-                        <!--<span class="input-group-addon">-->
-                            <!--<a href="#" class="exchangeAddon">-->
-                                <!--{{fa "plus"}}-->
-                            <!--</a>-->
-                        <!--</span>-->
-                    <!--</div>-->
+                <!--<div class="input-group select2-bootstrap-append">-->
+                <!--{{> afFieldInput name='exchange'}}-->
+                <!--<span class="input-group-addon">-->
+                <!--<a href="#" class="exchangeAddon">-->
+                <!--{{fa "plus"}}-->
+                <!--</a>-->
+                <!--</span>-->
+                <!--</div>-->
                     <!--{{#if afFieldIsInvalid name='exchange'}}-->
-                        <!--<span class="help-block">{{afFieldMessage name='exchange'}}</span>-->
+                <!--<span class="help-block">{{afFieldMessage name='exchange'}}</span>-->
                     <!--{{/if}}-->
                 <!--</div>-->
 
@@ -39,17 +39,19 @@
     {{#with data}}
         <!--Title-->
         <div class="report-title">
+            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
             <span class="report-company-name">{{title.company.enName}}</span><br>
-            Invoice Report<br>
-            Date: {{title.date}}<br>
+            ??????????<br>
+            Invoice<br>
         </div>
 
         <!--Header-->
         <table width="100%" border="0">
             {{#each header}}
                 <tr>
-                    <td width="50%">{{col1}}</td>
-                    <td>{{col2}}</td>
+                    <td width="33%">{{col1}}</td>
+                    <td width="33%">{{col2}}</td>
+                    <td>{{col3}}</td>
                 </tr>
             {{/each}}
         </table>
@@ -62,7 +64,6 @@
                 <th>Item</th>
                 <th>Qty</th>
                 <th>Price</th>
-                <th>Subtotal</th>
                 <th>Discount</th>
                 <th>Amount</th>
             </tr>
@@ -72,10 +73,9 @@
             {{#each content}}
                 <tr>
                     <td>{{index}}</td>
-                    <td>{{item}}</td>
+                    <td>{{itemName}}</td>
                     <td>{{qty}}</td>
                     <td>{{price}}</td>
-                    <td>{{subtotal}}</td>
                     <td>{{discount}}</td>
                     <td>{{amount}}</td>
                 </tr>
@@ -85,26 +85,42 @@
 
         <!--Footer-->
         <p></p>
-        <table class="report-content">
-            <thead class="report-content-header">
+        <table border="0" width="100%" style="font-weight: bold">
             <tr>
-                <th width="25%">KHR</th>
-                <th width="25%">USD</th>
-                <th width="25%">THB</th>
-                <th width="25%">Total</th>
-            </tr>
-            </thead>
+                <td width="50%">
+                    <!--Deposit-->
+                    <table class="report-content">
+                        <thead class="report-content-header">
+                        <tr>
+                            <th>No</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
 
-            <tbody class="report-content-body">
-            {{#each footer}}
-                <tr>
-                    <td>{{col1}}</td>
-                    <td>{{col2}}</td>
-                    <td>{{col3}}</td>
-                    <td>{{col4}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
+                        <tbody class="report-content-body">
+                        {{#each deposit}}
+                            <tr>
+                                <td>{{index}}</td>
+                                <td>{{depositDate}}</td>
+                                <td>{{amount}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <!--Total-->
+                    <table border="0" width="100%" style="font-weight: bold">
+                        {{#each footer}}
+                            <tr>
+                                <td width="50%" style="text-align: right">{{col1}}</td>
+                                <td style="text-align: right">{{col2}}</td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </td>
+            </tr>
         </table>
     {{/with}}
 

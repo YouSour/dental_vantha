@@ -3,7 +3,7 @@
  */
 Dental.ListForReportState = new ReactiveObj();
 
-Dental.List = {
+Dental.ListForReport = {
     patient: function () {
         var list = [];
         list.push({label: "(Select One)", value: ""});
