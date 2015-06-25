@@ -16,15 +16,21 @@
         <li role="separator" class="divider"></li>
         <li class="dropdown-header">Event</li>
         <li><a href="#" class="treatmentAction">{{fa "medkit"}} Treatment</a></li>
-        <li><a href="#" class="depositAction">{{fa "ticket"}} Deposit</a></li>
-        <li><a href="#" class="invoiceAction">{{fa "money"}} Invoice</a></li>
+        <li><a href="#" class="treatmentAction">{{fa "users"}} Appointment</a></li>
 
         <li role="separator" class="divider"></li>
-        <li class="dropdown-header">Print</li>
-        <li><a href="#" class="treatmentAction">{{fa "medkit"}} Treatment</a></li>
+        <li class="dropdown-header">Money</li>
         <li><a href="#" class="depositAction">{{fa "ticket"}} Deposit</a></li>
-        <li><a href="#" class="invoiceReportAction">{{fa "money"}} Invoice</a></li>
+        <li><a href="#" class="invoiceAction">{{fa "money"}} Invoice</a></li>
     {{/tabularAction}}
+</template>
+
+<template name="dental_registerPrintAction">
+    <a href="#" class="treatmentPrintAction" title="Treatment">{{fa "medkit"}}</a>
+    &nbsp;&nbsp;
+    <a href="#" class="depositPrintAction" title="Deposit">{{fa "ticket"}}</a>
+    &nbsp;&nbsp;
+    <a href="#" class="invoiceReportPrintAction" title="Invoice">{{fa "money"}}</a>
 </template>
 
 <!--Insert-->
