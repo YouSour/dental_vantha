@@ -53,7 +53,7 @@ Template.dental_register.events({
         registerState(this);
 
         alertify.treatmentAction(
-            fa("list", "Treatment"),
+            fa("medkit", "Treatment"),
             renderTemplate(Template.dental_treatment)
         ).maximize();
     },
@@ -61,7 +61,7 @@ Template.dental_register.events({
         registerState(this);
 
         alertify.depositAction(
-            fa("list", "Deposit"),
+            fa("ticket", "Deposit"),
             renderTemplate(Template.dental_deposit)
         ).maximize();
     },
@@ -72,12 +72,12 @@ Template.dental_register.events({
         var invoiceExist = Dental.Collection.Invoice.findOne({registerId: this._id});
         if (_.isUndefined(invoiceExist)) {
             alertify.invoiceAction(
-                fa("plus", "Invoice"),
+                fa("plus", "Invoice Add New"),
                 renderTemplate(Template.dental_invoiceInsert)
             ).maximize();
         } else {
             alertify.invoiceAction(
-                fa("pencil", "Invoice"),
+                fa("pencil", "Invoice Update"),
                 renderTemplate(Template.dental_invoiceUpdate, invoiceExist)
             ).maximize();
         }

@@ -33,7 +33,13 @@ Template.dental_invoiceReportGen.helpers({
         };
 
         /********* Header ********/
+
+        console.log(self.patient);
+
         var patientDoc = Dental.Collection.Patient.findOne(self.patient);
+
+        console.log(JSON.stringify(patientDoc));
+
         data.header = [
             {col1: 'Patient ID: ' + self.patient, col2: 'Gender: ' + patientDoc.gender, col3: 'No: ' + self.register},
             {col1: 'Name: ' + patientDoc.name, col2: 'Age: ' + patientDoc.age, col3: 'Date: ' + self.date},
@@ -54,20 +60,22 @@ Template.dental_invoiceReportGen.helpers({
                 indexOfDeposit += 1;
             });
 
-        // Get invoie
+        // Get invoice
         var getInvoice = Dental.Collection.Invoice.findOne({registerId: self.register});
         var index = 1;
-        _.each(getInvoice.disease, function (obj) {
-            var itemDoc = Dental.Collection.DiseaseItem.findOne(obj.item);
-            obj.index = index;
-            obj.itemName = itemDoc.name;
-            obj.price = numeral(obj.price).format('0,0.00');
-            obj.amount = numeral(obj.amount).format('0,0.00');
+        if (!_.isUndefined(getInvoice)) {
+            _.each(getInvoice.disease, function (obj) {
+                var itemDoc = Dental.Collection.DiseaseItem.findOne(obj.item);
+                obj.index = index;
+                obj.itemName = itemDoc.name;
+                obj.price = numeral(obj.price).format('0,0.00');
+                obj.amount = numeral(obj.amount).format('0,0.00');
 
-            content.push(obj);
+                content.push(obj);
 
-            index += 1;
-        });
+                index += 1;
+            });
+        }
 
         if (content.length > 0) {
             data.content = content;
