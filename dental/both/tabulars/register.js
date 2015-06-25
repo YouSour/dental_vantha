@@ -33,7 +33,11 @@ Dental.TabularTable.Register = new Tabular.Table({
         //        return numeral(val).format('0,0.00');
         //    }
         //}
-        {data: "des", title: "Description"}
+        {data: "des", title: "Description"},
+        {
+            title: 'Print',
+            tmpl: Meteor.isClient && Template.dental_registerPrintAction
+        }
     ],
     order: [['1', 'desc']],
     autoWidth: false,
