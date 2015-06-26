@@ -148,6 +148,7 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
     }
 });
 
+
 /**
  * Doctor Share
  */
