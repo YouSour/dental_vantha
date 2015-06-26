@@ -11,3 +11,4 @@ Meteor.subscribe('dental_treatment');
 Meteor.subscribe('dental_deposit');
 Meteor.subscribe('dental_invoice');
 Meteor.subscribe('dental_purchase');
+Meteor.subscribe('dental_payment');

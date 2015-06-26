@@ -148,11 +148,38 @@ Dental.List = {
     },
     orderItem: function (selectOne) {
         var list = [];
-        //if (!_.isEqual(selectOne, false)) {
-        //    list.push({label: "Select One", value: ""});
-        //}
+        if (!_.isEqual(selectOne, false)) {
+            list.push({label: "Select One", value: ""});
+        }
         Dental.Collection.OrderItem.find().forEach(function (obj) {
             list.push({label: obj._id + " : " + obj.name, value: obj._id});
+        });
+
+        return list;
+    },
+    invoice: function (selectOne) {
+        var list = [];
+        if (!_.isEqual(selectOne, false)) {
+            list.push({label: "(Select One)", value: ""});
+        }
+        debugger;
+        Dental.Collection.Invoice.find().forEach(function (obj) {
+            var payment = Dental.Collection.Payment.findOne({
+                    invoiceId: obj._id,
+                },
+                {
+                    sort: {
+                        _id: -1
+                    }
+                });
+
+            if (payment != null && payment.balance > 0 && payment.status=="Partial") {
+                list.push({label: obj._id, value: obj._id + "|" + payment.balance});
+            } else if (payment == null) {
+                list.push({label: obj._id, value: obj._id + "|" + obj.total});
+            }
+
+
         });
 
         return list;
@@ -170,4 +197,5 @@ Dental.List = {
 
         return list;
     }
-};
+}
+;

@@ -92,3 +92,10 @@ Dental.Collection.Purchase.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
 
+/**
+ * Payment
+ */
+Dental.Collection.Payment.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
