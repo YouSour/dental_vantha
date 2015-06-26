@@ -18,17 +18,20 @@
         </div>
 
         <div class="row">
+            <!--Disease-->
+            <div class="col-md-12">
+                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+            </div>
+        </div>
+
+        <div class="row">
             <!--Treatment Info-->
             <div class="col-md-4">
                 {{> dental_invoiceTreatment}}
             </div>
 
-            <!--Items-->
+            <!--Doctor Share-->
             <div class="col-md-8">
-                <!--Disease-->
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
-
-                <!--Doctor Share-->
                 {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
             </div>
         </div>
@@ -159,10 +162,10 @@
 
 <!--Custom object field for disease item-->
 <template name="customObjectFieldInvoiceForDiseaseItem">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         {{> afQuickField name=current.item template="bootstrap3" label=false class="input-sm item"}}
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         {{> afQuickField name=current.qty template="bootstrap3" label=false class="input-sm qty"}}
     </div>
     <div class="col-sm-2">
