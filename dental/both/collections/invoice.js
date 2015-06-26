@@ -33,8 +33,8 @@ Dental.Schema.Invoice = new SimpleSchema({
     'disease.$.item': {
         type: String,
         autoform: {
-            type: "select",
-            //type: "selectize",
+            //type: "select2",
+            type: "selectize",
             options: function () {
                 return Dental.List.diseaseItem();
             }
@@ -69,8 +69,8 @@ Dental.Schema.Invoice = new SimpleSchema({
     'doctorShare.$.doctor': {
         type: String,
         autoform: {
-            type: "select",
-            //type: "selectize",
+            //type: "select2",
+            type: "selectize",
             options: function () {
                 return Dental.List.doctor();
             }
