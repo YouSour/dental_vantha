@@ -19,9 +19,6 @@ Template.headerLayout.helpers({
         }
 
         var getBranch = Cpanel.Collection.Branch.findOne({_id: branch});
-
-        console.log(getBranch.enShortName);
-
         var title = branch + ' : ' + getBranch.enShortName;
         return {show: true, title: title};
     }

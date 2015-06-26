@@ -23,13 +23,15 @@ multiply:iron-router-progress
 zimme:active-route
 rainhaven:iron-seo
 matb33:collection-hooks
-aldeed:collection2
 dburles:collection-helpers
+aldeed:collection2
 aldeed:simple-schema
 aldeed:autoform
 natestrauser:select2
 zimme:select2-bootstrap3-css
 aldeed:autoform-select2
+chhib:selectize-bootstrap-3
+comerc:autoform-selectize
 momentjs:moment
 rajit:bootstrap3-datepicker
 aldeed:autoform-bs-datepicker

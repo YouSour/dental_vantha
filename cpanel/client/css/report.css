@@ -1,10 +1,17 @@
 /* Report styles
 -------------------------------------------------- */
+.report-body-bg {
+    font-family: Arial, Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    color: #000000
+}
+
 .report-body {
     font-family: Arial, Verdana, Geneva, sans-serif;
     font-size: 10px;
     color: #000000
 }
+
 /* A4 */
 .report-a4-portrait {
     margin: 0px auto;
@@ -44,9 +51,16 @@
     padding: 0px;
 }
 
-.report-title {
+.report-body-bg .report-title {
     text-align: center;
-    font-size: 11px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid #000000;
+}
+
+.report-body .report-title {
+    text-align: center;
+    font-size: 12px;
     font-weight: bold;
     border-bottom: 1px solid #000000;
 }
@@ -57,7 +71,11 @@
     font-weight: bold;
 }
 
-.report-company-name {
+.report-body-bg .report-company-name {
+    font-size: 16px;
+}
+
+.report-body .report-company-name {
     font-size: 14px;
 }
 

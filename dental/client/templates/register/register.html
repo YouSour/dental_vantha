@@ -12,20 +12,32 @@
         <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
         <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
         <li><a href="#" class="show">{{fa "eye"}} Show</a></li>
+
         <li role="separator" class="divider"></li>
-        <!--<li class="dropdown-header">Additional</li>-->
+        <li class="dropdown-header">Event</li>
         <li><a href="#" class="treatmentAction">{{fa "medkit"}} Treatment</a></li>
-        <li><a href="#" class="depositAction">{{fa "medkit"}} Deposit</a></li>
-        <li><a href="#" class="invoiceAction">{{fa "medkit"}} Invoice</a></li>
+        <li><a href="#" class="treatmentAction">{{fa "users"}} Appointment</a></li>
+
+        <li role="separator" class="divider"></li>
+        <li class="dropdown-header">Money</li>
+        <li><a href="#" class="depositAction">{{fa "ticket"}} Deposit</a></li>
+        <li><a href="#" class="invoiceAction">{{fa "money"}} Invoice</a></li>
+    {{/tabularAction}}
+</template>
+
+<template name="dental_registerPrintAction">
+    {{#tabularAction icon="print"}}
+        <li><a href="#" class="treatmentPrintAction">{{fa "medkit"}} Treatment</a></li>
+        <li><a href="#" class="depositPrintAction">{{fa "ticket"}} Deposit</a></li>
+        <li><a href="#" class="invoiceReportPrintAction">{{fa "money"}} Invoice</a></li>
     {{/tabularAction}}
 </template>
 
 <!--Insert-->
 <template name="dental_registerInsert">
-
     {{#autoForm collection=Dental.Collection.Register id="dental_registerInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
 
                 <!--{{> afQuickField name='patientId'}}-->
                 <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}" data-required="true">
@@ -44,16 +56,13 @@
                     {{/if}}
                 </div>
 
-            </div>
-            <div class="col-md-4">
                 {{> afQuickField name="registerDate"}}
-            </div>
-            <div class="col-md-4">
-                {{> afQuickField name="des"}}
+                {{> afQuickField name="des" rows=5}}
+
             </div>
         </div>
 
-        {{> afArrayField name="disease" id="disease" template="customArrayField" subtemplate="customObjectField"}}
+        <!--{{> afArrayField name="disease" id="disease" template="customArrayField" subtemplate="customObjectField"}}-->
 
         <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
         <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
@@ -65,7 +74,7 @@
 <template name="dental_registerUpdate">
     {{#autoForm collection=Dental.Collection.Register id="dental_registerUpdate" type="update" doc=this afFieldInput-placeholder="schemaLabel"}}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
 
                 <!--{{> afQuickField name='patientId'}}-->
                 <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}" data-required="true">
@@ -84,16 +93,13 @@
                     {{/if}}
                 </div>
 
-            </div>
-            <div class="col-md-4">
                 {{> afQuickField name="registerDate"}}
-            </div>
-            <div class="col-md-4">
-                {{> afQuickField name="des"}}
+                {{> afQuickField name="des" rows=5}}
+
             </div>
         </div>
 
-        {{> afArrayField name="disease" id="disease" template="customArrayField" subtemplate="customObjectField"}}
+        <!--{{> afArrayField name="disease" id="disease" template="customArrayField" subtemplate="customObjectField"}}-->
 
         <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
         <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
@@ -109,17 +115,17 @@
         <dd>{{registerDate}}</dd>
         <dt>Patient</dt>
         <dd>{{patientId}}</dd>
-        <dt>Disease</dt>
-        <dd>
-            <ul>
-                {{#each disease}}
-                    <li>Item: {{item}} | Qty: {{qty}} | Price: {{price}} | Discount: {{discount}} |
-                        Amount: {{amount}}</li>
-                {{/each}}
-            </ul>
-        </dd>
-        <dt>Total</dt>
-        <dd>{{total}}</dd>
+        <!--<dt>Disease</dt>-->
+        <!--<dd>-->
+        <!--<ul>-->
+            <!--{{#each disease}}-->
+        <!--<li>Item: {{item}} | Qty: {{qty}} | Price: {{price}} | Discount: {{discount}} |-->
+        <!--Amount: {{amount}}</li>-->
+            <!--{{/each}}-->
+        <!--</ul>-->
+        <!--</dd>-->
+        <!--<dt>Total</dt>-->
+        <!--<dd>{{total}}</dd>-->
         <dt>Description</dt>
         <dd>{{des}}</dd>
     </dl>

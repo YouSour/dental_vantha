@@ -18,17 +18,24 @@
         </div>
 
         <div class="row">
+            <!--Treatment Info-->
             <div class="col-md-4">
                 {{> dental_invoiceTreatment}}
             </div>
+
+            <!--Items-->
             <div class="col-md-8">
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoice" subtemplate="customObjectFieldInvoice"}}
+                <!--Disease-->
+                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+
+                <!--Doctor Share-->
+                {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
+                <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Insert</button>
                 <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
             </div>
         </div>
@@ -45,8 +52,8 @@
     {{#autoForm collection=Dental.Collection.Invoice id="dental_invoiceUpdate" type="update" doc=this afFieldInput-placeholder="schemaLabel"}}
         <div class="row">
             <div class="col-md-6">
-                {{> afQuickField name="patientId" type="hidden" value=register.patientId}}
-                {{> afQuickField name="registerId"  type="hidden" value=register._id}}
+                {{> afQuickField name="patientId" type="hidden"}}
+                {{> afQuickField name="registerId"  type="hidden"}}
 
                 {{> afQuickField name="invoiceDate"}}
 
@@ -57,29 +64,35 @@
         </div>
 
         <div class="row">
+            <!--Treatment Info-->
             <div class="col-md-4">
                 {{> dental_invoiceTreatment}}
             </div>
-            <div class="col-md-8 invoice-update">
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoice" subtemplate="customObjectFieldInvoice"}}
-            </div>
 
+            <!--Items-->
+            <div class="col-md-8">
+                <!--Disease-->
+                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+
+                <!--Doctor Share-->
+                {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
-                <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+                <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Update</button>
                 <button type="button" class="btn btn-danger remove">{{fa "remove"}} Remove</button>
+                <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
             </div>
         </div>
     {{/autoForm}}
 </template>
 
-<!--Custom array field-->
-<template name="afArrayField_customArrayFieldInvoice">
+<!--Custom array field for disease item-->
+<template name="afArrayField_customArrayFieldInvoiceForDiseaseItem">
     <div class="panel panel-default">
-        <div class="panel-heading">{{fa "fa fa-stethoscope"}} {{afFieldLabelText name=this.atts.name}}</div>
+        <div class="panel-heading">{{fa "stethoscope"}} {{afFieldLabelText name=this.atts.name}}</div>
         <div class="panel-body">
 
             {{#if afFieldIsInvalid name=this.atts.name}}
@@ -104,12 +117,8 @@
 
             {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
                 <div class="row">
-                    <!--Sub Total-->
-                    <div class="col-sm-9 text-right">
-                        <strong>Sub Total :</strong>
-                    </div>
-                    <div class="col-sm-2">
-                        {{> afQuickField name='subtotal' readonly="true" label=false template="bootstrap3" class="input-sm"}}
+                    <div class="col-sm-11">
+                        <hr>
                     </div>
 
                     <!--Add more-->
@@ -122,39 +131,34 @@
                     </div>
                 </div>
 
-                <!--Deposit Amount-->
-                <div class="row">
-                    <div class="col-sm-9 text-right">
-                        <strong>Deposit:</strong>
-                    </div>
-                    <div class="col-sm-2">
-                        {{> afQuickField name='deposit' value=register.deposit readonly="true" label=false template="bootstrap3" class="input-sm"}}
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-                </div>
-
-                <!--Total-->
-                <div class="row">
-                    <div class="col-sm-9 text-right">
-                        <strong>Total :</strong>
-                    </div>
-                    <div class="col-sm-2">
-                        {{> afQuickField name='total' readonly="true" label=false template="bootstrap3" class="input-sm"}}
-                        <!--<p class="bg-primary"><strong class="total">0</strong></p>-->
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-                </div>
-
             {{/if}}
+
+            <div class="row">
+                <!--Sub Total-->
+                <div class="col-sm-3">
+                    {{> afQuickField name='subtotal' readonly="true" template="bootstrap3" class="input-sm"}}
+                </div>
+                <!--Deposit-->
+                <div class="col-sm-3">
+                    {{> afQuickField name='deposit' value=register.deposit readonly="true" template="bootstrap3" class="input-sm"}}
+                </div>
+                <!--Sub Discount-->
+                <div class="col-sm-2">
+                    {{> afQuickField name='subDiscount' template="bootstrap3" class="input-sm"}}
+                </div>
+                <!--Total-->
+                <div class="col-sm-3">
+                    {{> afQuickField name='total' readonly="true" template="bootstrap3" class="input-sm"}}
+                    <!--<p class="bg-primary"><strong class="total">0</strong></p>-->
+                </div>
+            </div>
 
         </div>
     </div>
 </template>
 
-<!--Custom object field-->
-<template name="customObjectFieldInvoice">
+<!--Custom object field for disease item-->
+<template name="customObjectFieldInvoiceForDiseaseItem">
     <div class="col-sm-3">
         {{> afQuickField name=current.item template="bootstrap3" label=false class="input-sm item"}}
     </div>
@@ -169,6 +173,70 @@
     </div>
     <div class="col-sm-2">
         {{> afQuickField name=current.amount template="bootstrap3" label=false class="input-sm amount" readonly=true}}
+    </div>
+</template>
+
+<!--Custom array field for doctor share-->
+<template name="afArrayField_customArrayFieldInvoiceForDoctorShare">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{fa "user-plus"}} {{afFieldLabelText name=this.atts.name}}</div>
+        <div class="panel-body">
+
+            {{#if afFieldIsInvalid name=this.atts.name}}
+                <div class="has-error">
+                    <span class="help-block">{{{afFieldMessage name=this.atts.name}}}</span>
+                </div>
+            {{/if}}
+
+            {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+                <div class="row array-item">
+                    {{> UI.dynamic template=../atts.subtemplate}}
+
+                    <div class="col-sm-1">
+                        {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
+                            <button type="button"
+                                    class="btn btn-sm btn-danger autoform-remove-item btnRemoveForDoctorShare">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                        {{/if}}
+                    </div>
+                </div>
+            {{/afEachArrayItem}}
+
+            {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        <strong>Total:</strong>
+                    </div>
+
+                    <!--Total-->
+                    <div class="col-sm-5">
+                        {{> afQuickField name='doctorShareTotal' label=false readonly="true" template="bootstrap3" class="input-sm"}}
+                    </div>
+
+                    <!--Add more-->
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-primary autoform-add-item btn-sm btnAddForDoctorShare"
+                                data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}"
+                                data-autoform-maxCount="{{this.atts.maxCount}}">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div>
+                </div>
+
+            {{/if}}
+
+        </div>
+    </div>
+</template>
+
+<!--Custom object field for doctor share-->
+<template name="customObjectFieldInvoiceForDoctorShare">
+    <div class="col-sm-6">
+        {{> afQuickField name=current.doctor template="bootstrap3" label=false class="input-sm doctor"}}
+    </div>
+    <div class="col-sm-5">
+        {{> afQuickField name=current.amount template="bootstrap3" label=false class="input-sm doctor-share-amount"}}
     </div>
 </template>
 
