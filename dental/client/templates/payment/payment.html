@@ -11,8 +11,8 @@
 
 <template name="dental_paymentAction">
     {{#tabularAction}}
-        <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
-        <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
+        <li class="updatePayment"><a href="#" class="update">{{fa "pencil"}} Update</a></li>
+        <li class="removePayment"><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
         <li><a href="#" class="show">{{fa "eye"}} Show</a></li>
     {{/tabularAction}}
 </template>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="form-group{{#if afFieldIsInvalid name='staffId'}} has-error{{/if}}" data-required="true">
-                    <label class="control-label" for="staffId">Invoice ID</label>
+                    <label class="control-label" for="staffId">Staff</label>
 
                     <div class="input-group  select2-bootstrap-append">
                         {{> afFieldInput name='staffId' class="staffId"}}
@@ -109,24 +109,13 @@
         <div class="row">
             <div class="col-md-6">
 
-                <div class="form-group{{#if afFieldIsInvalid name='invoiceId'}} has-error{{/if}}" data-required="true">
-                    <label class="control-label" for="invoiceId">Invoice ID</label>
-
-                    <div class="input-group  select2-bootstrap-append">
-                        {{> afFieldInput name='invoiceId' class="invoiceId"}}
-                        <span class="input-group-addon">
-                            <a href="#" class="invoiceAddon">
-                                {{fa "plus"}}
-                            </a>
-                        </span>
-                    </div>
-                    {{#if afFieldIsInvalid name='invoiceId'}}
-                        <span class="help-block">{{afFieldMessage name='invoiceId'}}</span>
-                    {{/if}}
+                <div class="form-group">
+                    <label for="invoiceId">Invoice ID</label>
+                    <input type="text" class="form-control" id="invoiceId" value={{invoiceId}} readonly>
                 </div>
 
                 <div class="form-group{{#if afFieldIsInvalid name='staffId'}} has-error{{/if}}" data-required="true">
-                    <label class="control-label" for="staffId">Invoice ID</label>
+                    <label class="control-label" for="staffId">Staff</label>
 
                     <div class="input-group  select2-bootstrap-append">
                         {{> afFieldInput name='staffId' class="staffId"}}
@@ -141,7 +130,8 @@
                     {{/if}}
                 </div>
 
-                {{> afQuickField name="paymentDate"}}
+                {{> afQuickField name="paymentDate" readonly=true}}
+
             </div>
             <div class="col-md-6">
 

@@ -149,7 +149,7 @@ Dental.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(Select One)", value: ""});
         }
-        debugger;
+
         Dental.Collection.Invoice.find().forEach(function (obj) {
             var payment = Dental.Collection.Payment.findOne({
                     invoiceId: obj._id,
@@ -161,9 +161,9 @@ Dental.List = {
                 });
 
             if (payment != null && payment.balance > 0 && payment.status == "Partial") {
-                list.push({label: obj._id, value: obj._id + "|" + payment.balance});
+                list.push({label: "ID : " + obj._id + " (" + obj.invoiceDate + ")" + " | " + "Amount : " + payment.balance, value: obj._id + "|" + payment.balance});
             } else if (payment == null) {
-                list.push({label: obj._id, value: obj._id + "|" + obj.total});
+                list.push({label: "ID : " + obj._id + " (" + obj.invoiceDate + ")" + " | " + "Amount : " + obj.total, value: obj._id + "|" + obj.total});
             }
 
 

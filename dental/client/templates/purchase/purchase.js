@@ -5,6 +5,10 @@ Template.dental_purchase.onRendered(function () {
     createNewAlertify(['purchase','supplierAddon','registerAddon']);
 });
 
+
+Template.dental_purchase.helpers({
+});
+
 Template.dental_purchase.events({
     'click .insert': function () {
         alertify.purchase(fa("plus", "Purchase"), renderTemplate(Template.dental_purchaseInsert)).maximize();

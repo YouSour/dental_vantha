@@ -5,12 +5,18 @@ Template.dental_payment.onRendered(function () {
     createNewAlertify(['payment', 'invoiceAddon', 'staffAddon']);
 });
 
+Template.dental_payment.helpers({});
+
 Template.dental_payment.events({
+    'click .btn-link': function () {
+        var self = this;
+        checkLastPayment(self);
+    },
     'click .insert': function () {
         alertify.payment(fa("plus", "Payment"), renderTemplate(Template.dental_paymentInsert)).maximize();
     },
     'click .update': function () {
-        data = Dental.Collection.Payment.findOne({_id: this._id});
+        var data = Dental.Collection.Payment.findOne({_id: this._id});
         alertify.payment(fa("pencil", "Payment"), renderTemplate(Template.dental_paymentUpdate, data)).maximize();
     },
     'click .remove': function () {
@@ -31,7 +37,7 @@ Template.dental_payment.events({
         );
     },
     'click .show': function () {
-        alertify.alert(fa("eye","Payment"),renderTemplate(Template.dental_paymentShow,this));
+        alertify.alert(fa("eye", "Payment"), renderTemplate(Template.dental_paymentShow, this));
     }
 });
 
@@ -43,6 +49,34 @@ Template.dental_paymentInsert.onRendered(function () {
 });
 
 Template.dental_paymentInsert.events({
+    'click .invoiceAddon': function () {
+        alertify.invoiceAddon(fa("plus", "Invoice"), renderTemplate(Template.dental_invoiceInsert)).maximize();
+    },
+    'click .staffAddon': function () {
+        alertify.staffAddon(fa("plus", "Staff"), renderTemplate(Template.dental_staffInsert));
+    },
+    'change .invoiceId': function (e) {
+        onChangeInvoice(e);
+    },
+    'keyup .paidAmount': function () {
+        calculateBalance();
+    }
+});
+
+/*
+ * Update
+ */
+Template.dental_paymentUpdate.onRendered(function () {
+    datepicker();
+});
+
+Template.dental_paymentUpdate.helpers({
+    invoiceId: function () {
+        return this.invoiceId;
+    }
+});
+
+Template.dental_paymentUpdate.events({
     'click .invoiceAddon': function () {
         alertify.invoiceAddon(fa("plus", "Invoice"), renderTemplate(Template.dental_invoiceInsert)).maximize();
     },
@@ -79,6 +113,15 @@ AutoForm.hooks({
         onError: function (formType, error) {
             alertify.error(error.message);
         }
+    },
+    dental_paymentUpdate: {
+        onSuccess: function () {
+            alertify.payment().close();
+            alertify.success('Success');
+        },
+        onError: function (formType, error) {
+            alertify.error(error.message);
+        }
     }
 });
 
@@ -86,6 +129,20 @@ AutoForm.hooks({
 function datepicker() {
     var paymentDate = $('[name="paymentDate"]');
     DateTimePicker.dateTime(paymentDate);
+}
+
+//check last payment
+function checkLastPayment(self) {
+    var checkingLastPayment = Dental.Collection.Payment.findOne({invoiceId: self.invoiceId}, {sort: {_id: -1}});
+    var lastPayment = checkingLastPayment.paymentDate;
+
+    if (lastPayment == self.paymentDate) {
+        $('.updatePayment').show();
+        $('.removePayment').show();
+    } else {
+        $('.updatePayment').hide();
+        $('.removePayment').hide();
+    }
 }
 
 // calculate Balance
