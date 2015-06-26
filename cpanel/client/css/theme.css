@@ -116,10 +116,17 @@ code {
 }
 
 /* Meteor status */
-.meteor-status{
+.meteor-status {
     color: #8a6d3b;
     background-color: #fcf8e3;
     border-color: #faebcc;
     text-align: center;
     padding: 10px;
+}
+
+/* Selectize for input-sm */
+.selectize-input {
+    min-height: 25px;
+    height: 30px;
+    padding: 4px 12px;
 }
