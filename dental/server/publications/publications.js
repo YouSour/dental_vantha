@@ -103,3 +103,10 @@ Meteor.publish('dental_invoice', function () {
 Meteor.publish('dental_purchase', function () {
     return Dental.Collection.Purchase.find();
 });
+
+/*
+ * Payment
+ */
+Meteor.publish('dental_payment',function(){
+   return Dental.Collection.Payment.find();
+});

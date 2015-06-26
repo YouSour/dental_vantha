@@ -62,5 +62,5 @@ Dental.TabularTable.Purchase = new Tabular.Table({
     ],
     order: [["0", "desc"]],
     autoWidth: false,
-    colomnDefs: [{"width": "12px", "target": 0}]
+    columnDefs: [{"width": "12px", "target": 0}]
 });
