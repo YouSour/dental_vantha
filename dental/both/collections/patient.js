@@ -29,6 +29,9 @@ Dental.Schema.Patient = new SimpleSchema({
         max: 110,
         min: 1
     },
+    occupation: {
+        type: String
+    },
     address: {
         type: String,
         max: 500
@@ -37,6 +40,17 @@ Dental.Schema.Patient = new SimpleSchema({
         type: String,
         max: 50,
         optional: true
+    },
+    history: {
+        type: [Object],
+        optional: true,
+        blackbox: true,
+        autoform: {
+            type: "select-checkbox-inline",
+            options: function () {
+                return Dental.List.history();
+            }
+        }
     },
     member: {
         type: String,

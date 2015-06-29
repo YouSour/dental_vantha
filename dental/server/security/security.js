@@ -29,6 +29,14 @@ Dental.Collection.DiseaseItem.permit(['insert', 'update', 'remove'])
     .apply();
 
 /*
+ * Disease History
+ */
+
+Dental.Collection.DiseaseHistory.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/*
  * Patient
  */
 
@@ -96,6 +104,13 @@ Dental.Collection.Purchase.permit(['insert', 'update', 'remove'])
  * Payment
  */
 Dental.Collection.Payment.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/**
+ * Quotation
+ */
+Dental.Collection.Quotation.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
 
