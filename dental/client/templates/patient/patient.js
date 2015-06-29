@@ -15,38 +15,36 @@ Template.dental_patient.helpers({
 
 Template.dental_patient.events({
     'click .insert': function (e, t) {
-        alertify.patient(renderTemplate(Template.dental_patientInsert))
-            .set({
-                title: fa("plus", "Patient")
-            })
-            .maximize();
+        alertify.patient(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert)).maximize();
     },
     'click .update': function (e, t) {
-        var data = Dental.Collection.Patient.findOne(this._id);
+        var data = Dental.Collection.Patient.findOne({_id: this._id});
 
-        alertify.patient(renderTemplate(Template.dental_patientUpdate, data))
-            .set({
-                title: fa("pencil", "Patient")
-            })
-            .maximize();
+        var keys = [];
+        for (var k in data.history[0]) keys.push(k);
+        data.history = keys;
+
+        debugger;
+        alertify.patient(fa("pencil", "Patient"), renderTemplate(Template.dental_patientUpdate, data)).maximize();
     },
     'click .remove': function (e, t) {
-        var id = this._id;
+        var self = this;
 
-        alertify.confirm("Are you sure to delete [" + id + "] ?")
-            .set({
-                onok: function (closeEvent) {
+        alertify.confirm(
+            fa("remove", "Patient"),
+            "Are you sure to delete [" + self._id + "] ?",
+            function (closeEvent) {
 
-                    Dental.Collection.Patient.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                },
-                title: fa("remove", "Patient")
-            });
+                Dental.Collection.Patient.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function (e, t) {
         var data = Dental.Collection.Patient.findOne(this._id);
@@ -56,10 +54,7 @@ Template.dental_patient.events({
             data.photoUrl = Files.findOne(data.photo).url();
         }
 
-        alertify.alert(renderTemplate(Template.dental_patientShow, data))
-            .set({
-                title: fa("eye", "Patient")
-            });
+        alertify.alert(fa("eye", "Patient"), renderTemplate(Template.dental_patientShow, data));
     }
 });
 
@@ -87,7 +82,7 @@ AutoForm.hooks({
                 var branchPre = Session.get('currentBranch') + '-';
                 doc._id = idGenerator.genWithPrefix(Dental.Collection.Patient, branchPre, 6);
                 doc.branchId = Session.get('currentBranch');
-
+                historyName(doc, doc.history);
                 return doc;
             }
         },
@@ -99,6 +94,13 @@ AutoForm.hooks({
         }
     },
     dental_patientUpdate: {
+        before: {
+            update: function (doc) {
+                debugger;
+                updateHistoryName(doc, doc.$set.history);
+                return doc;
+            }
+        },
         onSuccess: function (formType, result) {
             alertify.patient().close();
             alertify.success('Success');
@@ -115,4 +117,42 @@ AutoForm.hooks({
 var datePicker = function () {
     var memberDate = $('[name="memberDate"]');
     DateTimePicker.date(memberDate);
+};
+
+/**
+ * Insert History
+ *
+ * @param doc
+ * @param history
+ */
+var historyName = function (doc, history) {
+    var arr = [];
+    var obj = {};
+    for (var i = 0; i < history.length; i++) {
+        obj[history[i]] = findPatientName(history[i]);
+    }
+    arr.push(obj);
+    doc.history = arr;
+};
+
+/**
+ * Update History
+ *
+ * @param doc
+ * @param history
+ */
+var updateHistoryName = function(doc, history){
+    var arr = [];
+    var obj = {};
+    for (var i = 0; i < history.length; i++) {
+        obj[history[i]] = findPatientName(history[i]);
+    }
+    arr.push(obj);
+    doc.$set.history = arr;
+};
+
+var findPatientName = function(id){
+    var obj ;
+    obj = Dental.Collection.DiseaseHistory.findOne(id);
+    return obj.name;
 };

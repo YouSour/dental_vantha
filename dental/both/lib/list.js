@@ -62,6 +62,17 @@ Dental.List = {
 
         return list;
     },
+    history: function () {
+        var list = [];
+
+        var currentBranch = Session.get('currentBranch');
+        Dental.Collection.DiseaseHistory.find({branchId: currentBranch})
+            .forEach(function (obj) {
+                list.push({label:obj.name , value: obj._id});
+            });
+
+        return list;
+    },
     diseaseItem: function () {
         var list = [];
         list.push({label: "(Select One)", value: ""});
@@ -151,6 +162,7 @@ Dental.List = {
         }
 
         Dental.Collection.Invoice.find().forEach(function (obj) {
+            var patient = Dental.Collection.Patient.findOne({_id: obj.patientId});
             var payment = Dental.Collection.Payment.findOne({
                     invoiceId: obj._id,
                 },
@@ -161,9 +173,17 @@ Dental.List = {
                 });
 
             if (payment != null && payment.balance > 0 && payment.status == "Partial") {
-                list.push({label: "ID : " + obj._id + " (" + obj.invoiceDate + ")" + " | " + "Amount : " + payment.balance, value: obj._id + "|" + payment.balance});
+                list.push({
+                    label: "ID : " + obj._id + " | " + patient.name + " : " +  obj.invoiceDate + " | " + "Amount : " + payment.balance,
+                    value: obj._id + "|" + payment.balance
+
+                });
             } else if (payment == null) {
-                list.push({label: "ID : " + obj._id + " (" + obj.invoiceDate + ")" + " | " + "Amount : " + obj.total, value: obj._id + "|" + obj.total});
+                list.push({
+                    label: "ID : " + obj._id + " | " + patient.name + " : " +  obj.invoiceDate + " | " + "Amount : " + obj.total,
+                    value: obj._id + "|" + obj.total
+
+                });
             }
 
 

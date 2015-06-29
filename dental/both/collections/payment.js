@@ -47,6 +47,11 @@ Dental.Schema.Payment = new SimpleSchema({
         type: Number,
         decimal: true,
         min: 1,
+        custom: function () {
+            if (this.value > this.field('dueAmount').value) {
+                    return "biggerThan";
+            }
+        },
         label: 'Paid Amount'
     },
     balance: {
@@ -60,7 +65,15 @@ Dental.Schema.Payment = new SimpleSchema({
         optional: true
     }
 });
+
 /**
  * attachSchema
  */
 Dental.Collection.Payment.attachSchema(Dental.Schema.Payment);
+
+/*
+ * Custom Error Message
+ */
+SimpleSchema.messages({
+   "biggerThan" : "Paid Amount Can't Bigger Than Due Amount"
+});

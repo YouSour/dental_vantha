@@ -39,6 +39,16 @@ Meteor.publish('dental_diseaseItem', function () {
 });
 
 /**
+ * Disease History
+ */
+
+Meteor.publish('dental_diseaseHistory', function () {
+    if (this.userId) {
+        return Dental.Collection.DiseaseHistory.find();
+    }
+});
+
+/**
  * Patient
  */
 
@@ -109,4 +119,11 @@ Meteor.publish('dental_purchase', function () {
  */
 Meteor.publish('dental_payment',function(){
    return Dental.Collection.Payment.find();
+});
+
+/*
+ * Quotation
+ */
+Meteor.publish('dental_quotation',function(){
+    return Dental.Collection.Quotation.find();
 });

@@ -1,85 +1,59 @@
-
-
-Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.helpers({
-    register: function () {
-        var register = Dental.RegisterState.get('data');
-
-        return register;
-    }
+/**
+ * Index
+ */
+Template.dental_quotation.onRendered(function () {
+    createNewAlertify('quotation');
 });
 
-Template.dental_invoiceTreatment.helpers({
-    treatment: function () {
-        var register = Dental.RegisterState.get('data');
-
-        return register._treatment;
+Template.dental_quotation.events({
+    'click .insert': function () {
+        alertify.quotation(fa("plus", "Quotation"), renderTemplate(Template.dental_quotationInsert)).maximize();
+    },
+    'click .update': function () {
+        var data = Dental.Collection.Quotation.findOne({_id: this._id});
+        alertify.quotation(fa("pencil", "Quotation"), renderTemplate(Template.dental_quotationUpdate, data)).maximize();
+    },
+    'click .remove': function () {
+        var self = this;
+        alertify.confirm(
+            fa("remove", "Quotation"),
+            "Are you sure to delete [" + self._id + "]?",
+            function () {
+                Dental.Collection.Quotation.remove(self._id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            }, null
+        )
+    },
+    'click .show': function () {
+        alertify.alert(fa("eye","Quotation"),renderTemplate(Template.dental_quotationShow,this));
     }
 });
 
 /**
  * Insert
  */
-Template.dental_invoiceInsert.onRendered(function () {
+Template.dental_quotationInsert.onRendered(function () {
     datepicker();
     $('.btnAdd').attr('disabled', "disabled");
 });
 
-Template.dental_invoiceInsert.helpers({
-    register: function () {
-        var register = Dental.RegisterState.get('data');
-
-        return register;
-    }
-});
-
-Template.dental_invoiceInsert.events({
-    'change .patientId': function (e) {
-        var patient = $(e.currentTarget).val();
-        alert(patient);
-        //return Dental.ListForReportState.set("patientId", "patient");
-    }
-});
 
 /**
  * Update
  */
-Template.dental_invoiceUpdate.onRendered(function () {
+Template.dental_quotationUpdate.onRendered(function () {
     datepicker();
 });
 
-Template.dental_invoiceUpdate.helpers({
-    register: function () {
-        var register = Dental.RegisterState.get('data');
-
-        return register;
-    }
-});
-
-Template.dental_invoiceUpdate.events({
-    'click .remove': function () {
-        var self = this;
-        alertify.confirm(
-            fa('remove', 'Invoice'),
-            "Are you sure to delete [" + self._id + "] ?",
-            function () {
-                Dental.Collection.Invoice.remove(self._id, function (error) {
-                    if (error) {
-                        alertify.error(error.message);
-                    } else {
-                        alertify.invoiceAction().close();
-                        alertify.success("Success");
-                    }
-                });
-            },
-            null
-        );
-    }
-});
-
 /**
- * Disease Item
+ * Disease Item Insert
  */
-Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
+Template.dental_quotationInsert.events({
     'change .item': function (e, t) {
         var thisObj = $(e.currentTarget);
         var itemId = $(e.currentTarget).val();
@@ -156,15 +130,41 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
     }
 });
 
-
 /**
- * Doctor Share
+ * Disease Item Update
  */
-Template.afArrayField_customArrayFieldInvoiceForDoctorShare.events({
-    'click .btnRemoveForDoctorShare': function (e, t) {
+Template.dental_quotationUpdate.events({
+    'change .item': function (e, t) {
+        var thisObj = $(e.currentTarget);
+        var itemId = $(e.currentTarget).val();
+        var qty, price, discount, amount;
+
+        if (itemId != "") {
+            var itemDoc = Dental.Collection.DiseaseItem.findOne({_id: itemId});
+
+            qty = 1;
+            price = math.round(itemDoc.price, 2);
+            discount = 0;
+            amount = math.round(qty * price, 2);
+
+            $('.btnAdd').attr('disabled', false);
+        }
+        else {
+            $('.btnAdd').attr('disabled', true);
+        }
+
+        thisObj.parents('div.array-item').find('.qty').val(qty);
+        thisObj.parents('div.array-item').find('.price').val(price);
+        thisObj.parents('div.array-item').find('.discount').val(discount);
+        thisObj.parents('div.array-item').find('.amount').val(amount);
+
+        // Cal footer
+        calculateTotal();
+    },
+    'click .btnRemove': function (e, t) {
         setTimeout(function () {
             var enable = true;
-            $('.doctor-share-amount').each(function () {
+            $('.amount').each(function () {
                 var amount = $(this).val() == "" ? 0 : parseFloat($(this).val());
                 if (amount == 0) {
                     enable = false;
@@ -173,13 +173,70 @@ Template.afArrayField_customArrayFieldInvoiceForDoctorShare.events({
                 enable = true;
             });
 
-            // Cal footer for doc share
-            calculateTotalForDoctorShare();
+            if (enable) {
+                $('.btnAdd').attr('disabled', false);
+            } else {
+                $('.btnAdd').attr('disabled', true);
+
+            }
+
+            // Cal footer
+            calculateTotal();
         }, 300);
+
     },
-    'keyup .doctor-share-amount': function (e, t) {
-        // Cal footer for doc share
-        calculateTotalForDoctorShare();
+    'keyup .qty,.discount, click .qty,.discount': function (e, t) {
+        var thisObj = $(e.currentTarget);
+        var qty = thisObj.parents('div.row').find('.qty').val();
+        var price = thisObj.parents('div.row').find('.price').val();
+        var discount = thisObj.parents('div.row').find('.discount').val();
+        var amount = math.round(qty * price, 2);
+        var amountAfterDiscount = math.round(amount - (amount * discount / 100), 2);
+
+        thisObj.parents('div.row').find('.amount').val(amountAfterDiscount);
+
+        if (qty > 0 && (discount >= 0 && discount <= 100)) {
+            $('.btnAdd').removeAttr('disabled');
+        } else {
+            $('.btnAdd').attr('disabled', "disabled");
+        }
+
+        // Cal footer
+        calculateTotal();
+    },
+    'keyup [name="subDiscount"]': function (e, t) {
+        // Cal footer
+        calculateTotal();
+    }
+});
+
+/*
+ * Show
+ */
+
+/**
+ * Show
+ */
+Template.dental_quotationShow.helpers({
+    quotationDiseaseFormat: function () {
+        var quotationDisease = "<ul>";
+        var data = this.disease;
+        data.forEach(function (obj) {
+            quotationDisease +=
+                "<li>"
+                + 'Item: ' + obj.item
+                + ' | Qty: ' + obj.qty
+                + ' | Price : ' + obj.price
+                + ' | Dis: ' + obj.discount
+                + ' | Amount: ' + obj.amount
+                + '</li>';
+        });
+        quotationDisease += '</ul>';
+
+        return new Spacebars.SafeString(quotationDisease);
+    },
+    quotationDateFormat: function () {
+        return moment(this.purchaseDate).format("YYYY-MM-DD");
     }
 });
 
@@ -187,29 +244,27 @@ Template.afArrayField_customArrayFieldInvoiceForDoctorShare.events({
  * Hook
  */
 AutoForm.hooks({
-    dental_invoiceInsert: {
+    dental_quotationInsert: {
         before: {
             insert: function (doc) {
                 var prefix = Session.get('currentBranch');
 
-                doc._id = doc.registerId;
-                //doc._id = idGenerator.genWithPrefix(Dental.Collection.Invoice, prefix  + "-", 9);
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.Quotation, prefix + "-", 9);
                 doc.branchId = prefix;
 
                 return doc;
             }
         },
         onSuccess: function (formType, result) {
-            alertify.invoiceAction().close();
             alertify.success("Success");
         },
         onError: function (fromType, error) {
             alertify.error(error.message);
         }
     },
-    dental_invoiceUpdate: {
+    dental_quotationUpdate: {
         onSuccess: function (formType, result) {
-            alertify.invoiceAction().close();
+            alertify.quotation().close();
             alertify.success('Success');
         },
         onError: function (formType, error) {
@@ -222,8 +277,8 @@ AutoForm.hooks({
  * Config date picker
  */
 var datepicker = function () {
-    var invoiceDate = $('[name="invoiceDate"]');
-    DateTimePicker.dateTime(invoiceDate);
+    var quotationDate = $('[name="quotationDate"]');
+    DateTimePicker.dateTime(quotationDate);
 };
 
 /**
@@ -278,20 +333,4 @@ function calculateTotal() {
         },
         200
     );
-}
-
-/**
- * Calculate total for doctor share
- */
-function calculateTotalForDoctorShare() {
-    // Cal subtotal by items amount
-    var totalForDoctorShare = 0;
-
-    $('.doctor-share-amount').each(function () {
-        var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
-        totalForDoctorShare += amount;
-    });
-
-    // Set value on subtotal textbox
-    $('[name="doctorShareTotal"]').val(totalForDoctorShare);
 }

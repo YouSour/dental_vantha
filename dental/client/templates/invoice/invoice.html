@@ -17,12 +17,12 @@
             </div>
         </div>
 
-        <div class="row">
-            <!--Disease-->
-            <div class="col-md-12">
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
-            </div>
-        </div>
+        <!--<div class="row">-->
+            <!--&lt;!&ndash;Disease&ndash;&gt;-->
+            <!--<div class="col-md-12">-->
+                <!--{{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="row">
             <!--Treatment Info-->
@@ -30,8 +30,11 @@
                 {{> dental_invoiceTreatment}}
             </div>
 
-            <!--Doctor Share-->
+
             <div class="col-md-8">
+                <!--Disease-->
+                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+                <!--Doctor Share-->
                 {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
             </div>
         </div>
@@ -67,6 +70,13 @@
         </div>
 
         <div class="row">
+            <!--Disease-->
+            <div class="col-md-12">
+                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+            </div>
+        </div>
+
+        <div class="row">
             <!--Treatment Info-->
             <div class="col-md-4">
                 {{> dental_invoiceTreatment}}
@@ -74,8 +84,8 @@
 
             <!--Items-->
             <div class="col-md-8">
-                <!--Disease-->
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+                <!--&lt;!&ndash;Disease&ndash;&gt;-->
+                <!--{{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}-->
 
                 <!--Doctor Share-->
                 {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
@@ -97,6 +107,26 @@
     <div class="panel panel-default">
         <div class="panel-heading">{{fa "stethoscope"}} {{afFieldLabelText name=this.atts.name}}</div>
         <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Disease</p>
+                </div>
+                <div class="col-md-1">
+                   Qty
+                </div>
+                <div class="col-md-2">
+                    Price
+                </div>
+                <div class="col-md-2">
+                    Discount
+                </div>
+                <div class="col-md-2">
+                    Amount
+                </div>
+                <div class="col-md-1">
+                    Action
+                </div>
+            </div>
 
             {{#if afFieldIsInvalid name=this.atts.name}}
                 <div class="has-error">
