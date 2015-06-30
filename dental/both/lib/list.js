@@ -68,14 +68,31 @@ Dental.List = {
         var currentBranch = Session.get('currentBranch');
         Dental.Collection.DiseaseHistory.find({branchId: currentBranch})
             .forEach(function (obj) {
-                list.push({label:obj.name , value: obj._id});
+                list.push({label: obj.name, value: obj._id});
             });
 
         return list;
     },
     diseaseItem: function () {
+
         var list = [];
         list.push({label: "(Select One)", value: ""});
+
+        Dental.Collection.DiseaseItem.find()
+            .forEach(function (obj) {
+                var label = obj.name + ' (' + obj._diseaseCategory.name + ')'
+                    + ' | Price: ' + numeral(obj.price).format('0,0.00');
+
+                list.push({label: label, value: obj._id});
+            });
+
+        return list;
+    },
+    diseaseItemForInvoice: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
+
+        //var checkingMemberPrice = Dental.Collection.Patient.findOne({_id: $('[name="patientId"]').val()}, {member: "Yes"});
 
         Dental.Collection.DiseaseItem.find()
             .forEach(function (obj) {
@@ -98,6 +115,7 @@ Dental.List = {
 
         return list;
     },
+
     doctor: function () {
         var list = [];
         list.push({label: "(Select One)", value: ""});
@@ -160,11 +178,11 @@ Dental.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(Select One)", value: ""});
         }
-
+        debugger;
         Dental.Collection.Invoice.find().forEach(function (obj) {
             var patient = Dental.Collection.Patient.findOne({_id: obj.patientId});
             var payment = Dental.Collection.Payment.findOne({
-                    invoiceId: obj._id,
+                    invoiceId: obj._id
                 },
                 {
                     sort: {
@@ -174,13 +192,13 @@ Dental.List = {
 
             if (payment != null && payment.balance > 0 && payment.status == "Partial") {
                 list.push({
-                    label: "ID : " + obj._id + " | " + patient.name + " : " +  obj.invoiceDate + " | " + "Amount : " + payment.balance,
+                    label: "ID : " + obj._id + " | " + patient.name + " : " + obj.invoiceDate + " | " + "Amount : " + payment.balance,
                     value: obj._id + "|" + payment.balance
 
                 });
             } else if (payment == null) {
                 list.push({
-                    label: "ID : " + obj._id + " | " + patient.name + " : " +  obj.invoiceDate + " | " + "Amount : " + obj.total,
+                    label: "ID : " + obj._id + " | " + patient.name + " : " + obj.invoiceDate + " | " + "Amount : " + obj.total,
                     value: obj._id + "|" + obj.total
 
                 });

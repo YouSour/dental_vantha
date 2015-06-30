@@ -5,35 +5,29 @@ Dental.TabularTable.Register = new Tabular.Table({
         {title: '<i class="fa fa-bars"></i>', tmpl: Meteor.isClient && Template.dental_registerAction},
         {title: '<i class="fa fa-print"></i>', tmpl: Meteor.isClient && Template.dental_registerPrintAction},
         {data: "_id", title: "ID"},
-        {data: "patientId", title: "Patient"},
+        {
+            data: "patientId",
+            title: "Patient",
+            render: function (val, doc, type) {
+                var data = Dental.Collection.Patient.findOne({_id: val});
+                return data._id + " | " + data.name;
+            }
+        },
         {data: "registerDate", title: "Register Date"},
-        //{
-        //    data: "disease", title: "Disease",
-        //    render: function (val, type, doc) {
-        //        var items = '<ul>';
-        //
-        //        _.each(val, function (obj) {
-        //            items +=
-        //                "<li>"
-        //                + 'Item: ' + obj.item
-        //                + ' | Qty: ' + obj.qty
-        //                + ' | Price : ' + obj.price
-        //                + ' | Dis: ' + obj.discount
-        //                + ' | Amount: ' + obj.amount
-        //                + '</li>';
-        //        });
-        //        items += '</ul>';
-        //
-        //        return items;
-        //    }
-        //},
-        //{
-        //    data: "total",
-        //    title: "Total",
-        //    render: function (val, doc, type) {
-        //        return numeral(val).format('0,0.00');
-        //    }
-        //}
+        {
+            data: "patientId",
+            title: "Photo",
+            render: function (val, doc, type) {
+                var data = Dental.Collection.Patient.findOne({_id: val});
+                var img = data.photo;
+                if (_.isUndefined(val)) {
+                    return null;
+                } else {
+                    var img = Files.findOne(img);
+                    return '<img src="' + img.url() + '" class="img-circle" width="50px" height="50px">';
+                }
+            }
+        },
         {data: "des", title: "Description"}
     ],
     order: [['2', 'desc']],

@@ -1,5 +1,4 @@
 
-
 Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.helpers({
     register: function () {
         var register = Dental.RegisterState.get('data');
@@ -22,6 +21,7 @@ Template.dental_invoiceTreatment.helpers({
 Template.dental_invoiceInsert.onRendered(function () {
     datepicker();
     $('.btnAdd').attr('disabled', "disabled");
+
 });
 
 Template.dental_invoiceInsert.helpers({
@@ -29,14 +29,6 @@ Template.dental_invoiceInsert.helpers({
         var register = Dental.RegisterState.get('data');
 
         return register;
-    }
-});
-
-Template.dental_invoiceInsert.events({
-    'change .patientId': function (e) {
-        var patient = $(e.currentTarget).val();
-        alert(patient);
-        //return Dental.ListForReportState.set("patientId", "patient");
     }
 });
 
@@ -83,13 +75,19 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
     'change .item': function (e, t) {
         var thisObj = $(e.currentTarget);
         var itemId = $(e.currentTarget).val();
+
         var qty, price, discount, amount;
 
         if (itemId != "") {
             var itemDoc = Dental.Collection.DiseaseItem.findOne({_id: itemId});
-
+            var checkingMemberPrice = Dental.Collection.Patient.findOne({_id: $('[name="patientId"]').val()}, {member: "Yes"});
             qty = 1;
-            price = math.round(itemDoc.price, 2);
+
+            if(checkingMemberPrice.member == "Yes"){
+                price = math.round(itemDoc.memberPrice, 2);
+            }else{
+                price = math.round(itemDoc.price, 2);
+            }
             discount = 0;
             amount = math.round(qty * price, 2);
 

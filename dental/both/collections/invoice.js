@@ -36,7 +36,7 @@ Dental.Schema.Invoice = new SimpleSchema({
             //type: "select2",
             type: "selectize",
             options: function () {
-                return Dental.List.diseaseItem();
+                return Dental.List.diseaseItemForInvoice();
             }
         }
     },
