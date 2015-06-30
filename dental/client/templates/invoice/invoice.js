@@ -241,12 +241,11 @@ function calculateTotal() {
     // Cal total after deposit and sub discount
     var deposit = _.isEmpty($('[name="deposit"]').val()) ? 0 : parseFloat($('[name="deposit"]').val());
     var subDiscount = _.isEmpty($('[name="subDiscount"]').val()) ? 0 : parseFloat($('[name="subDiscount"]').val());
-    subDiscount = math.round(subDiscount * subtotal / 100, 2);
 
-    // Sum of deposit and sub discount
-    var depositAndSubDiscount = math.round(deposit + subDiscount, 2);
+    subDiscount = math.round((subtotal -deposit) - subDiscount, 2);
 
-    var total = math.round(subtotal - depositAndSubDiscount, 2);
+    var total = math.round(subDiscount, 2);
+
 
     // Set value on total
     $('[name="total"]').val(total);
