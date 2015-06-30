@@ -356,7 +356,7 @@ function calculateTotal() {
  */
 var registerState = function (param) {
     var registerDoc = Dental.Collection.Register.findOne({_id: param._id});
-    var patientDoc = Dental.Collection.Patient.findOne(registerDoc.patientId);
+    var patientDoc = Dental.Collection.Patient.findOne({_id: registerDoc.patientId});
     var photo = Files.findOne(patientDoc.photo);
     if (photo) {
         patientDoc.photoUrl = photo.url();

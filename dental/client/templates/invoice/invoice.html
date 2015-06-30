@@ -26,12 +26,12 @@
 
         <div class="row">
             <!--Treatment Info-->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 {{> dental_invoiceTreatment}}
             </div>
 
 
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <!--Disease-->
                 {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
                 <!--Doctor Share-->
@@ -105,7 +105,9 @@
 <!--Custom array field for disease item-->
 <template name="afArrayField_customArrayFieldInvoiceForDiseaseItem">
     <div class="panel panel-default">
-        <div class="panel-heading">{{fa "stethoscope"}} {{afFieldLabelText name=this.atts.name}}</div>
+        <div class="panel-heading">
+            {{fa "stethoscope"}} {{afFieldLabelText name=this.atts.name}}
+        </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-4">

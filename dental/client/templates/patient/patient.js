@@ -119,6 +119,11 @@ var datePicker = function () {
     DateTimePicker.date(memberDate);
 };
 
+
+//var checkBox = function () {
+//   $('[name="history"]').checkBo();
+//};
+
 /**
  * Insert History
  *
@@ -141,7 +146,7 @@ var historyName = function (doc, history) {
  * @param doc
  * @param history
  */
-var updateHistoryName = function(doc, history){
+var updateHistoryName = function (doc, history) {
     var arr = [];
     var obj = {};
     for (var i = 0; i < history.length; i++) {
@@ -151,8 +156,10 @@ var updateHistoryName = function(doc, history){
     doc.$set.history = arr;
 };
 
-var findPatientName = function(id){
-    var obj ;
+var findPatientName = function (id) {
+    var obj;
     obj = Dental.Collection.DiseaseHistory.findOne(id);
     return obj.name;
 };
+
+
