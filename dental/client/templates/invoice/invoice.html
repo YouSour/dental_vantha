@@ -9,11 +9,11 @@
                 {{> afQuickField name="patientId" type="hidden" value=register.patientId}}
                 {{> afQuickField name="registerId"  type="hidden" value=register._id}}
 
-                {{> afQuickField name="invoiceDate"}}
+                <!--{{> afQuickField name="invoiceDate"}}-->
 
             </div>
             <div class="col-md-6">
-                {{> afQuickField name="des"}}
+                <!--{{> afQuickField name="des"}}-->
             </div>
         </div>
 
@@ -27,6 +27,7 @@
         <div class="row">
             <!--Treatment Info-->
             <div class="col-md-3">
+                {{> dental_invoice}}
                 {{> dental_invoiceTreatment}}
             </div>
 
@@ -61,11 +62,11 @@
                 {{> afQuickField name="patientId" type="hidden"}}
                 {{> afQuickField name="registerId"  type="hidden"}}
 
-                {{> afQuickField name="invoiceDate"}}
+                <!--{{> afQuickField name="invoiceDate"}}-->
 
             </div>
             <div class="col-md-6">
-                {{> afQuickField name="des"}}
+                <!--{{> afQuickField name="des"}}-->
             </div>
         </div>
 
@@ -79,6 +80,7 @@
         <div class="row">
             <!--Treatment Info-->
             <div class="col-md-3">
+                {{> dental_invoice}}
                 {{> dental_invoiceTreatment}}
             </div>
 
@@ -274,10 +276,21 @@
     </div>
 </template>
 
+<!--Invoice-->
+<template name="dental_invoice">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{fa  "fa fa-money"}} Invoice</div>
+        <div class="panel-body">
+            {{> afQuickField name="invoiceDate"}}
+            {{> afQuickField name="des"}}
+        </div>
+    </div>
+</template>
+
 <!--Treatment-->
 <template name="dental_invoiceTreatment">
     <div class="panel panel-default">
-        <div class="panel-heading">Treatment Detail</div>
+        <div class="panel-heading">{{fa "fa fa-medkit"}} Treatment Detail</div>
         <div class="panel-body">
             <table with="100%" class="table table-condensed" style="font-size: 12px">
                 <thead>

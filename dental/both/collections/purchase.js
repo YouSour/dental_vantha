@@ -10,7 +10,7 @@ Dental.Collection.Purchase = new Mongo.Collection('dental_purchase');
  */
 Dental.Schema.Purchase = new SimpleSchema({
     purchaseDate: {
-        type: Date,
+        type: String,
         label: "Purchase Date",
         defaultValue: function () {
             var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');
