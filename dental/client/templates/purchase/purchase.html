@@ -1,9 +1,11 @@
 <!--Index-->
 <template name="dental_purchase">
+    <div class="animated bounceInRight">
     <p>
         <button type="button" class="btn btn-primary insert">{{fa "plus"}} Add New</button>
     </p>
     {{> tabular table=Dental.TabularTable.Purchase class="table table-striped table-bordered table-condensed table-hover"}}
+    </div>
 </template>
 
 <!--Action-->
@@ -167,7 +169,7 @@
             {{/if}}
 
             {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
-                <div class="row">
+                <div class="row array-item">
                     {{> UI.dynamic template=../atts.subtemplate}}
 
                     <div class="col-sm-1">
