@@ -69,24 +69,22 @@
             </div>
         </div>
 
-        <div class="row">
-            <!--Disease-->
-            <div class="col-md-12">
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
-            </div>
-        </div>
+        <!--<div class="row">-->
+            <!--&lt;!&ndash;Disease&ndash;&gt;-->
+            <!--<div class="col-md-12">-->
+                <!--{{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="row">
             <!--Treatment Info-->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 {{> dental_invoiceTreatment}}
             </div>
 
-            <!--Items-->
-            <div class="col-md-8">
-                <!--&lt;!&ndash;Disease&ndash;&gt;-->
-                <!--{{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}-->
-
+            <div class="col-md-9">
+                <!--Disease-->
+                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
                 <!--Doctor Share-->
                 {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
             </div>
@@ -111,22 +109,23 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-4">
-                    <p>Disease</p>
+                    <p><b>Disease</b></p>
                 </div>
                 <div class="col-md-1">
-                   Qty
+                    <p><b>Qty</b></p>
                 </div>
                 <div class="col-md-2">
-                    Price
+                    <p><b>Price</b></p>
                 </div>
                 <div class="col-md-2">
-                    Discount
+                    <p><b>Discount</b></p>
                 </div>
                 <div class="col-md-2">
-                    Amount
+                    <p><b>Amount</b></p>
+
                 </div>
                 <div class="col-md-1">
-                    Action
+                    <p><b>Action</b></p>
                 </div>
             </div>
 

@@ -130,21 +130,8 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
 
     },
     'keyup .qty,.discount, click .qty,.discount': function (e, t) {
-        var thisObj = $(e.currentTarget);
-        var qty = thisObj.parents('div.row').find('.qty').val();
-        var price = thisObj.parents('div.row').find('.price').val();
-        var discount = thisObj.parents('div.row').find('.discount').val();
-        var amount = math.round(qty * price, 2);
-        var amountAfterDiscount = math.round(amount - (amount * discount / 100), 2);
 
-        thisObj.parents('div.row').find('.amount').val(amountAfterDiscount);
-
-        if (qty > 0 && (discount >= 0 && discount <= 100)) {
-            $('.btnAdd').removeAttr('disabled');
-        } else {
-            $('.btnAdd').attr('disabled', "disabled");
-        }
-
+        CalculateTotalAndAmount(e);
         // Cal footer
         calculateTotal();
     },
@@ -225,11 +212,32 @@ var datepicker = function () {
 };
 
 /**
+ * Calculate total & Amount for disease item When keyUp & click
+ */
+
+function CalculateTotalAndAmount(e){
+    var thisObj = $(e.currentTarget);
+    var qty = thisObj.parents('div.array-item').find('.qty').val();
+    var price = thisObj.parents('div.array-item').find('.price').val();
+    var discount = thisObj.parents('div.array-item').find('.discount').val();
+    var amount = math.round(qty * price, 2);
+    var amountAfterDiscount = math.round(amount - (amount * discount / 100), 2);
+
+    thisObj.parents('div.array-item').find('.amount').val(amountAfterDiscount);
+
+    if (qty > 0 && (discount >= 0 && discount <= 100)) {
+        $('.btnAdd').removeAttr('disabled');
+    } else {
+        $('.btnAdd').attr('disabled', "disabled");
+    }
+}
+
+/**
  * Calculate total for disease items
  */
 function calculateTotal() {
     // Cal subtotal by items amount
-    var subtotal = 0;
+    var subtotal = math.round(0,2);
     $('.amount').each(function () {
         var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
         subtotal += amount;
@@ -242,7 +250,7 @@ function calculateTotal() {
     var deposit = _.isEmpty($('[name="deposit"]').val()) ? 0 : parseFloat($('[name="deposit"]').val());
     var subDiscount = _.isEmpty($('[name="subDiscount"]').val()) ? 0 : parseFloat($('[name="subDiscount"]').val());
 
-    subDiscount = math.round((subtotal -deposit) - subDiscount, 2);
+    subDiscount = math.round((subtotal - deposit) - subDiscount, 2);
 
     var total = math.round(subDiscount, 2);
 

@@ -108,6 +108,28 @@
         <div class="panel-heading">{{fa "stethoscope"}} {{afFieldLabelText name=this.atts.name}}</div>
         <div class="panel-body">
 
+            <div class="row">
+                <div class="col-md-4">
+                    <p><b>Disease</b></p>
+                </div>
+                <div class="col-md-1">
+                    <p><b>Qty</b></p>
+                </div>
+                <div class="col-md-2">
+                    <p><b>Price</b></p>
+                </div>
+                <div class="col-md-2">
+                    <p><b>Discount</b></p>
+                </div>
+                <div class="col-md-2">
+                    <p><b>Amount</b></p>
+
+                </div>
+                <div class="col-md-1">
+                    <p><b>Action</b></p>
+                </div>
+            </div>
+
             {{#if afFieldIsInvalid name=this.atts.name}}
                 <div class="has-error">
                     <span class="help-block">{{{afFieldMessage name=this.atts.name}}}</span>
