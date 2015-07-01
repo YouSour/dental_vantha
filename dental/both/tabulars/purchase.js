@@ -34,19 +34,21 @@ Dental.TabularTable.Purchase = new Tabular.Table({
             data: "items",
             title: "Purchase Detail",
             render: function (val, doc, type) {
-                var purchaseDetail = "";
 
-                val.forEach(function (obj) {
-                    if (obj != null) {
-                        purchaseDetail +=
-                            "<label class='label label-info'>" +
-                            "OrderItem Id : " + obj.OrderItemId +
-                            " | Qty : " + obj.qty +
-                            " | Price : " + obj.price +
-                            " | Amount : " + obj.amount +
-                            "</label>" + "<br>";
-                    }
+                var purchaseDetail = '<ul>';
+
+                _.each(val, function (obj) {
+                    purchaseDetail +=
+                        "<li>" +
+                        "OrderItem Id : " + obj.OrderItemId +
+                        " | Qty : " + obj.qty +
+                        " | Price : " + obj.price +
+                        " | Amount : " + obj.amount +
+                        "</li>"
+                    ;
                 });
+                purchaseDetail += '</ul>';
+
 
                 return purchaseDetail;
             }

@@ -2,12 +2,11 @@
  *Index
  */
 Template.dental_purchase.onRendered(function () {
-    createNewAlertify(['purchase','supplierAddon','registerAddon']);
+    createNewAlertify(['purchase', 'supplierAddon', 'registerAddon']);
 });
 
 
-Template.dental_purchase.helpers({
-});
+Template.dental_purchase.helpers({});
 
 Template.dental_purchase.events({
     'click .insert': function () {
@@ -52,98 +51,13 @@ Template.dental_purchaseInsert.helpers({});
 
 Template.dental_purchaseInsert.events({
     'click .supplierAddon': function () {
-        alertify.supplierAddon(fa("plus","Supplier"),renderTemplate(Template.dental_supplierInsert));
+        alertify.supplierAddon(fa("plus", "Supplier"), renderTemplate(Template.dental_supplierInsert));
     },
     'click .registerAddon': function () {
-        alertify.registerAddon(fa("plus","Register"),renderTemplate(Template.dental_registerInsert)).maximize();
+        alertify.registerAddon(fa("plus", "Register"), renderTemplate(Template.dental_registerInsert)).maximize();
     },
-    'change .OrderItemId': function (e) {
-
-        var thisObj = $(e.currentTarget);
-        var orderItemId = $(e.currentTarget).val();
-        var price = thisObj.parents('div.row').find('.price').val();
-        var qty = thisObj.parents('div.row').find('.qty').val(1);
-        var amount = thisObj.parents('div.row').find('.amount').val(price);
-
-        if (orderItemId != "" && price != 0 && qty != 0) {
-            $('.btnAdd').removeAttr('disabled');
-        } else {
-            $('.btnAdd').attr('disabled', "disabled");
-        }
-
-    },
-    'click .btnRemove': function (e) {
-
-        setTimeout(function () {
-            var enable = true;
-            $('.amount').each(function () {
-                var amount = $(this).val() == "" ? 0 : parseFloat($(this).val());
-                if (amount == 0) {
-                    enable = false;
-                    return false;
-                }
-                enable = true;
-            });
-
-            if (enable) {
-                $('.btnAdd').attr('disabled', false);
-            } else {
-                $('.btnAdd').attr('disabled', true);
-
-            }
-
-            calculateTotal();
-        }, 300);
-
-    },
-    'keyup .price ,.qty , click .price ,.qty ': function (e) {
-        var thisObj = $(e.currentTarget);
-        var price = thisObj.parents('div.row').find('.price').val();
-        var qty = thisObj.parents('div.row').find('.qty').val();
-        var amount = price * qty;
-        thisObj.parents('div.row').find('.amount').val(amount);
-        calculateTotal();
-
-
-        if (price != 0 && qty != 0) {
-            $('.btnAdd').removeAttr('disabled');
-        } else {
-            $('.btnAdd').attr('disabled', "disabled");
-        }
-    }
-
-});
-
-/**
- * Update
- */
-Template.dental_purchaseUpdate.onRendered(function () {
-    datepicker();
-    calculateTotal();
-});
-
-Template.dental_purchaseUpdate.helpers({});
-
-Template.dental_purchaseUpdate.events({
-    'click .supplierAddon': function () {
-        alertify.supplierAddon(fa("plus","Supplier"),renderTemplate(Template.dental_supplierInsert));
-    },
-    'click .registerAddon': function () {
-        alertify.registerAddon(fa("plus","Register"),renderTemplate(Template.dental_registerInsert)).maximize();
-    },
-    'change .OrderItemId': function (e) {
-
-        var thisObj = $(e.currentTarget);
-        var orderItemId = $(e.currentTarget).val();
-        var price = thisObj.parents('div.row').find('.price').val();
-        var qty = thisObj.parents('div.row').find('.qty').val(1);
-        var amount = thisObj.parents('div.row').find('.amount').val(price);
-
-        if (orderItemId != "" && price != 0 && qty != 0) {
-            $('.btnAdd').removeAttr('disabled');
-        } else {
-            $('.btnAdd').attr('disabled', "disabled");
-        }
+    'change .orderItemId': function (e) {
+        onChangeOrderItemId(e);
     },
     'click .btnRemove': function (e) {
 
@@ -170,12 +84,10 @@ Template.dental_purchaseUpdate.events({
 
     },
     'click .btnAdd': function (e) {
-        var thisObj = $(e.currentTarget);
-        var orderItemId = $(e.currentTarget).val();
-        var price = thisObj.parents('div.row').find('.price').val();
-        var qty = thisObj.parents('div.row').find('.qty').val();
 
-        if (orderItemId != "" && price != 0 && qty != 0) {
+        var orderItemId = $(e.currentTarget).val();
+
+        if (orderItemId != "") {
             $('.btnAdd').removeAttr('disabled');
         } else {
             $('.btnAdd').attr('disabled', "disabled");
@@ -183,18 +95,67 @@ Template.dental_purchaseUpdate.events({
         }
     },
     'keyup .price ,.qty , click .price ,.qty ': function (e) {
-        var thisObj = $(e.currentTarget);
-        var price = thisObj.parents('div.row').find('.price').val();
-        var qty = thisObj.parents('div.row').find('.qty').val();
-        var amount = price * qty;
-        thisObj.parents('div.row').find('.amount').val(amount);
-        calculateTotal();
+        checkEventKeyupAndClick(e);
+    }
 
-        if (price != 0 && qty != 0) {
+});
+
+/**
+ * Update
+ */
+Template.dental_purchaseUpdate.onRendered(function () {
+    datepicker();
+    calculateTotal();
+});
+
+Template.dental_purchaseUpdate.helpers({});
+
+Template.dental_purchaseUpdate.events({
+    'click .supplierAddon': function () {
+        alertify.supplierAddon(fa("plus", "Supplier"), renderTemplate(Template.dental_supplierInsert));
+    },
+    'click .registerAddon': function () {
+        alertify.registerAddon(fa("plus", "Register"), renderTemplate(Template.dental_registerInsert)).maximize();
+    },
+    'change .OrderItemId': function (e) {
+        onChangeOrderItemId(e);
+    },
+    'click .btnRemove': function (e) {
+
+        setTimeout(function () {
+            var enable = true;
+            $('.amount').each(function () {
+                var amount = $(this).val() == "" ? 0 : parseFloat($(this).val());
+                if (amount == 0) {
+                    enable = false;
+                    return false;
+                }
+                enable = true;
+            });
+
+            if (enable) {
+                $('.btnAdd').attr('disabled', false);
+            } else {
+                $('.btnAdd').attr('disabled', true);
+
+            }
+
+            calculateTotal();
+        }, 300);
+
+    },
+    'click .btnAdd': function (e) {
+        var orderItemId = $(e.currentTarget).val();
+
+        if (orderItemId != "") {
             $('.btnAdd').removeAttr('disabled');
         } else {
             $('.btnAdd').attr('disabled', "disabled");
+
         }
+    },
+    'keyup .price ,.qty , click .price ,.qty ': function (e) {
+        checkEventKeyupAndClick(e);
     }
 
 });
@@ -250,6 +211,43 @@ AutoForm.hooks({
         }
     }
 });
+
+/**
+ * onChange orderItemId
+ */
+function onChangeOrderItemId(e) {
+    var thisObj = $(e.currentTarget);
+    var orderItemId = $(e.currentTarget).val();
+    var price = thisObj.parents('div.row').find('.price').val();
+    var qty = thisObj.parents('div.row').find('.qty').val(1);
+    var amount = thisObj.parents('div.row').find('.amount').val(price);
+
+    if (orderItemId != "" && price != 0 && qty != 0) {
+        $('.btnAdd').removeAttr('disabled');
+    } else {
+        $('.btnAdd').attr('disabled', "disabled");
+    }
+}
+
+/**
+ *
+ */
+
+function checkEventKeyupAndClick(e){
+    var thisObj = $(e.currentTarget);
+    var price = thisObj.parents('div.array-item').find('.price').val();
+    var qty = thisObj.parents('div.array-item').find('.qty').val();
+    var amount = price * qty;
+    thisObj.parents('div.array-item').find('.amount').val(amount);
+    calculateTotal();
+
+
+    if (price != 0 && qty != 0) {
+        $('.btnAdd').removeAttr('disabled');
+    } else {
+        $('.btnAdd').attr('disabled', "disabled");
+    }
+}
 
 /**
  * Calculate all amount to total
