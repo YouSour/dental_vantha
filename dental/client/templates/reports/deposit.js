@@ -1,7 +1,15 @@
+Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
 Template.dental_depositReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.date(name);
+});
+
+Template.dental_depositReport.events({
+    'change .patient': function (e) {
+        var patient = $(e.currentTarget).val();
+        return Dental.ListForReportState.set("patientId",patient);
+    }
 });
 
 /************ Generate *************/

@@ -1,3 +1,4 @@
+Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
 Template.dental_treatmentReport.onCreated(function () {
     createNewAlertify('exchange');
@@ -6,6 +7,13 @@ Template.dental_treatmentReport.onCreated(function () {
 Template.dental_treatmentReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.date(name);
+});
+
+Template.dental_treatmentReport.events({
+    'change .patient': function (e) {
+        var patientId = $(e.currentTarget).val();
+        return Dental.ListForReportState.set("patientId", patientId);
+    }
 });
 
 /************ Generate *************/

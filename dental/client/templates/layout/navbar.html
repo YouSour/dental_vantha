@@ -38,6 +38,13 @@
                 Reports <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
+                <li class="{{isActiveRoute name='dental.treatmentReport'}}"><a
+                        href="{{pathFor 'dental.treatmentReport'}}">Treatment</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.depositReport'}}"><a
+                        href="{{pathFor 'dental.depositReport'}}">Deposit</a>
+                </li>
+
                 <li class="{{isActiveRoute name='dental.invoiceReport'}}"><a
                         href="{{pathFor 'dental.invoiceReport'}}">Invoice</a>
                 </li>
