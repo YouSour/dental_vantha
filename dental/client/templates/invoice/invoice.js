@@ -1,4 +1,3 @@
-
 Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.helpers({
     register: function () {
         var register = Dental.RegisterState.get('data');
@@ -32,6 +31,19 @@ Template.dental_invoiceInsert.helpers({
     }
 });
 
+Template.dental_invoiceInsert.events({
+    'click .btnAdd': function (e) {
+        var orderItemId = $(e.currentTarget).val();
+
+        if (orderItemId != "") {
+            $('.btnAdd').removeAttr('disabled');
+        } else {
+            $('.btnAdd').attr('disabled', "disabled");
+
+        }
+    }
+});
+
 /**
  * Update
  */
@@ -48,6 +60,16 @@ Template.dental_invoiceUpdate.helpers({
 });
 
 Template.dental_invoiceUpdate.events({
+    'click .btnAdd': function (e) {
+        var orderItemId = $(e.currentTarget).val();
+
+        if (orderItemId != "") {
+            $('.btnAdd').removeAttr('disabled');
+        } else {
+            $('.btnAdd').attr('disabled', "disabled");
+
+        }
+    },
     'click .remove': function () {
         var self = this;
         alertify.confirm(
@@ -83,9 +105,9 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
             var checkingMemberPrice = Dental.Collection.Patient.findOne({_id: $('[name="patientId"]').val()}, {member: "Yes"});
             qty = 1;
 
-            if(checkingMemberPrice.member == "Yes"){
+            if (checkingMemberPrice.member == "Yes") {
                 price = math.round(itemDoc.memberPrice, 2);
-            }else{
+            } else {
                 price = math.round(itemDoc.price, 2);
             }
             discount = 0;
@@ -215,7 +237,7 @@ var datepicker = function () {
  * Calculate total & Amount for disease item When keyUp & click
  */
 
-function CalculateTotalAndAmount(e){
+function CalculateTotalAndAmount(e) {
     var thisObj = $(e.currentTarget);
     var qty = thisObj.parents('div.array-item').find('.qty').val();
     var price = thisObj.parents('div.array-item').find('.price').val();
@@ -237,7 +259,7 @@ function CalculateTotalAndAmount(e){
  */
 function calculateTotal() {
     // Cal subtotal by items amount
-    var subtotal = math.round(0,2);
+    var subtotal = math.round(0, 2);
     $('.amount').each(function () {
         var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
         subtotal += amount;

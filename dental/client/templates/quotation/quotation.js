@@ -30,7 +30,11 @@ Template.dental_quotation.events({
         )
     },
     'click .show': function () {
-        alertify.alert(fa("eye","Quotation"),renderTemplate(Template.dental_quotationShow,this));
+        alertify.alert(fa("eye", "Quotation"), renderTemplate(Template.dental_quotationShow, this));
+    },
+    'click .quotationPrintAction': function () {
+        var url = 'quotationReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
+        window.open(url, '_blank');
     }
 });
 
@@ -80,6 +84,16 @@ Template.dental_quotationInsert.events({
 
         // Cal footer
         calculateTotal();
+    },
+    'click .btnAdd': function (e) {
+        var orderItemId = $(e.currentTarget).val();
+
+        if (orderItemId != "") {
+            $('.btnAdd').removeAttr('disabled');
+        } else {
+            $('.btnAdd').attr('disabled', "disabled");
+
+        }
     },
     'click .btnRemove': function (e, t) {
         setTimeout(function () {
@@ -147,6 +161,16 @@ Template.dental_quotationUpdate.events({
 
         // Cal footer
         calculateTotal();
+    },
+    'click .btnAdd': function (e) {
+        var orderItemId = $(e.currentTarget).val();
+
+        if (orderItemId != "") {
+            $('.btnAdd').removeAttr('disabled');
+        } else {
+            $('.btnAdd').attr('disabled', "disabled");
+
+        }
     },
     'click .btnRemove': function (e, t) {
         setTimeout(function () {
@@ -259,7 +283,7 @@ var datepicker = function () {
  * Calculate total & Amount for disease item When keyUp & click
  */
 
-function CalculateTotalAndAmount(e){
+function CalculateTotalAndAmount(e) {
     var thisObj = $(e.currentTarget);
     var qty = thisObj.parents('div.array-item').find('.qty').val();
     var price = thisObj.parents('div.array-item').find('.price').val();
