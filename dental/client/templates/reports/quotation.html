@@ -1,37 +1,37 @@
 <!--Form-->
-<!--<template name="dental_invoiceReport">-->
-    <!--{{#autoForm schema=Dental.Schema.InvoiceReport id="dental_invoiceReport" action="invoiceReportGen" target="_blank"}}-->
-        <!--<div class="row">-->
-            <!--<div class="col-md-6">-->
-                <!--{{> afQuickField name='patient' class="patientId"}}-->
-                <!--{{> afQuickField name='register'}}-->
-            <!--</div>-->
-            <!--<div class="col-md-6">-->
-                <!--{{> afQuickField name='date'}}-->
+<template name="dental_quotationReport">
+    {{#autoForm schema=Dental.Schema.QuotationReport id="dental_quotationReport" action="quotationReportGen" target="_blank"}}
+        <div class="row">
+            <div class="col-md-6">
+                {{> afQuickField name='patient' class="patientId"}}
+                {{> afQuickField name='quotation'}}
+            </div>
+            <div class="col-md-6">
+                {{> afQuickField name='date'}}
 
-                <!--&lt;!&ndash;{{> afQuickField name='exchange'}}&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="form-group{{#if afFieldIsInvalid name='exchange'}} has-error{{/if}}" data-required="true">&ndash;&gt;-->
-                <!--&lt;!&ndash;<label class="control-label" for="exchange">Exchange</label>&ndash;&gt;-->
+                <!--{{> afQuickField name='exchange'}}-->
+                <!--<div class="form-group{{#if afFieldIsInvalid name='exchange'}} has-error{{/if}}" data-required="true">-->
+                <!--<label class="control-label" for="exchange">Exchange</label>-->
 
-                <!--&lt;!&ndash;<div class="input-group select2-bootstrap-append">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{> afFieldInput name='exchange'}}&ndash;&gt;-->
-                <!--&lt;!&ndash;<span class="input-group-addon">&ndash;&gt;-->
-                <!--&lt;!&ndash;<a href="#" class="exchangeAddon">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{fa "plus"}}&ndash;&gt;-->
-                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;</span>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;{{#if afFieldIsInvalid name='exchange'}}&ndash;&gt;-->
-                <!--&lt;!&ndash;<span class="help-block">{{afFieldMessage name='exchange'}}</span>&ndash;&gt;-->
-                    <!--&lt;!&ndash;{{/if}}&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="input-group select2-bootstrap-append">-->
+                <!--{{> afFieldInput name='exchange'}}-->
+                <!--<span class="input-group-addon">-->
+                <!--<a href="#" class="exchangeAddon">-->
+                <!--{{fa "plus"}}-->
+                <!--</a>-->
+                <!--</span>-->
+                <!--</div>-->
+                    <!--{{#if afFieldIsInvalid name='exchange'}}-->
+                <!--<span class="help-block">{{afFieldMessage name='exchange'}}</span>-->
+                    <!--{{/if}}-->
+                <!--</div>-->
 
-            <!--</div>-->
-        <!--</div>-->
-        <!--<button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>-->
-        <!--<button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>-->
-    <!--{{/autoForm}}-->
-<!--</template>-->
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>
+        <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+    {{/autoForm}}
+</template>
 
 
 <!--Generate-->

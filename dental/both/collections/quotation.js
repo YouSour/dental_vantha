@@ -6,7 +6,13 @@ Dental.Collection.Quotation = new Mongo.Collection('dental_quotation');
 
 Dental.Schema.Quotation = new SimpleSchema({
     patientId: {
-        type: String
+        type: String,
+        autoform: {
+            type:'select2',
+            options: function () {
+                return Dental.ListForReport.patient();
+            }
+        }
     },
     quotationDate: {
         type: String,

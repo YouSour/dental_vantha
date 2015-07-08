@@ -25,7 +25,21 @@
         <div class="row">
 
             <div class="col-md-4">
-                {{> afQuickField name="patientId"}}
+                <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="patientId">Patient</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='patientId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="patientAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='patientId'}}
+                        <span class="help-block">{{afFieldMessage name='patientId'}}</span>
+                    {{/if}}
+                </div>
             </div>
             <div class="col-md-4">
                 {{> afQuickField name="quotationDate"}}
@@ -61,7 +75,21 @@
 
         <div class="row">
             <div class="col-md-4">
-                {{> afQuickField name="patientId"}}
+                <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="patientId">Patient</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='patientId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="patientAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='patientId'}}
+                        <span class="help-block">{{afFieldMessage name='patientId'}}</span>
+                    {{/if}}
+                </div>
             </div>
             <div class="col-md-4">
                 {{> afQuickField name="quotationDate"}}
