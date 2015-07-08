@@ -29,5 +29,19 @@ Dental.ListForReport = {
         });
 
         return list;
+    },
+    quotationForPatient: function () {
+        var list = [];
+        list.push({label: "Select One", value: ""});
+
+        var patientId = Dental.ListForReportState.get('patientId');
+        Dental.Collection.Quotation.find({
+            patientId: patientId
+        }).forEach(function (obj) {
+            var label = obj._id + ' | Date: ' + obj.quotationDate + ' | Total: ' + numeral(obj.total).format('0,0.00');
+            list.push({label: label, value: obj._id});
+        });
+
+        return list;
     }
 };

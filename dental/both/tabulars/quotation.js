@@ -4,7 +4,14 @@ Dental.TabularTable.Quotation = new Tabular.Table({
     columns: [
         {title: '<i class="fa fa-bars"></i>', tmpl: Meteor.isClient && Template.dental_quotationAction},
         {data: "_id", title: "ID"},
-        {data: "patientId", title: "Patient"},
+        {
+            data: "patientId",
+            title: "Patient",
+            render: function (val, type, doc) {
+                var patient = Dental.Collection.Patient.findOne({_id: val});
+                return val + " (" + patient.name + ")";
+            }
+        },
         {data: "quotationDate", title: "Quotation Date"},
         {
             data: "disease", title: "Disease",
@@ -12,9 +19,10 @@ Dental.TabularTable.Quotation = new Tabular.Table({
                 var items = '<ul>';
 
                 _.each(val, function (obj) {
+                    var disease = Dental.Collection.DiseaseItem.findOne({_id: obj.item});
                     items +=
                         "<li>"
-                        + 'Item: ' + obj.item
+                        + 'Item: ' + disease.name
                         + ' | Qty: ' + obj.qty
                         + ' | Price : ' + obj.price
                         + ' | Dis: ' + obj.discount
@@ -35,7 +43,7 @@ Dental.TabularTable.Quotation = new Tabular.Table({
         },
         {data: "des", title: "Description"}
     ],
-    order: [['2', 'desc']],
+    order: [['1', 'desc']],
     autoWidth: false,
     columnDefs: [
         {"width": "12px", "targets": 0},

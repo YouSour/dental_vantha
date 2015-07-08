@@ -1,0 +1,94 @@
+<!--Form-->
+<template name="dental_quotationListReport">
+    {{#autoForm schema=Dental.Schema.QuotationListReport id="dental_quotationListReport" action="quotationListReportGen" target="_blank"}}
+        <div class="row">
+            <div class="col-md-6">
+                {{> afQuickField name='patient' class="patientId"}}
+
+            </div>
+            <div class="col-md-6">
+                {{> afQuickField name='date'}}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>
+        <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+    {{/autoForm}}
+</template>
+
+
+<!--Generate-->
+<template name="dental_quotationListReportGen">
+    {{#with data}}
+        <!--Title-->
+        <div class="report-title">
+            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+            <span class="report-company-name">{{title.company.enName}}</span><br>
+            <u>តារាងសម្រង់ (Quotation List)</u><br>
+            {{title.company.khAddress}}, {{title.company.telephone}}
+        </div>
+
+        <!--Header-->
+        <table width="100%" border="0">
+            {{#each header}}
+                <tr>
+                    <td width="33%">{{col1}}</td>
+                    <td width="33%">{{col2}}</td>
+                    <td>{{col3}}</td>
+                </tr>
+            {{/each}}
+        </table>
+
+        <!--Content-->
+
+        <table class="report-content">
+            <thead class="report-content-header">
+            <tr>
+                <th>No</th>
+                <th>Quotation ID</th>
+                <th>Quotation Date</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+
+            <tbody class="report-content-body">
+            {{#each content}}
+                <tr>
+                    <td>{{index}}</td>
+                    <td>{{quotationId}}</td>
+                    <td>{{date}}</td>
+                    <td>{{total}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+
+
+        <!--Footer-->
+        <p></p>
+        <!--<table border="0" width="100%">-->
+            <!--<tr>-->
+                <!--<td style="vertical-align: top">-->
+                    <!--&lt;!&ndash;Total&ndash;&gt;-->
+                    <!--<table border="0" width="100%" style="font-weight: bold">-->
+                        <!--{{#each footer}}-->
+                            <!--<tr>-->
+                                <!--<td width="75%" style="text-align: right">{{col1}}</td>-->
+                                <!--<td style="text-align: right">{{col2}}</td>-->
+                            <!--</tr>-->
+                        <!--{{/each}}-->
+                    <!--</table>-->
+                <!--</td>-->
+            <!--</tr>-->
+        <!--</table>-->
+    {{/with}}
+
+    <!--Sign-->
+    <!--{{> dental_quotationReportGenFooterNote}}-->
+</template>
+
+<!--footerNote-->
+<!--<template name="dental_quotationReportGenFooterNote">-->
+    <!--<div style="text-align: center">-->
+        <!--<strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់បង់ មិនអាចយកវិញបានទេ).-->
+    <!--</div>-->
+<!--</template>-->

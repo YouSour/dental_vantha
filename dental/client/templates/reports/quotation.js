@@ -1,24 +1,24 @@
-//Dental.ListForReportState = new ReactiveObj();
-///************ Form *************/
-//Template.dental_quotationReport.onCreated(function () {
-//    createNewAlertify('exchange');
-//});
-//
-//Template.dental_quotationReport.onRendered(function () {
-//    var name = $('[name="date"]');
-//    DateTimePicker.date(name);
-//});
-//
-//Template.dental_quotationReport.events({
-//    'click .exchangeAddon': function (e, t) {
-//        alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
-//    },
-//    'change .patientId': function (e, t) {
-//        var patientId = $(e.currentTarget).val();
-//        return Dental.ListForReportState.set("patientId", patientId);
-//    }
-//
-//});
+Dental.ListForReportState = new ReactiveObj();
+/************ Form *************/
+Template.dental_quotationReport.onCreated(function () {
+    createNewAlertify('exchange');
+});
+
+Template.dental_quotationReport.onRendered(function () {
+    var name = $('[name="date"]');
+    DateTimePicker.date(name);
+});
+
+Template.dental_quotationReport.events({
+    'click .exchangeAddon': function (e, t) {
+        alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
+    },
+    'change .patientId': function (e, t) {
+        var patientId = $(e.currentTarget).val();
+        return Dental.ListForReportState.set("patientId", patientId);
+    }
+
+});
 
 /************ Generate *************/
 Template.dental_quotationReportGen.helpers({
@@ -47,7 +47,7 @@ Template.dental_quotationReportGen.helpers({
         console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Patient Name: ' + self.patient, col2: 'Date: ' + self.date, col3: 'No: ' + self.register},
+            {col1: 'Patient Name: ' + self.patient, col2: 'Date: ' + self.date, col3: 'No: ' + self.quotation},
             //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 
@@ -55,7 +55,7 @@ Template.dental_quotationReportGen.helpers({
         var content = [];
 
         // Get quotation
-        var getQuotation = Dental.Collection.Quotation.findOne({_id: self.register});
+        var getQuotation = Dental.Collection.Quotation.findOne({patientId: self.patient});
         var index = 1;
         if (!_.isUndefined(getQuotation)) {
             _.each(getQuotation.disease, function (obj) {

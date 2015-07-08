@@ -2,7 +2,7 @@
  * Index
  */
 Template.dental_quotation.onRendered(function () {
-    createNewAlertify('quotation');
+    createNewAlertify(['quotation', 'patientAddon']);
 });
 
 Template.dental_quotation.events({
@@ -33,7 +33,7 @@ Template.dental_quotation.events({
         alertify.alert(fa("eye", "Quotation"), renderTemplate(Template.dental_quotationShow, this));
     },
     'click .quotationPrintAction': function () {
-        var url = 'quotationReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
+        var url = 'quotationReportGen?patient=' + this.patientId + '&quotation=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
         window.open(url, '_blank');
     }
 });
@@ -58,6 +58,9 @@ Template.dental_quotationUpdate.onRendered(function () {
  * Disease Item Insert
  */
 Template.dental_quotationInsert.events({
+    'click .patientAddon': function (e, t) {
+        alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    },
     'change .item': function (e, t) {
         var thisObj = $(e.currentTarget);
         var itemId = $(e.currentTarget).val();
@@ -135,6 +138,9 @@ Template.dental_quotationInsert.events({
  * Disease Item Update
  */
 Template.dental_quotationUpdate.events({
+    'click .patientAddon': function (e, t) {
+        alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    },
     'change .item': function (e, t) {
         var thisObj = $(e.currentTarget);
         var itemId = $(e.currentTarget).val();

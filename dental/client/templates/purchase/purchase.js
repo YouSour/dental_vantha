@@ -117,7 +117,7 @@ Template.dental_purchaseUpdate.events({
     'click .registerAddon': function () {
         alertify.registerAddon(fa("plus", "Register"), renderTemplate(Template.dental_registerInsert)).maximize();
     },
-    'change .OrderItemId': function (e) {
+    'change .orderItemId': function (e) {
         onChangeOrderItemId(e);
     },
     'click .btnRemove': function (e) {
