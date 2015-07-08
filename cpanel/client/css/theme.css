@@ -130,3 +130,8 @@ code {
     height: 30px;
     padding: 4px 12px;
 }
+
+.selectize-dropdown .active {
+    background-color: #337ab7;
+    color: #ffffff;
+}

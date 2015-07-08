@@ -12,7 +12,7 @@ DateTimePicker = {
     },
     time: function (element) {
         element.datetimepicker({
-            format: 'H:m:s'
+            format: 'HH:mm:ss'
         });
     },
     // datePicker
