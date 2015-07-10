@@ -16,9 +16,31 @@ Dental.ListForReport = {
 
         return list;
     },
-    registerForPatient: function () {
+    staff: function () {
         var list = [];
-        list.push({label: "Select One", value: ""});
+        list.push({label: "(Select One)", value: ""});
+
+        Dental.Collection.Staff.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.name + ' (' + obj.position + ')', value: obj._id});
+            });
+
+        return list;
+    },
+    branch: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
+
+        Cpanel.Collection.Branch.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.enName + ' (' + obj.enShortName + ')', value: obj._id});
+            });
+
+        return list;
+    },
+    register: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
 
         var patientId = Dental.ListForReportState.get('patientId');
         Dental.Collection.Register.find({
@@ -32,7 +54,7 @@ Dental.ListForReport = {
     },
     quotationForPatient: function () {
         var list = [];
-        list.push({label: "Select One", value: ""});
+        list.push({label: "(Select One)", value: ""});
 
         var patientId = Dental.ListForReportState.get('patientId');
         Dental.Collection.Quotation.find({
@@ -43,5 +65,75 @@ Dental.ListForReport = {
         });
 
         return list;
-    }
+    },
+    registerListForDeposit: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
+
+        var patientId = Dental.ListForReportState.get('patientId');
+        Dental.Collection.Register.find({
+            patientId: patientId
+        }).forEach(function (obj) {
+            var label = obj._id + ' | Date: ' + obj.registerDate + ' | Total: ' + numeral(obj.total).format('0,0.00');
+            list.push({label: label, value: obj._id});
+        });
+
+        return list;
+    },
+    patientList: function () {
+        var list = [];
+        list.push({label: "All", value: "All"});
+
+        var currentBranch = Session.get('currentBranch');
+        Dental.Collection.Patient.find({branchId: currentBranch})
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.name + ' (' + obj.gender + ')', value: obj._id});
+            });
+
+        return list;
+    },
+    staffList: function () {
+        var list = [];
+        list.push({label: "All", value: "All"});
+
+        Dental.Collection.Staff.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.name + ' (' + obj.position + ')', value: obj._id});
+            });
+
+        return list;
+    },
+    branchList: function () {
+        var list = [];
+        list.push({label: "All", value: "All"});
+
+        Cpanel.Collection.Branch.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.enName + ' (' + obj.enShortName + ')', value: obj._id});
+            });
+
+        return list;
+    },
+    statusListForPayment: function () {
+        var list = [];
+        list.push({label: "All", value: "All"});
+        list.push({label: "Partial", value: "Partial"});
+        list.push({label: "Close", value: "Close"});
+
+        return list;
+    },
+    exchangeList: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
+
+        Cpanel.Collection.Exchange.find()
+            .forEach(function (obj) {
+                list.push({
+                    label: numeral(obj.rates.USD).format('0,0.00 $') + " | " + numeral(obj.rates.KHR).format('0,0.00') + " R | " + numeral(obj.rates.THB).format('0,0.0000') + " B ",
+                    value: obj._id
+                });
+            });
+
+        return list;
+    },
 };

@@ -1,15 +1,15 @@
 Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
-Template.dental_quotationListReport.onCreated(function () {
+Template.dental_registerListReport.onCreated(function () {
     createNewAlertify('exchange');
 });
 
-Template.dental_quotationListReport.onRendered(function () {
+Template.dental_registerListReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.dateRange(name);
 });
 
-Template.dental_quotationListReport.events({
+Template.dental_registerListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
     }
@@ -22,7 +22,7 @@ Template.dental_quotationListReport.events({
 });
 
 /************ Generate *************/
-Template.dental_quotationListReportGen.helpers({
+Template.dental_registerListReportGen.helpers({
     data: function () {
         var self = this;
         var data = {
@@ -43,18 +43,13 @@ Template.dental_quotationListReportGen.helpers({
 
         console.log(self.patient);
 
-        var patientName;
-        if (self.patient != "All") {
-            var patientDoc = Dental.Collection.Patient.findOne(self.patient);
-            patientName = patientDoc.name;
-        } else {
-            patientName = self.patient;
-        }
+        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
 
         console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientName , col3: 'Date: ' + self.date}
+            //{col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientDoc.name,
+            {col1: 'Branch ID: ' + self.branchId, col3: 'Date: ' + self.date}
             //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 
@@ -65,36 +60,29 @@ Template.dental_quotationListReportGen.helpers({
         var date = self.date.split(" To ");
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
-        if (fromDate != null && toDate != null) selector.quotationDate = {$gte: fromDate, $lte: toDate};
-
-
-        if (self.patient != "All") selector.patientId = self.patient;
+        if (fromDate != null && toDate != null) selector.registerDate = {$gte: fromDate, $lte: toDate};
         if (self.branchId != "All") selector.branchId = self.branchId;
-        // Get quotation
-        var getQuotation = Dental.Collection.Quotation.find(selector);
+        // Get register
+        var getRegister = Dental.Collection.Register.find(selector);
         debugger;
         var index = 1;
 
-        if (!_.isUndefined(getQuotation)) {
-            getQuotation.forEach(function (obj) {
-                //Loop Disease
-                //var diseaseDoc='';
-                //obj.disease.forEach(function(o){
-                //    var disease = Dental.Collection.DiseaseItem.findOne({_id: o.item});
-                //    diseaseDoc+=
-                //        'Item: ' + disease.name
-                //        + ' | Qty: ' + o.qty
-                //        + ' | Price : ' + o.price
-                //        //+ ' | Dis: ' + o.discount
-                //        //+ ' | Amount: ' + o.amount
-                //        + '<br>';
-                //});
+        if (!_.isUndefined(getRegister)) {
+            getRegister.forEach(function (obj) {
+                //Get patient
+
+                var getPatient = Dental.Collection.Patient.findOne({_id: obj.patientId});
 
                 obj.index = index;
-                obj.quotationId = obj._id;
-                obj.date = obj.quotationDate;
-                //obj.disease = diseaseDoc;
-                obj.total = numeral(obj.total).format('0,0.00');
+                obj.date = obj.registerDate;
+                obj.registerId = obj._id;
+                obj.patientId = obj.patientId;
+                obj.name = getPatient.name;
+                obj.gender = getPatient.gender;
+                obj.age = getPatient.age;
+                obj.address = getPatient.address;
+                obj.telephone = getPatient.telephone;
+                obj.description = obj.des;
 
                 content.push(obj);
 

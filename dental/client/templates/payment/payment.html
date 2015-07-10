@@ -25,6 +25,22 @@
         <div class="row">
             <div class="col-md-6">
 
+                <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="patientId">Patient</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='patientId' class='patientId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="patientAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='patientId'}}
+                        <span class="help-block">{{afFieldMessage name='patientId'}}</span>
+                    {{/if}}
+                </div>
+
                 <div class="form-group{{#if afFieldIsInvalid name='invoiceId'}} has-error{{/if}}" data-required="true">
                     <label class="control-label" for="invoiceId">Invoice ID</label>
 
@@ -110,6 +126,10 @@
     {{#autoForm collection=Dental.Collection.Payment id="dental_paymentUpdate" doc=this type="update"}}
         <div class="row">
             <div class="col-md-6">
+                <div class="form-group">
+                    <label for="invoiceId">Patient</label>
+                    <input type="text" class="form-control" id="patient" value={{patientId}} readonly>
+                </div>
 
                 <div class="form-group">
                     <label for="invoiceId">Invoice ID</label>

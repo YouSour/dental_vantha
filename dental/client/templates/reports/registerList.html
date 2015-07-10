@@ -1,9 +1,9 @@
 <!--Form-->
-<template name="dental_quotationListReport">
-    {{#autoForm schema=Dental.Schema.QuotationListReport id="dental_quotationListReport" action="quotationListReportGen" target="_blank"}}
+<template name="dental_registerListReport">
+    {{#autoForm schema=Dental.Schema.RegisterListReport id="dental_registerListReport" action="registerListReportGen" target="_blank"}}
         <div class="row">
             <div class="col-md-6">
-                {{> afQuickField name='patient' class="patientId"}}
+                <!--{{> afQuickField name='patient' class="patientId"}}-->
                 {{> afQuickField name='branchId'}}
 
             </div>
@@ -18,13 +18,13 @@
 
 
 <!--Generate-->
-<template name="dental_quotationListReportGen">
+<template name="dental_registerListReportGen">
     {{#with data}}
         <!--Title-->
         <div class="report-title">
             <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
             <span class="report-company-name">{{title.company.enName}}</span><br>
-            <u>Quotation Report</u><br>
+            <u>Register Report</u><br>
             {{title.company.khAddress}}, {{title.company.telephone}}
         </div>
 
@@ -45,9 +45,15 @@
             <thead class="report-content-header">
             <tr>
                 <th>No</th>
-                <th>Quotation ID</th>
-                <th>Quotation Date</th>
-                <th>Amount</th>
+                <th>Register Date</th>
+                <th>Register ID</th>
+                <th>Patient ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Telephone</th>
+                <th>Description</th>
             </tr>
             </thead>
 
@@ -55,9 +61,15 @@
             {{#each content}}
                 <tr>
                     <td>{{index}}</td>
-                    <td>{{quotationId}}</td>
                     <td>{{date}}</td>
-                    <td>{{total}}</td>
+                    <td>{{registerId}}</td>
+                    <td>{{patientId}}</td>
+                    <td>{{name}}</td>
+                    <td>{{gender}}</td>
+                    <td>{{age}}</td>
+                    <td>{{address}}</td>
+                    <td>{{telephone}}</td>
+                    <td>{{description}}</td>
                 </tr>
             {{/each}}
             </tbody>

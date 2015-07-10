@@ -1,12 +1,12 @@
-Router.route('dental/quotationListReport', function () {
-    this.render('dental_quotationListReport');
+Router.route('dental/registerListReport', function () {
+    this.render('dental_registerListReport');
 }, {
-    name: 'dental.quotationListReport',
-    header: {title: 'Quotation Report', sub: '', icon: 'file-text-o'},
-    title: "Quotation Report"
+    name: 'dental.registerListReport',
+    header: {title: 'Register Report', sub: '', icon: 'file-text-o'},
+    title: "Quotation List Report"
 });
 
-Router.route('dental/quotationListReportGen', function () {
+Router.route('dental/registerListReportGen', function () {
     // Config layout
     this.layout('reportLayout', {
         // Page size: a4, a5, mini
@@ -20,7 +20,7 @@ Router.route('dental/quotationListReportGen', function () {
     });
 
     var q = this.params.query;
-    this.render('dental_quotationListReportGen', {
+    this.render('dental_registerListReportGen', {
         data: function () {
             return q;
         }
