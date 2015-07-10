@@ -9,6 +9,16 @@ Dental.Collection.Payment = new Mongo.Collection('dental_payment');
  * @type {SimpleSchema}
  */
 Dental.Schema.Payment = new SimpleSchema({
+    patientId:{
+        type: String,
+        label: 'Patient',
+        autoform: {
+            type: "select2",
+            options: function () {
+                return Dental.List.patient();
+            }
+        }
+    },
     invoiceId: {
         type: String,
         label: 'Invoice ID',
@@ -49,7 +59,7 @@ Dental.Schema.Payment = new SimpleSchema({
         min: 0,
         custom: function () {
             if (this.value > this.field('dueAmount').value) {
-                    return "biggerThan";
+                return "biggerThan";
             }
         },
         label: 'Paid Amount'
@@ -63,6 +73,9 @@ Dental.Schema.Payment = new SimpleSchema({
         type: String,
         max: 50,
         optional: true
+    },
+    branchId: {
+        type: String
     }
 });
 
@@ -75,5 +88,5 @@ Dental.Collection.Payment.attachSchema(Dental.Schema.Payment);
  * Custom Error Message
  */
 SimpleSchema.messages({
-   "biggerThan" : "Paid Amount Can't Bigger Than Due Amount"
+    "biggerThan": "Paid Amount Can't Bigger Than Due Amount"
 });

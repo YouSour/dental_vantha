@@ -1,16 +1,16 @@
 /**
  * Schema
  */
-Dental.Schema.QuotationListReport = new SimpleSchema({
-    patient: {
-        type: String,
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.ListForReport.patientList();
-            }
-        }
-    },
+Dental.Schema.RegisterListReport = new SimpleSchema({
+    //patient: {
+    //    type: String,
+    //    autoform: {
+    //        type: "select2",
+    //        options: function () {
+    //            return Dental.ListForReport.patient();
+    //        }
+    //    }
+    //},
     branchId: {
         type: String,
         autoform: {
@@ -22,7 +22,7 @@ Dental.Schema.QuotationListReport = new SimpleSchema({
     },
     date: {
         type: String,
-        label: "Date Range"
+        label:"Date Range"
     }
     //exchange: {
     //    type: String,

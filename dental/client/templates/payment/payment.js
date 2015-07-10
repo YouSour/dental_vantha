@@ -1,3 +1,4 @@
+Dental.ListState = new ReactiveObj();
 /*
  * Index
  */
@@ -55,6 +56,10 @@ Template.dental_paymentInsert.events({
     'click .staffAddon': function () {
         alertify.staffAddon(fa("plus", "Staff"), renderTemplate(Template.dental_staffInsert));
     },
+    'change .patientId': function (e) {
+        var patientId = $(e.currentTarget).val();
+        return Dental.ListState.set("patientId", patientId);
+    },
     'change .invoiceId': function (e) {
         onChangeInvoice(e);
     },
@@ -71,6 +76,9 @@ Template.dental_paymentUpdate.onRendered(function () {
 });
 
 Template.dental_paymentUpdate.helpers({
+    patientId: function () {
+        return this.patientId;
+    },
     invoiceId: function () {
         return this.invoiceId;
     }

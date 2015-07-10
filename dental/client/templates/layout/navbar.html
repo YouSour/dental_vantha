@@ -38,6 +38,12 @@
                 Reports <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
+                <li class="{{isActiveRoute name='dental.registerListReport'}}"><a
+                        href="{{pathFor 'dental.registerListReport'}}">Register Report</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.paymentListReport'}}"><a
+                        href="{{pathFor 'dental.paymentListReport'}}">Payment Report</a>
+                </li>
                 <li class="{{isActiveRoute name='dental.treatmentReport'}}"><a
                         href="{{pathFor 'dental.treatmentReport'}}">Treatment</a>
                 </li>
@@ -56,7 +62,7 @@
                         href="{{pathFor 'dental.quotationReport'}}">Quotation</a>
                 </li>
                 <li class="{{isActiveRoute name='dental.quotationListReport'}}"><a
-                        href="{{pathFor 'dental.quotationListReport'}}">Quotation List</a>
+                        href="{{pathFor 'dental.quotationListReport'}}">Quotation Report</a>
                 </li>
             </ul>
         </li>

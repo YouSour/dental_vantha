@@ -178,8 +178,8 @@ Dental.List = {
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(Select One)", value: ""});
         }
-
-        Dental.Collection.Invoice.find().forEach(function (obj) {
+        var patientId = Dental.ListState.get('patientId');
+        Dental.Collection.Invoice.find({patientId:patientId}).forEach(function (obj) {
             var patient = Dental.Collection.Patient.findOne({_id: obj.patientId});
             var payment = Dental.Collection.Payment.findOne({
                     invoiceId: obj._id
