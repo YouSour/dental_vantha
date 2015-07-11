@@ -16,9 +16,6 @@ Dental.Schema.DiseaseHistory = new SimpleSchema({
         type: String,
         optional: true,
         label: "Description"
-    },
-    branchId: {
-        type: String
     }
 });
 

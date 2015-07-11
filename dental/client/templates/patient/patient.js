@@ -48,8 +48,14 @@ Template.dental_patient.events({
     },
     'click .show': function (e, t) {
         var data = Dental.Collection.Patient.findOne(this._id);
-        data.photoUrl = null;
+        var history = [];
+        _.each(data.history, function (val) {
+            var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
+            history.push(historyDoc.name);
+        });
+        data.historyVal = JSON.stringify(history, null, ' ');
 
+        data.photoUrl = null;
         if (!_.isUndefined(data.photo)) {
             data.photoUrl = Files.findOne(data.photo).url();
         }
@@ -82,7 +88,7 @@ AutoForm.hooks({
                 var branchPre = Session.get('currentBranch') + '-';
                 doc._id = idGenerator.genWithPrefix(Dental.Collection.Patient, branchPre, 6);
                 doc.branchId = Session.get('currentBranch');
-                historyName(doc, doc.history);
+
                 return doc;
             }
         },
@@ -94,13 +100,6 @@ AutoForm.hooks({
         }
     },
     dental_patientUpdate: {
-        before: {
-            update: function (doc) {
-                debugger;
-                updateHistoryName(doc, doc.$set.history);
-                return doc;
-            }
-        },
         onSuccess: function (formType, result) {
             alertify.patient().close();
             alertify.success('Success');
@@ -118,48 +117,3 @@ var datePicker = function () {
     var memberDate = $('[name="memberDate"]');
     DateTimePicker.date(memberDate);
 };
-
-
-//var checkBox = function () {
-//   $('[name="history"]').checkBo();
-//};
-
-/**
- * Insert History
- *
- * @param doc
- * @param history
- */
-var historyName = function (doc, history) {
-    var arr = [];
-    var obj = {};
-    for (var i = 0; i < history.length; i++) {
-        obj[history[i]] = findPatientName(history[i]);
-    }
-    arr.push(obj);
-    doc.history = arr;
-};
-
-/**
- * Update History
- *
- * @param doc
- * @param history
- */
-var updateHistoryName = function (doc, history) {
-    var arr = [];
-    var obj = {};
-    for (var i = 0; i < history.length; i++) {
-        obj[history[i]] = findPatientName(history[i]);
-    }
-    arr.push(obj);
-    doc.$set.history = arr;
-};
-
-var findPatientName = function (id) {
-    var obj;
-    obj = Dental.Collection.DiseaseHistory.findOne(id);
-    return obj.name;
-};
-
-

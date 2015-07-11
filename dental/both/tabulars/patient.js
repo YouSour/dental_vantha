@@ -9,25 +9,8 @@ Dental.TabularTable.Patient = new Tabular.Table({
         {data: "age", title: "Age"},
         {data: "address", title: "Address"},
         {data: "telephone", title: "Telephone"},
-        {
-            data: "history",
-            title: "History",
-            render: function (val) {
-
-                var history = '<ul>';
-
-                for (var k in val[0]) {
-                    var data = Dental.Collection.DiseaseHistory.findOne({_id: k});
-                    history += "<li>" + k + ":" + data.name + "</li>";
-                }
-                history += '</ul>';
-
-                return history;
-
-            }
-        },
+        //{data: "history", title: "History"},
         {data: "member", title: "Member"},
-        {data: "des", title: "Description"},
         {
             data: "photo",
             title: "Photo",

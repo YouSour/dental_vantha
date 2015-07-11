@@ -65,8 +65,7 @@ Dental.List = {
     history: function () {
         var list = [];
 
-        var currentBranch = Session.get('currentBranch');
-        Dental.Collection.DiseaseHistory.find({branchId: currentBranch})
+        Dental.Collection.DiseaseHistory.find()
             .forEach(function (obj) {
                 list.push({label: obj.name, value: obj._id});
             });

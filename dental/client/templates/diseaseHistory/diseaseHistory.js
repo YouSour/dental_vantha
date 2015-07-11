@@ -43,9 +43,7 @@ AutoForm.hooks({
     dental_diseaseHistoryInsert: {
         before: {
             insert: function (doc) {
-                var branchPre = Session.get('currentBranch') + '-';
-                doc._id = idGenerator.genWithPrefix(Dental.Collection.DiseaseHistory, branchPre, 3);
-                doc.branchId = Session.get('currentBranch');
+                doc._id = idGenerator.gen(Dental.Collection.DiseaseHistory, 3);
 
                 return doc;
             }

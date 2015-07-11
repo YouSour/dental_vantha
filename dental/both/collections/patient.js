@@ -42,11 +42,11 @@ Dental.Schema.Patient = new SimpleSchema({
         optional: true
     },
     history: {
-        type: [Object],
+        type: [String],
         optional: true,
-        blackbox: true,
         autoform: {
-            type: "select-checkbox-inline",
+            type: "select2",
+            multiple: true,
             options: function () {
                 return Dental.List.history();
             }
