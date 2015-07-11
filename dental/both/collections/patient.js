@@ -43,14 +43,14 @@ Dental.Schema.Patient = new SimpleSchema({
     },
     history: {
         type: [String],
-        optional: true,
         autoform: {
             type: "select2",
             multiple: true,
             options: function () {
                 return Dental.List.history();
             }
-        }
+        },
+        optional: true
     },
     member: {
         type: String,

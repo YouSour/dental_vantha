@@ -4,13 +4,16 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
+# Core
 meteor-platform
 jquery
 underscore
-underscorestring:underscore.string
-erasaur:meteor-lodash
 coffeescript
 markdown
+
+# Community
+underscorestring:underscore.string
+erasaur:meteor-lodash
 twbs:bootstrap
 fortawesome:fontawesome
 accounts-password
@@ -56,10 +59,6 @@ bigdsk:inputmask
 manuelschoebel:wait-on-lib
 risul:chance
 simple:reactive-method
-theara:id-generator
-theara:relation-exist
-theara:moneyjs
-theara:fa-helpers
 reactive-var
 theara:events
 xamfoo:reactive-obj
@@ -68,4 +67,12 @@ cfs:standard-packages
 cfs:gridfs
 yogiben:autoform-file
 jeanfredrik:denormalize
+zimme:collection-softremovable
+
+# Local
+theara:collection-cache
+theara:id-generator
+theara:relation-exist
+theara:moneyjs
+theara:fa-helpers
 theara:round-khr

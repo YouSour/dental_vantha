@@ -15,17 +15,14 @@ Template.dental_patient.helpers({
 
 Template.dental_patient.events({
     'click .insert': function (e, t) {
-        alertify.patient(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert)).maximize();
+        alertify.patient(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
+            .maximize();
     },
     'click .update': function (e, t) {
         var data = Dental.Collection.Patient.findOne({_id: this._id});
 
-        var keys = [];
-        for (var k in data.history[0]) keys.push(k);
-        data.history = keys;
-
-        debugger;
-        alertify.patient(fa("pencil", "Patient"), renderTemplate(Template.dental_patientUpdate, data)).maximize();
+        alertify.patient(fa("pencil", "Patient"), renderTemplate(Template.dental_patientUpdate, data))
+            .maximize();
     },
     'click .remove': function (e, t) {
         var self = this;
@@ -48,6 +45,8 @@ Template.dental_patient.events({
     },
     'click .show': function (e, t) {
         var data = Dental.Collection.Patient.findOne(this._id);
+
+        // History
         var history = [];
         _.each(data.history, function (val) {
             var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
@@ -55,6 +54,7 @@ Template.dental_patient.events({
         });
         data.historyVal = JSON.stringify(history, null, ' ');
 
+        // Photo
         data.photoUrl = null;
         if (!_.isUndefined(data.photo)) {
             data.photoUrl = Files.findOne(data.photo).url();
