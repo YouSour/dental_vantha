@@ -1,11 +1,3 @@
-// Before
-//Dental.Collection.Invoice.before.insert(function (userId, doc) {
-//    doc.createdAt = Date.now();
-//});
-
-Dental.Collection.Invoice.before.insert(function (userId, doc) {
-});
-
 Dental.Collection.Invoice.before.update(function (userId, doc, fieldNames, modifier, options) {
     modifier.$set = modifier.$set || {};
 
