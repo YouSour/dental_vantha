@@ -6,7 +6,7 @@ Dental.TabularTable.DiseaseCategory = new Tabular.Table({
         {data: "_id", title: "ID"},
         {data: "code", title: "Code"},
         {data: "name", title: "Name"},
-        {data: "itemCount", title: "Item Count"}
+        {data: "_itemCount", title: "Item+"}
     ],
     order: [['1', 'desc']],
     autoWidth: false,
