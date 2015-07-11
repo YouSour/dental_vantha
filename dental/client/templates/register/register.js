@@ -98,16 +98,16 @@ Template.dental_register.events({
     },
     // Print action
     'click .treatmentPrintAction': function () {
-        var url = 'treatmentReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
-        window.open(url, '_blank');
+        var q = 'patient=' + this.patientId + '&register=' + this._id;
+        window.open(Router.url('dental.treatmentReportGen', {}, {query: q}));
     },
     'click .depositPrintAction': function () {
-        var url = 'depositReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
-        window.open(url, '_blank');
+        var q = 'patient=' + this.patientId + '&register=' + this._id;
+        window.open(Router.url('dental.depositReportGen', {}, {query: q}));
     },
     'click .invoiceReportPrintAction': function () {
-        var url = 'invoiceReportGen?patient=' + this.patientId + '&register=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
-        window.open(url, '_blank');
+        var q = 'patient=' + this.patientId + '&register=' + this._id;
+        window.open(Router.url('dental.invoiceReportGen', {}, {query: q}));
     }
 });
 

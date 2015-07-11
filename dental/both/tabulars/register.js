@@ -7,6 +7,7 @@ Dental.TabularTable.Register = new Tabular.Table({
         {data: "_id", title: "ID"},
         {data: "registerDate", title: "Register Date"},
         {data: "des", title: "Description"},
+        {data: "patientId", title: "Patient ID"},
         {data: "_patient.name", title: "Patient Name"},
         {
             data: "_patient.photo",

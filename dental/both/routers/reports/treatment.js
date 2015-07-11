@@ -25,4 +25,6 @@ Router.route('dental/treatmentReportGen', function () {
             return q;
         }
     });
+}, {
+    name: 'dental.treatmentReportGen'
 });

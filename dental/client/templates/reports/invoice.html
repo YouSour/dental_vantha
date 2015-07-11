@@ -46,15 +46,25 @@
         </div>
 
         <!--Header-->
-        <table width="100%" border="0">
-            {{#each header}}
-                <tr>
-                    <td width="33%">{{col1}}</td>
-                    <td width="33%">{{col2}}</td>
-                    <td>{{col3}}</td>
-                </tr>
-            {{/each}}
-        </table>
+        <div style="width: 100%">
+            {{#with header}}
+                <div style="width: 50%; float: left">
+                    <ul class="list-unstyled">
+                        <li><strong>Patient ID:</strong> {{patientId}}</li>
+                        <li><strong>Name:</strong> {{_patient.name}}</li>
+                        <li><strong>Gender:</strong> {{_patient.gender}}</li>
+                        <li><strong>Age:</strong> {{_patient.age}}</li>
+                    </ul>
+                </div>
+                <div style="width: 50%; float: right">
+                    <ul class="list-unstyled">
+                        <li><strong>Reg ID:</strong> {{_id}}</li>
+                        <li><strong>Date:</strong> {{registerDate}}</li>
+                        <li><strong>Description:</strong> {{des}}</li>
+                    </ul>
+                </div>
+            {{/with}}
+        </div>
 
         <!--Content-->
         <table class="report-content">
@@ -84,46 +94,43 @@
         </table>
 
         <!--Footer-->
-        <p></p>
-        <table border="0" width="100%">
-            <tr>
-                <td width="50%">
-                    <!--Deposit-->
-                    <table class="report-content">
-                        <caption>Deposit Info</caption>
-                        <thead class="report-content-header">
+        <div style="width: 100%">
+            <!--Deposit-->
+            <div style="width: 50%; float: left">
+                <table class="report-content">
+                    <caption>Deposit Info</caption>
+                    <thead class="report-content-header">
+                    <tr>
+                        <th>No</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="report-content-body">
+                    {{#each deposit}}
                         <tr>
-                            <th>No</th>
-                            <th>Date</th>
-                            <th>Amount</th>
+                            <td>{{index}}</td>
+                            <td>{{depositDate}}</td>
+                            <td>{{amount}}</td>
                         </tr>
-                        </thead>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
 
-                        <tbody class="report-content-body">
-                        {{#each deposit}}
-                            <tr>
-                                <td>{{index}}</td>
-                                <td>{{depositDate}}</td>
-                                <td>{{amount}}</td>
-                            </tr>
-                        {{/each}}
-                        </tbody>
-                    </table>
-                </td>
-
-                <td style="vertical-align: top">
-                    <!--Total-->
-                    <table border="0" width="100%" style="font-weight: bold">
-                        {{#each footer}}
-                            <tr>
-                                <td width="50%" style="text-align: right">{{col1}}</td>
-                                <td style="text-align: right">{{col2}}</td>
-                            </tr>
-                        {{/each}}
-                    </table>
-                </td>
-            </tr>
-        </table>
+            <!--Total-->
+            <div style="width: 50%; float: right; margin-top: 20px">
+                {{#with footer}}
+                    <ul class="list-unstyled text-right">
+                        <li><strong>Subtotal:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subtotal}}</li>
+                        <li><strong>Deposit:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{deposit}}</li>
+                        <li><strong>Sub Discount:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}</li>
+                        <li><strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}</li>
+                    </ul>
+                {{/with}}
+            </div>
+        </div>
     {{/with}}
 
     <!--Sign-->
@@ -132,7 +139,7 @@
 
 <!--footerNote-->
 <template name="dental_invoiceReportGenFooterNote">
-    <div style="text-align: center">
+    <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">
         <strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់បង់ មិនអាចយកវិញបានទេ).
     </div>
 </template>

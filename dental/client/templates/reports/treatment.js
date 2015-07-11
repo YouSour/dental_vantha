@@ -22,7 +22,7 @@ Template.dental_treatmentReportGen.helpers({
         var self = this;
         var data = {
             title: {},
-            header: [],
+            header: {},
             content: []
         };
 
@@ -33,13 +33,8 @@ Template.dental_treatmentReportGen.helpers({
         };
 
         /********* Header ********/
-
-        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
-
-        data.header = [
-            {col1: 'Patient ID: ' + self.patient, col2: 'Gender: ' + patientDoc.gender, col3: 'No: ' + self.register},
-            {col1: 'Name: ' + patientDoc.name, col2: 'Age: ' + patientDoc.age, col3: 'Date: ' + self.date},
-        ];
+        var registerDoc = Dental.Collection.Register.findOne(self.register);
+        data.header = registerDoc;
 
         /********** Content & Footer **********/
         var content = [];

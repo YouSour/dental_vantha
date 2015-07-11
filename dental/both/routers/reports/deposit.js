@@ -25,4 +25,6 @@ Router.route('dental/depositReportGen', function () {
             return q;
         }
     });
+},{
+    name:'dental.depositReportGen'
 });

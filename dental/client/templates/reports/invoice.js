@@ -26,10 +26,10 @@ Template.dental_invoiceReportGen.helpers({
         var self = this;
         var data = {
             title: {},
-            header: [],
+            header: {},
             content: [],
-            footer: [],
-            deposit: []
+            deposit: [],
+            footer: {}
         };
 
         /********* Title *********/
@@ -39,17 +39,8 @@ Template.dental_invoiceReportGen.helpers({
         };
 
         /********* Header ********/
-
-        console.log(self.patient);
-
-        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
-
-        console.log(JSON.stringify(patientDoc));
-
-        data.header = [
-            {col1: 'Patient ID: ' + self.patient, col2: 'Gender: ' + patientDoc.gender, col3: 'No: ' + self.register},
-            {col1: 'Name: ' + patientDoc.name, col2: 'Age: ' + patientDoc.age, col3: 'Date: ' + self.date},
-        ];
+        var registerDoc = Dental.Collection.Register.findOne(self.register);
+        data.header = registerDoc;
 
         /********** Content & Footer **********/
         var content = [];
@@ -70,6 +61,7 @@ Template.dental_invoiceReportGen.helpers({
         var getInvoice = Dental.Collection.Invoice.findOne({registerId: self.register});
         var index = 1;
         if (!_.isUndefined(getInvoice)) {
+            // Content
             _.each(getInvoice.disease, function (obj) {
                 var itemDoc = Dental.Collection.DiseaseItem.findOne(obj.item);
                 obj.index = index;
@@ -81,16 +73,15 @@ Template.dental_invoiceReportGen.helpers({
 
                 index += 1;
             });
-        }
-
-        if (content.length > 0) {
             data.content = content;
-            data.footer = [
-                {col1: 'Subtotal:', col2: numeral(getInvoice.subtotal).format('$0,0.00')},
-                {col1: 'Deposit:', col2: numeral(getInvoice.deposit).format('$0,0.00')},
-                {col1: 'Discount:', col2: numeral(getInvoice.subDiscount).format('0,0.00')},
-                {col1: 'Total:', col2: numeral(getInvoice.total).format('$0,0.00')}
-            ];
+
+            // Footer
+            var footer = {};
+            footer.subtotal = numeral(getInvoice.subtotal).format('$0,0.00');
+            footer.deposit = numeral(getInvoice.deposit).format('$0,0.00');
+            footer.subDiscount = numeral(getInvoice.subDiscount).format('0,0.00');
+            footer.total = numeral(getInvoice.total).format('$0,0.00');
+            data.footer = footer;
 
             return data;
         } else {

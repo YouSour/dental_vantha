@@ -25,4 +25,6 @@ Router.route('dental/invoiceReportGen', function () {
             return q;
         }
     });
+},{
+    name:'dental.invoiceReportGen'
 });
