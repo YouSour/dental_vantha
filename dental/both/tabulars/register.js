@@ -5,30 +5,22 @@ Dental.TabularTable.Register = new Tabular.Table({
         {title: '<i class="fa fa-bars"></i>', tmpl: Meteor.isClient && Template.dental_registerAction},
         {title: '<i class="fa fa-print"></i>', tmpl: Meteor.isClient && Template.dental_registerPrintAction},
         {data: "_id", title: "ID"},
-        {
-            data: "patientId",
-            title: "Patient",
-            render: function (val, doc, type) {
-                var data = Dental.Collection.Patient.findOne({_id: val});
-                return data._id + " | " + data.name;
-            }
-        },
         {data: "registerDate", title: "Register Date"},
+        {data: "des", title: "Description"},
+        {data: "_patient.name", title: "Patient Name"},
         {
-            data: "patientId",
+            data: "_patient",
             title: "Photo",
             render: function (val, doc, type) {
-                var data = Dental.Collection.Patient.findOne({_id: val});
-                var img = data.photo;
-                if (_.isUndefined(val)) {
+                var photo = val.photo;
+                if (_.isUndefined(photo)) {
                     return null;
                 } else {
-                    var img = Files.findOne(img);
+                    var img = Files.findOne(photo);
                     return '<img src="' + img.url() + '" class="img-circle" width="50px" height="50px">';
                 }
             }
-        },
-        {data: "des", title: "Description"}
+        }
     ],
     order: [['2', 'desc']],
     autoWidth: false,

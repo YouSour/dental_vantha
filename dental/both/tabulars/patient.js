@@ -7,7 +7,7 @@ Dental.TabularTable.Patient = new Tabular.Table({
         {data: "name", title: "Name"},
         {data: "gender", title: "Gender"},
         {data: "age", title: "Age"},
-        {data: "address", title: "Address"},
+        //{data: "address", title: "Address"},
         {data: "telephone", title: "Telephone"},
         //{data: "history", title: "History"},
         {data: "member", title: "Member"},
@@ -22,7 +22,8 @@ Dental.TabularTable.Patient = new Tabular.Table({
                     return '<img src="' + img.url() + '" class="img-circle" width="50px" height="50px">';
                 }
             }
-        }
+        },
+        {data: "_registerCount", title: "RG+"}
     ],
     autoWidth: false,
     order: [['1', 'desc']],
