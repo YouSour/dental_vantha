@@ -1,14 +1,23 @@
 <template name="dental_registerInfo">
-    {{#with data}}
-        <div class="bs-callout bs-callout-info">
-            <!--<h4>Patient Info</h4>-->
-            <div class="row">
-                <div class="col-md-12">
-                    Register ID: {{_id}} | Date: {{registerDate}}<br>
-                    Patient ID: {{patientId}} | Name: {{_patient.name}} | Gender: {{_patient.gender}} | Member: {{_patient.member}}
-                    <img src="{{_patient.photoUrl}}" class="img-circle" width="50px" height="50px">
-                </div>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Register Info</div>
+        <div class="panel-body">
+            <ul class="list-unstyled">
+                <li><strong>ID:</strong> {{_id}}</li>
+                <li><strong>Register Date:</strong> {{registerDate}}</li>
+                <li><strong>Description:</strong> {{des}}</li>
+                <li><strong>Patient ID:</strong> {{patientId}}</li>
+                {{#with _patient}}
+                    <li><strong>Name:</strong> {{name}}</li>
+                    <li><strong>Gender:</strong> {{gender}}</li>
+                    <li><strong>Age:</strong> {{age}}</li>
+                    <li><strong>Occupation:</strong> {{occupation}}</li>
+                    <li><strong>Address:</strong> {{address}}</li>
+                    <li><strong>History:</strong> {{historyVal}}</li>
+                    <li><strong>Member:</strong> {{member}}</li>
+                    <li><strong>Photo:</strong> <img src="{{photoUrl}}" class="img-circle" width="50px" height="50px"></li>
+                {{/with}}
+            </ul>
         </div>
-    {{/with}}
+    </div>
 </template>

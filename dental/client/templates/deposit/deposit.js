@@ -12,8 +12,6 @@ Template.dental_deposit.helpers({
     selector: function () {
         var registerId = Dental.RegisterState.get('data')._id;
 
-        console.log(registerId);
-
         return {registerId: registerId};
     }
 });
@@ -47,6 +45,8 @@ Template.dental_deposit.events({
     },
     'click .show': function () {
         var data = Dental.Collection.Deposit.findOne(this._id);
+        data.amountVal = numeral(data.amount).format('0,0.00');
+
         alertify.alert(fa("eye", "Deposit"), renderTemplate(Template.dental_depositShow, data));
     }
 });

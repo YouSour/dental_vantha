@@ -1,105 +1,75 @@
 <!--Insert-->
 <template name="dental_invoiceInsert">
-    <!--Register info-->
-    {{> dental_registerInfo data=register}}
+    <div class="row">
+        <div class="col-md-9">
+            {{#autoForm collection=Dental.Collection.Invoice id="dental_invoiceInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
+                <div class="row">
+                    <div class="col-md-4">
+                        {{> afQuickField name="patientId" type="hidden" value=register.patientId}}
+                        {{> afQuickField name="registerId"  type="hidden" value=register._id}}
 
-    {{#autoForm collection=Dental.Collection.Invoice id="dental_invoiceInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
-        <div class="row">
-            <div class="col-md-6">
-                {{> afQuickField name="patientId" type="hidden" value=register.patientId}}
-                {{> afQuickField name="registerId"  type="hidden" value=register._id}}
+                        {{> afQuickField name="invoiceDate"}}
 
-                <!--{{> afQuickField name="invoiceDate"}}-->
+                    </div>
+                    <div class="col-md-8">
+                        {{> afQuickField name="des"}}
+                    </div>
+                </div>
 
-            </div>
-            <div class="col-md-6">
-                <!--{{> afQuickField name="des"}}-->
-            </div>
-        </div>
-
-        <!--<div class="row">-->
-            <!--&lt;!&ndash;Disease&ndash;&gt;-->
-            <!--<div class="col-md-12">-->
-                <!--{{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <div class="row">
-            <!--Treatment Info-->
-            <div class="col-md-3">
-                {{> dental_invoice}}
-                {{> dental_invoiceTreatment}}
-            </div>
-
-
-            <div class="col-md-9">
-                <!--Disease-->
+                <!--Disease Item-->
                 {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
                 <!--Doctor Share-->
                 {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Insert</button>
-                <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
-            </div>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Insert</button>
+                    <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+                </div>
+            {{/autoForm}}
         </div>
-
-    {{/autoForm}}
+        <div class="col-md-3">
+            {{> dental_registerInfo register}}
+            {{> dental_invoiceTreatment}}
+        </div>
+    </div>
 </template>
 
 <!--Update-->
 
 <template name="dental_invoiceUpdate">
-    <!--Register info-->
-    {{> dental_registerInfo data=register}}
+    <div class="row">
+        <div class="col-md-9">
+            {{#autoForm collection=Dental.Collection.Invoice id="dental_invoiceUpdate" type="update" doc=this afFieldInput-placeholder="schemaLabel"}}
+                <div class="row">
+                    <div class="col-md-4">
+                        {{> afQuickField name="patientId" type="hidden"}}
+                        {{> afQuickField name="registerId"  type="hidden"}}
 
-    {{#autoForm collection=Dental.Collection.Invoice id="dental_invoiceUpdate" type="update" doc=this afFieldInput-placeholder="schemaLabel"}}
-        <div class="row">
-            <div class="col-md-6">
-                {{> afQuickField name="patientId" type="hidden"}}
-                {{> afQuickField name="registerId"  type="hidden"}}
+                        {{> afQuickField name="invoiceDate"}}
 
-                <!--{{> afQuickField name="invoiceDate"}}-->
+                    </div>
+                    <div class="col-md-8">
+                        {{> afQuickField name="des"}}
+                    </div>
+                </div>
 
-            </div>
-            <div class="col-md-6">
-                <!--{{> afQuickField name="des"}}-->
-            </div>
-        </div>
-
-        <!--<div class="row">-->
-            <!--&lt;!&ndash;Disease&ndash;&gt;-->
-            <!--<div class="col-md-12">-->
-                <!--{{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <div class="row">
-            <!--Treatment Info-->
-            <div class="col-md-3">
-                {{> dental_invoice}}
-                {{> dental_invoiceTreatment}}
-            </div>
-
-            <div class="col-md-9">
                 <!--Disease-->
                 {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
                 <!--Doctor Share-->
                 {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Update</button>
-                <button type="button" class="btn btn-danger remove">{{fa "remove"}} Remove</button>
-                <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
-            </div>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Update</button>
+                    <button type="button" class="btn btn-danger remove">{{fa "remove"}} Remove</button>
+                    <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+                </div>
+            {{/autoForm}}
         </div>
-    {{/autoForm}}
+        <div class="col-md-3">
+            {{> dental_registerInfo register}}
+            {{> dental_invoiceTreatment}}
+        </div>
+    </div>
 </template>
 
 <!--Custom array field for disease item-->
@@ -111,7 +81,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-4">
-                    <p><b>Disease</b></p>
+                    <p><b>Disease Item</b></p>
                 </div>
                 <div class="col-md-1">
                     <p><b>Qty</b></p>
@@ -276,40 +246,19 @@
     </div>
 </template>
 
-<!--Invoice-->
-<template name="dental_invoice">
-    <div class="panel panel-default">
-        <div class="panel-heading">{{fa  "fa fa-money"}} Invoice</div>
-        <div class="panel-body">
-            {{> afQuickField name="invoiceDate"}}
-            {{> afQuickField name="des"}}
-        </div>
-    </div>
-</template>
 
-<!--Treatment-->
+<!--Treatment Info-->
 <template name="dental_invoiceTreatment">
     <div class="panel panel-default">
-        <div class="panel-heading">{{fa "fa fa-medkit"}} Treatment Detail</div>
+        <div class="panel-heading">Treatment Info</div>
         <div class="panel-body">
-            <table with="100%" class="table table-condensed" style="font-size: 12px">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Doctor</th>
-                </tr>
-                </thead>
-                <tbody>
+            <ul class="list-unstyled">
                 {{#each treatment}}
-                    <tr>
-                        <td>{{treatmentDate}}</td>
-                        <td>{{des}}</td>
-                        <td>{{doctorId}}</td>
-                    </tr>
+                    <li><strong>Date:</strong> {{treatmentDate}}</li>
+                    <li><strong>Des:</strong> {{des}}</li>
+                    <li style="border-bottom: 1px solid"><strong>Doctor:</strong> {{_doctor.name}}</li>
                 {{/each}}
-                </tbody>
-            </table>
+            </ul>
         </div>
     </div>
 </template>

@@ -12,8 +12,6 @@ Template.dental_treatment.helpers({
     selector: function () {
         var registerId = Dental.RegisterState.get('data')._id;
 
-        console.log(registerId);
-
         return {registerId: registerId};
     }
 });

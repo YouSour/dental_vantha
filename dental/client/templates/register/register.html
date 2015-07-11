@@ -111,25 +111,41 @@
 <!--show-->
 <template name="dental_registerShow">
     <dl class="dl-horizontal">
-        <dt>ID</dt>
-        <dd>{{_id}}</dd>
-        <dt>Register Date</dt>
-        <dd>{{registerDate}}</dd>
-        <dt>Patient</dt>
-        <dd>{{patientId}}</dd>
-        <!--<dt>Disease</dt>-->
-        <!--<dd>-->
-        <!--<ul>-->
-            <!--{{#each disease}}-->
-        <!--<li>Item: {{item}} | Qty: {{qty}} | Price: {{price}} | Discount: {{discount}} |-->
-        <!--Amount: {{amount}}</li>-->
-            <!--{{/each}}-->
-        <!--</ul>-->
-        <!--</dd>-->
-        <!--<dt>Total</dt>-->
-        <!--<dd>{{total}}</dd>-->
-        <dt>Description</dt>
-        <dd>{{des}}</dd>
+        <fieldset>
+            <legend>Register</legend>
+            <dt>ID</dt>
+            <dd>{{_id}}</dd>
+            <dt>Register Date</dt>
+            <dd>{{registerDate}}</dd>
+            <dt>Description</dt>
+            <dd>{{des}}</dd>
+        </fieldset>
+
+        <fieldset>
+            <legend>Patient</legend>
+            <dt>Patient ID</dt>
+            <dd>{{patientId}}</dd>
+            {{#with _patient}}
+                <dt>Name</dt>
+                <dd>{{name}}</dd>
+                <dt>Gender</dt>
+                <dd>{{gender}}</dd>
+                <dt>Age</dt>
+                <dd>{{age}}</dd>
+                <dt>Address</dt>
+                <dd>{{address}}</dd>
+                <dt>Telephone</dt>
+                <dd>{{telephone}}</dd>
+                <dt>History</dt>
+                <dd>{{historyVal}}</dd>
+                <dt>Member</dt>
+                <dd>{{member}}</dd>
+                <dt>Description</dt>
+                <dd>{{des}}</dd>
+                <dt>Photo</dt>
+                <dd><img src="{{photoUrl}}" class="img-circle" width="50px" height="50px"></dd>
+            {{/with}}
+        </fieldset>
     </dl>
 </template>
 

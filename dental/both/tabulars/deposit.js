@@ -4,7 +4,6 @@ Dental.TabularTable.Deposit = new Tabular.Table({
     columns: [
         {title: "<i class='fa fa-bars'></i>", tmpl: Meteor.isClient && Template.dental_depositAction},
         {data: "depositDate", title: "Deposit Date"},
-        {data: "registerId", title: "Register ID"},
         {
             data: "amount",
             title: "Amount",

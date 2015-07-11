@@ -47,6 +47,20 @@ Template.dental_register.events({
     'click .show': function () {
         var data = Dental.Collection.Register.findOne({_id: this._id});
 
+        // History
+        var history = [];
+        _.each(data._patient.history, function (val) {
+            var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
+            history.push(historyDoc.name);
+        });
+        data._patient.historyVal = JSON.stringify(history, null, ' ');
+
+        // Photo
+        data._patient.photoUrl = null;
+        if (!_.isUndefined(data._patient.photo)) {
+            data._patient.photoUrl = Files.findOne(data._patient.photo).url();
+        }
+
         alertify.alert(fa("eye", "Register"), renderTemplate(Template.dental_registerShow, data));
     },
     'click .treatmentAction': function () {
@@ -356,12 +370,20 @@ function calculateTotal() {
  */
 var registerState = function (param) {
     var registerDoc = Dental.Collection.Register.findOne({_id: param._id});
-    var patientDoc = Dental.Collection.Patient.findOne({_id: registerDoc.patientId});
-    var photo = Files.findOne(patientDoc.photo);
-    if (photo) {
-        patientDoc.photoUrl = photo.url();
+    /***** Patient *****/
+    // History
+    var history = [];
+    _.each(registerDoc._patient.history, function (val) {
+        var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
+        history.push(historyDoc.name);
+    });
+    registerDoc._patient.historyVal = JSON.stringify(history, null, ' ');
+
+    // Photo
+    registerDoc._patient.photoUrl = null;
+    if (!_.isUndefined(registerDoc._patient.photo)) {
+        registerDoc._patient.photoUrl = Files.findOne(registerDoc._patient.photo).url();
     }
-    registerDoc._patient = patientDoc;
 
     // Get deposit
     var deposit = 0;
@@ -371,13 +393,9 @@ var registerState = function (param) {
         });
     registerDoc.deposit = deposit;
 
-    console.log(registerDoc.deposit);
-
     // Get treatment
     var treatment = Dental.Collection.Treatment.find({registerId: param._id});
     registerDoc._treatment = treatment;
-
-    console.log(registerDoc.deposit);
 
     // Set state for treatment
     Dental.RegisterState.set('data', registerDoc);

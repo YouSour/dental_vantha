@@ -9,7 +9,6 @@ Dental.TabularTable.Doctor = new Tabular.Table({
         {data: "startDate", title: "Start Date"},
         {data: "address", title: "Address"},
         {data: "telephone", title: "Telephone"},
-        {data: "des", title: "Description"},
         {
             data: "photo",
             title: "Photo",
@@ -21,7 +20,8 @@ Dental.TabularTable.Doctor = new Tabular.Table({
                     return '<img src="' + img.url() + '" class="img-circle" width="50px" height="50px">';
                 }
             }
-        }
+        },
+        {data: "_treatmentCount", title: "Treatment+"}
     ],
     order: [['1', 'desc']],
     autoWidth: false,

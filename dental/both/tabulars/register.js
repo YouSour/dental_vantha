@@ -9,18 +9,20 @@ Dental.TabularTable.Register = new Tabular.Table({
         {data: "des", title: "Description"},
         {data: "_patient.name", title: "Patient Name"},
         {
-            data: "_patient",
+            data: "_patient.photo",
             title: "Photo",
             render: function (val, doc, type) {
-                var photo = val.photo;
-                if (_.isUndefined(photo)) {
+                if (_.isUndefined(val)) {
                     return null;
                 } else {
-                    var img = Files.findOne(photo);
+                    var img = Files.findOne(val);
                     return '<img src="' + img.url() + '" class="img-circle" width="50px" height="50px">';
                 }
             }
-        }
+        },
+        {data: "_treatmentCount", title: "T+"},
+        {data: "_depositCount", title: "D+"},
+        {data: "_invoiceCount", title: "I+"}
     ],
     order: [['2', 'desc']],
     autoWidth: false,
