@@ -4,32 +4,32 @@ Dental.TabularTable.Quotation = new Tabular.Table({
     columns: [
         {title: '<i class="fa fa-bars"></i>', tmpl: Meteor.isClient && Template.dental_quotationAction},
         {data: "_id", title: "ID"},
-        {
-            data: "patientId",
-            title: "Patient",
-            render: function (val, type, doc) {
-                var patient = Dental.Collection.Patient.findOne({_id: val});
-                return val + " (" + patient.name + ")";
-            }
-        },
         {data: "quotationDate", title: "Quotation Date"},
         {
             data: "disease", title: "Disease",
             render: function (val, type, doc) {
-                var items = '<ul>';
+                var items = '<table border="1" frame="void" style="border-collapse: collapse">' +
+                    '<thead>' +
+                    '<tr>' +
+                    '<th>Item</th>' +
+                    '<th>Qty</th>' +
+                    '<th>Price</th>' +
+                    '<th>Dis</th>' +
+                    '<th>Amount</th>' +
+                    '</tr>' +
+                    '</thead>';
 
                 _.each(val, function (obj) {
                     var disease = Dental.Collection.DiseaseItem.findOne({_id: obj.item});
-                    items +=
-                        "<li>"
-                        + 'Item: ' + disease.name
-                        + ' | Qty: ' + obj.qty
-                        + ' | Price : ' + obj.price
-                        + ' | Dis: ' + obj.discount
-                        + ' | Amount: ' + obj.amount
-                        + '</li>';
+                    items += '<tr>' +
+                        '<td>' + disease.name + '</td>' +
+                        '<td>' + obj.qty + '</td>' +
+                        '<td>' + obj.price + '</td>' +
+                        '<td>' + obj.discount + '</td>' +
+                        '<td>' + obj.amount + '</td>' +
+                        '</tr>';
                 });
-                items += '</ul>';
+                items += '</table>';
 
                 return items;
             }
@@ -41,7 +41,20 @@ Dental.TabularTable.Quotation = new Tabular.Table({
                 return numeral(val).format('0,0.00');
             }
         },
-        {data: "des", title: "Description"}
+        {data: "patientId", title: "Patient ID"},
+        {data: "_patient.name", title: "Patient Name"},
+        {
+            data: "_patient.photo",
+            title: "Photo",
+            render: function (val, type, doc) {
+                if (_.isUndefined(val)) {
+                    return null;
+                } else {
+                    var img = Files.findOne(val);
+                    return lightbox(img.url(), doc._id, doc._patient.name);
+                }
+            }
+        }
     ],
     order: [['1', 'desc']],
     autoWidth: false,
