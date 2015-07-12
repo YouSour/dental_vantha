@@ -26,10 +26,9 @@ Template.dental_quotationReportGen.helpers({
         var self = this;
         var data = {
             title: {},
-            header: [],
+            header: {},
             content: [],
-            footer: [],
-            deposit: []
+            footer: {}
         };
 
         /********* Title *********/
@@ -39,46 +38,32 @@ Template.dental_quotationReportGen.helpers({
         };
 
         /********* Header ********/
-
-        console.log(self.patient);
-
-        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
-
-        console.log(JSON.stringify(patientDoc));
-
-        data.header = [
-            {col1: 'Patient Name: ' + self.patient, col2: 'Date: ' + self.date, col3: 'No: ' + self.quotation},
-            //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
-        ];
+        var quotationDoc = Dental.Collection.Quotation.findOne(self.quotation);
+        data.header = quotationDoc;
 
         /********** Content & Footer **********/
         var content = [];
 
-        // Get quotation
-        var getQuotation = Dental.Collection.Quotation.findOne({patientId: self.patient});
+        // Each item
         var index = 1;
-        if (!_.isUndefined(getQuotation)) {
-            _.each(getQuotation.disease, function (obj) {
-                var itemDoc = Dental.Collection.DiseaseItem.findOne(obj.item);
-                obj.index = index;
-                obj.itemName = itemDoc.name;
-                obj.price = numeral(obj.price).format('0,0.00');
-                obj.amount = numeral(obj.amount).format('0,0.00');
+        _.each(quotationDoc.disease, function (obj) {
+            var itemDoc = Dental.Collection.DiseaseItem.findOne(obj.item);
+            obj.index = index;
+            obj.itemName = itemDoc.name;
+            obj.price = numeral(obj.price).format('0,0.00');
+            obj.amount = numeral(obj.amount).format('0,0.00');
 
-                content.push(obj);
+            content.push(obj);
 
-                index += 1;
-            });
-        }
+            index += 1;
+        });
+
+        data.footer.subtotal = numeral(quotationDoc.subtotal).format('0,0.00');
+        data.footer.subDiscount = numeral(quotationDoc.subDiscount).format('0,0.00');
+        data.footer.total = numeral(quotationDoc.total).format('0,0.00');
 
         if (content.length > 0) {
             data.content = content;
-            data.footer = [
-                {col1: 'Subtotal:', col2: numeral(getQuotation.subtotal).format('$0,0.00')},
-                //{col1: 'Deposit:', col2: numeral(getQuotation.deposit).format('$0,0.00')},
-                {col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-                {col1: 'Total:', col2: numeral(getQuotation.total).format('$0,0.00')}
-            ];
 
             return data;
         } else {

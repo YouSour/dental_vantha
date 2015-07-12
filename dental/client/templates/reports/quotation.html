@@ -46,15 +46,25 @@
         </div>
 
         <!--Header-->
-        <table width="100%" border="0">
-            {{#each header}}
-                <tr>
-                    <td width="33%">{{col1}}</td>
-                    <td width="33%">{{col2}}</td>
-                    <td>{{col3}}</td>
-                </tr>
-            {{/each}}
-        </table>
+        <div style="width: 100%">
+            {{#with header}}
+                <div style="width: 50%; float: left">
+                    <ul class="list-unstyled">
+                        <li><strong>Patient ID:</strong> {{patientId}}</li>
+                        <li><strong>Name:</strong> {{_patient.name}}</li>
+                        <li><strong>Gender:</strong> {{_patient.gender}}</li>
+                        <li><strong>Age:</strong> {{_patient.age}}</li>
+                    </ul>
+                </div>
+                <div style="width: 50%; float: right">
+                    <ul class="list-unstyled">
+                        <li><strong>Quotation ID:</strong> {{_id}}</li>
+                        <li><strong>Date:</strong> {{quotationDate}}</li>
+                        <li><strong>Description:</strong> {{des}}</li>
+                    </ul>
+                </div>
+            {{/with}}
+        </div>
 
         <!--Content-->
         <table class="report-content">
@@ -84,31 +94,28 @@
         </table>
 
         <!--Footer-->
-        <p></p>
-        <table border="0" width="100%">
-            <tr>
-                <td style="vertical-align: top">
-                    <!--Total-->
-                    <table border="0" width="100%" style="font-weight: bold">
-                        {{#each footer}}
-                            <tr>
-                                <td width="75%" style="text-align: right">{{col1}}</td>
-                                <td style="text-align: right">{{col2}}</td>
-                            </tr>
-                        {{/each}}
-                    </table>
-                </td>
-            </tr>
-        </table>
+        <div style="width: 100%;">
+            {{#with footer}}
+                <ul class="list-unstyled text-right">
+                    <li>
+                        <strong>Subtotal:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subtotal}}
+                    </li>
+                    <li>
+                        <strong>Sub
+                            Discount:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}
+                    </li>
+                    <li>
+                        <strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
+                    </li>
+                </ul>
+            {{/with}}
+        </div>
     {{/with}}
 
     <!--Sign-->
-    <!--{{> dental_quotationReportGenFooterNote}}-->
-</template>
-
-<!--footerNote-->
-<template name="dental_quotationReportGenFooterNote">
-    <div style="text-align: center">
-        <strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់បង់ មិនអាចយកវិញបានទេ).
+    <div style="width: 40%; text-align: center; float: right; clear: both">
+        <strong>Prepared By</strong>
+        <br><br><br><br><br><br><br>
+        __________________<br>
     </div>
 </template>

@@ -25,4 +25,6 @@ Router.route('dental/quotationReportGen', function () {
             return q;
         }
     });
+}, {
+    name: 'dental.quotationReportGen'
 });

@@ -33,8 +33,9 @@ Template.dental_quotation.events({
         alertify.alert(fa("eye", "Quotation"), renderTemplate(Template.dental_quotationShow, this));
     },
     'click .quotationPrintAction': function () {
-        var url = 'quotationReportGen?patient=' + this.patientId + '&quotation=' + this._id + '&date=' + moment().format('YYYY-MM-DD');
-        window.open(url, '_blank');
+        var q = 'patient=' + this.patientId + '&quotation=' + this._id;
+        var url = Router.url('dental.quotationReportGen', {}, {query: q});
+        window.open(url);
     }
 });
 
