@@ -123,22 +123,25 @@
             <div style="width: 50%; float: right; margin-top: 20px">
                 {{#with footer}}
                     <ul class="list-unstyled text-right">
-                        <li><strong>Subtotal:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subtotal}}</li>
-                        <li><strong>Deposit:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{deposit}}</li>
-                        <li><strong>Sub Discount:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}</li>
-                        <li><strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}</li>
+                        <li>
+                            <strong>Subtotal:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subtotal}}
+                        </li>
+                        <li>
+                            <strong>Deposit:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{deposit}}
+                        </li>
+                        <li><strong>Sub
+                            Discount:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}
+                        </li>
+                        <li>
+                            <strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
+                        </li>
                     </ul>
                 {{/with}}
             </div>
         </div>
     {{/with}}
 
-    <!--Sign-->
-    {{> dental_invoiceReportGenFooterNote}}
-</template>
-
-<!--footerNote-->
-<template name="dental_invoiceReportGenFooterNote">
+    <!--Note-->
     <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">
         <strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់បង់ មិនអាចយកវិញបានទេ).
     </div>

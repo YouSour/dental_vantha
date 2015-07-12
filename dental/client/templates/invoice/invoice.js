@@ -6,14 +6,6 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.helpers({
     }
 });
 
-Template.dental_invoiceTreatment.helpers({
-    treatment: function () {
-        var register = Dental.RegisterState.get('data');
-
-        return register._treatment;
-    }
-});
-
 /**
  * Insert
  */
@@ -26,6 +18,19 @@ Template.dental_invoiceInsert.onRendered(function () {
 Template.dental_invoiceInsert.helpers({
     register: function () {
         var register = Dental.RegisterState.get('data');
+
+        // Treatment attach file
+        var treatment = [];
+        register._treatment.forEach(function (obj) {
+            obj.attachFileUrl = null;
+            if (!_.isUndefined(obj.attachFile)) {
+                obj.attachFileUrl = Files.findOne(obj.attachFile).url();
+            }
+
+            treatment.push(obj);
+        });
+
+        register._treatment = treatment;
 
         return register;
     }
@@ -54,6 +59,19 @@ Template.dental_invoiceUpdate.onRendered(function () {
 Template.dental_invoiceUpdate.helpers({
     register: function () {
         var register = Dental.RegisterState.get('data');
+
+        // Treatment attach file
+        var treatment = [];
+        register._treatment.forEach(function (obj) {
+            obj.attachFileUrl = null;
+            if (!_.isUndefined(obj.attachFile)) {
+                obj.attachFileUrl = Files.findOne(obj.attachFile).url();
+            }
+
+            treatment.push(obj);
+        });
+
+        register._treatment = treatment;
 
         return register;
     }

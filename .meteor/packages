@@ -68,6 +68,8 @@ cfs:gridfs
 yogiben:autoform-file
 jeanfredrik:denormalize
 zimme:collection-softremovable
+natestrauser:animate-css
+czbaker:lightbox2
 
 # Local
 theara:collection-cache
@@ -76,3 +78,4 @@ theara:relation-exist
 theara:moneyjs
 theara:fa-helpers
 theara:round-khr
+theara:lightbox-helpers

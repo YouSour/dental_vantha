@@ -12,12 +12,12 @@ Dental.TabularTable.Register = new Tabular.Table({
         {
             data: "_patient.photo",
             title: "Photo",
-            render: function (val, doc, type) {
+            render: function (val, type, doc) {
                 if (_.isUndefined(val)) {
                     return null;
                 } else {
                     var img = Files.findOne(val);
-                    return '<img src="' + img.url() + '" class="img-circle" width="50px" height="50px">';
+                    return lightbox(img.url(), doc._id, doc._patient.name);
                 }
             }
         },

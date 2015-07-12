@@ -29,13 +29,12 @@
         </div>
         <div class="col-md-3">
             {{> dental_registerInfo register}}
-            {{> dental_invoiceTreatment}}
+            {{> dental_treatmentInfo register._treatment}}
         </div>
     </div>
 </template>
 
 <!--Update-->
-
 <template name="dental_invoiceUpdate">
     <div class="row">
         <div class="col-md-9">
@@ -67,7 +66,7 @@
         </div>
         <div class="col-md-3">
             {{> dental_registerInfo register}}
-            {{> dental_invoiceTreatment}}
+            {{> dental_treatmentInfo register._treatment}}
         </div>
     </div>
 </template>
@@ -243,22 +242,5 @@
     </div>
     <div class="col-sm-5">
         {{> afQuickField name=current.amount template="bootstrap3" label=false class="input-sm doctor-share-amount"}}
-    </div>
-</template>
-
-
-<!--Treatment Info-->
-<template name="dental_invoiceTreatment">
-    <div class="panel panel-default">
-        <div class="panel-heading">Treatment Info</div>
-        <div class="panel-body">
-            <ul class="list-unstyled">
-                {{#each treatment}}
-                    <li><strong>Date:</strong> {{treatmentDate}}</li>
-                    <li><strong>Des:</strong> {{des}}</li>
-                    <li style="border-bottom: 1px solid"><strong>Doctor:</strong> {{_doctor.name}}</li>
-                {{/each}}
-            </ul>
-        </div>
     </div>
 </template>

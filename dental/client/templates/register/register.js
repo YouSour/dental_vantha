@@ -99,15 +99,18 @@ Template.dental_register.events({
     // Print action
     'click .treatmentPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
-        window.open(Router.url('dental.treatmentReportGen', {}, {query: q}));
+        var url = Router.url('dental.treatmentReportGen', {}, {query: q});
+        window.open(url);
     },
     'click .depositPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
-        window.open(Router.url('dental.depositReportGen', {}, {query: q}));
+        var url = Router.url('dental.depositReportGen', {}, {query: q});
+        window.open(url);
     },
     'click .invoiceReportPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
-        window.open(Router.url('dental.invoiceReportGen', {}, {query: q}));
+        var url = Router.url('dental.invoiceReportGen', {}, {query: q});
+        window.open(url);
     }
 });
 

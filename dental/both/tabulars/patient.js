@@ -19,7 +19,8 @@ Dental.TabularTable.Patient = new Tabular.Table({
                     return null;
                 } else {
                     var img = Files.findOne(val);
-                    return '<img src="' + img.url() + '" class="img-circle" width="50px" height="50px">';
+
+                    return lightbox(img.url(), doc._id, doc.name);
                 }
             }
         },

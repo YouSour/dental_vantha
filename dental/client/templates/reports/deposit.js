@@ -8,7 +8,7 @@ Template.dental_depositReport.onRendered(function () {
 Template.dental_depositReport.events({
     'change .patient': function (e) {
         var patient = $(e.currentTarget).val();
-        return Dental.ListForReportState.set("patientId",patient);
+        return Dental.ListForReportState.set("patientId", patient);
     }
 });
 
@@ -18,8 +18,9 @@ Template.dental_depositReportGen.helpers({
         var self = this;
         var data = {
             title: {},
-            header: [],
-            content: []
+            header: {},
+            content: [],
+            footer: {}
         };
 
         /********* Title *********/
@@ -29,21 +30,20 @@ Template.dental_depositReportGen.helpers({
         };
 
         /********* Header ********/
-        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
-
-        data.header = [
-            {col1: 'Patient ID: ' + self.patient, col2: 'Gender: ' + patientDoc.gender, col3: 'No: ' + self.register},
-            {col1: 'Name: ' + patientDoc.name, col2: 'Age: ' + patientDoc.age, col3: 'Date: ' + self.date},
-        ];
+        var registerDoc = Dental.Collection.Register.findOne(self.register);
+        data.header = registerDoc;
 
         /********** Content **********/
         var content = [];
 
         // Get deposit
         var index = 1;
+        var total = 0;
         Dental.Collection.Deposit.find({registerId: self.register})
             .forEach(function (obj) {
                 obj.index = index;
+                total += obj.amount;
+
                 obj.amount = numeral(obj.amount).format('$0,0.00');
 
                 content.push(obj);
@@ -51,8 +51,11 @@ Template.dental_depositReportGen.helpers({
                 index += 1;
             });
 
+        data.footer = {total: numeral(total).format('$0,0.00')};
+
         if (content.length > 0) {
             data.content = content;
+
             return data;
         } else {
             data.content.push({index: 'no results'});
