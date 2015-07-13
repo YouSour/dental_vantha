@@ -65,18 +65,40 @@
     border-bottom: 1px solid #000000;
 }
 
-.report-sign {
-    text-align: center;
-    width: 100%;
-    font-weight: bold;
-}
-
-.report-body-bg .report-company-name {
+.report-body-bg .report-title .company-name {
     font-size: 16px;
 }
 
-.report-body .report-company-name {
+.report-body .report-title .company-name {
     font-size: 14px;
+}
+
+.report-body-bg .report-title .company-name-kh {
+    font-size: 16px;
+    font-family: 'Khmer OS Muol';
+}
+
+.report-body .report-title .company-name-kh {
+    font-size: 14px;
+    font-family: 'Khmer OS Muol';
+}
+
+.report-body-bg .report-title .report-name {
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.report-body .report-title .report-name {
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+.report-body-bg .report-title .report-address {
+    font-size: 12px;
+}
+
+.report-body .report-title .report-address {
+    font-size: 10px;
 }
 
 .report-content {
@@ -102,4 +124,10 @@
     border-collapse: collapse;
     width: 100%;
     padding: 5px;
+}
+
+.report-sign {
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
 }

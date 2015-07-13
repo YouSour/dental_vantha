@@ -6,17 +6,18 @@
 
 # Core
 meteor-platform
+accounts-password
 jquery
 underscore
 coffeescript
 markdown
+reactive-var
 
 # Community
 underscorestring:underscore.string
 erasaur:meteor-lodash
 twbs:bootstrap
 fortawesome:fontawesome
-accounts-password
 ian:accounts-ui-bootstrap-3
 mizzao:user-status
 255kb:meteor-status
@@ -28,8 +29,13 @@ rainhaven:iron-seo
 matb33:collection-hooks
 dburles:collection-helpers
 aldeed:collection2
+meteorhacks:aggregate
 aldeed:simple-schema
 aldeed:autoform
+cfs:standard-packages
+cfs:gridfs
+yogiben:autoform-file
+zimme:collection-softremovable
 natestrauser:select2
 zimme:select2-bootstrap3-css
 aldeed:autoform-select2
@@ -59,15 +65,8 @@ bigdsk:inputmask
 manuelschoebel:wait-on-lib
 risul:chance
 simple:reactive-method
-reactive-var
-theara:events
 xamfoo:reactive-obj
 frozeman:template-var
-cfs:standard-packages
-cfs:gridfs
-yogiben:autoform-file
-jeanfredrik:denormalize
-zimme:collection-softremovable
 natestrauser:animate-css
 czbaker:lightbox2
 rzymek:fullcalendar
@@ -78,5 +77,6 @@ theara:id-generator
 theara:relation-exist
 theara:moneyjs
 theara:fa-helpers
+theara:events
 theara:round-khr
 theara:lightbox-helpers

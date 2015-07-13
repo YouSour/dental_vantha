@@ -26,5 +26,7 @@ please use the same name
 ```
 
 ### Changelog
+- v 0.0.6 (2015-07-13)
+    - fix icon
 - v 0.0.1 (2015-07-12)
     - init
