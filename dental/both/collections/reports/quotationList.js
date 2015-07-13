@@ -9,7 +9,8 @@ Dental.Schema.QuotationListReport = new SimpleSchema({
             options: function () {
                 return Dental.ListForReport.patientList();
             }
-        }
+        },
+        optional:true
     },
     branchId: {
         type: String,
@@ -18,7 +19,8 @@ Dental.Schema.QuotationListReport = new SimpleSchema({
             options: function () {
                 return Dental.ListForReport.branchList();
             }
-        }
+        },
+        optional:true
     },
     date: {
         type: String,

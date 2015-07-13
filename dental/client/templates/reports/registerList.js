@@ -43,13 +43,19 @@ Template.dental_registerListReportGen.helpers({
 
         console.log(self.patient);
 
+        var branch;
         var patientDoc = Dental.Collection.Patient.findOne(self.patient);
 
+        if (self.branchId != "") {
+            branch = self.branchId;
+        } else {
+            branch = "All";
+        }
         console.log(JSON.stringify(patientDoc));
 
         data.header = [
             //{col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientDoc.name,
-            {col1: 'Branch ID: ' + self.branchId, col3: 'Date: ' + self.date}
+            {col1: 'Branch ID: ' + branch, col3: 'Date: ' + self.date}
             //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 
@@ -61,7 +67,7 @@ Template.dental_registerListReportGen.helpers({
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
         if (fromDate != null && toDate != null) selector.registerDate = {$gte: fromDate, $lte: toDate};
-        if (self.branchId != "All") selector.branchId = self.branchId;
+        if (self.branchId != "") selector.branchId = self.branchId;
         // Get register
         var getRegister = Dental.Collection.Register.find(selector);
         debugger;

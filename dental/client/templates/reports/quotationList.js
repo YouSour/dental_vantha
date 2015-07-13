@@ -41,20 +41,22 @@ Template.dental_quotationListReportGen.helpers({
 
         /********* Header ********/
 
-        console.log(self.patient);
+        //console.log(self.patient);
 
-        var patientName;
-        if (self.patient != "All") {
-            var patientDoc = Dental.Collection.Patient.findOne(self.patient);
+        var patientId, patientName;
+        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
+        if (self.patient != "") {
+            patientId = patientDoc._id;
             patientName = patientDoc.name;
         } else {
-            patientName = self.patient;
+            patientId = 'All';
+            patientName = 'All';
         }
 
-        console.log(JSON.stringify(patientDoc));
+        //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientName , col3: 'Date: ' + self.date}
+            {col1: 'Patient ID: ' + patientId, col2: 'Patient Name: ' + patientName, col3: 'Date: ' + self.date}
             //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 
@@ -67,28 +69,15 @@ Template.dental_quotationListReportGen.helpers({
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
         if (fromDate != null && toDate != null) selector.quotationDate = {$gte: fromDate, $lte: toDate};
 
-
-        if (self.patient != "All") selector.patientId = self.patient;
-        if (self.branchId != "All") selector.branchId = self.branchId;
+        if (self.patient != "")selector.patientId = self.patient;
+        if (self.branchId != "") selector.branchId = self.branchId;
         // Get quotation
         var getQuotation = Dental.Collection.Quotation.find(selector);
-        debugger;
+        //debugger;
         var index = 1;
 
         if (!_.isUndefined(getQuotation)) {
             getQuotation.forEach(function (obj) {
-                //Loop Disease
-                //var diseaseDoc='';
-                //obj.disease.forEach(function(o){
-                //    var disease = Dental.Collection.DiseaseItem.findOne({_id: o.item});
-                //    diseaseDoc+=
-                //        'Item: ' + disease.name
-                //        + ' | Qty: ' + o.qty
-                //        + ' | Price : ' + o.price
-                //        //+ ' | Dis: ' + o.discount
-                //        //+ ' | Amount: ' + o.amount
-                //        + '<br>';
-                //});
 
                 obj.index = index;
                 obj.quotationId = obj._id;

@@ -9,7 +9,8 @@ Dental.Schema.PaymentListReport = new SimpleSchema({
             options: function () {
                 return Dental.ListForReport.staffList();
             }
-        }
+        },
+        optional:true
     },
     patient: {
         type: String,
@@ -18,7 +19,8 @@ Dental.Schema.PaymentListReport = new SimpleSchema({
             options: function () {
                 return Dental.ListForReport.patientList();
             }
-        }
+        },
+        optional:true
     },
     branchId: {
         type: String,
@@ -27,7 +29,8 @@ Dental.Schema.PaymentListReport = new SimpleSchema({
             options: function () {
                 return Dental.ListForReport.branchList();
             }
-        }
+        },
+        optional:true
     },
     status:{
         type: String,
@@ -36,7 +39,8 @@ Dental.Schema.PaymentListReport = new SimpleSchema({
             options: function () {
                 return Dental.ListForReport.statusListForPayment();
             }
-        }
+        },
+        optional:true
     },
     exchange:{
         type: String,
