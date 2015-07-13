@@ -10,11 +10,11 @@ meteor add theara:lightbox-helpers
 
 ```js
 // in template
-{{lightbox url="img-url" name="img-name" title="img-title" [attachment="true"]}}
+{{lightbox url="img-url" name="img-name" title="img-title" [icon="paperclip"]}}
 
 // in js
-lightbox('img-url', 'img-name', 'img-title', [attachment=boolean], [safeString=boolean]);
-// Default attachment = false, safeString = false
+lightbox('img-url', 'img-name', 'img-title', [icon=paperclip], [safeString=boolean]);
+// Default don't have icon (show own image), safeString = false
 ```
 
 If you have a group of related images that you would like to combine into a set,

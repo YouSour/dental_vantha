@@ -12,9 +12,9 @@
                 <li class="{{isActiveRoute name='dental.register'}}">
                     <a href="{{pathFor 'dental.register'}}">Register</a>
                 </li>
-
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Quotation</li>
+                <li class="{{isActiveRoute name='dental.payment'}}">
+                    <a href="{{pathFor 'dental.payment'}}">Payment</a>
+                </li>
                 <li class="{{isActiveRoute name='dental.quotation'}}">
                     <a href="{{pathFor 'dental.quotation'}}">Quotation</a>
                 </li>
@@ -24,46 +24,40 @@
                 <li class="{{isActiveRoute name='dental.purchase'}}">
                     <a href="{{pathFor 'dental.purchase'}}">Purchase</a>
                 </li>
-
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Payment</li>
-                <li class="{{isActiveRoute name='dental.payment'}}">
-                    <a href="{{pathFor 'dental.payment'}}">Payment</a>
-                </li>
             </ul>
         </li>
+
+        <!--Calendar-->
+        <li class="{{isActiveRoute name='dental.calendar'}}"><a href="{{pathFor 'dental.calendar'}}">Calendar</a></li>
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Reports <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li class="{{isActiveRoute name='dental.registerListReport'}}"><a
-                        href="{{pathFor 'dental.registerListReport'}}">Register Report</a>
+                <li class="{{isActiveRoute name='dental.registerListReport'}}">
+                    <a href="{{pathFor 'dental.registerListReport'}}">Register</a>
                 </li>
-                <li class="{{isActiveRoute name='dental.paymentListReport'}}"><a
-                        href="{{pathFor 'dental.paymentListReport'}}">Payment Report</a>
+                <li class="{{isActiveRoute name='dental.paymentListReport'}}">
+                    <a href="{{pathFor 'dental.paymentListReport'}}">Payment</a>
                 </li>
-                <li class="{{isActiveRoute name='dental.treatmentReport'}}"><a
-                        href="{{pathFor 'dental.treatmentReport'}}">Treatment</a>
-                </li>
-                <li class="{{isActiveRoute name='dental.depositReport'}}"><a
-                        href="{{pathFor 'dental.depositReport'}}">Deposit</a>
+                <li class="{{isActiveRoute name='dental.quotationListReport'}}">
+                    <a href="{{pathFor 'dental.quotationListReport'}}">Quotation</a>
                 </li>
 
-                <li class="{{isActiveRoute name='dental.invoiceReport'}}"><a
-                        href="{{pathFor 'dental.invoiceReport'}}">Invoice</a>
-                </li>
 
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Quotation</li>
-
-                <li class="{{isActiveRoute name='dental.quotationReport'}}"><a
-                        href="{{pathFor 'dental.quotationReport'}}">Quotation</a>
-                </li>
-                <li class="{{isActiveRoute name='dental.quotationListReport'}}"><a
-                        href="{{pathFor 'dental.quotationListReport'}}">Quotation Report</a>
-                </li>
+                <!--<li class="{{isActiveRoute name='dental.treatmentReport'}}">-->
+                <!--<a href="{{pathFor 'dental.treatmentReport'}}">Treatment</a>-->
+                <!--</li>-->
+                <!--<li class="{{isActiveRoute name='dental.depositReport'}}">-->
+                <!--<a href="{{pathFor 'dental.depositReport'}}">Deposit</a>-->
+                <!--</li>-->
+                <!--<li class="{{isActiveRoute name='dental.invoiceReport'}}">-->
+                <!--<a href="{{pathFor 'dental.invoiceReport'}}">Invoice</a>-->
+                <!--</li>-->
+                <!--<li class="{{isActiveRoute name='dental.quotationReport'}}">-->
+                <!--<a href="{{pathFor 'dental.quotationReport'}}">Quotation</a>-->
+                <!--</li>-->
             </ul>
         </li>
 

@@ -17,7 +17,7 @@ Dental.TabularTable.Treatment = new Tabular.Table({
                     return null;
                 } else {
                     var attacheFile = Files.findOne(val);
-                    return lightbox(attacheFile.url(), doc._id, doc._doctor.name, true);
+                    return lightbox(attacheFile.url(), doc._id, doc._doctor.name, 'paperclip');
                 }
             }
         }

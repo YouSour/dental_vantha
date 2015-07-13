@@ -1,24 +1,24 @@
 /**
  * Lightbox helper
  */
-lightbox = function (url, name, title, attachment, safeString) {
+lightbox = function (url, name, title, icon, safeString) {
     var safeString = _.isUndefined(safeString) ? false : safeString;
 
     if (safeString === false) {
-        return getLightbox(url, name, title, attachment);
+        return getLightbox(url, name, title, icon);
     } else {
-        return Spacebars.SafeString(getLightbox(url, name, title, attachment));
+        return Spacebars.SafeString(getLightbox(url, name, title, icon));
     }
 };
 
 if (Meteor.isClient) {
     Template.registerHelper('lightbox', function (options) {
         var optionsVal = options.hash;
-        return Spacebars.SafeString(getLightbox(optionsVal.url, optionsVal.name, optionsVal.title, optionsVal.attachment));
+        return Spacebars.SafeString(getLightbox(optionsVal.url, optionsVal.name, optionsVal.title, optionsVal.icon));
     });
 }
 
-function getLightbox(url, name, title, attachment) {
+function getLightbox(url, name, title, icon) {
     var nameVal = name;
     var titleVal = title;
 
@@ -33,9 +33,9 @@ function getLightbox(url, name, title, attachment) {
         '<img src="' + url + '" class="img-circle" width="50px" height="50px">' +
         '</a>';
 
-    if (attachment == true || attachment == "true") {
+    if (!_.isUndefined(icon)) {
         lightbox = '<a href="' + url + '" data-lightbox="' + nameVal + '" data-title="' + titleVal + '">' +
-            '<i class="fa fa-paperclip"></i>' +
+            '<i class="fa fa-' + icon + '"></i>' +
             '</a>';
     }
 
