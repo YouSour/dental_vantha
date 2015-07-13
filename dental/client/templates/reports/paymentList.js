@@ -42,28 +42,23 @@ Template.dental_paymentListReportGen.helpers({
 
         console.log(self.patient);
 
-        var patient, branch, staff;
+        var branch,patient,staff,status;
 
-        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
         var branchDoc = Cpanel.Collection.Branch.findOne(self.branchId);
+        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
         var staffDoc = Dental.Collection.Staff.findOne(self.staff);
         var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
 
-        if (self.branchId != "All" && self.patient != "All" && self.staff != "All") {
-            patient = patientDoc.name;
-            branch = branchDoc._id;
-            staff = staffDoc.name;
-        } else {
-            patient = self.patient;
-            branch = self.branchId;
-            staff = self.staff;
-        }
+        if (self.branchId != "") {branch = branchDoc._id;} else {branch = "All";}
+        if (self.staff != "") {staff = staffDoc.name;} else {staff = "All";}
+        if (self.patient != "") {patient = patientDoc.name;} else {patient = "All";}
+        if ( self.status != "") {status = self.status;} else {status = "All";}
 
         console.log(JSON.stringify(patientDoc));
 
         data.header = [
             {col1: 'Branch: ' + branch, col2: 'Staff: ' + staff, col3: 'Date: ' + self.date},
-            {col1: 'Status: ' + self.status, col2: 'Paitent: ' + patient, col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" ៛"}
+            {col1: 'Status: ' + status, col2: 'Paitent: ' + patient, col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" ៛"}
         ];
 
         /********** Content & Footer **********/
@@ -79,12 +74,12 @@ Template.dental_paymentListReportGen.helpers({
         if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
 
         // Filter
-        if (self.patient != "All") selector.patientId = self.patient;
-        if (self.staff != "All") selector.staffId = self.staff;
-        if (self.branchId != "All") selector.branchId = self.branchId;
-        if (self.status != "All") selector.status = self.status;
+        if (self.patient != "") selector.patientId = self.patient;
+        if (self.staff != "") selector.staffId = self.staff;
+        if (self.branchId != "") selector.branchId = self.branchId;
+        if (self.status != "") selector.status = self.status;
 
-        if (self.exchange != "All") selectorExchange._id = self.exchange;
+        if (self.exchange != "") selectorExchange._id = self.exchange;
 
         //Get Exchange
         var exchange = Cpanel.Collection.Exchange.findOne(selectorExchange);

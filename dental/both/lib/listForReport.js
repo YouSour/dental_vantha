@@ -82,7 +82,7 @@ Dental.ListForReport = {
     },
     patientList: function () {
         var list = [];
-        list.push({label: "All", value: "All"});
+        list.push({label: "All", value: ""});
 
         var currentBranch = Session.get('currentBranch');
         Dental.Collection.Patient.find({branchId: currentBranch})
@@ -94,7 +94,7 @@ Dental.ListForReport = {
     },
     staffList: function () {
         var list = [];
-        list.push({label: "All", value: "All"});
+        list.push({label: "All", value: ""});
 
         Dental.Collection.Staff.find()
             .forEach(function (obj) {
@@ -105,7 +105,7 @@ Dental.ListForReport = {
     },
     branchList: function () {
         var list = [];
-        list.push({label: "All", value: "All"});
+        list.push({label: "All", value: ""});
 
         Cpanel.Collection.Branch.find()
             .forEach(function (obj) {
@@ -116,7 +116,7 @@ Dental.ListForReport = {
     },
     statusListForPayment: function () {
         var list = [];
-        list.push({label: "All", value: "All"});
+        list.push({label: "All", value: ""});
         list.push({label: "Partial", value: "Partial"});
         list.push({label: "Close", value: "Close"});
 

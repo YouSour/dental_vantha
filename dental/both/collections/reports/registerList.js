@@ -18,7 +18,8 @@ Dental.Schema.RegisterListReport = new SimpleSchema({
             options: function () {
                 return Dental.ListForReport.branchList();
             }
-        }
+        },
+        optional:true
     },
     date: {
         type: String,
