@@ -70,6 +70,7 @@ frozeman:template-var
 natestrauser:animate-css
 czbaker:lightbox2
 rzymek:fullcalendar
+zhenya:reveal
 
 # Local
 theara:collection-cache
@@ -80,3 +81,4 @@ theara:fa-helpers
 theara:events
 theara:round-khr
 theara:lightbox-helpers
+theara:breadcrumb

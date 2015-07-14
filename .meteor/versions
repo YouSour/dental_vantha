@@ -129,6 +129,7 @@ spacebars-compiler@1.0.6
 srp@1.0.3
 stylus@1.0.7
 templating@1.1.1
+theara:breadcrumb@0.0.3
 theara:collection-cache@0.3.4
 theara:events@0.1.5
 theara:fa-helpers@0.0.3
@@ -149,6 +150,7 @@ webapp@1.2.0
 webapp-hashing@1.0.3
 xamfoo:reactive-obj@0.5.0
 yogiben:autoform-file@0.2.7
+zhenya:reveal@0.0.2
 zimme:active-route@2.2.0
 zimme:collection-behaviours@1.0.4
 zimme:collection-softremovable@1.0.4
