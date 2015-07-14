@@ -109,9 +109,13 @@ AutoForm.hooks({
                 doc._id = idGenerator.genWithPrefix(Dental.Collection.Payment, branchPre, 3);
                 doc.branchId = Session.get('currentBranch');
                 var dataInvoice = doc.invoiceId;
-                var splitInvoice = dataInvoice.split('|');
-                var invoiceId = splitInvoice[0];
-                doc.invoiceId = invoiceId;
+
+                if (dataInvoice != null) {
+                    var splitInvoice = dataInvoice.split('|');
+                    var invoiceId = splitInvoice[0];
+                    doc.invoiceId = invoiceId;
+                }
+                
                 return doc;
             }
         },
