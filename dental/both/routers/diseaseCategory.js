@@ -4,6 +4,7 @@ Router.route('dental/diseaseCategory', function () {
 
 }, {
     name: 'dental.diseaseCategory',
+    title: "Disease Category",
     header: {title: 'Disease Category', sub: '', icon: 'list'},
-    title: "Disease Category"
+    breadcrumb: {title: 'Disease Category', parent: 'dental.home'}
 });
