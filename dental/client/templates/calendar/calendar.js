@@ -2,21 +2,23 @@
  * Full calendar
  */
 Template.dental_calendar.onRendered(function () {
-    Dental.Collection.Calendar.find({}).observeChanges({
+    createNewAlertify('calendarEvent');
+
+    Dental.Collection.CalendarEvent.find({}).observeChanges({
 
         added: function (id, fields) {
             console.log('Calendar is added');
-            $('#myFullcalendar').fullCalendar('refetchEvents');
+            $('#dental_fullcalendar').fullCalendar('refetchEvents');
         },
 
         changed: function (id, fields) {
             console.log('Calendar is changed');
-            $('#myFullcalendar').fullCalendar('refetchEvents');
+            $('#dental_fullcalendar').fullCalendar('refetchEvents');
         },
 
         removed: function (id) {
             console.log('Calendar is removed');
-            $('#myFullcalendar').fullCalendar('refetchEvents');
+            $('#dental_fullcalendar').fullCalendar('refetchEvents');
         }
 
     });
@@ -25,40 +27,42 @@ Template.dental_calendar.onRendered(function () {
 Template.dental_calendar.helpers({
     options: function () {
         return {
-            dayClick: function (date, jsEvent, view) {
-
-                alert('Clicked on: ' + date.format());
-
-                alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-                alert('Current view: ' + view.name);
-
-                // change the day's background color just for fun
-                $(this).css('background-color', 'red');
-
-            },
+            //dayClick: function (date, jsEvent, view) {
+            //
+            //    //alert('Clicked on: ' + date.format());
+            //    //
+            //    //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+            //    //
+            //    //alert('Current view: ' + view.name);
+            //    var calendarEventDate = $('[name="start"]');
+            //    DateTimePicker.dateTime(calendarEventDate);
+            //
+            //    var data = {};
+            //    data.registerOpt = Dental.List.register;
+            //
+            //    data.startVal = moment(date.format()).format('YYYY-MM-DD HH:mm:ss');
+            //
+            //    alertify.calendarEvent(fa("plus", "Calendar Event"), renderTemplate(Template.dental_calendarEventInsertOnFullcalendar, data));
+            //},
 
             eventClick: function (calEvent, jsEvent, view) {
+                var data = Dental.Collection.CalendarEvent.findOne({_id: calEvent._id});
 
-                alert('Event ID: ' + calEvent._id);
-                alert('Event Title: ' + calEvent.title);
-                alert('Event Start: ' + calEvent.start);
-                alert('Event End: ' + calEvent.end);
-                alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                alert('View: ' + view.name);
-
-                // change the border color just for fun
-                $(this).css('border-color', 'red');
-
+                alertify.calendarEvent(fa("pencil", "Calendar Event"), renderTemplate(Template.dental_calendarEventUpdate, data));
             },
 
 
             events: function (start, end, tz, callback) {
-                var events = Dental.Collection.Calendar.find().map(function (obj) {
+                var events = Dental.Collection.CalendarEvent.find().map(function (obj) {
+                    var title = function () {
+                        return obj._register._patient.name + ' (' + obj.title + ')';
+                    };
+                    var start = moment(obj.start);
+
                     return {
                         id: obj._id,
-                        title: obj.title,
-                        start: obj.start
+                        title: title(),
+                        start: start
                         //end: obj.end
                         //allDay: true
                     };
@@ -67,7 +71,7 @@ Template.dental_calendar.helpers({
                 callback(events);
             },
 
-
+            id: 'dental_fullcalendar',
             defaultView: 'agendaWeek',
             firstDay: 1,
             height: "100%",
@@ -76,16 +80,7 @@ Template.dental_calendar.helpers({
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-
-            editable: true,
-            eventDragStop: function (event, jsEvent, ui, view) {
-                alert('Event ID: ' + calEvent._id);
-                alert('Event Title: ' + calEvent.title);
-                alert('Event Start: ' + calEvent.start);
-                alert('Event End: ' + calEvent.end);
-                alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                alert('View: ' + view.name);
-            }
+            editable: true
         }
     }
 });

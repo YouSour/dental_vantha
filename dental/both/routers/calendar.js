@@ -4,6 +4,7 @@ Router.route('dental/calendar', function () {
 
 }, {
     name: 'dental.calendar',
+    title: "Calendar",
     header: {title: 'Calendar', sub: '', icon: 'calendar-o'},
-    title: "Calendar"
+    breadcrumb: {title: 'Calendar', parent: 'dental.home'}
 });

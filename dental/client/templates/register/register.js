@@ -71,6 +71,14 @@ Template.dental_register.events({
             renderTemplate(Template.dental_treatment)
         ).maximize();
     },
+    'click .appointmentAction': function () {
+        registerState(this);
+
+        alertify.treatmentAction(
+            fa("clock-o", "Appointment"),
+            renderTemplate(Template.dental_calendarEvent)
+        ).maximize();
+    },
     'click .depositAction': function () {
         registerState(this);
 
