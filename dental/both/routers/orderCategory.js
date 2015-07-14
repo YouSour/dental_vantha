@@ -3,5 +3,6 @@ Router.route('dental/orderCategory', function () {
 }, {
     name: "dental.orderCategory",
     header: {title: "Order Category", sub: "", icon: "fa fa-shopping-cart"},
-    title: "Order Category"
+    title: "Order Category",
+    breadcrumb: {title: 'Order Category', parent: 'dental.home'}
 });

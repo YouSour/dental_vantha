@@ -2,8 +2,9 @@ Router.route('dental/treatmentReport', function () {
     this.render('dental_treatmentReport');
 }, {
     name: 'dental.treatmentReport',
+    title: "Treatment Report",
     header: {title: 'Treatment Report', sub: '', icon: 'file-text-o'},
-    title: "Treatment Report"
+    breadcrumb: {title: 'Treatment Report', parent: 'dental.home'}
 });
 
 Router.route('dental/treatmentReportGen', function () {

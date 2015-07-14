@@ -2,8 +2,9 @@ Router.route('dental/depositReport', function () {
     this.render('dental_depositReport');
 }, {
     name: 'dental.depositReport',
+    title: "Deposit Report",
     header: {title: 'Deposit Report', sub: '', icon: 'file-text-o'},
-    title: "Deposit Report"
+    breadcrumb: {title: 'Deposit Report', parent: 'dental.home'}
 });
 
 Router.route('dental/depositReportGen', function () {
@@ -25,6 +26,6 @@ Router.route('dental/depositReportGen', function () {
             return q;
         }
     });
-},{
-    name:'dental.depositReportGen'
+}, {
+    name: 'dental.depositReportGen'
 });

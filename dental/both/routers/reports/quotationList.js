@@ -2,8 +2,9 @@ Router.route('dental/quotationListReport', function () {
     this.render('dental_quotationListReport');
 }, {
     name: 'dental.quotationListReport',
+    title: "Quotation Report",
     header: {title: 'Quotation Report', sub: '', icon: 'file-text-o'},
-    title: "Quotation Report"
+    breadcrumb: {title: 'Quotation Report', parent: 'dental.home'}
 });
 
 Router.route('dental/quotationListReportGen', function () {

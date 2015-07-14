@@ -4,6 +4,7 @@ Router.route('dental/patient', function () {
 
 }, {
     name: 'dental.patient',
+    title: "Patient",
     header: {title: 'Patient', sub: '', icon: 'fa fa-wheelchair'},
-    title: "Patient"
+    breadcrumb: {title: 'Patient', parent: 'dental.home'}
 });

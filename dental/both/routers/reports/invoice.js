@@ -2,8 +2,9 @@ Router.route('dental/invoiceReport', function () {
     this.render('dental_invoiceReport');
 }, {
     name: 'dental.invoiceReport',
+    title: "Invoice Report",
     header: {title: 'Invoice Report', sub: '', icon: 'file-text-o'},
-    title: "Invoice Report"
+    breadcrumb: {title: 'Invoice Report', parent: 'dental.home'}
 });
 
 Router.route('dental/invoiceReportGen', function () {
@@ -25,6 +26,6 @@ Router.route('dental/invoiceReportGen', function () {
             return q;
         }
     });
-},{
-    name:'dental.invoiceReportGen'
+}, {
+    name: 'dental.invoiceReportGen'
 });
