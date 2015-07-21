@@ -58,12 +58,21 @@ Template.dental_depositInsert.onRendered(function () {
     datepicker();
 });
 
+Template.dental_depositInsert.events({
+    'click .saveAndPrint': function () {
+        var q = 'patient=' + this.patientId + '&register=' + this._id;
+        var url = Router.url('dental.depositReportGen', {}, {query: q});
+        window.open(url);
+    }
+});
+
 /**
  * Update
  */
 Template.dental_depositUpdate.onRendered(function () {
     datepicker();
 });
+
 
 /*
  *Hook

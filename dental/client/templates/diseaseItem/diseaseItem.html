@@ -23,9 +23,9 @@
     {{#autoForm collection=Dental.Collection.DiseaseItem id="dental_diseaseItemInsert" type="insert"}}
         <div class="row">
             <div class="col-md-6">
-                <!--{{> afQuickField name='diseaseCategoryId'}}-->
+
                 <div class="form-group{{#if afFieldIsInvalid name='diseaseCategoryId'}} has-error{{/if}}">
-                    <label class="control-label" for="diseaseCategoryId">Category</label>
+                    <label class="control-label" for="diseaseCategoryId">Disease Category</label>
 
                     <div class="input-group select2-bootstrap-append">
                         {{> afFieldInput name='diseaseCategoryId'}}
@@ -83,9 +83,9 @@
     {{#autoForm collection=Dental.Collection.DiseaseItem id="dental_diseaseItemUpdate" doc=this type="update"}}
         <div class="row">
             <div class="col-md-6">
-                <!--{{> afQuickField name='diseaseCategoryId'}}-->
+
                 <div class="form-group{{#if afFieldIsInvalid name='diseaseCategoryId'}} has-error{{/if}}">
-                    <label class="control-label" for="diseaseCategoryId">Category</label>
+                    <label class="control-label" for="diseaseCategoryId">Disease Category</label>
 
                     <div class="input-group select2-bootstrap-append">
                         {{> afFieldInput name='diseaseCategoryId'}}

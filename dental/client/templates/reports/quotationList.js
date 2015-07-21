@@ -36,7 +36,8 @@ Template.dental_quotationListReportGen.helpers({
         /********* Title *********/
         var company = Cpanel.Collection.Company.findOne();
         data.title = {
-            company: company
+            company: company,
+            date: self.date
         };
 
         /********* Header ********/
@@ -56,7 +57,7 @@ Template.dental_quotationListReportGen.helpers({
         //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Patient ID: ' + patientId, col2: 'Patient Name: ' + patientName, col3: 'Date: ' + self.date}
+            {col1: 'Patient ID: ' + patientId, col2: '', col3: 'Patient Name: ' + patientName}
             //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 

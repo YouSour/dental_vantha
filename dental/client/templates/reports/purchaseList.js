@@ -1,15 +1,15 @@
 Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
-Template.dental_registerListReport.onCreated(function () {
+Template.dental_purchaseListReport.onCreated(function () {
     createNewAlertify('exchange');
 });
 
-Template.dental_registerListReport.onRendered(function () {
+Template.dental_purchaseListReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.dateRange(name);
 });
 
-Template.dental_registerListReport.events({
+Template.dental_purchaseListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
     }
@@ -22,7 +22,7 @@ Template.dental_registerListReport.events({
 });
 
 /************ Generate *************/
-Template.dental_registerListReportGen.helpers({
+Template.dental_purchaseListReportGen.helpers({
     data: function () {
         var self = this;
         var data = {
@@ -42,21 +42,24 @@ Template.dental_registerListReportGen.helpers({
 
         /********* Header ********/
 
-        console.log(self.patient);
+        //console.log(self.patient);
 
-        var branch;
-        //var patientDoc = Dental.Collection.Patient.findOne(self.patient);
-
-        if (self.branchId != "") {
+        var supplierId, supplierName, branch;
+        var supplierDoc = Dental.Collection.Supplier.findOne(self.supplierId);
+        if (self.supplierId != "") {
+            supplierId = supplierDoc._id;
+            supplierName = supplierDoc.name;
             branch = self.branchId;
         } else {
-            branch = "All";
+            supplierId = 'All';
+            supplierName = 'All';
+            branch = 'All';
         }
+
         //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            //{col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientDoc.name,
-            {col1: 'Branch ID: ' + branch}
+            {col1:'Brand ID: ' + branch, col2:'Supplier ID: ' + supplierId, col3: 'Suppiler Name: ' + supplierName}
             //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 
@@ -67,29 +70,32 @@ Template.dental_registerListReportGen.helpers({
         var date = self.date.split(" To ");
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
-        if (fromDate != null && toDate != null) selector.registerDate = {$gte: fromDate, $lte: toDate};
+        if (fromDate != null && toDate != null) selector.purchaseDate = {$gte: fromDate, $lte: toDate};
+
+        if (self.supplierId != "")selector.supplierId = self.supplierId;
         if (self.branchId != "") selector.branchId = self.branchId;
-        // Get register
-        var getRegister = Dental.Collection.Register.find(selector);
-        debugger;
+        // Get purchase
+        var getPurchase = Dental.Collection.Purchase.find(selector);
+        //debugger;
         var index = 1;
 
-        if (!_.isUndefined(getRegister)) {
-            getRegister.forEach(function (obj) {
-                //Get patient
-
-                var getPatient = Dental.Collection.Patient.findOne({_id: obj.patientId});
+        if (!_.isUndefined(getPurchase)) {
+            getPurchase.forEach(function (obj) {
 
                 obj.index = index;
-                obj.date = obj.registerDate;
-                obj.registerId = obj._id;
-                obj.patientId = obj.patientId;
-                obj.name = getPatient.name;
-                obj.gender = getPatient.gender;
-                obj.age = getPatient.age;
-                obj.address = getPatient.address;
-                obj.telephone = getPatient.telephone;
-                obj.description = obj.des;
+
+                if(obj._register != null) {
+                    obj.patientName = obj._register._patient.name;
+                }else{
+                    obj.patientName = "None";
+                }
+
+                obj.itemName = "";
+                obj.items.forEach(function(i){
+                    obj.itemName += Dental.Collection.OrderItem.findOne(i.orderItemId).name;
+                });
+
+                obj.total = numeral(obj.total).format('0,0.00');
 
                 content.push(obj);
 

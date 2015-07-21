@@ -22,7 +22,23 @@
     {{#autoForm collection=Dental.Collection.OrderItem id="dental_orderItemInsert" type="insert"}}
         <div class="row">
             <div class="col-md-6">
-                {{> afQuickField name="orderCategoryId"}}
+
+                <div class="form-group{{#if afFieldIsInvalid name='orderCategoryId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="orderCategoryId">Order Category</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='orderCategoryId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="orderCategoryAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='orderCategoryId'}}
+                        <span class="help-block">{{afFieldMessage name='orderCategoryId'}}</span>
+                    {{/if}}
+                </div>
+
                 {{> afQuickField name="name"}}
             </div>
             <div class="col-md-6">
@@ -39,7 +55,21 @@
     {{#autoForm collection=Dental.Collection.OrderItem id="dental_orderItemUpdate"  doc=this type="update"}}
         <div class="row">
             <div class="col-md-6">
-                {{> afQuickField name="orderCategoryId"}}
+                <div class="form-group{{#if afFieldIsInvalid name='orderCategoryId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="orderCategoryId">Order Category</label>
+
+                    <div class="input-group  select2-bootstrap-append">
+                        {{> afFieldInput name='orderCategoryId'}}
+                        <span class="input-group-addon">
+                            <a href="#" class="orderCategoryAddon">
+                                {{fa "plus"}}
+                            </a>
+                        </span>
+                    </div>
+                    {{#if afFieldIsInvalid name='orderCategoryId'}}
+                        <span class="help-block">{{afFieldMessage name='orderCategoryId'}}</span>
+                    {{/if}}
+                </div>
                 {{> afQuickField name="name"}}
             </div>
             <div class="col-md-6">
