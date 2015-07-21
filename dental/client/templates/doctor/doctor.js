@@ -97,6 +97,10 @@ AutoForm.hooks({
             }
         },
         onSuccess: function (formType, result) {
+            $('select').each(function(){
+                $(this).select2("val","");
+            });
+
             alertify.success('Success');
         },
         onError: function (formType, error) {

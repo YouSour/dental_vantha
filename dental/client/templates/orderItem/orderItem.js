@@ -2,7 +2,7 @@
  * Index
  */
 Template.dental_orderItem.onRendered(function () {
-    createNewAlertify('orderItem');
+    createNewAlertify(['orderItem','orderCategoryAddon']);
 });
 
 Template.dental_orderItem.events({
@@ -34,7 +34,27 @@ Template.dental_orderItem.events({
     'click .show': function () {
         var data = Dental.Collection.OrderItem.findOne({_id: this._id});
 
-        alertify.alert(fa("eye", "Order Item"),renderTemplate(Template.dental_orderItemShow, data));
+        alertify.alert(fa("eye", "Order Item"), renderTemplate(Template.dental_orderItemShow, data));
+    }
+});
+
+/*
+ * Insert
+ */
+
+Template.dental_orderItemInsert.events({
+    'click .orderCategoryAddon': function () {
+       alertify.orderCategoryAddon(fa("plus","Order Category"),renderTemplate(Template.dental_orderCategoryInsert));
+    }
+});
+
+/*
+ * Update
+ */
+
+Template.dental_orderItemUpdate.events({
+    'click .orderCategoryAddon': function () {
+        alertify.orderCategoryAddon(fa("pencil","Order Category"),renderTemplate(Template.dental_orderCategoryUpdate));
     }
 });
 
@@ -50,6 +70,10 @@ AutoForm.hooks({
             }
         },
         onSuccess: function (fromType, result) {
+            $('select').each(function(){
+                $(this).select2("val","");
+            });
+
             alertify.success("Success");
         },
         onError: function (formType, error) {

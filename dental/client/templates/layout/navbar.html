@@ -44,6 +44,9 @@
                 <li class="{{isActiveRoute name='dental.quotationListReport'}}">
                     <a href="{{pathFor 'dental.quotationListReport'}}">Quotation</a>
                 </li>
+                <li class="{{isActiveRoute name='dental.purchaseListReport'}}">
+                    <a href="{{pathFor 'dental.purchaseListReport'}}">Purchase</a>
+                </li>
 
 
                 <!--<li class="{{isActiveRoute name='dental.treatmentReport'}}">-->
@@ -100,7 +103,54 @@
                 <li class="{{isActiveRoute name='dental.orderItem'}}">
                     <a href="{{pathFor 'dental.orderItem'}}">Item</a>
                 </li>
+
+
+				
+                
             </ul>
         </li>
+
+        <!-- Alert Message -->
+        <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  {{fa "fa fa-bell"}}
+                    {{#if appointmentCount}}
+                  <span class="label label-danger" id="appointmentCount"><!--{{appointmentCount}}--></span>
+                    {{/if}}
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">You have {{appointmentCount}} messages</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                        {{#each appointmentDoc}}
+                      <li><!-- start message -->
+                        <a href="#">
+                          <div class="pull-left">
+                              <img src="{{image}}" class="img-circle" alt="User Image">
+                            <!--<img src="../rabbit.png" class="img-circle" alt="User Image" />-->
+                          </div>
+                          <h4>
+                            {{_register._patient.name}}
+                            <small><i class="fa fa-clock-o"></i> {{time}}</small>
+                          </h4>
+                          <p>{{title}}</p>
+                        </a>
+                      </li><!-- end message -->
+                            {{/each}}
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">See All Messages</a></li>
+                </ul>
+        </li>
     </ul>
+
+    <script>
+        $(function(){
+            $('.menu').slimScroll({
+                height: '100%'
+            });
+        });
+    </script>
+
 </template>

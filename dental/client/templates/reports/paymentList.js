@@ -35,30 +35,28 @@ Template.dental_paymentListReportGen.helpers({
         /********* Title *********/
         var company = Cpanel.Collection.Company.findOne();
         data.title = {
-            company: company
+            company: company,
+            date : self.date
         };
 
         /********* Header ********/
 
         console.log(self.patient);
 
-        var branch,patient,staff,status;
+        var branch,staff,status;
 
         var branchDoc = Cpanel.Collection.Branch.findOne(self.branchId);
-        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
         var staffDoc = Dental.Collection.Staff.findOne(self.staff);
         var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
 
         if (self.branchId != "") {branch = branchDoc._id;} else {branch = "All";}
         if (self.staff != "") {staff = staffDoc.name;} else {staff = "All";}
-        if (self.patient != "") {patient = patientDoc.name;} else {patient = "All";}
         if ( self.status != "") {status = self.status;} else {status = "All";}
 
-        console.log(JSON.stringify(patientDoc));
+        //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Branch: ' + branch, col2: 'Staff: ' + staff, col3: 'Date: ' + self.date},
-            {col1: 'Status: ' + status, col2: 'Paitent: ' + patient, col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" ៛"}
+            {col1: 'Branch: ' + branch, col1: 'Staff: ' + staff, col2: 'Status: ' + status , col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" ៛"}
         ];
 
         /********** Content & Footer **********/
@@ -74,7 +72,6 @@ Template.dental_paymentListReportGen.helpers({
         if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
 
         // Filter
-        if (self.patient != "") selector.patientId = self.patient;
         if (self.staff != "") selector.staffId = self.staff;
         if (self.branchId != "") selector.branchId = self.branchId;
         if (self.status != "") selector.status = self.status;
@@ -104,6 +101,7 @@ Template.dental_paymentListReportGen.helpers({
 
                 obj.index = index;
                 obj.invoice = obj.invoiceId;
+                obj.patientName = Dental.Collection.Patient.findOne(obj.patientId).name;
                 obj.date = obj.paymentDate;
                 obj.statusPayment = obj.status;
                 obj.due = numeral(obj.dueAmount).format('0,0.00');

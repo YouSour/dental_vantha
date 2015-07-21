@@ -40,7 +40,7 @@ Dental.TabularTable.Purchase = new Tabular.Table({
                 _.each(val, function (obj) {
                     purchaseDetail +=
                         "<li>" +
-                        "OrderItem Id : " + obj.OrderItemId +
+                        "OrderItem Id : " + obj.orderItemId +
                         " | Qty : " + obj.qty +
                         " | Price : " + obj.price +
                         " | Amount : " + obj.amount +

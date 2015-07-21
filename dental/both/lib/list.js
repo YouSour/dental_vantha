@@ -145,7 +145,7 @@ Dental.List = {
         list.push({label: "(Select One)", value: ""});
 
         Dental.Collection.Register.find().forEach(function (obj) {
-            list.push({label: obj._id, value: obj._id});
+            list.push({label: obj._id + ": "+obj._patient.name+" ("+obj._patient.gender+")" , value: obj._id});
         });
 
         return list;

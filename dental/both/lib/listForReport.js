@@ -114,6 +114,16 @@ Dental.ListForReport = {
 
         return list;
     },
+    supplierList: function () {
+        var list = [];
+        list.push({label: "All", value: ""});
+
+        Dental.Collection.Supplier.find().forEach(function (obj) {
+            list.push({label: obj._id + " : " + obj.name, value: obj._id});
+        });
+
+        return list;
+    },
     statusListForPayment: function () {
         var list = [];
         list.push({label: "All", value: ""});
@@ -135,5 +145,5 @@ Dental.ListForReport = {
             });
 
         return list;
-    },
+    }
 };
