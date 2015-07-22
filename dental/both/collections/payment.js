@@ -46,6 +46,11 @@ Dental.Schema.Payment = new SimpleSchema({
             var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
             return currentDate;
         },
+        custom: function () {
+            if (this.value < moment().format('YYYY-MM-DD')) {
+                return "date";
+            }
+        },
         label: 'Payment Date'
     },
     dueAmount: {
@@ -88,5 +93,6 @@ Dental.Collection.Payment.attachSchema(Dental.Schema.Payment);
  * Custom Error Message
  */
 SimpleSchema.messages({
-    "biggerThan": "Paid Amount Can't Bigger Than Due Amount"
+    "biggerThan": "Paid Amount Can't Bigger Than Due Amount",
+    "date": "Payment Date Can't Smaller Than " + moment().format('YYYY-MM-DD H:mm:ss')
 });

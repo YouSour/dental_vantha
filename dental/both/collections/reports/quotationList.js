@@ -25,14 +25,14 @@ Dental.Schema.QuotationListReport = new SimpleSchema({
     date: {
         type: String,
         label: "Date Range"
+    },
+    exchange: {
+        type: String,
+        autoform: {
+            type: "select2",
+            options: function () {
+                return Dental.ListForReport.exchangeList();
+            }
+        }
     }
-    //exchange: {
-    //    type: String,
-    //    autoform: {
-    //        type: "select2",
-    //        options: function () {
-    //            return Dental.ListForReport.exchange();
-    //        }
-    //    }
-    //}
 });

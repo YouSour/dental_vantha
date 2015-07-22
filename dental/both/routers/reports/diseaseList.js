@@ -1,13 +1,13 @@
-Router.route('dental/paymentListReport', function () {
-    this.render('dental_paymentListReport');
+Router.route('dental/diseaseListReport', function () {
+    this.render('dental_diseaseListReport');
 }, {
-    name: 'dental.paymentListReport',
-    title: "Quotation List Report",
-    header: {title: 'Payment Report', sub: '', icon: 'file-text-o'},
-    breadcrumb: {title: 'Payment Report', parent: 'dental.home'}
+    name: 'dental.diseaseListReport',
+    title: "Disease List Report",
+    header: {title: 'Disease Report', sub: '', icon: 'file-text-o'},
+    breadcrumb: {title: 'Disease Report', parent: 'dental.home'}
 });
 
-Router.route('dental/paymentListReportGen', function () {
+Router.route('dental/diseaseListReportGen', function () {
     // Config layout
     this.layout('reportLayout', {
         // Page size: a4, a5, mini
@@ -21,7 +21,7 @@ Router.route('dental/paymentListReportGen', function () {
     });
 
     var q = this.params.query;
-    this.render('dental_paymentListReportGen', {
+    this.render('dental_diseaseListReportGen', {
         data: function () {
             return q;
         }

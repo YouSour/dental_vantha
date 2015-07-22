@@ -3,3 +3,5 @@ Dental.Collection.DiseaseItem.cacheDoc('diseaseCategory', Dental.Collection.Dise
     {
         referenceField: 'diseaseCategoryId'
     });
+
+

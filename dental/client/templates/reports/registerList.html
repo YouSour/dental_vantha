@@ -62,15 +62,15 @@
             {{#each content}}
                 <tr>
                     <td>{{index}}</td>
-                    <td>{{date}}</td>
-                    <td>{{registerId}}</td>
+                    <td>{{registerDate}}</td>
+                    <td>{{_id}}</td>
                     <td>{{patientId}}</td>
-                    <td>{{name}}</td>
-                    <td>{{gender}}</td>
-                    <td>{{age}}</td>
-                    <td>{{address}}</td>
-                    <td>{{telephone}}</td>
-                    <td>{{description}}</td>
+                    <td>{{_patient.name}}</td>
+                    <td>{{_patient.gender}}</td>
+                    <td>{{_patient.age}}</td>
+                    <td>{{_patient.address}}</td>
+                    <td>{{_patient.telephone}}</td>
+                    <td>{{des}}</td>
                 </tr>
             {{/each}}
             </tbody>

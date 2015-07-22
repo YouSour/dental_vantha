@@ -1,7 +1,7 @@
 /**
  * Schema
  */
-Dental.Schema.PurchaseListReport = new SimpleSchema({
+Dental.Schema.ClosedInvoiceListReport = new SimpleSchema({
     supplierId: {
         type: String,
         autoform: {
