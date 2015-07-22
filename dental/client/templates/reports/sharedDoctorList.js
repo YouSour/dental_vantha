@@ -1,28 +1,22 @@
-Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
-Template.dental_registerListReport.onCreated(function () {
+Template.dental_sharedDoctorListReport.onCreated(function () {
     createNewAlertify('exchange');
 });
 
-Template.dental_registerListReport.onRendered(function () {
+Template.dental_sharedDoctorListReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.dateRange(name);
 });
 
-Template.dental_registerListReport.events({
+Template.dental_sharedDoctorListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
     }
-    //,
-    //'change .patientId': function (e, t) {
-    //    var patientId = $(e.currentTarget).val();
-    //    return Dental.ListForReportState.set("patientId", patientId);
-    //}
 
 });
 
 /************ Generate *************/
-Template.dental_registerListReportGen.helpers({
+Template.dental_sharedDoctorListReportGen.helpers({
     data: function () {
         var self = this;
         var data = {
@@ -56,7 +50,7 @@ Template.dental_registerListReportGen.helpers({
 
         data.header = [
             //{col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientDoc.name,
-            {col1: 'Branch ID: ' + branch}
+            {col1: 'Branch: ' + branch}
             //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 
@@ -68,15 +62,22 @@ Template.dental_registerListReportGen.helpers({
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
         if (fromDate != null && toDate != null) selector.registerDate = {$gte: fromDate, $lte: toDate};
+        //if (fromDate != null && toDate != null) selector.disease.item;
         if (self.branchId != "") selector.branchId = self.branchId;
-        // Get register
-        var getRegister = Dental.Collection.Register.find(selector);
+
+        // Get Disease
+        var getDisease = Dental.Collection.DiseaseItem.find();
         debugger;
         var index = 1;
+        var diseaseCount = 0 ;
 
-        if (!_.isUndefined(getRegister)) {
-            getRegister.forEach(function (obj) {
+        if (!_.isUndefined(getDisease)) {
+            getDisease.forEach(function (obj) {
                 obj.index = index;
+
+                //Dental.Collection.Invoice.find(selector).forEach(function(d){
+                //    alert(d.disease);
+                //});
 
                 content.push(obj);
 

@@ -1,21 +1,22 @@
 /************ Form *************/
-Template.dental_quotationListReport.onCreated(function () {
+Template.dental_closedInvoiceListReport.onCreated(function () {
     createNewAlertify('exchange');
 });
 
-Template.dental_quotationListReport.onRendered(function () {
+Template.dental_closedInvoiceListReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.dateRange(name);
 });
 
-Template.dental_quotationListReport.events({
+Template.dental_closedInvoiceListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
     }
+
 });
 
 /************ Generate *************/
-Template.dental_quotationListReportGen.helpers({
+Template.dental_closedInvoiceListReportGen.helpers({
     data: function () {
         var self = this;
         var data = {
@@ -37,20 +38,24 @@ Template.dental_quotationListReportGen.helpers({
 
         //console.log(self.patient);
 
-        var patient,branch;
-        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
+        var branch;
+
         var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
-
-        if (self.patient != "" ) {patient = patientDoc.name;} else {patient = 'All';}
-        if (self.branchId != "" ) {branch = self.branchId;} else {branch = 'All';}
-
-
+        if (self.branchId != "") {
+            branch = self.branchId;
+        } else {
+            branch = 'All';
+        }
 
         //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Branch: ' + branch, col2:'Patient Name: ' + patient, col3:'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B" }
-            //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
+            {
+                col1: 'Brand: ' + branch,
+                col2: '',
+                col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') + " | " + numeral(exchangeDoc.rates.KHR).format('0,0.00') + " R" + " | " + numeral(exchangeDoc.rates.THB).format('0,0.00') + " B"
+            },
+            {col1: '', col2: '', col3: ''}
         ];
 
         /********** Content & Footer **********/
@@ -62,13 +67,14 @@ Template.dental_quotationListReportGen.helpers({
         var date = self.date.split(" To ");
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
-        if (fromDate != null && toDate != null) selector.quotationDate = {$gte: fromDate, $lte: toDate};
+        if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
+        //Get Invoice Status Close
+        if (fromDate != null && toDate != null) selector.status = "Close";
 
-        if (self.patient != "")selector.patientId = self.patient;
         if (self.branchId != "") selector.branchId = self.branchId;
         if (self.exchange != "") selectorExchange._id = self.exchange;
-        // Get quotation
-        var getQuotation = Dental.Collection.Quotation.find(selector);
+        // Get purchase
+        var getPayment = Dental.Collection.Payment.find(selector);
         //Get Exchange
         var exchange = Cpanel.Collection.Exchange.findOne(selectorExchange);
 
@@ -79,11 +85,13 @@ Template.dental_quotationListReportGen.helpers({
         //Grand Total KHR
         var grandTotalKhr = 0;
 
-        if (!_.isUndefined(getQuotation)) {
-            getQuotation.forEach(function (obj) {
-
+        if (!_.isUndefined(getPayment)) {
+            getPayment.forEach(function (obj) {
                 obj.index = index;
-                obj.total = numeral(obj.total).format('0,0.00');
+
+                obj.patient = obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
+                obj.staff = obj._staff.name + " (" + obj._staff.gender + ")" + " : " + obj._staff.position;
+                obj.total = numeral(obj._invoice.total).format('0,0.00');
 
                 content.push(obj);
 
@@ -96,16 +104,17 @@ Template.dental_quotationListReportGen.helpers({
                 grandTotalKhr += Math.round(obj.total * exchange.rates.KHR);
             });
         }
+
         content.grandTotalUsd = numeral(grandTotalUsd).format('0,0.00');
         content.grandTotalKhr = numeral(grandTotalKhr).format('0,0.00');
 
         if (content.length > 0) {
             data.content = content;
-            //data.footer = [
-            //    {col1: 'Subtotal:', col2: numeral(getQuotation.subtotal).format('$0,0.00')},
-            //    {col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-            //    {col1: 'Total:', col2: numeral(getQuotation.total).format('$0,0.00')}
-            //];
+            data.footer = [
+                //{col1: 'Subtotal:', col2: numeral(getPurchase.subtotal).format('$0,0.00')},
+                //{col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
+                //{col1: 'Total:', col2: numeral(getPurchase.total).format('$0,0.00')}
+            ];
 
             return data;
         } else {

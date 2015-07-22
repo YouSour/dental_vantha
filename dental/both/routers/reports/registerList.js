@@ -2,9 +2,9 @@ Router.route('dental/registerListReport', function () {
     this.render('dental_registerListReport');
 }, {
     name: 'dental.registerListReport',
-    title: "Quotation List Report",
+    title: "Register List Report",
     header: {title: 'Register Report', sub: '', icon: 'file-text-o'},
-    breadcrumb: {title: 'Quotation List Report', parent: 'dental.home'}
+    breadcrumb: {title: 'Register Report', parent: 'dental.home'}
 });
 
 Router.route('dental/registerListReportGen', function () {

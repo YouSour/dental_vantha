@@ -56,7 +56,7 @@ Template.dental_paymentListReportGen.helpers({
         //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Branch: ' + branch, col1: 'Staff: ' + staff, col2: 'Status: ' + status , col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" ៛"}
+            {col1: 'Branch: ' + branch, col1: 'Staff: ' + staff, col2: 'Status: ' + status , col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"}
         ];
 
         /********** Content & Footer **********/
@@ -100,10 +100,7 @@ Template.dental_paymentListReportGen.helpers({
             getPayment.forEach(function (obj) {
 
                 obj.index = index;
-                obj.invoice = obj.invoiceId;
                 obj.patientName = Dental.Collection.Patient.findOne(obj.patientId).name;
-                obj.date = obj.paymentDate;
-                obj.statusPayment = obj.status;
                 obj.due = numeral(obj.dueAmount).format('0,0.00');
                 obj.paid = numeral(obj.paidAmount).format('0,0.00');
                 obj.balance = numeral(obj.balance).format('0,0.00');

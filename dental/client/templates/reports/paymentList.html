@@ -46,7 +46,7 @@
         <table class="report-content">
             <thead class="report-content-header">
             <tr>
-                <th>No</th>
+                <th>N<sup>o</sup></th>
                 <th>Invoice ID</th>
                 <th>Patient Name</th>
                 <th>Date</th>
@@ -61,10 +61,10 @@
             {{#each content}}
                 <tr>
                     <td>{{index}}</td>
-                    <td>{{invoice}}</td>
+                    <td>{{invoiceId}}</td>
                     <td>{{patientName}}</td>
-                    <td>{{date}}</td>
-                    <td>{{statusPayment}}</td>
+                    <td>{{paymentDate}}</td>
+                    <td>{{status}}</td>
                     <td class="dueAmount">{{due}}</td>
                     <td class="paidAmount">{{paid}}</td>
                     <td class="balance">{{balance}}</td>

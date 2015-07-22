@@ -9,14 +9,8 @@ Dental.TabularTable.Payment = new Tabular.Table({
         {data: "_id", title: "ID"},
         {data: "paymentDate", title: "Payment Date"},
         {data: "invoiceId", title: "Invoice ID"},
-        {
-            data: "patientId",
-            title: "Patient",
-            render: function (val, doc, type) {
-                var data = Dental.Collection.Patient.findOne({_id: val});
-                return data._id + " | " + data.name;
-            }
-        },
+        {data: "patientId", title: "Patient ID"},
+        {data: "_invoice._register._patient.name", title: "Patient Name"},
         {data: "staffId", title: "Staff"},
         {data: "dueAmount", title: "Due Amount"},
         {data: "paidAmount", title: "Paid Amount"},
