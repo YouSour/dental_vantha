@@ -35,7 +35,10 @@ Mongo.Collection.prototype.cacheDoc = function (fieldName, collection, collectio
             };
         getRefDoc = refCollection.findOne(selector, {fields: fieldsInFind});
 
-        doc[cacheField] = getRefDoc;
+        // Check getRefDoc is undefined
+        if (!_.isUndefined(getRefDoc)) {
+            doc[cacheField] = getRefDoc;
+        }
 
         //console.log('Doc->' + thisCollection._name + '.before.insert()');
     });
@@ -52,13 +55,16 @@ Mongo.Collection.prototype.cacheDoc = function (fieldName, collection, collectio
             };
 
         // Check soft remove is true
-        if (!_.isUndefined(modifier.$set.removed) || !_.isUndefined(modifier.$set.restoredAt)) {
+        if (!_.isUndefined(modifier.$set.removed) || !_.isUndefined(modifier.$set.restoredAt) || _.isUndefined(modifier.$set[refField])) {
             selector._id = doc[refField];
         }
 
         getRefDoc = refCollection.findOne(selector, {fields: fieldsInFind});
 
-        modifier.$set[cacheField] = getRefDoc;
+        // Check getRefDoc is undefined
+        if (!_.isUndefined(getRefDoc)) {
+            modifier.$set[cacheField] = getRefDoc;
+        }
 
         //console.log('Doc->' + thisCollection._name + '.before.update()');
     });
