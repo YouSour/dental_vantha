@@ -29,6 +29,7 @@ rainhaven:iron-seo
 matb33:collection-hooks
 dburles:collection-helpers
 aldeed:collection2
+moonco:fixtures
 meteorhacks:aggregate
 aldeed:simple-schema
 aldeed:autoform

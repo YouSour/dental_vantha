@@ -49,9 +49,9 @@ AutoForm.hooks({
 function serverClock() {
     Meteor.call('currentDate', function (error, result) {
         var dateTime = moment(result, 'YYYY-MM-DD H:mm:ss');
-        var cssClass = 'bg-info';
+        var cssClass = 'alert alert-info';
         if (dateTime.day == 0 || dateTime.day() == 6) {
-            cssClass = 'bg-warning';
+            cssClass = 'alert alert-warning';
         }
 
         $('#clock').html(dateTime.format('dddd D, MMMM YYYY H:mm:ss'));

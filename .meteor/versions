@@ -98,6 +98,7 @@ mobile-status-bar@1.0.3
 momentjs:moment@2.10.3
 mongo@1.1.0
 mongo-livedata@1.0.8
+moonco:fixtures@0.1.6
 multiply:iron-router-progress@1.0.1
 natestrauser:animate-css@3.2.6
 natestrauser:select2@3.5.1
@@ -135,7 +136,7 @@ srp@1.0.3
 stylus@1.0.7
 templating@1.1.1
 theara:breadcrumb@0.0.3
-theara:collection-cache@0.3.6
+theara:collection-cache@0.3.7
 theara:events@0.1.5
 theara:fa-helpers@0.0.3
 theara:id-generator@0.0.6
