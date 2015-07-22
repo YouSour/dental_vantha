@@ -11,7 +11,7 @@ Meteor.startup(function () {
                 branchId:"001"
             },
             {
-                _id: "001-0001",
+                _id: "001-0002",
                 name: "JiJi",
                 gender:"F",
                 position:"Cashier",
@@ -20,7 +20,7 @@ Meteor.startup(function () {
                 branchId:"001"
             },
             {
-                _id: "001-0001",
+                _id: "001-0003",
                 name: "Jina",
                 gender:"F",
                 position:"Cashier",
