@@ -5,7 +5,7 @@ Dental.TabularTable.CalendarEvent = new Tabular.Table({
         {title: "<i class='fa fa-bars'></i>", tmpl: Meteor.isClient && Template.dental_calendarEventAction},
         {data: "title", title: "Title"},
         {data: "start", title: "Event Date"},
-        {data: "doctorId", title: "Doctor ID"},
+        {data: "_doctor.name", title: "Doctor Name"},
         {data: "status", title: "Status"}
     ],
     order: [["1", "desc"]],
