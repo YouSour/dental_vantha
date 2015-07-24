@@ -3,6 +3,6 @@ Router.route('dental/diseaseHistory', function () {
 }, {
     name: 'dental.diseaseHistory',
     title: "Disease History",
-    header: {title: 'Disease History', sub: '', icon: ''},
+    header: {title: 'Disease History', sub: '', icon: 'list'},
     breadcrumb: {title: 'Disease History', parent: 'dental.home'}
 });

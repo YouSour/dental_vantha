@@ -151,7 +151,6 @@ function datepicker() {
 function checkLastPayment(self) {
     var checkingLastPayment = Dental.Collection.Payment.findOne({invoiceId: self.invoiceId}, {sort: {_id: -1}});
     var lastPayment = checkingLastPayment.paymentDate;
-    console.log(lastPayment);
 
     if (lastPayment == self.paymentDate) {
         $('.update').show();

@@ -37,7 +37,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Reports <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu multi-level" role="menu">
                 <li class="{{isActiveRoute name='dental.registerListReport'}}">
                     <a href="{{pathFor 'dental.registerListReport'}}">Register</a>
                 </li>
@@ -47,12 +47,7 @@
                 <li class="{{isActiveRoute name='dental.quotationListReport'}}">
                     <a href="{{pathFor 'dental.quotationListReport'}}">Quotation</a>
                 </li>
-                <li class="{{isActiveRoute name='dental.diseaseListReport'}}">
-                    <a href="{{pathFor 'dental.diseaseListReport'}}">Disease</a>
-                </li>
-                <li class="{{isActiveRoute name='dental.analysisPatientListReport'}}">
-                    <a href="{{pathFor 'dental.analysisPatientListReport'}}">Analysis Patient</a>
-                </li>
+
                 <li class="{{isActiveRoute name='dental.purchaseListReport'}}">
                     <a href="{{pathFor 'dental.purchaseListReport'}}">Purchase</a>
                 </li>
@@ -63,19 +58,30 @@
                     <a href="{{pathFor 'dental.sharedDoctorListReport'}}">Shared Doctor</a>
                 </li>
 
+                <li class="dropdown-submenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Summary</a>
+                    <ul class="dropdown-menu">
+                        <li class="{{isActiveRoute name='dental.diseaseListReport'}}">
+                            <a href="{{pathFor 'dental.diseaseListReport'}}">Disease</a>
+                        </li>
+                        <li class="{{isActiveRoute name='dental.analysisPatientListReport'}}">
+                            <a href="{{pathFor 'dental.analysisPatientListReport'}}">Analysis Patient</a>
+                        </li>
+                    </ul>
+                </li>
 
-                <!--<li class="{{isActiveRoute name='dental.treatmentReport'}}">-->
-                <!--<a href="{{pathFor 'dental.treatmentReport'}}">Treatment</a>-->
-                <!--</li>-->
-                <!--<li class="{{isActiveRoute name='dental.depositReport'}}">-->
-                <!--<a href="{{pathFor 'dental.depositReport'}}">Deposit</a>-->
-                <!--</li>-->
-                <!--<li class="{{isActiveRoute name='dental.invoiceReport'}}">-->
-                <!--<a href="{{pathFor 'dental.invoiceReport'}}">Invoice</a>-->
-                <!--</li>-->
-                <!--<li class="{{isActiveRoute name='dental.quotationReport'}}">-->
-                <!--<a href="{{pathFor 'dental.quotationReport'}}">Quotation</a>-->
-                <!--</li>-->
+                <li class="dropdown-submenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Outstanding</a>
+                    <ul class="dropdown-menu">
+                        <li class="{{isActiveRoute name='dental.invoiceOutstandingListReport'}}">
+                            <a href="{{pathFor 'dental.invoiceOutstandingListReport'}}">Invoice</a>
+                        </li>
+                        <li class="{{isActiveRoute name='dental.analysisPatientListReport'}}">
+                            <a href="{{pathFor 'dental.analysisPatientListReport'}}">Analysis Patient</a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </li>
 

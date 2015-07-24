@@ -1,22 +1,28 @@
+Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
-Template.dental_sharedDoctorListReport.onCreated(function () {
+Template.dental_invoiceOutstandingListReport.onCreated(function () {
     createNewAlertify('exchange');
 });
 
-Template.dental_sharedDoctorListReport.onRendered(function () {
+Template.dental_invoiceOutstandingListReport.onRendered(function () {
     var name = $('[name="date"]');
-    DateTimePicker.dateRange(name);
+    DateTimePicker.dateTime(name);
 });
 
-Template.dental_sharedDoctorListReport.events({
+Template.dental_invoiceOutstandingListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
     }
+    //,
+    //'change .patientId': function (e, t) {
+    //    var patientId = $(e.currentTarget).val();
+    //    return Dental.ListForReportState.set("patientId", patientId);
+    //}
 
 });
 
 /************ Generate *************/
-Template.dental_sharedDoctorListReportGen.helpers({
+Template.dental_invoiceOutstandingListReportGen.helpers({
     data: function () {
         var self = this;
         var data = {
@@ -36,7 +42,7 @@ Template.dental_sharedDoctorListReportGen.helpers({
 
         /********* Header ********/
 
-        console.log(self.patient);
+        //console.log(self.patient);
 
         var branch;
         //var patientDoc = Dental.Collection.Patient.findOne(self.patient);
@@ -58,59 +64,41 @@ Template.dental_sharedDoctorListReportGen.helpers({
         var content = [];
 
         var selector = {};
-        var date = self.date.split(" To ");
-        var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
-        var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
-        if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
-        //if (fromDate != null && toDate != null) selector.disease.item;
+
+        //Get Payment
+
+        if (self.date != null) selector.invoiceDate = {$lte: self.date};
         if (self.branchId != "") selector.branchId = self.branchId;
+        // Get invoice
+        var getInvoice = Dental.Collection.Invoice.find(selector);
 
-        // Get Payment
-        var getPayment = Dental.Collection.Payment.find(selector);
 
-        var totalDisease = 0;
         var index = 1;
-        var doctorList = [];
 
-        if (!_.isUndefined(getPayment)) {
-            getPayment.forEach(function (obj) {
+        //if (!_.isUndefined(getInvoice)) {
+        getInvoice.forEach(function (obj) {
                 obj.index = index;
-
-                //Loop Doctor
-                obj._invoice.doctorShare.forEach(function (objDoctor) {
-                    if (objDoctor != null) {
-                        objDoctor.name = Dental.Collection.Doctor.findOne(objDoctor.doctor).name;
-                        doctorList.push(objDoctor);
+                //debugger;
+                //check invoice have payment or not
+                //if (obj._id != null) {
+                    var payment = Dental.Collection.Payment.findOne({invoiceId: obj._id});
+                    //console.log("Rabbit" + payment._id);
+                    //if (payment.status !== null && payment.status == "Partial") {
+                    //  R
+                    //else {
+                    //    obj.amount = obj.total;
+                    //}
+                    if (payment.paymentDate >= self.date) {
+                        console.log("Rabbit" + payment._id);
                     }
-                });
+               // }
+                content.push(obj);
 
-            });
-        }
-
-        console.log(doctorList);
-
-        //var result = [];
-        //diseaseList.reduce(function (key, val) {
-        //    if (!key[val.item]) {//val.itemId
-        //        key[val.item] = {//=group by
-        //            qty: 0,
-        //            name: val.name,
-        //            item: val.item,
-        //            price: val.price,
-        //            amount: val.amount,
-        //            index: index
-        //        };
-        //        index++;
-        //        result.push(key[val.item]);
-        //    } else {
-        //        key[val.item].amount += val.amount;
-        //    }
-        //    key[val.item].qty += val.qty;
-        //    totalDisease += val.qty;
-        //
-        //    return key;
-        //
-        //}, {});
+                index += 1;
+            }
+        )
+        ;
+//}
 
         if (content.length > 0) {
             data.content = content;
@@ -126,4 +114,5 @@ Template.dental_sharedDoctorListReportGen.helpers({
             return data;
         }
     }
-});
+})
+;
