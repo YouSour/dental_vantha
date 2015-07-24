@@ -1,7 +1,7 @@
 /**
  * Schema
  */
-Dental.Schema.invoiceOutstandingList = new SimpleSchema({
+Dental.Schema.registerOutstandingList = new SimpleSchema({
     //patient: {
     //    type: String,
     //    autoform: {

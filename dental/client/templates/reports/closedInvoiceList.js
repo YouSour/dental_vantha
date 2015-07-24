@@ -89,7 +89,7 @@ Template.dental_closedInvoiceListReportGen.helpers({
             getPayment.forEach(function (obj) {
                 obj.index = index;
 
-                obj.patient = obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
+                obj.patient = obj.patientId+" : "+obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
                 obj.staff = obj._staff.name + " (" + obj._staff.gender + ")" + " : " + obj._staff.position;
                 obj.total = numeral(obj._invoice.total).format('0,0.00');
 

@@ -42,10 +42,8 @@ Template.dental_invoiceOutstandingListReportGen.helpers({
 
         /********* Header ********/
 
-        //console.log(self.patient);
-
         var branch;
-        //var patientDoc = Dental.Collection.Patient.findOne(self.patient);
+        var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
 
         if (self.branchId != "") {
             branch = self.branchId;
@@ -55,58 +53,85 @@ Template.dental_invoiceOutstandingListReportGen.helpers({
         //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            //{col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientDoc.name,
-            {col1: 'Branch: ' + branch}
-            //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
+            {col1: 'Brand: ' + branch, col2: '', col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"}
         ];
 
         /********** Content & Footer **********/
         var content = [];
 
         var selector = {};
+        var selectorExchange = {};
 
-        //Get Payment
 
         if (self.date != null) selector.invoiceDate = {$lte: self.date};
         if (self.branchId != "") selector.branchId = self.branchId;
+        if (self.exchange != "") selectorExchange._id = self.exchange;
+
         // Get invoice
         var getInvoice = Dental.Collection.Invoice.find(selector);
+        //Get Exchange
+        var exchange = Cpanel.Collection.Exchange.findOne(selectorExchange);
 
 
         var index = 1;
 
-        //if (!_.isUndefined(getInvoice)) {
-        getInvoice.forEach(function (obj) {
+        //Grand Total USD
+        var grandTotalUsd = 0;
+        //Grand Total KHR
+        var grandTotalKhr = 0;
+
+        if (!_.isUndefined(getInvoice)) {
+            getInvoice.forEach(function (obj) {
                 obj.index = index;
-                //debugger;
+
+
                 //check invoice have payment or not
-                //if (obj._id != null) {
-                    var payment = Dental.Collection.Payment.findOne({invoiceId: obj._id});
-                    //console.log("Rabbit" + payment._id);
-                    //if (payment.status !== null && payment.status == "Partial") {
-                    //  R
-                    //else {
-                    //    obj.amount = obj.total;
-                    //}
-                    if (payment.paymentDate >= self.date) {
-                        console.log("Rabbit" + payment._id);
-                    }
-               // }
-                content.push(obj);
+                var paymentDoc = Dental.Collection.Payment.findOne({invoiceId: obj._id}, {sort: {_id: -1}});
+
+                if (!_.isUndefined(paymentDoc) && paymentDoc.paymentDate <= self.date && paymentDoc.status == "Partial") {
+                    obj.date = obj.invoiceDate;
+                    obj.patient = obj.patientId + " : " + obj._register._patient.name + " (" + obj._register._patient.gender + ")";
+                    obj.id = obj._id;
+                    obj.age = obj._register._patient.age;
+                    obj.dueAmo = numeral(paymentDoc.dueAmount).format('0,0.00');
+                    obj.paidAmo = numeral(paymentDoc.paidAmount).format('0,0.00');
+                    obj.outAmo = numeral(paymentDoc.balance).format('0,0.00');
+
+                    //Grand Total USD
+                    grandTotalUsd += Math.round(obj.outAmo * exchange.rates.USD);
+
+                    //Grand Total KHR
+                    grandTotalKhr += Math.round(obj.outAmo * exchange.rates.KHR);
+
+                    content.push(obj);
+                } else if (_.isEmpty(paymentDoc)) {
+                    obj.date = obj.invoiceDate;
+                    obj.patient = obj.patientId + " : " + obj._register._patient.name + " (" + obj._register._patient.gender + ")";
+                    obj.id = obj._id;
+                    obj.age = obj._register._patient.age;
+                    obj.dueAmo = numeral(obj.total).format('0,0.00');
+                    obj.paidAmo = numeral(0).format('0,0.00');
+                    obj.outAmo = numeral(obj.total).format('0,0.00');
+
+                    //Grand Total USD
+                    grandTotalUsd += Math.round(obj.outAmo * exchange.rates.USD);
+
+                    //Grand Total KHR
+                    grandTotalKhr += Math.round(obj.outAmo * exchange.rates.KHR);
+
+                    content.push(obj);
+                }
 
                 index += 1;
-            }
-        )
-        ;
-//}
+
+            });
+        }
+
+        content.grandTotalUsd = numeral(grandTotalUsd).format('0,0.00');
+        content.grandTotalKhr = numeral(grandTotalKhr).format('0,0.00');
 
         if (content.length > 0) {
             data.content = content;
-            //data.footer = [
-            //    {col1: 'Subtotal:', col2: numeral(getQuotation.subtotal).format('$0,0.00')},
-            //    {col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-            //    {col1: 'Total:', col2: numeral(getQuotation.total).format('$0,0.00')}
-            //];
 
             return data;
         } else {
@@ -114,5 +139,5 @@ Template.dental_invoiceOutstandingListReportGen.helpers({
             return data;
         }
     }
-})
-;
+});
+
