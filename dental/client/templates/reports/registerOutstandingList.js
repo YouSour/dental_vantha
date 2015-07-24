@@ -10,14 +10,6 @@ Template.dental_registerOutstandingListReport.onRendered(function () {
 });
 
 Template.dental_registerOutstandingListReport.events({
-    'click .exchangeAddon': function (e, t) {
-        alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
-    }
-    //,
-    //'change .patientId': function (e, t) {
-    //    var patientId = $(e.currentTarget).val();
-    //    return Dental.ListForReportState.set("patientId", patientId);
-    //}
 
 });
 
@@ -66,7 +58,6 @@ Template.dental_registerOutstandingListReportGen.helpers({
 
         // Get Register
         var getRegister = Dental.Collection.Register.find(selector);
-        //Get Exchange
 
         var index = 1;
 

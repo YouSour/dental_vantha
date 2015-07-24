@@ -24,14 +24,15 @@ Dental.Schema.registerOutstandingList = new SimpleSchema({
     date: {
         type: String,
         label:"Date"
-    },
-    exchange: {
-        type: String,
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.ListForReport.exchangeList();
-            }
-        }
     }
+    //,
+    //exchange: {
+    //    type: String,
+    //    autoform: {
+    //        type: "select2",
+    //        options: function () {
+    //            return Dental.ListForReport.exchangeList();
+    //        }
+    //    }
+    //}
 });
