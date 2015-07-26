@@ -48,7 +48,11 @@ Template.dental_calendarEvent.events({
     },
     'click .show': function () {
         var data = Dental.Collection.CalendarEvent.findOne(this._id);
-        data.startDate = moment(data.start).format('YYYY-MM-DD HH:mm:ss');
+        data.patientPhoto = null;
+        if (!_.isUndefined(data._register._patient.photo)) {
+            var image = Files.findOne(data._register._patient.photo).url();
+            data.patientPhoto = image;
+        }
 
         alertify.alert(fa("eye", "Calendar Event"), renderTemplate(Template.dental_calendarEventShow, data));
     }

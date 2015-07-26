@@ -31,6 +31,7 @@
                 {{> afQuickField name="start"}}
                 {{> afQuickField name="doctorId"}}
                 {{> afQuickField name="title" rows=5}}
+                {{> afQuickField name="status" type="hidden"}}
             </div>
         </div>
 
@@ -47,6 +48,7 @@
                 {{> afQuickField name="registerId"  type="select2" options=registerOpt}}
                 {{> afQuickField name="start" val=startVal}}
                 {{> afQuickField name="title" rows=5}}
+                {{> afQuickField name="status" type="hidden"}}
             </div>
         </div>
 
@@ -78,8 +80,16 @@
         <dt>ID</dt>
         <dd>{{_id}}</dd>
         <dt>Event Date</dt>
-        <dd>{{startDate}}</dd>
+        <dd>{{start}}</dd>
         <dt>Title</dt>
         <dd>{{title}}</dd>
+        <dt>Status</dt>
+        <dd>{{status}}</dd>
+        <dt>Doctor</dt>
+        <dd>{{doctorId}}</dd>
+        <dt>Patient</dt>
+        <dd>{{_register._patient.name}}</dd>
+        <dt>Photo</dt>
+        <dd>{{lightbox url=patientPhoto name=_register._patient.name}}</dd>
     </dl>
 </template>

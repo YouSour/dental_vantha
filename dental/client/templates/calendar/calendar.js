@@ -57,7 +57,7 @@ Template.dental_calendar.helpers({
                     var title = function () {
                         return obj._register._patient.name + ' (' + obj.title + ')';
                     };
-                    var start = moment(obj.start);
+                    var start = moment(obj.start).toDate();
 
                     return {
                         id: obj._id,

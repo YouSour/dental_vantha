@@ -13,16 +13,6 @@ Dental.Schema.CalendarEvent = new SimpleSchema({
             return moment().format('YYYY-MM-DD HH:mm:ss');
         }
     },
-    doctorId:{
-        type: String,
-        label:"Doctor",
-        autoform:{
-            type:"select2",
-            options:function(){
-                return Dental.List.doctor();
-            }
-        }
-    },
     end: {
         type: String,
         optional: true
@@ -30,6 +20,21 @@ Dental.Schema.CalendarEvent = new SimpleSchema({
     title: {
         type: String,
         max: 500
+    },
+    doctorId: {
+        type: String,
+        label: "Doctor",
+        autoform: {
+            type: "select2",
+            options: function () {
+                return Dental.List.doctor();
+            }
+        }
+    },
+    status: {
+        type: String,
+        label: "Status",
+        defaultValue: 'Enable'
     },
     branchId: {
         type: String
