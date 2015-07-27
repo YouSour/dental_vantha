@@ -1,12 +1,12 @@
 <!--Form-->
-<template name="dental_closedInvoiceListReport">
-    {{#autoForm schema=Dental.Schema.ClosedInvoiceListReport id="dental_closedInvoiceListReport" action="closedInvoiceListReportGen" target="_blank"}}
+<template name="dental_depositListReport">
+    {{#autoForm schema=Dental.Schema.DepositListReport id="dental_depositListReport" action="depositListReportGen" target="_blank"}}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name='branchId'}}
+               {{> afQuickField name='exchange'}}
             </div>
             <div class="col-md-6">
-                {{> afQuickField name='exchange'}}
                 {{> afQuickField name='date'}}
             </div>
         </div>
@@ -17,14 +17,14 @@
 
 
 <!--Generate-->
-<template name="dental_closedInvoiceListReportGen">
+<template name="dental_depositListReportGen">
     {{#with data}}
         <!--Title-->
         <div class="report-title">
             <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
             <span class="report-company-name">{{title.company.enName}}</span><br>
             Date: {{title.date}}<br>
-            <u>Closed Invoice Report</u><br>
+            <u>Deposit Report</u><br>
             {{title.company.khAddress}}, {{title.company.telephone}}
         </div>
 
@@ -45,14 +45,14 @@
             <thead class="report-content-header">
             <tr>
                 <th>No</th>
-                <th>Invoice ID</th>
-                <th>Invoice Date</th>
+                <th>Deposit Date</th>
+                <th>Deposit ID</th>
+                <th>Register ID</th>
                 <th>Patient</th>
                 <th>Age</th>
-                <th>Staff</th>
-                <!--<th>Patient</th>-->
-                <!--<th>Item Name</th>-->
+                <th>Description</th>
                 <th>Amount</th>
+
             </tr>
             </thead>
 
@@ -60,38 +60,25 @@
             {{#each content}}
                 <tr>
                     <td>{{index}}</td>
-                    <td>{{invoiceId}}</td>
-                    <td>{{_invoice.invoiceDate}}</td>
+                    <td>{{depositDate}}</td>
+                    <td>{{_id}}</td>
+                    <td>{{registerId}}</td>
                     <td>{{patient}}</td>
-                    <td>{{_invoice._register._patient.age}}</td>
-                    <td>{{staff}}</td>
-                    <!--<td>{{patientName}}</td>-->
-                    <!--<td>-->
-                        <!--<table border="1" frame="void" style="border-collapse: collapse">-->
-                            <!--<thead>-->
-                            <!--<tr>-->
-                                <!--<th>Item</th>-->
-                                <!--<th>Qty</th>-->
-                                <!--<th>Price</th>-->
-                                <!--<th>Amount</th>-->
-                            <!--</tr>-->
-                            <!--</thead>-->
-                            <!--{{{items}}}-->
-                        <!--</table>-->
-                    <!--</td>-->
-                    <td>{{total}}</td>
+                    <td>{{_register._patient.age}}</td>
+                    <td>{{_register.des}}</td>
+                    <td>{{amount}}</td>
                 </tr>
             {{/each}}
 
             <tr>
-                <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
+                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
                     Total USD</b></td>
                 <td>{{content.grandTotalUsd}}</td>
 
             </tr>
 
             <tr>
-                <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                     <b>KHR</b></td>
                 <td>{{content.grandTotalKhr}}</td>
             </tr>
@@ -102,10 +89,8 @@
 
         <!--Footer-->
         <p></p>
-
     {{/with}}
 
     <!--Sign-->
-    {{>signFooter}}
-
+    {{> signFooter}}
 </template>

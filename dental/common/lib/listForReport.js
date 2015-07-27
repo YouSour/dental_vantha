@@ -132,6 +132,14 @@ Dental.ListForReport = {
 
         return list;
     },
+    statusListForInvoice: function () {
+        var list = [];
+        list.push({label: "All", value: ""});
+        list.push({label: "Partial", value: "Partial"});
+        list.push({label: "Close", value: "Close"});
+
+        return list;
+    },
     exchangeList: function () {
         var list = [];
         list.push({label: "(Select One)", value: ""});

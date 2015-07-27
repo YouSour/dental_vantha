@@ -1,23 +1,23 @@
 /**
  * Schema
  */
-Dental.Schema.ClosedInvoiceListReport = new SimpleSchema({
-    supplierId: {
-        type: String,
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.ListForReport.supplierList();
-            }
-        },
-        optional:true
-    },
+Dental.Schema.InvoiceListReport = new SimpleSchema({
     branchId: {
         type: String,
         autoform: {
             type: "select2",
             options: function () {
                 return Dental.ListForReport.branchList();
+            }
+        },
+        optional:true
+    },
+    status: {
+        type: String,
+        autoform: {
+            type: "select2",
+            options: function () {
+                return Dental.ListForReport.statusListForInvoice();
             }
         },
         optional:true

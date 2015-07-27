@@ -1,22 +1,28 @@
+Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
-Template.dental_closedInvoiceListReport.onCreated(function () {
+Template.dental_depositListReport.onCreated(function () {
     createNewAlertify('exchange');
 });
 
-Template.dental_closedInvoiceListReport.onRendered(function () {
+Template.dental_depositListReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.dateRange(name);
 });
 
-Template.dental_closedInvoiceListReport.events({
+Template.dental_depositListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
     }
+    //,
+    //'change .patientId': function (e, t) {
+    //    var patientId = $(e.currentTarget).val();
+    //    return Dental.ListForReportState.set("patientId", patientId);
+    //}
 
 });
 
 /************ Generate *************/
-Template.dental_closedInvoiceListReportGen.helpers({
+Template.dental_depositListReportGen.helpers({
     data: function () {
         var self = this;
         var data = {
@@ -36,26 +42,20 @@ Template.dental_closedInvoiceListReportGen.helpers({
 
         /********* Header ********/
 
-        //console.log(self.patient);
+        console.log(self.patient);
 
         var branch;
-
         var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
+
         if (self.branchId != "") {
             branch = self.branchId;
         } else {
-            branch = 'All';
+            branch = "All";
         }
 
-        //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {
-                col1: 'Brand: ' + branch,
-                col2: '',
-                col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') + " | " + numeral(exchangeDoc.rates.KHR).format('0,0.00') + " R" + " | " + numeral(exchangeDoc.rates.THB).format('0,0.00') + " B"
-            },
-            {col1: '', col2: '', col3: ''}
+            {col1: 'Branch: ' + branch, col2:'', col3:'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B" }
         ];
 
         /********** Content & Footer **********/
@@ -67,14 +67,11 @@ Template.dental_closedInvoiceListReportGen.helpers({
         var date = self.date.split(" To ");
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
-        if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
-        //Get Invoice Status Close
-        if (fromDate != null && toDate != null) selector.status = "Close";
-
+        if (fromDate != null && toDate != null) selector.depositDate = {$gte: fromDate, $lte: toDate};
         if (self.branchId != "") selector.branchId = self.branchId;
-        if (self.exchange != "") selectorExchange._id = self.exchange;
-        // Get purchase
-        var getPayment = Dental.Collection.Payment.find(selector);
+
+        // Get Deposit
+        var getDeposit = Dental.Collection.Deposit.find(selector);
         //Get Exchange
         var exchange = Cpanel.Collection.Exchange.findOne(selectorExchange);
 
@@ -85,23 +82,20 @@ Template.dental_closedInvoiceListReportGen.helpers({
         //Grand Total KHR
         var grandTotalKhr = 0;
 
-        if (!_.isUndefined(getPayment)) {
-            getPayment.forEach(function (obj) {
+        if (!_.isUndefined(getDeposit)) {
+            getDeposit.forEach(function (obj) {
                 obj.index = index;
-
-                obj.patient = obj.patientId+" : "+obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
-                obj.staff = obj._staff.name + " (" + obj._staff.gender + ")" + " : " + obj._staff.position;
-                obj.total = numeral(obj._invoice.total).format('0,0.00');
-
+                obj.patient = obj.patientId + " : " + obj._register._patient.name + " (" + obj._register._patient.gender + ")";
                 content.push(obj);
 
-                index += 1;
-
+                obj.amount = numeral(obj.amount).format('0,0.00');
                 //Grand Total USD
-                grandTotalUsd += Math.round(obj.total * exchange.rates.USD);
+                grandTotalUsd += Math.round(obj.amount * exchange.rates.USD);
 
                 //Grand Total KHR
-                grandTotalKhr += Math.round(obj.total * exchange.rates.KHR);
+                grandTotalKhr += Math.round(obj.amount * exchange.rates.KHR);
+
+                index += 1;
             });
         }
 
@@ -110,11 +104,6 @@ Template.dental_closedInvoiceListReportGen.helpers({
 
         if (content.length > 0) {
             data.content = content;
-            data.footer = [
-                //{col1: 'Subtotal:', col2: numeral(getPurchase.subtotal).format('$0,0.00')},
-                //{col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-                //{col1: 'Total:', col2: numeral(getPurchase.total).format('$0,0.00')}
-            ];
 
             return data;
         } else {

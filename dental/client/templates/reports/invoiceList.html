@@ -1,10 +1,9 @@
 <!--Form-->
-<template name="dental_paymentListReport">
-    {{#autoForm schema=Dental.Schema.PaymentListReport id="dental_paymentListReport" action="paymentListReportGen" target="_blank"}}
+<template name="dental_invoiceListReport">
+    {{#autoForm schema=Dental.Schema.InvoiceListReport id="dental_invoiceListReport" action="invoiceListReportGen" target="_blank"}}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name='branchId'}}
-                {{> afQuickField name='staff'}}
                 {{> afQuickField name='status'}}
             </div>
             <div class="col-md-6">
@@ -19,14 +18,14 @@
 
 
 <!--Generate-->
-<template name="dental_paymentListReportGen">
+<template name="dental_invoiceListReportGen">
     {{#with data}}
         <!--Title-->
         <div class="report-title">
             <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
             <span class="report-company-name">{{title.company.enName}}</span><br>
             Date: {{title.date}}<br>
-            <u>Payment Report</u><br>
+            <u>Invoice Report</u><br>
             {{title.company.khAddress}}, {{title.company.telephone}}
         </div>
 
@@ -50,10 +49,12 @@
                 <th>Invoice ID</th>
                 <th>Date</th>
                 <th>Patient</th>
+                <th>Age</th>
+                <th>Staff</th>
                 <th>Status</th>
                 <th>Due Amount</th>
                 <th>Paid Amount</th>
-                <th>Balance</th>
+                <th>Out Amount</th>
             </tr>
             </thead>
 
@@ -62,63 +63,45 @@
                 <tr>
                     <td>{{index}}</td>
                     <td>{{invoiceId}}</td>
-                    <td>{{paymentDate}}</td>
+                    <td>{{_invoice.invoiceDate}}</td>
                     <td>{{patient}}</td>
+                    <td>{{_invoice._register._patient.age}}</td>
+                    <td>{{staff}}</td>
                     <td>{{status}}</td>
-                    <td class="dueAmount">{{due}}</td>
-                    <td class="paidAmount">{{paid}}</td>
-                    <td class="balance">{{balance}}</td>
+                    <td>{{dueAmo}}</td>
+                    <td>{{paidAmo}}</td>
+                    <td>{{outAmo}}</td>
                 </tr>
             {{/each}}
 
             <tr>
-                <td colspan="5" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
+                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
                     Total USD</b></td>
 
-                    <td>{{content.totalDueAmountUsd}}</td>
-                    <td>{{content.totalPaidAmountUsd}}</td>
-                    <td>{{content.totalBalanceUsd}}</td>
+                <td>{{content.totalDueAmountUsd}}</td>
+                <td>{{content.totalPaidAmountUsd}}</td>
+                <td>{{content.totalBalanceUsd}}</td>
             </tr>
 
             <tr>
-                <td colspan="5" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                     <b>KHR</b></td>
 
                 <td>{{content.totalDueAmountKhr}}</td>
                 <td>{{content.totalPaidAmountKhr}}</td>
                 <td>{{content.totalBalanceKhr}}</td>
             </tr>
+
             </tbody>
         </table>
 
 
         <!--Footer-->
         <p></p>
-        <!--<table border="0" width="100%">-->
-        <!--<tr>-->
-        <!--<td style="vertical-align: top">-->
-        <!--&lt;!&ndash;Total&ndash;&gt;-->
-        <!--<table border="0" width="100%" style="font-weight: bold">-->
-            <!--{{#each footer}}-->
-        <!--<tr>-->
-        <!--<td width="75%" style="text-align: right">{{col1}}</td>-->
-        <!--<td style="text-align: right">{{col2}}</td>-->
-        <!--</tr>-->
-            <!--{{/each}}-->
-        <!--</table>-->
-        <!--</td>-->
-        <!--</tr>-->
-        <!--</table>-->
+
     {{/with}}
 
     <!--Sign-->
     {{>signFooter}}
-    <!--{{> dental_quotationReportGenFooterNote}}-->
-</template>
 
-<!--footerNote-->
-<!--<template name="dental_quotationReportGenFooterNote">-->
-<!--<div style="text-align: center">-->
-<!--<strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់បង់ មិនអាចយកវិញបានទេ).-->
-<!--</div>-->
-<!--</template>-->
+</template>

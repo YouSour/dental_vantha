@@ -31,13 +31,13 @@ Dental.Schema.Purchase = new SimpleSchema({
     registerId: {
         type: String,
         label: "Register ID",
-        optional: true,
         autoform: {
             type: "select2",
             options: function () {
                 return Dental.List.register();
             }
-        }
+        },
+        optional: true
     },
     items: {
         label: "Items",
