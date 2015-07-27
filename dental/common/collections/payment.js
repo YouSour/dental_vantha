@@ -46,11 +46,11 @@ Dental.Schema.Payment = new SimpleSchema({
             var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
             return currentDate;
         },
-        custom: function () {
-            if (this.value < moment().format('YYYY-MM-DD')) {
-                return "date";
-            }
-        },
+        //custom: function () {
+        //    if (this.value < moment().format('YYYY-MM-DD')) {
+        //        return "date";
+        //    }
+        //},
         label: 'Payment Date'
     },
     dueAmount: {

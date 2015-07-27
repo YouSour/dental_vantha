@@ -9,9 +9,7 @@ Template.dental_registerOutstandingListReport.onRendered(function () {
     DateTimePicker.dateTime(name);
 });
 
-Template.dental_registerOutstandingListReport.events({
-
-});
+Template.dental_registerOutstandingListReport.events({});
 
 /************ Generate *************/
 Template.dental_registerOutstandingListReportGen.helpers({
@@ -61,13 +59,18 @@ Template.dental_registerOutstandingListReportGen.helpers({
 
         var index = 1;
 
-        if (getRegister != undefined){
+        if (!_.isUndefined(getRegister)) {
             getRegister.forEach(function (obj) {
                 obj.index = index;
+                console.log(obj._id);
+                // checking this registerId make invoice or not
+                var invoiceDoc = Dental.Collection.Invoice.findOne({registerId: obj._id,invoiceDate: {$lte: self.date}});
 
-                obj.patient = obj.patientId + " : " + obj._patient.name + " (" + obj._patient.gender + ")";
+                if (_.isUndefined(invoiceDoc)) {
+                    console.log('true');
+                    console.log(obj._id);
+                    obj.patient = obj.patientId + " : " + obj._patient.name + " (" + obj._patient.gender + ")";
 
-                if (_.isUndefined(obj._invoiceCount) || obj._invoiceCount == 0) {
                     content.push(obj);
                     index += 1;
                 }

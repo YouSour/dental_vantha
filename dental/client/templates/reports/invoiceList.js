@@ -1,27 +1,22 @@
-Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
-Template.dental_paymentListReport.onCreated(function () {
+Template.dental_invoiceListReport.onCreated(function () {
     createNewAlertify('exchange');
 });
 
-Template.dental_paymentListReport.onRendered(function () {
+Template.dental_invoiceListReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.dateRange(name);
 });
 
-Template.dental_paymentListReport.events({
+Template.dental_invoiceListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
-    },
-    'change .patientId': function (e, t) {
-        var patientId = $(e.currentTarget).val();
-        return Dental.ListForReportState.set("patientId", patientId);
     }
 
 });
 
 /************ Generate *************/
-Template.dental_paymentListReportGen.helpers({
+Template.dental_invoiceListReportGen.helpers({
     data: function () {
         var self = this;
         var data = {
@@ -36,32 +31,30 @@ Template.dental_paymentListReportGen.helpers({
         var company = Cpanel.Collection.Company.findOne();
         data.title = {
             company: company,
-            date : self.date
+            date: self.date
         };
 
         /********* Header ********/
 
-        console.log(self.patient);
+        var branch, status;
 
-        var branch,staff,status;
-
-        var branchDoc = Cpanel.Collection.Branch.findOne(self.branchId);
-        var staffDoc = Dental.Collection.Staff.findOne(self.staff);
         var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
-
-        if (self.branchId != "") {branch = branchDoc._id;} else {branch = "All";}
-        if (self.staff != "") {staff = staffDoc.name;} else {staff = "All";}
-        if ( self.status != "") {status = self.status;} else {status = "All";}
+        if (self.branchId != "") {branch = self.branchId;} else {branch = 'All';}
+        if (self.status != "") {status = self.status;} else {status = 'All';}
 
         //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Branch: ' + branch, col1: 'Staff: ' + staff, col2: 'Status: ' + status , col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"}
+            {
+                col1: 'Brand: ' + branch,
+                col2: 'Status: ' + status,
+                col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') + " | " + numeral(exchangeDoc.rates.KHR).format('0,0.00') + " R" + " | " + numeral(exchangeDoc.rates.THB).format('0,0.00') + " B"
+            },
+            {col1: '', col2: '', col3: ''}
         ];
 
         /********** Content & Footer **********/
         var content = [];
-
 
         var selector = {};
         var selectorExchange = {};
@@ -69,21 +62,17 @@ Template.dental_paymentListReportGen.helpers({
         var date = self.date.split(" To ");
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
-        if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
 
-        // Filter
-        if (self.staff != "") selector.staffId = self.staff;
-        if (self.branchId != "") selector.branchId = self.branchId;
+        //if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
+        //Get Invoice by Status
         if (self.status != "") selector.status = self.status;
-
+        if (self.branchId != "") selector.branchId = self.branchId;
         if (self.exchange != "") selectorExchange._id = self.exchange;
 
+        // Get purchase
+        var getPayment = Dental.Collection.Payment.find(selector);
         //Get Exchange
         var exchange = Cpanel.Collection.Exchange.findOne(selectorExchange);
-
-        // Get payment
-        var getPayment = Dental.Collection.Payment.find(selector);
-
 
         var index = 1;
 
@@ -98,14 +87,19 @@ Template.dental_paymentListReportGen.helpers({
 
         if (!_.isUndefined(getPayment)) {
             getPayment.forEach(function (obj) {
-
                 obj.index = index;
-                obj.patient = obj.patientId + " : " + obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
-                obj.due = numeral(obj.dueAmount).format('0,0.00');
-                obj.paid = numeral(obj.paidAmount).format('0,0.00');
-                obj.balance = numeral(obj.balance).format('0,0.00');
 
-                content.push(obj);
+                if (fromDate != null && toDate != null && obj._invoice.invoiceDate >= fromDate && obj._invoice.invoiceDate <= toDate ) {
+                    console.log('true');
+                    obj.patient = obj.patientId + " : " + obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
+                    obj.staff = obj._staff.name + " (" + obj._staff.gender + ")" + " : " + obj._staff.position;
+                    obj.dueAmo = numeral(obj.dueAmount).format('0,0.00');
+                    obj.paidAmo = numeral(obj.paidAmount).format('0,0.00');
+                    obj.outAmo = numeral(obj.balance).format('0,0.00');
+
+                    content.push(obj);
+                }
+
                 index += 1;
 
                 //Grand Total USD
@@ -117,7 +111,6 @@ Template.dental_paymentListReportGen.helpers({
                 grandTotalDueAmountKhr += Math.round(obj.dueAmount * exchange.rates.KHR);
                 grandTotalPaidAmountKhr += Math.round(obj.paidAmount * exchange.rates.KHR);
                 grandTotalBalanceKhr += Math.round(obj.balance * exchange.rates.KHR);
-
             });
         }
 
@@ -131,12 +124,6 @@ Template.dental_paymentListReportGen.helpers({
 
         if (content.length > 0) {
             data.content = content;
-            data.footer = [
-                //{col1: 'Subtotal:', col2: numeral(getQuotation.subtotal).format('$0,0.00')},
-                ////{col1: 'Deposit:', col2: numeral(getQuotation.deposit).format('$0,0.00')},
-                //{col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-                //{col1: 'Total:', col2: numeral(getQuotation.total).format('$0,0.00')}
-            ];
 
             return data;
         } else {

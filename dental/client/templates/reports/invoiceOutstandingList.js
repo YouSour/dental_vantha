@@ -84,8 +84,7 @@ Template.dental_invoiceOutstandingListReportGen.helpers({
             getInvoice.forEach(function (obj) {
                 obj.index = index;
 
-
-                //check invoice have payment or not
+                //check invoice have payment or not and get last payment
                 var paymentDoc = Dental.Collection.Payment.findOne({invoiceId: obj._id}, {sort: {_id: -1}});
 
                 if (!_.isUndefined(paymentDoc) && paymentDoc.paymentDate <= self.date && paymentDoc.status == "Partial") {
