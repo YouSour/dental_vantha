@@ -63,16 +63,20 @@ Template.dental_invoiceListReportGen.helpers({
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
 
-        //if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
-        //Get Invoice by Status
-        if (self.status != "") selector.status = self.status;
+        if (fromDate != null && toDate != null) selector.invoiceDate = {$gte: fromDate, $lte: toDate};
+
+        //if (self.status != "") selector.status = self.status;
         if (self.branchId != "") selector.branchId = self.branchId;
         if (self.exchange != "") selectorExchange._id = self.exchange;
 
-        // Get purchase
-        var getPayment = Dental.Collection.Payment.find(selector);
+        // Get invoice
+        var getInvoice = Dental.Collection.Invoice.find(selector);
         //Get Exchange
         var exchange = Cpanel.Collection.Exchange.findOne(selectorExchange);
+
+        var params={};
+        params.paymentDate={$gte: fromDate, $lte: toDate};
+        if(self.status!="") params.status=self.status;
 
         var index = 1;
 
@@ -85,32 +89,36 @@ Template.dental_invoiceListReportGen.helpers({
         var grandTotalPaidAmountKhr = 0;
         var grandTotalBalanceKhr = 0;
 
-        if (!_.isUndefined(getPayment)) {
-            getPayment.forEach(function (obj) {
+        if (!_.isUndefined(getInvoice)) {
+            getInvoice.forEach(function (obj) {
                 obj.index = index;
 
-                if (fromDate != null && toDate != null && obj._invoice.invoiceDate >= fromDate && obj._invoice.invoiceDate <= toDate ) {
-                    console.log('true');
-                    obj.patient = obj.patientId + " : " + obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
-                    obj.staff = obj._staff.name + " (" + obj._staff.gender + ")" + " : " + obj._staff.position;
-                    obj.dueAmo = numeral(obj.dueAmount).format('0,0.00');
-                    obj.paidAmo = numeral(obj.paidAmount).format('0,0.00');
-                    obj.outAmo = numeral(obj.balance).format('0,0.00');
+                //check invoice with payment
+                params.invoiceId=obj._id;
+                var paymentDoc = Dental.Collection.Payment.findOne(params,{sort:{_id : -1}});
+                if (!_.isUndefined(paymentDoc)) {
 
-                    content.push(obj);
+                        obj.patient = obj.patientId + " : " + paymentDoc._invoice._register._patient.name + " (" + paymentDoc._invoice._register._patient.gender + ")";
+                        obj.staff = paymentDoc._staff.name + " (" + paymentDoc._staff.gender + ")" + " : " + paymentDoc._staff.position;
+                        obj.status = paymentDoc.status;
+                        obj.dueAmo = numeral(paymentDoc.dueAmount).format('0,0.00');
+                        obj.paidAmo = numeral(paymentDoc.paidAmount).format('0,0.00');
+                        obj.outAmo = numeral(paymentDoc.balance).format('0,0.00');
+
+                        index += 1;
+                        content.push(obj);
+
+                    //Grand Total USD
+                    grandTotalDueAmountUsd += Math.round(obj.dueAmo * exchange.rates.USD);
+                    grandTotalPaidAmountUsd += Math.round(obj.paidAmo * exchange.rates.USD);
+                    grandTotalBalanceUsd += Math.round(obj.outAmo * exchange.rates.USD);
+
+                    //Grand Total KHR
+                    grandTotalDueAmountKhr += Math.round(obj.dueAmo* exchange.rates.KHR);
+                    grandTotalPaidAmountKhr += Math.round(obj.paidAmo * exchange.rates.KHR);
+                    grandTotalBalanceKhr += Math.round(obj.outAmo * exchange.rates.KHR);
                 }
 
-                index += 1;
-
-                //Grand Total USD
-                grandTotalDueAmountUsd += Math.round(obj.dueAmount * exchange.rates.USD);
-                grandTotalPaidAmountUsd += Math.round(obj.paidAmount * exchange.rates.USD);
-                grandTotalBalanceUsd += Math.round(obj.balance * exchange.rates.USD);
-
-                //Grand Total KHR
-                grandTotalDueAmountKhr += Math.round(obj.dueAmount * exchange.rates.KHR);
-                grandTotalPaidAmountKhr += Math.round(obj.paidAmount * exchange.rates.KHR);
-                grandTotalBalanceKhr += Math.round(obj.balance * exchange.rates.KHR);
             });
         }
 
