@@ -61,7 +61,7 @@ Template.dental_depositInsert.onRendered(function () {
 Template.dental_depositInsert.events({
     'click .saveAndPrint': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
-        var url = Router.url('dental.depositReportGen', {}, {query: q});
+        var url = 'depositReportGen?' + q;
         window.open(url);
     }
 });

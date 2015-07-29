@@ -107,17 +107,17 @@ Template.dental_register.events({
     // Print action
     'click .treatmentPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
-        var url = Router.url('dental.treatmentReportGen', {}, {query: q});
+        var url = 'treatmentReportGen?' + q;
         window.open(url);
     },
     'click .depositPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
-        var url = Router.url('dental.depositReportGen', {}, {query: q});
+        var url = 'depositReportGen?' + q;
         window.open(url);
     },
     'click .invoiceReportPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
-        var url = Router.url('dental.invoiceReportGen', {}, {query: q});
+        var url = 'invoiceReportGen?' + q;
         window.open(url);
     }
 });
