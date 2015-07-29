@@ -34,7 +34,7 @@ Template.dental_quotation.events({
     },
     'click .quotationPrintAction': function () {
         var q = 'patient=' + this.patientId + '&quotation=' + this._id;
-        var url = Router.url('dental.quotationReportGen', {}, {query: q});
+        var url = 'quotationReportGen?' + q;
         window.open(url);
     }
 });
