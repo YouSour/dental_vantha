@@ -36,15 +36,14 @@ Template.dental_purchaseListReportGen.helpers({
 
         /********* Header ********/
 
-        //console.log(self.patient);
-
         var supplierName, branch;
-        var supplierDoc = Dental.Collection.Supplier.findOne(self.supplierId);
-        var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
-        if (self.supplierId != "") {supplierName = supplierDoc.name;} else {supplierName = 'All';}
-        if (self.branchId != "") {branch = self.branchId;} else {branch = 'All';}
 
-        //console.log(JSON.stringify(patientDoc));
+        var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
+        var supplierDoc = Dental.Collection.Supplier.findOne({_id:self.supplierId});
+        var exchangeDoc = Cpanel.Collection.Exchange.findOne({_id:self.exchange});
+
+        if (self.branchId != "") {branch = self.branchId+" | "+branchDoc.enName} else {branch = "All";}
+        if (self.supplierId != "") {supplierName = self.supplierId+" | "+supplierDoc.name;} else {supplierName = 'All';}
 
         data.header = [
             {col1: 'Brand: ' + branch, col2: 'Supplier Name: ' + supplierName, col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"},
@@ -118,11 +117,6 @@ Template.dental_purchaseListReportGen.helpers({
 
         if (content.length > 0) {
             data.content = content;
-            data.footer = [
-                //{col1: 'Subtotal:', col2: numeral(getPurchase.subtotal).format('$0,0.00')},
-                //{col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-                //{col1: 'Total:', col2: numeral(getPurchase.total).format('$0,0.00')}
-            ];
 
             return data;
         } else {

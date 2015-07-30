@@ -1,4 +1,3 @@
-Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
 Template.dental_invoiceOutstandingListReport.onCreated(function () {
     createNewAlertify('exchange');
@@ -13,12 +12,6 @@ Template.dental_invoiceOutstandingListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
     }
-    //,
-    //'change .patientId': function (e, t) {
-    //    var patientId = $(e.currentTarget).val();
-    //    return Dental.ListForReportState.set("patientId", patientId);
-    //}
-
 });
 
 /************ Generate *************/
@@ -43,14 +36,11 @@ Template.dental_invoiceOutstandingListReportGen.helpers({
         /********* Header ********/
 
         var branch;
-        var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
 
-        if (self.branchId != "") {
-            branch = self.branchId;
-        } else {
-            branch = "All";
-        }
-        //console.log(JSON.stringify(patientDoc));
+        var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
+        var exchangeDoc = Cpanel.Collection.Exchange.findOne({_id:self.exchange});
+
+        if (self.branchId != "") {branch = self.branchId+" | "+branchDoc.enName} else {branch = "All";}
 
         data.header = [
             {col1: 'Brand: ' + branch, col2: '', col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"}

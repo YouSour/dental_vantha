@@ -45,19 +45,13 @@ Template.dental_registerListReportGen.helpers({
         console.log(self.patient);
 
         var branch;
-        //var patientDoc = Dental.Collection.Patient.findOne(self.patient);
 
-        if (self.branchId != "") {
-            branch = self.branchId;
-        } else {
-            branch = "All";
-        }
-        //console.log(JSON.stringify(patientDoc));
+        var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
+
+        if (self.branchId != "") {branch = self.branchId +" | "+ branchDoc.enName;} else {branch = "All";}
 
         data.header = [
-            //{col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientDoc.name,
-            {col1: 'Branch ID: ' + branch}
-            //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
+            {col1: 'Branch: ' + branch}
         ];
 
         /********** Content & Footer **********/
@@ -86,11 +80,6 @@ Template.dental_registerListReportGen.helpers({
 
         if (content.length > 0) {
             data.content = content;
-            //data.footer = [
-            //    {col1: 'Subtotal:', col2: numeral(getQuotation.subtotal).format('$0,0.00')},
-            //    {col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-            //    {col1: 'Total:', col2: numeral(getQuotation.total).format('$0,0.00')}
-            //];
 
             return data;
         } else {

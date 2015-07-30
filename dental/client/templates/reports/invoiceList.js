@@ -38,11 +38,11 @@ Template.dental_invoiceListReportGen.helpers({
 
         var branch, status;
 
-        var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
-        if (self.branchId != "") {branch = self.branchId;} else {branch = 'All';}
-        if (self.status != "") {status = self.status;} else {status = 'All';}
+        var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
+        var exchangeDoc = Cpanel.Collection.Exchange.findOne({_id:self.exchange});
 
-        //console.log(JSON.stringify(patientDoc));
+        if (self.branchId != "") {branch = self.branchId+" | "+branchDoc.enName} else {branch = "All";}
+        if (self.status != "") {status = self.status;} else {status = 'All';}
 
         data.header = [
             {

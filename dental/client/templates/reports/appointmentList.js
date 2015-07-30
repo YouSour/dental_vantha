@@ -36,18 +36,17 @@ Template.dental_appointmentListReportGen.helpers({
 
         /********* Header ********/
 
-        var branch;
+        var branch,doctor;
 
+        var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
+        var doctorDoc = Dental.Collection.Doctor.findOne({_id:self.doctorId});
 
-        if (self.branchId != "") {
-            branch = self.branchId;
-        } else {
-            branch = "All";
-        }
+        if (self.branchId != "") {branch = self.branchId+" | "+branchDoc.enName} else {branch = "All";}
+        if (self.doctorId != "") {doctor = self.doctorId+" | "+doctorDoc.name} else {doctor = "All";}
 
 
         data.header = [
-            {col1: 'Branch: ' + branch, col2:'', col3:''}
+            {col1: 'Branch: ' + branch, col2:'', col3:'Doctor: '+ doctor}
         ];
 
         /********** Content & Footer **********/
@@ -60,6 +59,7 @@ Template.dental_appointmentListReportGen.helpers({
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
         if (fromDate != null && toDate != null) selector.start = {$gte: fromDate, $lte: toDate};
         if (self.branchId != "") selector.branchId = self.branchId;
+        if (self.doctorId != "") selector.doctorId = self.doctorId;
 
         // Get Appointment
         var getAppointment = Dental.Collection.CalendarEvent.find(selector);
