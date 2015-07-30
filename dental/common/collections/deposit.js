@@ -25,6 +25,9 @@ Dental.Schema.Deposit = new SimpleSchema({
     amount: {
         type: Number,
         decimal: true
+    },
+    branchId: {
+        type: String
     }
 });
 

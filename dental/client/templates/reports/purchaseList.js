@@ -38,23 +38,16 @@ Template.dental_purchaseListReportGen.helpers({
 
         //console.log(self.patient);
 
-        var supplierId, supplierName, branch;
+        var supplierName, branch;
         var supplierDoc = Dental.Collection.Supplier.findOne(self.supplierId);
         var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
-        if (self.supplierId != "") {
-            supplierId = supplierDoc._id;
-            supplierName = supplierDoc.name;
-            branch = self.branchId;
-        } else {
-            supplierId = 'All';
-            supplierName = 'All';
-            branch = 'All';
-        }
+        if (self.supplierId != "") {supplierName = supplierDoc.name;} else {supplierName = 'All';}
+        if (self.branchId != "") {branch = self.branchId;} else {branch = 'All';}
 
         //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Brand: ' + branch, col2: 'Suppiler Name: ' + supplierName, col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"},
+            {col1: 'Brand: ' + branch, col2: 'Supplier Name: ' + supplierName, col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"},
             {col1: '', col2: '' , col3: ''}
         ];
 

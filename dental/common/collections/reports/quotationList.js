@@ -2,16 +2,6 @@
  * Schema
  */
 Dental.Schema.QuotationListReport = new SimpleSchema({
-    patient: {
-        type: String,
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.ListForReport.patientList();
-            }
-        },
-        optional:true
-    },
     branchId: {
         type: String,
         autoform: {
