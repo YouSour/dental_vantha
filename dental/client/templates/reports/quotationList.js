@@ -35,20 +35,14 @@ Template.dental_quotationListReportGen.helpers({
 
         /********* Header ********/
 
-        //console.log(self.patient);
-
         var branch;
+        var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
         var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
 
-        if (self.branchId != "" ) {branch = self.branchId;} else {branch = 'All';}
-
-
-
-        //console.log(JSON.stringify(patientDoc));
+        if (self.branchId != "") {branch = self.branchId+" | "+branchDoc.enName} else {branch = "All";}
 
         data.header = [
             {col1: 'Branch: ' + branch, col2:'', col3:'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B" }
-            //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 
         /********** Content & Footer **********/
@@ -98,11 +92,6 @@ Template.dental_quotationListReportGen.helpers({
 
         if (content.length > 0) {
             data.content = content;
-            //data.footer = [
-            //    {col1: 'Subtotal:', col2: numeral(getQuotation.subtotal).format('$0,0.00')},
-            //    {col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-            //    {col1: 'Total:', col2: numeral(getQuotation.total).format('$0,0.00')}
-            //];
 
             return data;
         } else {

@@ -46,7 +46,6 @@
             <tr>
                 <th>No</th>
                 <th>Deposit Date</th>
-                <th>Deposit ID</th>
                 <th>Register ID</th>
                 <th>Patient</th>
                 <th>Age</th>
@@ -61,7 +60,6 @@
                 <tr>
                     <td>{{index}}</td>
                     <td>{{depositDate}}</td>
-                    <td>{{_id}}</td>
                     <td>{{registerId}}</td>
                     <td>{{patient}}</td>
                     <td>{{_register._patient.age}}</td>
@@ -71,14 +69,14 @@
             {{/each}}
 
             <tr>
-                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
+                <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
                     Total USD</b></td>
                 <td>{{content.grandTotalUsd}}</td>
 
             </tr>
 
             <tr>
-                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                     <b>KHR</b></td>
                 <td>{{content.grandTotalKhr}}</td>
             </tr>

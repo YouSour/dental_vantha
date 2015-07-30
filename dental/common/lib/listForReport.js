@@ -103,6 +103,17 @@ Dental.ListForReport = {
 
         return list;
     },
+    doctorList: function () {
+        var list = [];
+        list.push({label: "All", value: ""});
+
+        Dental.Collection.Doctor.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.name + ' (' + obj.gender + ')', value: obj._id});
+            });
+
+        return list;
+    },
     branchList: function () {
         var list = [];
         list.push({label: "All", value: ""});

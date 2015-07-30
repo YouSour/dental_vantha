@@ -1,4 +1,3 @@
-Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
 Template.dental_paymentListReport.onCreated(function () {
     createNewAlertify('exchange');
@@ -12,12 +11,7 @@ Template.dental_paymentListReport.onRendered(function () {
 Template.dental_paymentListReport.events({
     'click .exchangeAddon': function (e, t) {
         alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
-    },
-    'change .patientId': function (e, t) {
-        var patientId = $(e.currentTarget).val();
-        return Dental.ListForReportState.set("patientId", patientId);
     }
-
 });
 
 /************ Generate *************/
@@ -41,22 +35,19 @@ Template.dental_paymentListReportGen.helpers({
 
         /********* Header ********/
 
-        console.log(self.patient);
-
         var branch,staff,status;
 
-        var branchDoc = Cpanel.Collection.Branch.findOne(self.branchId);
-        var staffDoc = Dental.Collection.Staff.findOne(self.staff);
-        var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
+        var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
+        var staffDoc = Dental.Collection.Staff.findOne({_id:self.staff});
+        var exchangeDoc = Cpanel.Collection.Exchange.findOne({_id:self.exchange});
 
-        if (self.branchId != "") {branch = branchDoc._id;} else {branch = "All";}
-        if (self.staff != "") {staff = staffDoc.name;} else {staff = "All";}
+        if (self.branchId != "") {branch = self.branchId + " | " +branchDoc.enName;} else {branch = "All";}
+        if (self.staff != "") {staff = self.staff+" | " +staffDoc.name;} else {staff = "All";}
         if ( self.status != "") {status = self.status;} else {status = "All";}
 
-        //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Branch: ' + branch, col1: 'Staff: ' + staff, col2: 'Status: ' + status , col3: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"}
+            {col1: 'Branch: ' + branch, col2: 'Staff: ' + staff, col3: 'Status: ' + status , col4: 'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B"}
         ];
 
         /********** Content & Footer **********/
@@ -83,7 +74,6 @@ Template.dental_paymentListReportGen.helpers({
 
         // Get payment
         var getPayment = Dental.Collection.Payment.find(selector);
-
 
         var index = 1;
 
@@ -131,12 +121,6 @@ Template.dental_paymentListReportGen.helpers({
 
         if (content.length > 0) {
             data.content = content;
-            data.footer = [
-                //{col1: 'Subtotal:', col2: numeral(getQuotation.subtotal).format('$0,0.00')},
-                ////{col1: 'Deposit:', col2: numeral(getQuotation.deposit).format('$0,0.00')},
-                //{col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-                //{col1: 'Total:', col2: numeral(getQuotation.total).format('$0,0.00')}
-            ];
 
             return data;
         } else {

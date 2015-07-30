@@ -1,4 +1,3 @@
-Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
 Template.dental_registerOutstandingListReport.onCreated(function () {
     createNewAlertify('exchange');
@@ -34,12 +33,9 @@ Template.dental_registerOutstandingListReportGen.helpers({
 
         var branch;
 
-        if (self.branchId != "") {
-            branch = self.branchId;
-        } else {
-            branch = "All";
-        }
-        //console.log(JSON.stringify(patientDoc));
+        var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
+
+        if (self.branchId != "") {branch = self.branchId+" | "+branchDoc.enName} else {branch = "All";}
 
         data.header = [
             {col1: 'Brand: ' + branch, col2: '', col3: ''}
