@@ -26,61 +26,63 @@ Mongo.Collection.prototype.cacheDoc = function (fieldName, collection, collectio
         fieldsInFind[field] = 1;
     });
 
-    /********** Before Insert This Collection **********/
+    /********** This Collection Before Insert **********/
     thisCollection.before.insert(function (userId, doc) {
         // Get reference doc
-        var getRefDoc,
-            selector = {
-                _id: doc[refField]
-            };
-        getRefDoc = refCollection.findOne(selector, {fields: fieldsInFind});
+        var selector = {
+            _id: doc[refField]
+        };
+        var getRefDoc = refCollection.findOne(selector, {fields: fieldsInFind});
 
-        doc[cacheField] = getRefDoc;
+        // Check getRefDoc is undefined
+        if (!_.isUndefined(getRefDoc)) {
+            doc[cacheField] = getRefDoc;
+        }
 
         //console.log('Doc->' + thisCollection._name + '.before.insert()');
     });
 
 
-    /********** Before Update This Collection **********/
+    /********** This Collection Before Update **********/
     thisCollection.before.update(function (userId, doc, fieldNames, modifier, options) {
         modifier.$set = modifier.$set || {};
 
-        // Get new reference doc
-        var getRefDoc,
-            selector = {
+        // Check ref field is updated
+        if (!_.isUndefined(modifier.$set[refField])) {
+            // Get new reference doc
+            var selector = {
                 _id: modifier.$set[refField]
             };
 
-        // Check soft remove is true
-        if (!_.isUndefined(modifier.$set.removed) || !_.isUndefined(modifier.$set.restoredAt) || _.isUndefined(modifier.$set[refField])) {
-            selector._id = doc[refField];
-        }
+            var getRefDoc = refCollection.findOne(selector, {fields: fieldsInFind});
 
-        getRefDoc = refCollection.findOne(selector, {fields: fieldsInFind});
-        console.log(getRefDoc)
-        modifier.$set[cacheField] = getRefDoc;
+            // Check getRefDoc is undefined
+            if (!_.isUndefined(getRefDoc)) {
+                modifier.$set[cacheField] = getRefDoc;
+            }
+        }
 
         //console.log('Doc->' + thisCollection._name + '.before.update()');
     });
 
-    /********** After Update This Collection **********/
-    thisCollection.after.update(function (userId, doc, fieldNames, modifier, options) {
-        modifier.$set = modifier.$set || {};
+    /********** This Collection After Update **********/
+    //thisCollection.after.update(function (userId, doc, fieldNames, modifier, options) {
+    //    modifier.$set = modifier.$set || {};
+    //
+    //    if (!_.isUndefined(modifier.$set.restoredAt)) {
+    //        // Attach soft remove
+    //        refCollection.attachBehaviour('softRemovable');
+    //        var selector = {
+    //            _id: doc[refField]
+    //        };
+    //2
+    //        refCollection.restore(selector);
+    //    }
+    //
+    //    //console.log('Doc->' + thisCollection._name + '.after.update()');
+    //});
 
-        if (!_.isUndefined(modifier.$set.restoredAt)) {
-            // Attach soft remove
-            refCollection.attachBehaviour('softRemovable');
-            var selector = {
-                _id: doc[refField]
-            };
-
-            refCollection.restore(selector);
-        }
-
-        //console.log('Doc->' + thisCollection._name + '.after.update()');
-    });
-
-    /********** After Update Reference Collection **********/
+    /********** Reference Collection After Update **********/
     refCollection.after.update(function (userId, doc, fieldNames, modifier, options) {
         modifier.$set = modifier.$set || {};
 
@@ -110,7 +112,7 @@ Mongo.Collection.prototype.cacheDoc = function (fieldName, collection, collectio
         //console.log('Doc->' + refCollection._name + '.after.update()');
     });
 
-    /********** After Remove Reference Collection **********/
+    /********** Reference Collection After Remove **********/
     refCollection.after.remove(function (userId, doc) {
         // Set selector
         var selector = {};

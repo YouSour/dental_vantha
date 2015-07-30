@@ -84,9 +84,11 @@ matteodem:easy-search@1.6.1
 meteor@1.1.6
 meteor-platform@1.2.2
 meteorhacks:aggregate@1.2.1
+meteorhacks:async@1.0.0
 meteorhacks:collection-utils@1.2.0
 meteorhacks:fast-render@2.7.1
 meteorhacks:inject-data@1.3.0
+meteorhacks:npm@1.4.0
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.5.2
 minifiers@1.1.5
@@ -95,7 +97,7 @@ mizzao:bootboxjs@4.4.0
 mizzao:timesync@0.3.3
 mizzao:user-status@0.6.5
 mobile-status-bar@1.0.3
-momentjs:moment@2.10.3
+momentjs:moment@2.10.6
 mongo@1.1.0
 mongo-livedata@1.0.8
 moonco:fixtures@0.1.6
@@ -106,6 +108,7 @@ netanelgilad:excel@0.2.4
 netanelgilad:mkdirp@0.0.1
 netanelgilad:node-uuid@1.0.2
 npm-bcrypt@0.7.8_2
+npm-container@1.1.0
 numeral:numeral@1.5.3
 observe-sequence@1.0.6
 ongoworks:security@1.2.0
@@ -113,7 +116,7 @@ ordered-dict@1.0.3
 ovcharik:alertifyjs@1.4.1
 percolate:migrations@0.7.5
 rainhaven:iron-seo@1.0.2
-raix:eventemitter@0.1.2
+raix:eventemitter@0.1.3
 raix:handlebar-helpers@0.2.4
 rajit:bootstrap3-datepicker@1.4.1
 random@1.0.3
@@ -136,7 +139,7 @@ srp@1.0.3
 stylus@1.0.7
 templating@1.1.1
 theara:breadcrumb@0.0.3
-theara:collection-cache@0.3.7
+theara:collection-cache@0.3.8
 theara:events@0.1.5
 theara:fa-helpers@0.0.3
 theara:id-generator@0.0.6

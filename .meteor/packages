@@ -33,9 +33,6 @@ moonco:fixtures
 meteorhacks:aggregate
 aldeed:simple-schema
 aldeed:autoform
-cfs:standard-packages
-cfs:gridfs
-yogiben:autoform-file
 zimme:collection-softremovable
 natestrauser:select2
 zimme:select2-bootstrap3-css
@@ -59,11 +56,10 @@ meteorhacks:subs-manager
 dburles:spacebars-tohtml
 raix:handlebar-helpers
 
-# Excel
-netanelgilad:excel
-netanelgilad:node-uuid
-netanelgilad:mkdirp
-vsivsi:file-collection
+# Auto-Form upload file
+cfs:standard-packages
+cfs:gridfs
+yogiben:autoform-file
 
 ecwyne:mathjs
 lepozepo:accounting
@@ -80,6 +76,16 @@ czbaker:lightbox2
 rzymek:fullcalendar
 matteodem:easy-search
 percolate:migrations
+
+# Excel
+netanelgilad:excel
+netanelgilad:node-uuid
+netanelgilad:mkdirp
+vsivsi:file-collection
+
+# Npm
+meteorhacks:npm
+npm-container
 
 ### Local ###
 theara:collection-cache

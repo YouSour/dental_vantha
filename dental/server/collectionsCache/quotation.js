@@ -4,3 +4,5 @@ Dental.Collection.Quotation.cacheDoc(
     Dental.Collection.Patient,
     ['name', 'gender', 'age', 'occupation', 'address', 'history', 'member', 'photo']
 );
+
+Dental.Collection.Quotation.cacheArrayField('disease');

@@ -5,3 +5,5 @@ Dental.Collection.Purchase.cacheDoc('supplier',Dental.Collection.Supplier,['name
 Dental.Collection.Purchase.cacheDoc('register',Dental.Collection.Register,['patientId','registerDate','des','_patient'],{
     refField:"registerId"
 });
+
+Dental.Collection.Purchase.cacheArrayField('disease');
