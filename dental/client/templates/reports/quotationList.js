@@ -37,11 +37,9 @@ Template.dental_quotationListReportGen.helpers({
 
         //console.log(self.patient);
 
-        var patient,branch;
-        var patientDoc = Dental.Collection.Patient.findOne(self.patient);
+        var branch;
         var exchangeDoc = Cpanel.Collection.Exchange.findOne(self.exchange);
 
-        if (self.patient != "" ) {patient = patientDoc.name;} else {patient = 'All';}
         if (self.branchId != "" ) {branch = self.branchId;} else {branch = 'All';}
 
 
@@ -49,7 +47,7 @@ Template.dental_quotationListReportGen.helpers({
         //console.log(JSON.stringify(patientDoc));
 
         data.header = [
-            {col1: 'Branch: ' + branch, col2:'Patient Name: ' + patient, col3:'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B" }
+            {col1: 'Branch: ' + branch, col2:'', col3:'Exchange: ' + numeral(exchangeDoc.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchangeDoc.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchangeDoc.rates.THB).format('0,0.00')+" B" }
             //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
         ];
 
@@ -64,7 +62,6 @@ Template.dental_quotationListReportGen.helpers({
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
         if (fromDate != null && toDate != null) selector.quotationDate = {$gte: fromDate, $lte: toDate};
 
-        if (self.patient != "")selector.patientId = self.patient;
         if (self.branchId != "") selector.branchId = self.branchId;
         if (self.exchange != "") selectorExchange._id = self.exchange;
         // Get quotation
