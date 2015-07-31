@@ -30,15 +30,15 @@
         <!--Header-->
         <div style="width: 100%">
             {{#with header}}
-                <div style="width: 50%; float: left">
+                <div style="width: 50%; padding-top: 12px; float: left;">
                     <ul class="list-unstyled">
-                        <li><strong>Patient ID:</strong> {{patientId}}</li>
-                        <li><strong>Name:</strong> {{_patient.name}}</li>
-                        <li><strong>Gender:</strong> {{_patient.gender}}</li>
-                        <li><strong>Age:</strong> {{_patient.age}}</li>
+                        <li><strong>លេខសំគាល់អ្នកជំងឺ:</strong> {{patientId}}</li>
+                        <li><strong>ឈ្មោះ :</strong> {{_patient.name}}</li>
+                        <li><strong>ភេទ :</strong> {{_patient.gender}}</li>
+                        <li><strong>អាយុ :</strong> {{_patient.age}}</li>
                     </ul>
                 </div>
-                <div style="width: 50%; float: right">
+                <div style="width: 50%; padding-top: 12px; float: right;">
                     <ul class="list-unstyled">
                         <li><strong>Reg ID:</strong> {{_id}}</li>
                         <li><strong>Date:</strong> {{registerDate}}</li>
@@ -52,10 +52,10 @@
         <table class="report-content">
             <thead class="report-content-header">
             <tr>
-                <th>No</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Doctor</th>
+                <th>ល.រ</th>
+                <th>កាលបរិច្ឆេទព្យាបាល</th>
+                <th>ពិពណ៌នា</th>
+                <th>គ្រូពេទ្យ</th>
             </tr>
             </thead>
 
@@ -73,8 +73,8 @@
     {{/with}}
 
     <!--Sign-->
-    <div style="width: 40%; text-align: center; float: right">
-        <strong>Prepared By</strong>
+    <div style="width: 40%; text-align: center; padding-top: 12px; float: right">
+        <strong>រៀបចំដោយ</strong>
         <br><br><br><br><br><br><br>
         __________________<br>
     </div>

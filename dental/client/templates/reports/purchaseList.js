@@ -82,9 +82,9 @@ Template.dental_purchaseListReportGen.helpers({
                 obj.index = index;
 
                 if (obj._register != null) {
-                    obj.patientName = obj._register._patient.name;
+                    obj.patient = obj._register._patient.name + " ("+obj._register._patient.gender+")";
                 } else {
-                    obj.patientName = "None";
+                    obj.patient = "None";
                 }
 
                 var item = '';

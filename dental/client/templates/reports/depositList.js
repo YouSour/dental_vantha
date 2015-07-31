@@ -35,8 +35,6 @@ Template.dental_depositListReportGen.helpers({
 
         /********* Header ********/
 
-        console.log(self.patient);
-
         var branch;
 
         var branchDoc = Cpanel.Collection.Branch.findOne({_id:self.branchId});
@@ -75,7 +73,7 @@ Template.dental_depositListReportGen.helpers({
         if (!_.isUndefined(getDeposit)) {
             getDeposit.forEach(function (obj) {
                 obj.index = index;
-                obj.patient = obj.patientId + " : " + obj._register._patient.name + " (" + obj._register._patient.gender + ")";
+                obj.patient = obj._register._patient.name + " (" + obj._register._patient.gender + ")";
                 content.push(obj);
 
                 obj.amount = numeral(obj.amount).format('0,0.00');

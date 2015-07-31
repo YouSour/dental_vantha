@@ -15,7 +15,7 @@ Router.route('dental/registerOutstandingListReportGen', function () {
         // Font size: fontBody: undefined (10px), bg (12px)
         data: {
             pageSize: 'a4',
-            orientation: 'portrait',
+            orientation: 'landscape',
             fontBody: 'bg'
         }
     });

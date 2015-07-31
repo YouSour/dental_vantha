@@ -74,6 +74,7 @@ Template.dental_quotationListReportGen.helpers({
             getQuotation.forEach(function (obj) {
 
                 obj.index = index;
+                obj.patient = obj._patient.name + " ("+obj._patient.gender+")";
                 obj.total = numeral(obj.total).format('0,0.00');
 
                 content.push(obj);

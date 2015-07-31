@@ -33,9 +33,9 @@
         <table width="100%" border="0">
             {{#each header}}
                 <tr>
-                    <td width="33%">{{col1}}</td>
-                    <td width="33%">{{col2}}</td>
-                    <td>{{col3}}</td>
+                    <td style="text-align: left">{{col1}}</td>
+                    <td style="text-align: center">{{col2}}</td>
+                    <td style="text-align: right">{{col3}}</td>
                 </tr>
             {{/each}}
         </table>
@@ -46,11 +46,11 @@
             <thead class="report-content-header">
             <tr>
                 <th>N<sup>o</sup></th>
-                <th>Invoice ID</th>
-                <th>Date</th>
+                <th>Invoice Date</th>
+                <th>Register ID</th>
+                <th>Patient ID</th>
                 <th>Patient</th>
                 <th>Age</th>
-                <th>Staff</th>
                 <th>Status</th>
                 <th>Due Amount</th>
                 <th>Paid Amount</th>
@@ -62,11 +62,11 @@
             {{#each content}}
                 <tr>
                     <td>{{index}}</td>
-                    <td>{{_id}}</td>
                     <td>{{invoiceDate}}</td>
+                    <td>{{registerId}}</td>
+                    <td>{{patientId}}</td>
                     <td>{{patient}}</td>
                     <td>{{_register._patient.age}}</td>
-                    <td>{{staff}}</td>
                     <td>{{status}}</td>
                     <td>{{dueAmo}}</td>
                     <td>{{paidAmo}}</td>
