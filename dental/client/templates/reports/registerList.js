@@ -71,6 +71,7 @@ Template.dental_registerListReportGen.helpers({
         if (!_.isUndefined(getRegister)) {
             getRegister.forEach(function (obj) {
                 obj.index = index;
+                obj.patient = obj._patient.name + " ("+obj._patient.gender+")";
 
                 content.push(obj);
 

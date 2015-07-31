@@ -44,11 +44,10 @@
         <table class="report-content">
             <thead class="report-content-header">
             <tr>
-                <th>No</th>
+                <th>N<sup>o</sup></th>
                 <th>Quotation ID</th>
                 <th>Quotation Date</th>
                 <th>Patient</th>
-                <th>Gender</th>
                 <th>Age</th>
                 <th>Amount</th>
             </tr>
@@ -60,22 +59,21 @@
                     <td>{{index}}</td>
                     <td>{{_id}}</td>
                     <td>{{quotationDate}}</td>
-                    <td>{{_patient.name}}</td>
-                    <td>{{_patient.gender}}</td>
+                    <td>{{patient}}</td>
                     <td>{{_patient.age}}</td>
                     <td>{{total}}</td>
                 </tr>
             {{/each}}
 
             <tr>
-                <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
+                <td colspan="5" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
                     Total USD</b></td>
                 <td>{{content.grandTotalUsd}}</td>
 
             </tr>
 
             <tr>
-                <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                <td colspan="5" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                     <b>KHR</b></td>
                 <td>{{content.grandTotalKhr}}</td>
             </tr>

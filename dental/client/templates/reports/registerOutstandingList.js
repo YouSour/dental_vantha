@@ -62,7 +62,7 @@ Template.dental_registerOutstandingListReportGen.helpers({
                 var invoiceDoc = Dental.Collection.Invoice.findOne({registerId: obj._id,invoiceDate: {$lte: self.date}});
 
                 if (_.isUndefined(invoiceDoc)) {
-                    obj.patient = obj.patientId + " : " + obj._patient.name + " (" + obj._patient.gender + ")";
+                    obj.patient = obj._patient.name + " (" + obj._patient.gender + ")";
 
                     content.push(obj);
                     index += 1;

@@ -79,7 +79,7 @@ Template.dental_invoiceOutstandingListReportGen.helpers({
 
                 if (!_.isUndefined(paymentDoc) && paymentDoc.paymentDate <= self.date && paymentDoc.status == "Partial") {
                     obj.date = obj.invoiceDate;
-                    obj.patient = obj.patientId + " : " + obj._register._patient.name + " (" + obj._register._patient.gender + ")";
+                    obj.patient = obj._register._patient.name + " (" + obj._register._patient.gender + ")";
                     obj.id = obj._id;
                     obj.age = obj._register._patient.age;
                     obj.dueAmo = numeral(paymentDoc.dueAmount).format('0,0.00');
@@ -95,7 +95,7 @@ Template.dental_invoiceOutstandingListReportGen.helpers({
                     content.push(obj);
                 } else if (_.isEmpty(paymentDoc)) {
                     obj.date = obj.invoiceDate;
-                    obj.patient = obj.patientId + " : " + obj._register._patient.name + " (" + obj._register._patient.gender + ")";
+                    obj.patient = obj._register._patient.name + " (" + obj._register._patient.gender + ")";
                     obj.id = obj._id;
                     obj.age = obj._register._patient.age;
                     obj.dueAmo = numeral(obj.total).format('0,0.00');

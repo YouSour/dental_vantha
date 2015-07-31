@@ -90,7 +90,7 @@ Template.dental_paymentListReportGen.helpers({
             getPayment.forEach(function (obj) {
 
                 obj.index = index;
-                obj.patient = obj.patientId + " : " + obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
+                obj.patient = obj._invoice._register._patient.name + " (" + obj._invoice._register._patient.gender + ")";
                 obj.due = numeral(obj.dueAmount).format('0,0.00');
                 obj.paid = numeral(obj.paidAmount).format('0,0.00');
                 obj.balance = numeral(obj.balance).format('0,0.00');

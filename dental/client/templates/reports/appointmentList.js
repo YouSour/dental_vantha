@@ -69,8 +69,8 @@ Template.dental_appointmentListReportGen.helpers({
         if (!_.isUndefined(getAppointment)) {
             getAppointment.forEach(function (obj) {
                 obj.index = index;
-                obj.doctor = obj.doctorId + " : " + obj._doctor.name + " (" + obj._doctor.gender + ")";
-                obj.patient = obj._register.patientId + " : " + obj._register._patient.name + " (" + obj._register._patient.gender + ")";
+                obj.doctor = obj._doctor.name + " (" + obj._doctor.gender + ")";
+                obj.patient = obj._register._patient.name + " (" + obj._register._patient.gender + ")";
 
                 if(!_.isUndefined(obj._register._patient.telephone)) {
                     obj.telephone = obj._register._patient.telephone;

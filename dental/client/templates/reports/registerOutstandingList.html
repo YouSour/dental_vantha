@@ -46,9 +46,12 @@
                 <th>N<sup>o</sup></th>
                 <th>Register Date</th>
                 <th>Register ID</th>
+                <th>Patient ID</th>
                 <th>Patient</th>
                 <th>Age</th>
                 <th>Address</th>
+                <th>Telephone</th>
+                <th>Description</th>
             </tr>
             </thead>
 
@@ -58,9 +61,12 @@
                     <td>{{index}}</td>
                     <td>{{registerDate}}</td>
                     <td>{{_id}}</td>
+                    <td>{{patientId}}</td>
                     <td>{{patient}}</td>
                     <td>{{_patient.age}}</td>
                     <td>{{_patient.address}}</td>
+                    <td>{{_patient.telephone}}</td>
+                    <td>{{des}}</td>
                 </tr>
             {{/each}}
 

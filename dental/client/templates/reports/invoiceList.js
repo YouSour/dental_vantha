@@ -75,7 +75,7 @@ Template.dental_invoiceListReportGen.helpers({
         var exchange = Cpanel.Collection.Exchange.findOne(selectorExchange);
 
         var params={};
-        params.paymentDate={$gte: fromDate, $lte: toDate};
+        params.paymentDate={$lte: toDate};
         if(self.status!="") params.status=self.status;
 
         var index = 1;
@@ -98,11 +98,10 @@ Template.dental_invoiceListReportGen.helpers({
                 var paymentDoc = Dental.Collection.Payment.findOne(params,{sort:{_id : -1}});
                 if (!_.isUndefined(paymentDoc)) {
 
-                        obj.patient = obj.patientId + " : " + paymentDoc._invoice._register._patient.name + " (" + paymentDoc._invoice._register._patient.gender + ")";
-                        obj.staff = paymentDoc._staff.name + " (" + paymentDoc._staff.gender + ")" + " : " + paymentDoc._staff.position;
+                        obj.patient = paymentDoc._invoice._register._patient.name + " (" + paymentDoc._invoice._register._patient.gender + ")";
                         obj.status = paymentDoc.status;
                         obj.dueAmo = numeral(paymentDoc.dueAmount).format('0,0.00');
-                        obj.paidAmo = numeral(paymentDoc.paidAmount).format('0,0.00');
+                        obj.paidAmo = numeral(paymentDoc.dueAmount - paymentDoc.balance).format('0,0.00');
                         obj.outAmo = numeral(paymentDoc.balance).format('0,0.00');
 
                         index += 1;

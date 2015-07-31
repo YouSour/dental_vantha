@@ -35,7 +35,7 @@
                 <tr>
                     <td width="33%">{{col1}}</td>
                     <td width="33%">{{col2}}</td>
-                    <td>{{col3}}</td>
+                    <td style="text-align: right">{{col3}}</td>
                 </tr>
             {{/each}}
         </table>
@@ -46,8 +46,10 @@
             <thead class="report-content-header">
             <tr>
                 <th>N<sup>o</sup></th>
-                <th>Invoice Date</th>
                 <th>Invoice ID</th>
+                <th>Invoice Date</th>
+                <th>Register ID</th>
+                <th>Patient ID</th>
                 <th>Patient</th>
                 <th>Age</th>
                 <th>Due Amount</th>
@@ -60,8 +62,10 @@
             {{#each content}}
                 <tr>
                     <td>{{index}}</td>
-                    <td>{{date}}</td>
                     <td>{{id}}</td>
+                    <td>{{date}}</td>
+                    <td>{{registerId}}</td>
+                    <td>{{patientId}}</td>
                     <td>{{patient}}</td>
                     <td>{{age}}</td>
                     <td>{{dueAmo}}</td>
@@ -72,14 +76,14 @@
             {{/each}}
 
             <tr>
-                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
+                <td colspan="9" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
                     Total USD</b></td>
                 <td>{{content.grandTotalUsd}}</td>
 
             </tr>
 
             <tr>
-                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                <td colspan="9" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                     <b>KHR</b></td>
                 <td>{{content.grandTotalKhr}}</td>
             </tr>
