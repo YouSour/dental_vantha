@@ -61,6 +61,7 @@ Dental.Schema.Invoice = new SimpleSchema({
     doctorShare: {
         type: Array,
         minCount: 0,
+        label:"Income By Doctor",
         optional: true
     },
     'doctorShare.$': {

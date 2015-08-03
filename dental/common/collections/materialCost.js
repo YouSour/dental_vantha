@@ -2,42 +2,30 @@
  *
  * @type {Mongo.Collection}
  */
-Dental.Collection.Purchase = new Mongo.Collection('dental_purchase');
+Dental.Collection.MaterialCost = new Mongo.Collection('dental_materialCost');
 
 /**
  *
  * @type {SimpleSchema}
  */
-Dental.Schema.Purchase = new SimpleSchema({
-    purchaseDate: {
+Dental.Schema.MaterialCost = new SimpleSchema({
+    materialCostDate: {
         type: String,
-        label: "Purchase Date",
+        label: "Material Cost Date",
         defaultValue: function () {
             var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');
             return currentDate;
         }
     },
-    supplierId: {
+    doctorId: {
         type: String,
-        label: "Supplier",
-        max: 20,
+        label: "Doctor",
         autoform: {
             type: "select2",
             options: function () {
-                return Dental.List.supplier();
+                return Dental.List.doctor();
             }
         }
-    },
-    registerId: {
-        type: String,
-        label: "Register ID",
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.List.register();
-            }
-        },
-        optional: true
     },
     items: {
         label: "Items",
@@ -47,13 +35,13 @@ Dental.Schema.Purchase = new SimpleSchema({
     'items.$': {
         type: Object
     },
-    'items.$.orderItemId': {
+    'items.$.materialCostItemId': {
         type: String,
         autoform: {
             //type: "select",
             type: "selectize",
             options: function () {
-                return Dental.List.orderItem();
+                return Dental.List.materialCostItem();
             }
         }
     },
@@ -84,4 +72,4 @@ Dental.Schema.Purchase = new SimpleSchema({
     }
 });
 
-Dental.Collection.Purchase.attachSchema(Dental.Schema.Purchase);
+Dental.Collection.MaterialCost.attachSchema(Dental.Schema.MaterialCost);

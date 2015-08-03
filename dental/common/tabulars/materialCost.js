@@ -1,6 +1,6 @@
-Dental.TabularTable.Purchase = new Tabular.Table({
-    name: "dentalPurchaseList",
-    collection: Dental.Collection.Purchase,
+Dental.TabularTable.MaterialCost = new Tabular.Table({
+    name: "dentalMaterialCostList",
+    collection: Dental.Collection.MaterialCost,
     columns: [
         {
             title: "<i class='fa fa-bars'></i>",
@@ -8,33 +8,19 @@ Dental.TabularTable.Purchase = new Tabular.Table({
         },
         {data: "_id", title: "ID"},
         {
-            data: "purchaseDate",
-            title: "Purchase Date",
+            data: "materialCostDate",
+            title: "Material Cost Date",
             render: function (val, doc, type) {
                 return moment(val).format("YYYY-MM-DD");
             }
         },
         {
-            data: "supplierId",
-            title: "Suppiler"
-            //,
-            //render: function (val, doc, type) {
-            //    return labelCon(val, val, "primary");
-            //}
-        },
-        {
-            data: "registerId",
-            title: "Register",
-            render: function (val, doc, type) {
-                if (!_.isUndefined(val)) {
-                    return val;
-                }
-                return "None";
-            }
+            data: "doctorId",
+            title: "Doctor"
         },
         {
             data: "items",
-            title: "Purchase Detail",
+            title: "Material Cost Detail",
             render: function (val, doc, type) {
                 return JSON.stringify(val).slice(1, JSON.stringify(val).length - 1);
             }
@@ -42,7 +28,6 @@ Dental.TabularTable.Purchase = new Tabular.Table({
         {
             data: "total",
             title: "Total"
-
         }
     ],
     order: [["0", "desc"]],

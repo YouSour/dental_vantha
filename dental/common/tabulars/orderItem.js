@@ -5,6 +5,7 @@ Dental.TabularTable.OrderItem = new Tabular.Table({
         {title: "<i class='fa fa-bars'></i>", tmpl: Meteor.isClient && Template.dental_orderItemAction},
         {data: "_id", title: "ID"},
         {data: "name", title: "Name"},
+        {data: "price", title: "Price"},
         {data: "unit", title: "Unit"},
         {data: "_orderCategory.name", title: "Category"}
     ],

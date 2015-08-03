@@ -7,6 +7,7 @@ Template.dental_register.onCreated(function () {
         'register',
         'patientAddon',
         'treatmentAction',
+        'appointmentAction',
         'depositAction',
         'invoiceAction'
     ]);
@@ -18,6 +19,7 @@ Template.dental_register.helpers({
         return {branchId: pattern};
     }
 });
+
 
 Template.dental_register.events({
     'click .insert': function () {
@@ -64,6 +66,8 @@ Template.dental_register.events({
         alertify.alert(fa("eye", "Register"), renderTemplate(Template.dental_registerShow, data));
     },
     'click .treatmentAction': function () {
+        debugger;
+        alert(this._id);
         registerState(this);
 
         alertify.treatmentAction(
@@ -74,7 +78,7 @@ Template.dental_register.events({
     'click .appointmentAction': function () {
         registerState(this);
 
-        alertify.treatmentAction(
+        alertify.appointmentAction(
             fa("clock-o", "Appointment"),
             renderTemplate(Template.dental_calendarEvent)
         ).maximize();

@@ -20,6 +20,12 @@
                 </li>
 
                 <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Material Cost</li>
+                <li class="{{isActiveRoute name='dental.materialCost'}}">
+                    <a href="{{pathFor 'dental.materialCost'}}">Material Cost</a>
+                </li>
+
+                <li role="separator" class="divider"></li>
                 <li class="dropdown-header">Purchase</li>
                 <li class="{{isActiveRoute name='dental.purchase'}}">
                     <a href="{{pathFor 'dental.purchase'}}">Purchase</a>
@@ -54,6 +60,9 @@
                     <a href="{{pathFor 'dental.quotationListReport'}}">Quotation</a>
                 </li>
 
+                <li class="{{isActiveRoute name='dental.materialCostListReport'}}">
+                    <a href="{{pathFor 'dental.materialCostListReport'}}">Material Cost</a>
+                </li>
                 <li class="{{isActiveRoute name='dental.purchaseListReport'}}">
                     <a href="{{pathFor 'dental.purchaseListReport'}}">Purchase</a>
                 </li>
@@ -117,6 +126,15 @@
                 </li>
                 <li class="{{isActiveRoute name='dental.diseaseHistory'}}">
                     <a href="{{pathFor 'dental.diseaseHistory'}}">History</a>
+                </li>
+
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Material</li>
+                <li class="{{isActiveRoute name='dental.materialCostCategory'}}">
+                    <a href="{{pathFor 'dental.materialCostCategory'}}">Category</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.materialCostItem'}}">
+                    <a href="{{pathFor 'dental.materialCostItem'}}">Item</a>
                 </li>
 
                 <li role="separator" class="divider"></li>

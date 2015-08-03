@@ -1,15 +1,15 @@
 <!--Index-->
-<template name="dental_orderItem">
+<template name="dental_materialCostItem">
     <div class="animated bounceInRight">
         <p>
             <button class="btn btn-primary insert">{{fa "plus"}} Add New</button>
         </p>
-        {{> tabular table=Dental.TabularTable.OrderItem class="table table-responsive table-striped table-bordered table-condensed table-hover"}}
+        {{> tabular table=Dental.TabularTable.MaterialCostItem class="table table-responsive table-striped table-bordered table-condensed table-hover"}}
     </div>
 </template>
 
 <!--Action-->
-<template name="dental_orderItemAction">
+<template name="dental_materialCostItemAction">
     {{#tabularAction}}
         <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
         <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
@@ -18,24 +18,24 @@
 </template>
 
 <!--Insert-->
-<template name="dental_orderItemInsert">
-    {{#autoForm collection=Dental.Collection.OrderItem id="dental_orderItemInsert" type="insert"}}
+<template name="dental_materialCostItemInsert">
+    {{#autoForm collection=Dental.Collection.MaterialCostItem id="dental_materialCostItemInsert" type="insert"}}
         <div class="row">
             <div class="col-md-6">
 
-                <div class="form-group{{#if afFieldIsInvalid name='orderCategoryId'}} has-error{{/if}}" data-required="true">
-                    <label class="control-label" for="orderCategoryId">Order Category</label>
+                <div class="form-group{{#if afFieldIsInvalid name='materialCostCategoryId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="orderCategoryId">Material Category</label>
 
                     <div class="input-group  select2-bootstrap-append">
-                        {{> afFieldInput name='orderCategoryId'}}
+                        {{> afFieldInput name='materialCostCategoryId'}}
                         <span class="input-group-addon">
-                            <a href="#" class="orderCategoryAddon">
+                            <a href="#" class="materialCostCategoryAddon">
                                 {{fa "plus"}}
                             </a>
                         </span>
                     </div>
-                    {{#if afFieldIsInvalid name='orderCategoryId'}}
-                        <span class="help-block">{{afFieldMessage name='orderCategoryId'}}</span>
+                    {{#if afFieldIsInvalid name='materialCostCategoryId'}}
+                        <span class="help-block">{{afFieldMessage name='materialCostCategoryId'}}</span>
                     {{/if}}
                 </div>
 
@@ -52,25 +52,27 @@
 </template>
 
 <!--Update-->
-<template name="dental_orderItemUpdate">
-    {{#autoForm collection=Dental.Collection.OrderItem id="dental_orderItemUpdate"  doc=this type="update"}}
+<template name="dental_materialCostItemUpdate">
+    {{#autoForm collection=Dental.Collection.MaterialCostItem id="dental_materialCostItemUpdate"  doc=this type="update"}}
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group{{#if afFieldIsInvalid name='orderCategoryId'}} has-error{{/if}}" data-required="true">
-                    <label class="control-label" for="orderCategoryId">Order Category</label>
+
+                <div class="form-group{{#if afFieldIsInvalid name='materialCostCategoryId'}} has-error{{/if}}" data-required="true">
+                    <label class="control-label" for="orderCategoryId">Material Category</label>
 
                     <div class="input-group  select2-bootstrap-append">
-                        {{> afFieldInput name='orderCategoryId'}}
+                        {{> afFieldInput name='materialCostCategoryId'}}
                         <span class="input-group-addon">
-                            <a href="#" class="orderCategoryAddon">
+                            <a href="#" class="materialCostCategoryAddon">
                                 {{fa "plus"}}
                             </a>
                         </span>
                     </div>
-                    {{#if afFieldIsInvalid name='orderCategoryId'}}
-                        <span class="help-block">{{afFieldMessage name='orderCategoryId'}}</span>
+                    {{#if afFieldIsInvalid name='materialCostCategoryId'}}
+                        <span class="help-block">{{afFieldMessage name='materialCostCategoryId'}}</span>
                     {{/if}}
                 </div>
+
                 {{> afQuickField name="name"}}
             </div>
             <div class="col-md-6">
@@ -84,7 +86,7 @@
 </template>
 
 <!--Show-->
-<template name="dental_orderItemShow">
+<template name="dental_materialCostItemShow">
     <dl class="dl-horizontal">
         <dt>ID</dt>
         <dd>{{_id}}</dd>
@@ -92,8 +94,8 @@
         <dd>{{name}}</dd>
         <dt>Unit</dt>
         <dd>{{unit}}</dd>
-        <dt>Order Category</dt>
-        <dd>{{_orderCategory.name}}</dd>
+        <dt>Material Category</dt>
+        <dd>{{_materialCostCategory.name}}</dd>
     </dl>
 </template>
 
