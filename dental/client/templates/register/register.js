@@ -66,10 +66,7 @@ Template.dental_register.events({
         alertify.alert(fa("eye", "Register"), renderTemplate(Template.dental_registerShow, data));
     },
     'click .treatmentAction': function () {
-        debugger;
-        alert(this._id);
         registerState(this);
-
         alertify.treatmentAction(
             fa("medkit", "Treatment"),
             renderTemplate(Template.dental_treatment)
