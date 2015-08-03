@@ -45,6 +45,27 @@ Dental.Collection.Patient.permit(['insert', 'update', 'remove'])
     .apply();
 
 /*
+ * Material Cost
+ */
+Dental.Collection.MaterialCost.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/*
+ * Material Cost Category
+ */
+Dental.Collection.MaterialCostCategory.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/*
+ * Material Cost Item
+ */
+Dental.Collection.MaterialCostItem.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/*
  *Supplier
  */
 Dental.Collection.Supplier.permit(['insert', 'update', 'remove'])

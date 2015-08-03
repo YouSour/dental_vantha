@@ -59,6 +59,27 @@ Meteor.publish('dental_patient', function () {
 });
 
 /*
+ * Material Cost
+ */
+Meteor.publish('dental_materialCost', function () {
+    return Dental.Collection.MaterialCost.find();
+});
+
+/*
+ * Material Cost Category
+ */
+Meteor.publish('dental_materialCostCategory', function () {
+    return Dental.Collection.MaterialCostCategory.find();
+});
+
+/*
+ * Material Cost Item
+ */
+Meteor.publish('dental_materialCostItem', function () {
+    return Dental.Collection.MaterialCostItem.find();
+});
+
+/*
  *Supplier
  */
 Meteor.publish('dental_supplier', function () {

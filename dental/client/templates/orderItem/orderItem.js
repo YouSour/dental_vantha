@@ -54,7 +54,7 @@ Template.dental_orderItemInsert.events({
 
 Template.dental_orderItemUpdate.events({
     'click .orderCategoryAddon': function () {
-        alertify.orderCategoryAddon(fa("pencil","Order Category"),renderTemplate(Template.dental_orderCategoryUpdate));
+        alertify.orderCategoryAddon(fa("pencil","Order Category"),renderTemplate(Template.dental_orderCategoryInsert));
     }
 });
 

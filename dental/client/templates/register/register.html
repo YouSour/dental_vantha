@@ -14,17 +14,47 @@
         <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
         <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
         <li><a href="#" class="show">{{fa "eye"}} Show</a></li>
-
-        <li role="separator" class="divider"></li>
-        <li class="dropdown-header">Event</li>
-        <li><a href="#" class="treatmentAction">{{fa "medkit"}} Treatment</a></li>
-        <li><a href="#" class="appointmentAction">{{fa "clock-o"}} Appointment</a></li>
-
-        <li role="separator" class="divider"></li>
-        <li class="dropdown-header">Money</li>
-        <li><a href="#" class="depositAction">{{fa "ticket"}} Deposit</a></li>
-        <li><a href="#" class="invoiceAction">{{fa "money"}} Invoice</a></li>
     {{/tabularAction}}
+</template>
+<!--Treatment-Link-Action-->
+<template name="dental_treatmentLinkAction">
+    <a href="#" class="treatmentAction">
+        {{#if _treatmentCount}}
+            {{_treatmentCount}}
+        {{else}}
+            0
+        {{/if}}
+    </a>
+</template>
+<!--Appointment-Link-Action-->
+<template name="dental_appointmentLinkAction">
+    <a href="#" class="appointmentAction">
+        {{#if _appointmentCount}}
+            {{_appointmentCount}}
+        {{else}}
+            0
+        {{/if}}
+    </a>
+</template>
+<!--Deposit-Link-Action-->
+<template name="dental_depositLinkAction">
+    <a href="#" class="depositAction">
+        {{#if _depositCount}}
+            {{_depositCount}}
+        {{else}}
+            0
+        {{/if}}
+    </a>
+</template>
+<!--Invoice-Link-Action-->
+<template name="dental_invoiceLinkAction">
+    <a href="#" class="invoiceAction">
+        {{#if _invoiceCount}}
+            {{_invoiceCount}}
+        {{else}}
+            0
+        {{/if}}
+    </a>
 </template>
 
 <template name="dental_registerPrintAction">

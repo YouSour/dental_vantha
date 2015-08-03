@@ -31,6 +31,28 @@ Dental.List = {
 
         return list;
     },
+    materialCostCategory: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
+
+        Dental.Collection.MaterialCostCategory.find()
+            .forEach(function (obj) {
+                list.push({label: obj._id + " : " + obj.name, value: obj._id});
+            });
+
+        return list;
+    },
+    materialCostItem: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
+
+        Dental.Collection.MaterialCostItem.find().forEach(function (obj) {
+            list.push({label: obj._id + " : " + obj.name, value: obj._id});
+        });
+
+        return list;
+
+    },
     orderCategory: function () {
         var list = [];
         list.push({label: "(Select One)", value: ""});
@@ -145,7 +167,7 @@ Dental.List = {
         list.push({label: "(Select One)", value: ""});
 
         Dental.Collection.Register.find().forEach(function (obj) {
-            list.push({label: obj._id + ": "+obj._patient.name+" ("+obj._patient.gender+")" , value: obj._id});
+            list.push({label: obj._id + ": " + obj._patient.name + " (" + obj._patient.gender + ")", value: obj._id});
         });
 
         return list;
@@ -178,7 +200,7 @@ Dental.List = {
             list.push({label: "(Select One)", value: ""});
         }
         var patientId = Dental.ListState.get('patientId');
-        Dental.Collection.Invoice.find({patientId:patientId}).forEach(function (obj) {
+        Dental.Collection.Invoice.find({patientId: patientId}).forEach(function (obj) {
             var patient = Dental.Collection.Patient.findOne({_id: obj.patientId});
             var payment = Dental.Collection.Payment.findOne({
                     invoiceId: obj._id

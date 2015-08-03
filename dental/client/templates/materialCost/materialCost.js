@@ -1,29 +1,29 @@
 /*
  *Index
  */
-Template.dental_purchase.onRendered(function () {
-    createNewAlertify(['purchase', 'supplierAddon', 'registerAddon']);
+Template.dental_materialCost.onRendered(function () {
+    createNewAlertify(['materialCost', 'doctorAddon']);
 });
 
 
-Template.dental_purchase.helpers({});
+Template.dental_materialCost.helpers({});
 
-Template.dental_purchase.events({
+Template.dental_materialCost.events({
     'click .insert': function () {
-        alertify.purchase(fa("plus", "Purchase"), renderTemplate(Template.dental_purchaseInsert)).maximize();
+        alertify.materialCost(fa("plus", "Material Cost"), renderTemplate(Template.dental_materialCostInsert)).maximize();
     },
     'click .update': function () {
-        var data = Dental.Collection.Purchase.findOne({_id: this._id});
-        alertify.purchase(fa("pencil", "Purchase"), renderTemplate(Template.dental_purchaseUpdate, data)).maximize();
+        var data = Dental.Collection.MaterialCost.findOne({_id: this._id});
+        alertify.materialCost(fa("pencil", "Material Cost"), renderTemplate(Template.dental_materialCostUpdate, data)).maximize();
     },
     'click .remove': function () {
         var self = this;
 
         alertify.confirm(
-            fa("remove", "Purchase"),
+            fa("remove", "Material cost"),
             "Are you sure to delete [" + self._id + "] ?",
             function (result) {
-                Dental.Collection.Purchase.remove(self._id, function (error) {
+                Dental.Collection.MaterialCost.remove(self._id, function (error) {
                     if (error) {
                         alertify.error(error.message);
                     } else {
@@ -35,29 +35,26 @@ Template.dental_purchase.events({
         );
     },
     'click .show': function () {
-        alertify.alert(fa("eye", "Purchase"), renderTemplate(Template.dental_purchaseShow, this));
+        alertify.alert(fa("eye", "Material Cost"), renderTemplate(Template.dental_materialCostShow, this));
     }
 });
 
 /**
  * Insert
  */
-Template.dental_purchaseInsert.onRendered(function () {
+Template.dental_materialCostInsert.onRendered(function () {
     datepicker();
     $('.btnAdd').attr('disabled', "disabled");
 });
 
-Template.dental_purchaseInsert.helpers({});
+Template.dental_materialCostInsert.helpers({});
 
-Template.dental_purchaseInsert.events({
-    'click .supplierAddon': function () {
-        alertify.supplierAddon(fa("plus", "Supplier"), renderTemplate(Template.dental_supplierInsert));
+Template.dental_materialCostInsert.events({
+    'click .doctorAddon': function () {
+        alertify.doctorAddon(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert)).maximize();
     },
-    'click .registerAddon': function () {
-        alertify.registerAddon(fa("plus", "Register"), renderTemplate(Template.dental_registerInsert)).maximize();
-    },
-    'change .orderItemId': function (e) {
-        onChangeOrderItemId(e);
+    'change .materialCostItemId': function (e) {
+        onChangeMaterialCostItemId(e);
     },
     'click .btnRemove': function (e) {
 
@@ -85,9 +82,9 @@ Template.dental_purchaseInsert.events({
     },
     'click .btnAdd': function (e) {
 
-        var orderItemId = $(e.currentTarget).val();
+        var materialCostItemId = $(e.currentTarget).val();
 
-        if (orderItemId != "") {
+        if (materialCostItemId != "") {
             $('.btnAdd').removeAttr('disabled');
         } else {
             $('.btnAdd').attr('disabled', "disabled");
@@ -103,22 +100,19 @@ Template.dental_purchaseInsert.events({
 /**
  * Update
  */
-Template.dental_purchaseUpdate.onRendered(function () {
+Template.dental_materialCostUpdate.onRendered(function () {
     datepicker();
     calculateTotal();
 });
 
-Template.dental_purchaseUpdate.helpers({});
+Template.dental_materialCostUpdate.helpers({});
 
-Template.dental_purchaseUpdate.events({
-    'click .supplierAddon': function () {
-        alertify.supplierAddon(fa("plus", "Supplier"), renderTemplate(Template.dental_supplierInsert));
+Template.dental_materialCostUpdate.events({
+    'click .doctorAddon': function () {
+        alertify.doctorAddon(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert)).maximize();
     },
-    'click .registerAddon': function () {
-        alertify.registerAddon(fa("plus", "Register"), renderTemplate(Template.dental_registerInsert)).maximize();
-    },
-    'change .orderItemId': function (e) {
-        onChangeOrderItemId(e);
+    'change .materialCostItemId': function (e) {
+        onChangeMaterialCostItemId(e);
     },
     'click .btnRemove': function (e) {
 
@@ -145,9 +139,9 @@ Template.dental_purchaseUpdate.events({
 
     },
     'click .btnAdd': function (e) {
-        var orderItemId = $(e.currentTarget).val();
+        var materialCostItemId = $(e.currentTarget).val();
 
-        if (orderItemId != "") {
+        if (materialCostItemId != "") {
             $('.btnAdd').removeAttr('disabled');
         } else {
             $('.btnAdd').attr('disabled', "disabled");
@@ -163,13 +157,13 @@ Template.dental_purchaseUpdate.events({
 /**
  * Show
  */
-Template.dental_purchaseShow.helpers({
-    purchaseDetailFormat: function () {
+Template.dental_materialCostShow.helpers({
+    materialCostDetailFormat: function () {
         var purchaseDetail = "";
         var data = this.items;
         data.forEach(function (obj) {
             purchaseDetail +=
-                "OrderItem Id = " + obj.OrderItemId +
+                "MaterialCostItem Id = " + obj.materialCostItemId +
                 ", Qty = " + obj.qty +
                 ", Price = " + obj.price +
                 ", Amount = " + obj.amount + "<br>";
@@ -177,19 +171,19 @@ Template.dental_purchaseShow.helpers({
 
         return new Spacebars.SafeString(purchaseDetail);
     },
-    purchaseDateFormat: function () {
-        return moment(this.purchaseDate).format("YYYY-MM-DD");
+    materialCostDateFormat: function () {
+        return moment(this.materialCostDate).format("YYYY-MM-DD");
     }
 });
 /**
  * Hook
  */
 AutoForm.hooks({
-    dental_purchaseInsert: {
+    dental_materialCostInsert: {
         before: {
             insert: function (doc) {
-                var purchasePrefix = Session.get('currentBranch') + '-' + moment($('.purchaseDate').val()).format("YYYYMMDD");
-                doc._id = idGenerator.genWithPrefix(Dental.Collection.Purchase, purchasePrefix, 3);
+                var materialCostPrefix = Session.get('currentBranch') + '-' + moment($('.materialCostDate').val()).format("YYYYMMDD");
+                doc._id = idGenerator.genWithPrefix(Dental.Collection.MaterialCost, materialCostPrefix, 3);
                 doc.branchId = Session.get('currentBranch');
                 return doc;
             }
@@ -205,9 +199,9 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    dental_purchaseUpdate: {
+    dental_materialCostUpdate: {
         onSuccess: function () {
-            alertify.purchase().close();
+            alertify.materialCost().close();
             alertify.success('Success');
         },
         onError: function (formType, error) {
@@ -219,16 +213,16 @@ AutoForm.hooks({
 /**
  * onChange orderItemId
  */
-function onChangeOrderItemId(e) {
+function onChangeMaterialCostItemId(e) {
     var thisObj = $(e.currentTarget);
-    var orderItemId = $(e.currentTarget).val();
+    var materialCostItemId = $(e.currentTarget).val();
     var qty, price,amount;
 
-    if (orderItemId != "" && price != 0 && qty != 0) {
-        var orderItemDoc = Dental.Collection.OrderItem.findOne({_id: orderItemId});
+    if (materialCostItemId != "" && price != 0 && qty != 0) {
+        var materialCostItemDoc = Dental.Collection.MaterialCostItem.findOne({_id: materialCostItemId});
 
         qty = 1;
-        price = math.round(orderItemDoc.price, 2);
+        price = math.round(materialCostItemDoc.price, 2);
         amount = math.round(qty * price, 2);
 
         $('.btnAdd').attr('disabled', false);
@@ -307,6 +301,6 @@ function calculateTotal() {
  */
 
 var datepicker = function () {
-    var purchaseDate = $('[name="purchaseDate"]');
-    DateTimePicker.date(purchaseDate);
+    var materialCostDate = $('[name="materialCostDate"]');
+    DateTimePicker.date(materialCostDate);
 };

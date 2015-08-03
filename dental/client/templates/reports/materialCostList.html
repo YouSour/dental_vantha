@@ -1,0 +1,106 @@
+<!--Form-->
+<template name="dental_materialCostListReport">
+    {{#autoForm schema=Dental.Schema.MaterialCostListReport id="dental_materialCostListReport" action="materialCostListReportGen" target="_blank"}}
+        <div class="row">
+            <div class="col-md-6">
+                {{> afQuickField name='branchId'}}
+                {{> afQuickField name='doctorId'}}
+            </div>
+            <div class="col-md-6">
+                {{> afQuickField name='exchange'}}
+                {{> afQuickField name='date'}}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>
+        <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+    {{/autoForm}}
+</template>
+
+
+<!--Generate-->
+<template name="dental_materialCostListReportGen">
+    {{#with data}}
+        <!--Title-->
+        <div class="report-title">
+            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+            <span class="report-company-name">{{title.company.enName}}</span><br>
+            Date: {{title.date}}<br>
+            <u>Material Cost Report</u><br>
+            {{title.company.khAddress}}, {{title.company.telephone}}
+        </div>
+
+        <!--Header-->
+        <table width="100%" border="0">
+            {{#each header}}
+                <tr>
+                    <td style="text-align: left">{{col1}}</td>
+                    <td style="text-align: center">{{col2}}</td>
+                    <td style="text-align: right">{{col3}}</td>
+                </tr>
+            {{/each}}
+        </table>
+
+        <!--Content-->
+
+        <table class="report-content">
+            <thead class="report-content-header">
+            <tr>
+                <th>N<sup>o</sup></th>
+                <th>Material Cost ID</th>
+                <th>Material Cost Date</th>
+                <th>Doctor</th>
+                <th>Items</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+
+            <tbody class="report-content-body">
+            {{#each content}}
+                <tr>
+                    <td>{{index}}</td>
+                    <td>{{_id}}</td>
+                    <td>{{materialCostDate}}</td>
+                    <td>{{doctor}}</td>
+                    <td>
+                        <table border="1" frame="void" style="border-collapse: collapse" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Amount</th>
+                            </tr>
+                            </thead>
+                            {{{items}}}
+                        </table>
+                    </td>
+                    <td>{{total}}</td>
+                </tr>
+            {{/each}}
+
+            <tr>
+                <td colspan="5" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
+                    Total USD</b></td>
+                <td>{{content.grandTotalUsd}}</td>
+
+            </tr>
+
+            <tr>
+                <td colspan="5" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                    <b>KHR</b></td>
+                <td>{{content.grandTotalKhr}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <!--Footer-->
+        <p></p>
+
+    {{/with}}
+
+    <!--Sign-->
+    {{>signFooter}}
+
+</template>

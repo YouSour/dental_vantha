@@ -1,26 +1,26 @@
 /*
  * Index
  */
-Template.dental_orderCategory.onRendered(function () {
-    createNewAlertify('orderCategory');
+Template.dental_materialCostCategory.onRendered(function () {
+    createNewAlertify('materialCostCategory');
 });
 
-Template.dental_orderCategory.events({
+Template.dental_materialCostCategory.events({
     'click .insert': function () {
-        alertify.orderCategory(fa("plus", "Order Category"), renderTemplate(Template.dental_orderCategoryInsert));
+        alertify.materialCostCategory(fa("plus", "Material Category"), renderTemplate(Template.dental_materialCostCategoryInsert));
     },
     'click .update': function () {
-        var data = Dental.Collection.OrderCategory.findOne({_id: this._id});
-        alertify.orderCategory(fa("pencil", "Order Category"), renderTemplate(Template.dental_orderCategoryUpdate, data));
+        var data = Dental.Collection.MaterialCostCategory.findOne({_id: this._id});
+        alertify.materialCostCategory(fa("pencil", "Material Category"), renderTemplate(Template.dental_materialCostCategoryUpdate, data));
     },
     'click .remove': function () {
         var self = this;
 
         alertify.confirm(
-            fa("remove", "Order Catogory"),
+            fa("remove", "Material Catogory"),
             "Are you sure to delete [" + self._id + "] ?",
             function (closeEvent) {
-                Dental.Collection.OrderCategory.remove(self._id, function (error) {
+                Dental.Collection.MaterialCostCategory.remove(self._id, function (error) {
                     if (error) {
                         alertify.error(error.message);
                     } else {
@@ -32,9 +32,9 @@ Template.dental_orderCategory.events({
         );
     },
     'click .show': function () {
-        var data = Dental.Collection.OrderCategory.findOne({_id: this._id});
+        var data = Dental.Collection.MaterialCostCategory.findOne({_id: this._id});
 
-        alertify.alert(fa("eye", "Order Category"), renderTemplate(Template.dental_orderCategoryShow, data));
+        alertify.alert(fa("eye", "Material Category"), renderTemplate(Template.dental_materialCostCategoryShow, data));
     }
 })
 ;
@@ -43,10 +43,10 @@ Template.dental_orderCategory.events({
  * Hook
  */
 AutoForm.hooks({
-    dental_orderCategoryInsert: {
+    dental_materialCostCategoryInsert: {
         before: {
             insert: function (doc) {
-                doc._id = idGenerator.gen(Dental.Collection.OrderCategory, 3);
+                doc._id = idGenerator.gen(Dental.Collection.MaterialCostCategory, 3);
                 return doc;
             }
         },
@@ -57,9 +57,9 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    dental_orderCategoryUpdate: {
+    dental_materialCostCategoryUpdate: {
         onSuccess: function (fromType, result) {
-            alertify.orderCategory().close();
+            alertify.materialCostCategory().close();
             alertify.success("Success");
         },
         onError: function (formType, error) {

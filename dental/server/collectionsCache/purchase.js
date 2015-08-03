@@ -6,4 +6,4 @@ Dental.Collection.Purchase.cacheDoc('register',Dental.Collection.Register,['pati
     refField:"registerId"
 });
 
-Dental.Collection.Purchase.cacheArrayField('disease');
+Dental.Collection.Purchase.cacheArrayField('items');
