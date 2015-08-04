@@ -8,7 +8,7 @@ Meteor.startup(function () {
                 "rates" : {
                     "KHR" : 4000,
                     "USD" : 1,
-                    "THB" : 0.0012000000000000
+                    "THB" : 35
                 }
             }
         ];
