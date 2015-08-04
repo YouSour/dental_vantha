@@ -15,6 +15,8 @@ Template.dental_invoiceInsert.onRendered(function () {
 
 });
 
+
+
 Template.dental_invoiceInsert.helpers({
     register: function () {
         var register = Dental.RegisterState.get('data');
@@ -46,6 +48,9 @@ Template.dental_invoiceInsert.events({
             $('.btnAdd').attr('disabled', "disabled");
 
         }
+    },
+    'click .saveAndPrint': function () {
+      Session.set('printInvoice',true);
     }
 });
 
@@ -227,6 +232,14 @@ AutoForm.hooks({
         onSuccess: function (formType, result) {
             alertify.invoiceAction().close();
             alertify.success("Success");
+
+            var printSession=Session.get('printInvoice');
+            var data=Dental.Collection.Register.findOne(result);
+            if(printSession){
+                var q = 'patient=' + data.patientId + '&register=' + data._id;
+                var url = '/dental/invoiceReportGen?' + q;
+                window.open(url);
+            }
         },
         onError: function (fromType, error) {
             alertify.error(error.message);
