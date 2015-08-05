@@ -68,14 +68,7 @@ Template.dental_patient.events({
  * Insert
  */
 Template.dental_patientInsert.onRendered(function () {
-    datePicker();
-});
-
-/**
- * Update
- */
-Template.dental_patientUpdate.onRendered(function () {
-    datePicker();
+    memberAutoSelected();
 });
 
 /**
@@ -96,6 +89,9 @@ AutoForm.hooks({
             $('select').each(function(){
                $(this).select2("val","");
             });
+
+            //return member selected value "No"
+            memberAutoSelected();
             alertify.success('Success');
         },
         onError: function (formType, error) {
@@ -113,10 +109,6 @@ AutoForm.hooks({
     }
 });
 
-/**
- * Config date picker
- */
-var datePicker = function () {
-    var memberDate = $('[name="memberDate"]');
-    DateTimePicker.date(memberDate);
-};
+var memberAutoSelected = function(){
+    $('[name="member"]').val("No").trigger("change");
+}
