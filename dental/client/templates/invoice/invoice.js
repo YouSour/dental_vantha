@@ -231,7 +231,13 @@ AutoForm.hooks({
         },
         onSuccess: function (formType, result) {
             alertify.invoiceAction().close();
-            alertify.success("Success");
+            //clear select2
+            $('select').each(function(){
+                $(this).select2("val","");
+            });
+            //clear selectize
+            $('select.orderItemId')[0].selectize.clear(true);
+            alertify.success('Success');
 
             var printSession=Session.get('printInvoice');
             var data=Dental.Collection.Register.findOne(result);

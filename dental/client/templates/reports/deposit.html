@@ -30,19 +30,20 @@
         <!--Header-->
         <div style="width: 100%">
             {{#with header}}
-                <div style="width: 50%; float: left">
+                <div style="width: 50%; padding-top: 12px; float: left;">
                     <ul class="list-unstyled">
-                        <li><strong>Patient ID:</strong> {{patientId}}</li>
-                        <li><strong>Name:</strong> {{_patient.name}}</li>
-                        <li><strong>Gender:</strong> {{_patient.gender}}</li>
-                        <li><strong>Age:</strong> {{_patient.age}}</li>
+                        <li><strong>លេខកូដអ្នកជំងឺ :</strong> {{patientId}}</li>
+                        <li><strong>ឈ្មោះ :</strong> {{_patient.name}}</li>
+                        <li><strong>ភេទ :</strong> {{_patient.gender}}</li>
+                        <li><strong>អាយុ :</strong> {{_patient.age}}</li>
                     </ul>
                 </div>
-                <div style="width: 50%; float: right">
+                <div style="width: 50%; padding-top: 12px; float: right;">
                     <ul class="list-unstyled">
-                        <li><strong>Reg ID:</strong> {{_id}}</li>
-                        <li><strong>Date:</strong> {{registerDate}}</li>
-                        <li><strong>Description:</strong> {{des}}</li>
+                        <li><strong>លេខកូដចុះឈ្មោះ :  </strong> {{_id}}</li>
+                        <li><strong>កាលបរិច្ឆេទចុះឈ្មោះ : </strong> {{registerDate}}</li>
+                        <li><strong>ពិពណ៌នា :</strong> {{des}}</li>
+                        <li><strong>អាត្រាប្តូរប្រាក់ :</strong> {{exchange}}</li>
                     </ul>
                 </div>
             {{/with}}
@@ -52,9 +53,9 @@
         <table class="report-content">
             <thead class="report-content-header">
             <tr>
-                <th>No</th>
-                <th>Date</th>
-                <th>Amount</th>
+                <th>ល.រ</th>
+                <th>កាលបរិច្ឆេទកក់ប្រាក់</th>
+                <th>ទឹកប្រាក់</th>
             </tr>
             </thead>
 
@@ -72,9 +73,10 @@
         <!--Footer-->
         <div style="width: 100%">
             {{#with footer}}
-                <div style="width: 50%; float: right; text-align: right">
+                <div style="width: 50%; padding-top: 12px; float: right; text-align: right">
                     <ul class="list-unstyled">
-                        <li><strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}</li>
+                        <li><strong>ទឹកប្រាក់សរុប(ដុល្លា) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}</li>
+                        <li><strong>ទឹកប្រាក់សរុប(រៀល) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalKhr}}</li>
                     </ul>
                 </div>
             {{/with}}
@@ -83,7 +85,7 @@
 
     <!--Sign-->
     <div style="width: 40%; text-align: center; float: right; clear: both">
-        <strong>Prepared By</strong>
+        <strong>រៀបចំដោយ</strong>
         <br><br><br><br><br><br><br>
         __________________<br>
     </div>

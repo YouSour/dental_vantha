@@ -72,7 +72,7 @@ Template.dental_calendar.helpers({
             },
 
             id: 'dental_fullcalendar',
-            defaultView: 'agendaWeek',
+            defaultView: 'month',
             firstDay: 1,
             height: "100%",
             header: {

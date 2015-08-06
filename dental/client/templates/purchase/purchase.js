@@ -169,7 +169,7 @@ Template.dental_purchaseShow.helpers({
         var data = this.items;
         data.forEach(function (obj) {
             purchaseDetail +=
-                "OrderItem Id = " + obj.OrderItemId +
+                "OrderItem Id = " + obj.orderItemId +
                 ", Qty = " + obj.qty +
                 ", Price = " + obj.price +
                 ", Amount = " + obj.amount + "<br>";
@@ -195,10 +195,12 @@ AutoForm.hooks({
             }
         },
         onSuccess: function (formType, result) {
+            //clear select2
             $('select').each(function(){
                 $(this).select2("val","");
             });
-
+            //clear selectize
+            $('select.orderItemId')[0].selectize.clear(true);
             alertify.success('Success');
         },
         onError: function (formType, error) {

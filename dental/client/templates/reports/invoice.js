@@ -40,8 +40,9 @@ Template.dental_invoiceReportGen.helpers({
 
         /********* Header ********/
         var registerDoc = Dental.Collection.Register.findOne(self.register);
+        var exchange = Cpanel.Collection.Exchange.findOne({dateTime:{$lte:moment().format("YYYY-MM-DD HH:mm:ss")}},{sort: {dateTime: -1}});
         data.header = registerDoc;
-
+        data.header.exchange = numeral(exchange.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchange.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchange.rates.THB).format('0,0.00')+" B";
         /********** Content & Footer **********/
         var content = [];
 
@@ -81,6 +82,7 @@ Template.dental_invoiceReportGen.helpers({
             footer.deposit = numeral(getInvoice.deposit).format('$0,0.00');
             footer.subDiscount = numeral(getInvoice.subDiscount).format('0,0.00');
             footer.total = numeral(getInvoice.total).format('$0,0.00');
+            footer.totalKhr = "R"+numeral(getInvoice.total*exchange.rates.KHR).format('0,0.00');
             data.footer = footer;
 
             return data;
