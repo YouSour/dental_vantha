@@ -189,9 +189,12 @@ AutoForm.hooks({
             }
         },
         onSuccess: function (formType, result) {
+            //clear select2
             $('select').each(function(){
                 $(this).select2("val","");
             });
+            //clear selectize
+            $('select.materialCostItemId')[0].selectize.clear(true);
 
             alertify.success('Success');
         },
