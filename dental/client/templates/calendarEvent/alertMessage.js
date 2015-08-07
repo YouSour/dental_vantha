@@ -15,8 +15,6 @@ Template.dental_alertEventMsg.onRendered(function () {
 
 Template.dental_alertEventMsg.helpers({
     data: function () {
-        console.log(state.get('data'));
-
         return state.get('data');
     }
 });

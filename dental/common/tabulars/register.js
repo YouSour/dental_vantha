@@ -22,6 +22,11 @@ Dental.TabularTable.Register = new Tabular.Table({
             }
         },
         {
+            data: "status",
+            title: "Status",
+            tmpl: Meteor.isClient && Template.dental_statusLinkAction
+        },
+        {
             data: "_treatmentCount",
             title: "T+",
             tmpl: Meteor.isClient && Template.dental_treatmentLinkAction

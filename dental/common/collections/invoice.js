@@ -86,6 +86,34 @@ Dental.Schema.Invoice = new SimpleSchema({
         decimal: true,
         defaultValue: 0
     },
+    laboExpense: {
+        type: Array,
+        minCount: 0,
+        label:"Labo Expense",
+        optional: true
+    },
+    'laboExpense.$': {
+        type: Object
+    },
+    'laboExpense.$.doctor': {
+        type: String,
+        autoform: {
+            //type: "select2",
+            type: "selectize",
+            options: function () {
+                return Dental.List.doctor();
+            }
+        }
+    },
+    'laboExpense.$.amount': {
+        type: Number,
+        decimal: true
+    },
+    laboExpenseTotal: {
+        type: Number,
+        decimal: true,
+        defaultValue: 0
+    },
     subtotal: {
         type: Number,
         decimal: true

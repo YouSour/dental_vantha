@@ -4,6 +4,7 @@ Meteor.subscribe('dental_diseaseCategory');
 Meteor.subscribe('dental_diseaseItem');
 Meteor.subscribe('dental_patient');
 Meteor.subscribe('dental_supplier');
+Meteor.subscribe('dental_laboratory');
 Meteor.subscribe('dental_materialCost');
 Meteor.subscribe('dental_materialCostCategory');
 Meteor.subscribe('dental_materialCostItem');
