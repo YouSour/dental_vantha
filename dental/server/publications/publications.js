@@ -1,7 +1,6 @@
 /**
  * Staff
  */
-
 Meteor.publish('dental_staff', function () {
     if (this.userId) {
         return Dental.Collection.Staff.find();
@@ -11,7 +10,6 @@ Meteor.publish('dental_staff', function () {
 /**
  * Doctor
  */
-
 Meteor.publish('dental_doctor', function () {
     if (this.userId) {
         return Dental.Collection.Doctor.find();
@@ -21,7 +19,6 @@ Meteor.publish('dental_doctor', function () {
 /**
  * Disease Category
  */
-
 Meteor.publish('dental_diseaseCategory', function () {
     if (this.userId) {
         return Dental.Collection.DiseaseCategory.find();
@@ -31,17 +28,15 @@ Meteor.publish('dental_diseaseCategory', function () {
 /**
  * Disease Item
  */
-
 Meteor.publish('dental_diseaseItem', function () {
     if (this.userId) {
         return Dental.Collection.DiseaseItem.find();
     }
 });
 
-/**
+/*
  * Disease History
  */
-
 Meteor.publish('dental_diseaseHistory', function () {
     if (this.userId) {
         return Dental.Collection.DiseaseHistory.find();
@@ -51,11 +46,17 @@ Meteor.publish('dental_diseaseHistory', function () {
 /**
  * Patient
  */
-
 Meteor.publish('dental_patient', function () {
     if (this.userId) {
         return Dental.Collection.Patient.find();
     }
+});
+
+/*
+ * Laboratory
+ */
+Meteor.publish('dental_laboratory', function () {
+    return Dental.Collection.Laboratory.find();
 });
 
 /*
@@ -96,10 +97,10 @@ Meteor.publish('dental_orderCategory', function () {
 /*
  *Order Item
  */
-
 Meteor.publish('dental_orderItem', function () {
     return Dental.Collection.OrderItem.find();
 });
+
 /*
  *Register
  */

@@ -45,6 +45,13 @@ Dental.Collection.Patient.permit(['insert', 'update', 'remove'])
     .apply();
 
 /*
+ * Laboratory
+ */
+Dental.Collection.Laboratory.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/*
  * Material Cost
  */
 Dental.Collection.MaterialCost.permit(['insert', 'update', 'remove'])

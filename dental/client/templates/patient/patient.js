@@ -109,6 +109,7 @@ AutoForm.hooks({
     }
 });
 
+//AutoSelected
 var memberAutoSelected = function(){
     $('[name="member"]').val("No").trigger("change");
-}
+};

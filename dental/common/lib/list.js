@@ -31,6 +31,17 @@ Dental.List = {
 
         return list;
     },
+    laboratoryItem: function () {
+        var list = [];
+        list.push({label: "(Select One)", value: ""});
+
+        Dental.Collection.Laboratory.find().forEach(function (obj) {
+            list.push({label: obj._id + " : " + obj.name, value: obj._id});
+        });
+
+        return list;
+
+    },
     materialCostCategory: function () {
         var list = [];
         list.push({label: "(Select One)", value: ""});
@@ -169,6 +180,16 @@ Dental.List = {
         Dental.Collection.Register.find().forEach(function (obj) {
             list.push({label: obj._id + ": " + obj._patient.name + " (" + obj._patient.gender + ")", value: obj._id});
         });
+
+        return list;
+    },
+    statusRegister:function(){
+      var list = [];
+        list.push(
+            {label: "(Select One)", value: ""},
+            {label: "Active", value: "Active"},
+            {label: "Close", value: "Close"}
+        );
 
         return list;
     },

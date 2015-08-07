@@ -44,7 +44,6 @@ AutoForm.hooks({
         before: {
             insert: function (doc) {
                 doc._id = idGenerator.gen(Dental.Collection.DiseaseHistory, 3);
-
                 return doc;
             }
         },

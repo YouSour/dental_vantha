@@ -27,6 +27,18 @@ Dental.Schema.Register = new SimpleSchema({
             return currentDate;
         }
     },
+    des: {
+        type: String,
+        label: "Description"
+    },
+    status: {
+        type: String,
+        optional: true
+    },
+    closingDate: {
+        type: String,
+        optional: true
+    },
     disease: {
         type: Array,
         minCount: 0,
@@ -38,8 +50,7 @@ Dental.Schema.Register = new SimpleSchema({
     'disease.$.item': {
         type: String,
         autoform: {
-            type: "select",
-            //type: "selectize",
+            type: "selectize",
             options: function () {
                 return Dental.List.diseaseItem();
             }
@@ -63,19 +74,93 @@ Dental.Schema.Register = new SimpleSchema({
         type: Number,
         decimal: true
     },
-    total: {
-        type: Number,
-        decimal: true,
-        autoform: {
-            afFieldInput: {
-                type: "hidden"
-            }
-        },
+    doctorShare: {
+        type: Array,
+        minCount: 0,
+        label: "Income By Doctor",
         optional: true
     },
-    des: {
+    'doctorShare.$': {
+        type: Object
+    },
+    'doctorShare.$.doctor': {
         type: String,
-        label: "Description"
+        autoform: {
+            //type: "select2",
+            type: "selectize",
+            options: function () {
+                return Dental.List.doctor();
+            }
+        }
+    },
+    'doctorShare.$.amount': {
+        type: Number,
+        decimal: true,
+        min: 0.01,
+        custom: function () {
+            if (this.value > this.field('total').value) {
+                return "biggerThan";
+            }
+        }
+    },
+    doctorShareTotal: {
+        type: Number,
+        decimal: true,
+        defaultValue: 0
+    },
+    laboExpense: {
+        type: Array,
+        minCount: 0,
+        label: "Laboratory Expense",
+        optional: true
+    },
+    'laboExpense.$': {
+        type: Object
+    },
+    'laboExpense.$.laboratory': {
+        type: String,
+        autoform: {
+            //type: "select2",
+            type: "selectize",
+            options: function () {
+                return Dental.List.laboratoryItem();
+            }
+        }
+    },
+    'laboExpense.$.amount': {
+        type: Number,
+        decimal: true,
+        min: 0.01,
+        custom: function () {
+            if (this.value > this.field('total').value) {
+                return "biggerThan";
+            }
+        }
+    },
+    laboExpenseTotal: {
+        type: Number,
+        decimal: true,
+        defaultValue: 0
+    },
+    subtotal: {
+        type: Number,
+        decimal: true
+    },
+    deposit: {
+        type: Number,
+        decimal: true,
+        defaultValue: 0
+    },
+    subDiscount: {
+        type: Number,
+        decimal: true,
+        min: 0,
+        max: 100,
+        defaultValue: 0
+    },
+    total: {
+        type: Number,
+        decimal: true
     },
     branchId: {
         type: String
@@ -86,3 +171,11 @@ Dental.Schema.Register = new SimpleSchema({
  *AttachSchema
  */
 Dental.Collection.Register.attachSchema(Dental.Schema.Register);
+
+/*
+ * Custom Error Message
+ */
+SimpleSchema.messages({
+    "biggerThan": "Amount Can't Bigger Than Total",
+    "smallerThan": "Amount Can't Smaller Than Total"
+});
