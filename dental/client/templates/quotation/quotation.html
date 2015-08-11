@@ -142,6 +142,9 @@
         <div class="panel-body">
 
             <div class="row">
+                <div class="col-md-1">
+                    <p><b>Action</b></p>
+                </div>
                 <div class="col-md-4">
                     <p><b>Disease</b></p>
                 </div>
@@ -156,10 +159,6 @@
                 </div>
                 <div class="col-md-2">
                     <p><b>Amount</b></p>
-
-                </div>
-                <div class="col-md-1">
-                    <p><b>Action</b></p>
                 </div>
             </div>
 
@@ -171,8 +170,6 @@
 
             {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
                 <div class="row array-item">
-                    {{> UI.dynamic template=../atts.subtemplate}}
-
                     <div class="col-sm-1">
                         {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
                             <button type="button" class="btn btn-sm btn-danger autoform-remove-item btnRemove">
@@ -180,15 +177,13 @@
                             </button>
                         {{/if}}
                     </div>
+
+                    {{> UI.dynamic template=../atts.subtemplate}}
                 </div>
             {{/afEachArrayItem}}
 
             {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
                 <div class="row">
-                    <div class="col-sm-11">
-                        <hr>
-                    </div>
-
                     <!--Add more-->
                     <div class="col-sm-1">
                         <button type="button" class="btn btn-primary autoform-add-item btn-sm btnAdd"
@@ -197,6 +192,11 @@
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
                     </div>
+
+                    <div class="col-sm-11">
+                        <hr>
+                    </div>
+
                 </div>
 
             {{/if}}
