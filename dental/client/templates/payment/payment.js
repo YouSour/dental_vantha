@@ -3,7 +3,7 @@ Dental.ListState = new ReactiveObj();
  * Index
  */
 Template.dental_payment.onRendered(function () {
-    createNewAlertify(['payment', 'invoiceAddon', 'staffAddon']);
+    createNewAlertify(['payment', 'registerAddon', 'staffAddon','patientAddon']);
 });
 
 Template.dental_payment.helpers({});
@@ -50,18 +50,21 @@ Template.dental_paymentInsert.onRendered(function () {
 });
 
 Template.dental_paymentInsert.events({
-    'click .invoiceAddon': function () {
-        alertify.invoiceAddon(fa("plus", "Invoice"), renderTemplate(Template.dental_invoiceInsert)).maximize();
+    'click .registerAddon': function () {
+        alertify.registerAddon(fa("plus", "Register"), renderTemplate(Template.dental_registerInsert)).maximize();
     },
     'click .staffAddon': function () {
         alertify.staffAddon(fa("plus", "Staff"), renderTemplate(Template.dental_staffInsert));
+    },
+    'click .patientAddon': function () {
+        alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
     },
     'change .patientId': function (e) {
         var patientId = $(e.currentTarget).val();
         return Dental.ListState.set("patientId", patientId);
     },
-    'change .invoiceId': function (e) {
-        onChangeInvoice(e);
+    'change .registerId': function (e) {
+        onChangeRegister(e);
     },
     'keyup .paidAmount': function () {
         calculateBalance();
@@ -76,23 +79,23 @@ Template.dental_paymentUpdate.onRendered(function () {
 });
 
 Template.dental_paymentUpdate.helpers({
-    patientId: function () {
-        return this.patientId;
-    },
-    invoiceId: function () {
-        return this.invoiceId;
+    registerId: function () {
+        return this.registerId;
     }
 });
 
 Template.dental_paymentUpdate.events({
-    'click .invoiceAddon': function () {
-        alertify.invoiceAddon(fa("plus", "Invoice"), renderTemplate(Template.dental_invoiceInsert)).maximize();
+    'click .registerAddon': function () {
+        alertify.registerAddon(fa("plus", "Register"), renderTemplate(Template.dental_registerInsert)).maximize();
     },
     'click .staffAddon': function () {
         alertify.staffAddon(fa("plus", "Staff"), renderTemplate(Template.dental_staffInsert));
     },
-    'change .invoiceId': function (e) {
-        onChangeInvoice(e);
+    'click .patientAddon': function () {
+        alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    },
+    'change .registerId': function (e) {
+        onChangeRegister(e);
     },
     'keyup .paidAmount': function () {
         calculateBalance();
@@ -108,12 +111,12 @@ AutoForm.hooks({
                 var branchPre = Session.get('currentBranch') + '-' + moment().format("YYYYMMDD");
                 doc._id = idGenerator.genWithPrefix(Dental.Collection.Payment, branchPre, 3);
                 doc.branchId = Session.get('currentBranch');
-                var dataInvoice = doc.invoiceId;
+                var dataRegister = doc.registerId;
 
-                if (dataInvoice != null) {
-                    var splitInvoice = dataInvoice.split('|');
-                    var invoiceId = splitInvoice[0];
-                    doc.invoiceId = invoiceId;
+                if (dataRegister != null) {
+                    var splitRegister = dataRegister.split('|');
+                    var registerId = splitRegister[0];
+                    doc.registerId = registerId;
                 }
                 
                 return doc;
@@ -149,7 +152,7 @@ function datepicker() {
 
 //check last payment
 function checkLastPayment(self) {
-    var checkingLastPayment = Dental.Collection.Payment.findOne({invoiceId: self.invoiceId}, {sort: {_id: -1}});
+    var checkingLastPayment = Dental.Collection.Payment.findOne({registerId: self.registerId}, {sort: {_id: -1}});
     var lastPayment = checkingLastPayment.paymentDate;
 
     if (lastPayment == self.paymentDate) {
@@ -169,15 +172,15 @@ function calculateBalance() {
     $('.balance').val(balance);
 }
 
-// onChange Invoice
-function onChangeInvoice(e) {
-    var dataInvoice = $(e.currentTarget).val();
-    var splitBalance = dataInvoice.split('|');
+// onChange Register
+function onChangeRegister(e) {
+    var dataRegister = $(e.currentTarget).val();
+    var splitBalance = dataRegister.split('|');
     var balance = splitBalance[1];
 
     var dueAmount, paidAmount, balance;
 
-    if (dataInvoice != "") {
+    if (dataRegister != "") {
         dueAmount = balance;
         paidAmount = balance;
         balance = dueAmount - paidAmount;

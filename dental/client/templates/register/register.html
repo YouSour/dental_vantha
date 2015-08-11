@@ -62,16 +62,7 @@
     </a>
     </div>
 </template>
-<!--Invoice-Link-Action-->
-<template name="dental_invoiceLinkAction">
-    <a href="#" class="invoiceAction">
-        {{#if _invoiceCount}}
-            {{_invoiceCount}}
-        {{else}}
-            0
-        {{/if}}
-    </a>
-</template>
+
 
 <template name="dental_registerPrintAction">
     {{#tabularAction icon="print"}}
@@ -84,7 +75,7 @@
 <!--Insert-->
 <template name="dental_registerInsert">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             {{#autoForm collection=Dental.Collection.Register id="dental_registerInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
                 <div class="row">
 

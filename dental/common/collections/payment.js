@@ -19,14 +19,14 @@ Dental.Schema.Payment = new SimpleSchema({
             }
         }
     },
-    invoiceId: {
+    registerId: {
         type: String,
-        label: 'Invoice ID',
+        label: 'Register ID',
         max: 25,
         autoform: {
             type: "select2",
             options: function () {
-                return Dental.List.invoice();
+                return Dental.List.register();
             }
         }
     },
