@@ -158,6 +158,24 @@
         <div class="panel-heading">{{fa "shopping-cart"}} {{afFieldLabelText name=this.atts.name}}</div>
         <div class="panel-body">
 
+            <div class="row">
+                <div class="col-md-1">
+                    <p><b>Action</b></p>
+                </div>
+                <div class="col-md-5">
+                    <p><b>Material Cost Item</b></p>
+                </div>
+                <div class="col-md-2">
+                    <p><b>Qty</b></p>
+                </div>
+                <div class="col-md-2">
+                    <p><b>Price</b></p>
+                </div>
+                <div class="col-md-2">
+                    <p><b>Amount</b></p>
+                </div>
+            </div>
+
             {{#if afFieldIsInvalid name=this.atts.name}}
                 <div class="has-error">
                     <span class="help-block">{{{afFieldMessage name=this.atts.name}}}</span>
@@ -180,19 +198,20 @@
 
             {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
                 <div class="row">
-                    <div class="col-sm-9 text-right">
-                        <strong>Total :</strong>
-                    </div>
-                    <div class="col-sm-2">
-                        {{> afFieldInput name='total'}}
-                        <p class="bg-primary"><strong class="totalAmount">0</strong></p>
-                    </div>
                     <div class="col-sm-1">
                         <button type="button" class="btn btn-primary autoform-add-item btn-sm btnAdd"
                                 data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}"
                                 data-autoform-maxCount="{{this.atts.maxCount}}">
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
+                    </div>
+
+                    <div class="col-sm-9 text-right">
+                        <strong>Total :</strong>
+                    </div>
+                    <div class="col-sm-2">
+                        {{> afFieldInput name='total'}}
+                        <p class="bg-primary"><strong class="totalAmount">0</strong></p>
                     </div>
                 </div>
             {{/if}}

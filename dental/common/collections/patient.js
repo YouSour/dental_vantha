@@ -27,14 +27,17 @@ Dental.Schema.Patient = new SimpleSchema({
     age: {
         type: Number,
         max: 110,
-        min: 1
+        min: 1,
+        optional:true
     },
     occupation: {
-        type: String
+        type: String,
+        optional: true
     },
     address: {
         type: String,
-        max: 500
+        max: 500,
+        optional: true
     },
     telephone: {
         type: String,

@@ -19,13 +19,16 @@
 
 <!--Status-Link-Action-->
 <template name="dental_statusLinkAction">
-    <a href="#" class="statusAction">
+    <div class="space-status statusAction">
+        <a href="#">
             {{status}}
-    </a>
+        </a>
+    </div>
 </template>
 
 <!--Treatment-Link-Action-->
 <template name="dental_treatmentLinkAction">
+    <div class="space-action treatmentAction">
     <a href="#" class="treatmentAction">
         {{#if _treatmentCount}}
             {{_treatmentCount}}
@@ -33,9 +36,11 @@
             0
         {{/if}}
     </a>
+        </div>
 </template>
 <!--Appointment-Link-Action-->
 <template name="dental_appointmentLinkAction">
+    <div class="space-action appointmentAction">
     <a href="#" class="appointmentAction">
         {{#if _appointmentCount}}
             {{_appointmentCount}}
@@ -43,9 +48,11 @@
             0
         {{/if}}
     </a>
+    </div>
 </template>
 <!--Deposit-Link-Action-->
 <template name="dental_depositLinkAction">
+    <div class="space-action depositAction">
     <a href="#" class="depositAction">
         {{#if _depositCount}}
             {{_depositCount}}
@@ -53,6 +60,7 @@
             0
         {{/if}}
     </a>
+    </div>
 </template>
 <!--Invoice-Link-Action-->
 <template name="dental_invoiceLinkAction">
@@ -264,7 +272,7 @@
                     <p><b>Price</b></p>
                 </div>
                 <div class="col-md-2">
-                    <p><b>Discount</b></p>
+                    <p><b>Discount (%)</b></p>
                 </div>
                 <div class="col-md-2">
                     <p><b>Amount</b></p>

@@ -166,3 +166,14 @@
   -moz-border-radius: 6px 0 6px 6px;
   border-radius: 6px 0 6px 6px;
 }
+
+/* space for action & T+,A+,D+ */
+.space-status {
+  height: 50px;
+  width: 84px;
+}
+
+.space-action {
+  height: 50px;
+  width: 47px;
+}
