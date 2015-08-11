@@ -163,7 +163,7 @@
                     <p><b>Action</b></p>
                 </div>
                 <div class="col-md-5">
-                    <p><b>Material Cost Item</b></p>
+                    <p><b>Order Item</b></p>
                 </div>
                 <div class="col-md-2">
                     <p><b>Qty</b></p>
@@ -184,8 +184,6 @@
 
             {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
                 <div class="row array-item">
-                    {{> UI.dynamic template=../atts.subtemplate}}
-
                     <div class="col-sm-1">
                         {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
                             <button type="button" class="btn btn-sm btn-danger autoform-remove-item btnRemove">
@@ -193,6 +191,8 @@
                             </button>
                         {{/if}}
                     </div>
+
+                    {{> UI.dynamic template=../atts.subtemplate}}
                 </div>
             {{/afEachArrayItem}}
 

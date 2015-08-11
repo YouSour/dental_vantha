@@ -2,19 +2,18 @@
     <ul class="nav navbar-nav">
 
         <li class="{{isActiveRoute name='dental.home'}}"><a href="{{pathFor 'dental.home'}}">Home</a></li>
+        <li class="{{isActiveRoute name='dental.patient'}}"><a href="{{pathFor 'dental.patient'}}">Patient</a></li>
+        <li class="{{isActiveRoute name='dental.register'}}"><a href="{{pathFor 'dental.register'}}">Register</a></li>
+        <li class="{{isActiveRoute name='dental.payment'}}"><a href="{{pathFor 'dental.payment'}}">Payment</a></li>
+
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Data <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li class="{{isActiveRoute name='dental.patient'}}"><a href="{{pathFor 'dental.patient'}}">Patient</a>
-                </li>
-                <li class="{{isActiveRoute name='dental.register'}}">
-                    <a href="{{pathFor 'dental.register'}}">Register</a>
-                </li>
-                <li class="{{isActiveRoute name='dental.payment'}}">
-                    <a href="{{pathFor 'dental.payment'}}">Payment</a>
-                </li>
+
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Quotation</li>
                 <li class="{{isActiveRoute name='dental.quotation'}}">
                     <a href="{{pathFor 'dental.quotation'}}">Quotation</a>
                 </li>
@@ -156,6 +155,23 @@
                     <a href="{{pathFor 'dental.orderItem'}}">Item</a>
                 </li>
 
+
+            </ul>
+        </li>
+
+        <!--Tool-->
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Tool <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li class="{{isActiveRoute name='dental.backup'}}">
+                    <a href="{{pathFor 'dental.backup'}}">Back up</a>
+                </li>
+
+                <li class="{{isActiveRoute name='dental.restore'}}">
+                    <a href="{{pathFor 'dental.restore'}}">Restore</a>
+                </li>
 
             </ul>
         </li>

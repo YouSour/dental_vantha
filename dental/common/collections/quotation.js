@@ -28,7 +28,7 @@ Dental.Schema.Quotation = new SimpleSchema({
     },
     disease: {
         type: Array,
-        minCount: 1
+        minCount: 0
     },
     'disease.$': {
         type: Object
