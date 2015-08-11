@@ -30,7 +30,7 @@ Dental.Schema.MaterialCost = new SimpleSchema({
     items: {
         label: "Items",
         type: Array,
-        minCount: 1
+        minCount: 0
     },
     'items.$': {
         type: Object

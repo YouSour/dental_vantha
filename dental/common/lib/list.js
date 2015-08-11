@@ -250,5 +250,27 @@ Dental.List = {
         });
 
         return list;
+    },
+    branchForUser: function (selectOne,userId) {
+        var list = [];
+        if (!_.isEqual(selectOne, false)) {
+            list.push({label: "All", value: ""});
+        }
+        var userId = _.isUndefined(userId) ? Meteor.userId() : userId;
+        Meteor.users.findOne(userId).rolesBranch
+            .forEach(function (branch) {
+                var label = Cpanel.Collection.Branch.findOne(branch).enName;
+                list.push({label: label, value: branch});
+            });
+        return list;
+    },
+    backupAndRestoreTypes:function(){
+        return [
+            {value:'',label:'Select One'},
+            {value:'Setting',label:'Setting'},
+            {value:'Default',label:'Default'},
+            {value:'Setting,Default',label:'Setting And Default'}
+        ];
     }
+
 };
