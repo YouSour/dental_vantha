@@ -40,11 +40,6 @@ Dental.TabularTable.Register = new Tabular.Table({
             data: "_depositCount",
             title: "D+",
             tmpl: Meteor.isClient && Template.dental_depositLinkAction
-        },
-        {
-            data: "_invoiceCount",
-            title: "I+",
-            tmpl: Meteor.isClient && Template.dental_invoiceLinkAction
         }
     ],
     order: [['2', 'desc']],

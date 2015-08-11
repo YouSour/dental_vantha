@@ -8,6 +8,5 @@ Dental.Collection.Register.cacheDoc(
 Dental.Collection.Register.cacheCount('treatmentCount', Dental.Collection.Treatment, 'registerId');
 Dental.Collection.Register.cacheCount('appointmentCount', Dental.Collection.CalendarEvent, 'registerId');
 Dental.Collection.Register.cacheCount('depositCount', Dental.Collection.Deposit, 'registerId');
-Dental.Collection.Register.cacheCount('invoiceCount', Dental.Collection.Invoice, 'registerId');
 
 Dental.Collection.Register.cacheArrayField(['disease', 'doctorShare','laboExpense']);
