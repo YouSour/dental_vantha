@@ -19,67 +19,72 @@
 
 <!--Generate-->
 <template name="dental_registerListReportGen">
-    {{#with data}}
-        <!--Title-->
-        <div class="report-title">
-            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-            <span class="report-company-name">{{title.company.enName}}</span><br>
-            Date: {{title.date}}<br>
-            <u>Register Report</u><br>
-            {{title.company.khAddress}}, {{title.company.telephone}}
-        </div>
+    {{#if data}}
+        {{#with data}}
+            <!--Title-->
+            <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                <span class="report-company-name">{{title.company.enName}}</span><br>
+                Date: {{title.date}}<br>
+                <u>Register Report</u><br>
+                {{title.company.khAddress}}, {{title.company.telephone}}
+            </div>
 
-        <!--Header-->
-        <table width="100%" border="0">
-            {{#each header}}
+            <!--Header-->
+            <table width="100%" border="0">
+                {{#each header}}
+                    <tr>
+                        <td width="33%">{{col1}}</td>
+                        <td width="33%">{{col2}}</td>
+                        <td>{{col3}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+
+            <!--Content-->
+
+            <table class="report-content">
+                <thead class="report-content-header">
                 <tr>
-                    <td width="33%">{{col1}}</td>
-                    <td width="33%">{{col2}}</td>
-                    <td>{{col3}}</td>
+                    <th>N<sup>o</sup></th>
+                    <th>Register Date</th>
+                    <th>Register ID</th>
+                    <th>Patient ID</th>
+                    <th>Patient</th>
+                    <th>Age</th>
+                    <th>Address</th>
+                    <th>Telephone</th>
+                    <th>Description</th>
                 </tr>
-            {{/each}}
-        </table>
+                </thead>
 
-        <!--Content-->
-
-        <table class="report-content">
-            <thead class="report-content-header">
-            <tr>
-                <th>N<sup>o</sup></th>
-                <th>Register Date</th>
-                <th>Register ID</th>
-                <th>Patient ID</th>
-                <th>Patient</th>
-                <th>Age</th>
-                <th>Address</th>
-                <th>Telephone</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-
-            <tbody class="report-content-body">
-            {{#each content}}
-                <tr>
-                    <td>{{index}}</td>
-                    <td>{{registerDate}}</td>
-                    <td>{{_id}}</td>
-                    <td>{{patientId}}</td>
-                    <td>{{patient}}</td>
-                    <td>{{_patient.age}}</td>
-                    <td>{{_patient.address}}</td>
-                    <td>{{_patient.telephone}}</td>
-                    <td>{{des}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
+                <tbody class="report-content-body">
+                {{#each content}}
+                    <tr>
+                        <td>{{index}}</td>
+                        <td>{{registerDate}}</td>
+                        <td>{{_id}}</td>
+                        <td>{{patientId}}</td>
+                        <td>{{patient}}</td>
+                        <td>{{_patient.age}}</td>
+                        <td>{{_patient.address}}</td>
+                        <td>{{_patient.telephone}}</td>
+                        <td>{{des}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
 
 
-        <!--Footer-->
-        <p></p>
-    {{/with}}
+            <!--Footer-->
+            <p></p>
+        {{/with}}
 
-    <!--Sign-->
-    {{>signFooter}}
+        <!--Sign-->
+        {{>signFooter}}
 
+    {{else}}
+        {{> loading}}
+    {{/if}}
 </template>

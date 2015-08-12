@@ -73,71 +73,36 @@
 
 <!--Insert-->
 <template name="dental_registerInsert">
-    <div class="row">
-        <div class="col-md-12">
-            {{#autoForm collection=Dental.Collection.Register id="dental_registerInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
-                <div class="row">
-
-                    <div class="col-md-4">
-                        {{> afQuickField name="registerDate"}}
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}"
-                             data-required="true">
-                            <label class="control-label" for="patientId">Patient</label>
-
-                            <div class="input-group  select2-bootstrap-append">
-                                {{> afFieldInput name='patientId'  class='patientId'}}
-                                <span class="input-group-addon">
-                            <a href="#" class="patientAddon">
-                                {{fa "plus"}}
-                            </a>
-                        </span>
-                            </div>
-                            {{#if afFieldIsInvalid name='patientId'}}
-                                <span class="help-block">{{afFieldMessage name='patientId'}}</span>
-                            {{/if}}
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        {{> afQuickField name="des"}}
-                    </div>
-                </div>
-
+    {{#autoForm collection=Dental.Collection.Register id="dental_registerInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
+        <div class="row">
+            <div class="col-md-9">
                 <!--Disease Item-->
                 {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
 
-                <!--Doctor Share-->
-                {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
-
-                <!--Labo Expense-->
-                {{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!--Doctor Share-->
+                        {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
+                    </div>
+                    <div class="col-sm-6">
+                        <!--Labo Expense-->
+                        {{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}
+                    </div>
+                </div>
 
                 <div class="text-right">
                     <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
                     <button type="submit" class="btn btn-primary saveAndPrint">{{fa "floppy-o"}} Save & Print</button>
                     <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
                 </div>
-            {{/autoForm}}
-        </div>
-    </div>
-</template>
+            </div>
 
-<!--Update-->
-
-<template name="dental_registerUpdate">
-    <div class="row">
-        <div class="col-md-9">
-            {{#autoForm collection=Dental.Collection.Register id="dental_registerUpdate" doc=this type="update" afFieldInput-placeholder="schemaLabel"}}
-                <div class="row">
-
-                    <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Register Info</div>
+                    <div class="panel-body">
                         {{> afQuickField name="registerDate"}}
-                    </div>
 
-                    <div class="col-md-4">
                         <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}"
                              data-required="true">
                             <label class="control-label" for="patientId">Patient</label>
@@ -145,44 +110,85 @@
                             <div class="input-group  select2-bootstrap-append">
                                 {{> afFieldInput name='patientId'  class='patientId'}}
                                 <span class="input-group-addon">
-                            <a href="#" class="patientAddon">
-                                {{fa "plus"}}
-                            </a>
-                        </span>
+                                    <a href="#" class="patientAddon">
+                                        {{fa "plus"}}
+                                    </a>
+                                </span>
                             </div>
                             {{#if afFieldIsInvalid name='patientId'}}
                                 <span class="help-block">{{afFieldMessage name='patientId'}}</span>
                             {{/if}}
                         </div>
-                    </div>
 
-                    <div class="col-md-4">
-                        {{> afQuickField name="des"}}
+                        {{> afQuickField name="des" rows=3}}
                     </div>
                 </div>
+            </div>
 
+        </div>
+    {{/autoForm}}
+</template>
+
+<!--Update-->
+
+<template name="dental_registerUpdate">
+    {{#autoForm collection=Dental.Collection.Register id="dental_registerUpdate" doc=this type="update" afFieldInput-placeholder="schemaLabel"}}
+        <div class="row">
+            <div class="col-md-9">
                 <!--Disease Item-->
+                {{totalDep}}
                 {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
 
-                <!--Doctor Share-->
-                {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
-
-                <!--Labo Expense-->
-                {{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!--Doctor Share-->
+                        {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
+                    </div>
+                    <div class="col-sm-6">
+                        <!--Labo Expense-->
+                        {{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}
+                    </div>
+                </div>
 
                 <div class="text-right">
                     <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Update</button>
                     <button type="submit" class="btn btn-primary saveAndPrint">{{fa "floppy-o"}} Save & Print</button>
                     <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
                 </div>
-            {{/autoForm}}
+            </div>
+
+            <div class="col-md-3">
+                <!-- Register info-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">Register Info</div>
+                    <div class="panel-body">
+                        {{> afQuickField name="registerDate"}}
+                        <div class="form-group{{#if afFieldIsInvalid name='patientId'}} has-error{{/if}}"
+                             data-required="true">
+                            <label class="control-label" for="patientId">Patient</label>
+
+                            <div class="input-group  select2-bootstrap-append">
+                                {{> afFieldInput name='patientId'  class='patientId'}}
+                                <span class="input-group-addon">
+                                <a href="#" class="patientAddon">
+                                    {{fa "plus"}}
+                                </a>
+                            </span>
+                            </div>
+                            {{#if afFieldIsInvalid name='patientId'}}
+                                <span class="help-block">{{afFieldMessage name='patientId'}}</span>
+                            {{/if}}
+                        </div>
+                        {{> afQuickField name="des"}}
+                    </div>
+                </div>
+
+                {{> dental_treatmentInfo registerId=_id}}
+                {{> dental_appointmentInfo registerId=_id}}
+                {{> dental_depositInfo registerId=_id}}
+            </div>
         </div>
-        <div class="col-md-3">
-            {{> dental_treatmentInfo registerId=_id}}
-            {{> dental_appointmentInfo registerId=_id}}
-            {{> dental_depositInfo registerId=_id}}
-        </div>
-    </div>
+    {{/autoForm}}
 </template>
 
 <!--dental-registerStatus-->
@@ -258,7 +264,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-1">
-                    <p><b>Action</b></p>
+                    <p><b></b></p>
                 </div>
                 <div class="col-md-4">
                     <p><b>Disease Item</b></p>
@@ -322,7 +328,7 @@
                 </div>
                 <!--Deposit-->
                 <div class="col-sm-3">
-                    {{> afQuickField name='deposit' value=register.deposit readonly="true" template="bootstrap3" class="input-sm"}}
+                    {{> afQuickField name='deposit' value=totalDep readonly="true" template="bootstrap3" class="input-sm"}}
                     <!--{{> afQuickField name='deposit' readonly="true" template="bootstrap3" class="input-sm"}}-->
                 </div>
                 <!--Sub Discount-->
@@ -367,7 +373,7 @@
 
             <div class="row">
                 <div class="col-md-1">
-                    <p><b>Action</b></p>
+                    <p><b></b></p>
                 </div>
                 <div class="col-md-6">
                     <p><b>Doctor</b></p>
@@ -444,7 +450,7 @@
 
             <div class="row">
                 <div class="col-md-1">
-                    <p><b>Action</b></p>
+                    <p><b></b></p>
                 </div>
                 <div class="col-md-6">
                     <p><b>Laboratory</b></p>

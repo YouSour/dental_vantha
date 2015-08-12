@@ -42,6 +42,14 @@ Template.dental_register.events({
     'click .update': function () {
         var data = Dental.Collection.Register.findOne({_id: this._id});
 
+        // Get total deposit
+        var totalDep = 0;
+        Dental.Collection.Deposit.find({registerId: this._id})
+            .forEach(function (obj) {
+                totalDep += obj.amount;
+            });
+        data.totalDep = totalDep;
+
         alertify.register(fa("pencil", "Register"), renderTemplate(Template.dental_registerUpdate, data)).maximize();
     },
     'click .remove': function () {
@@ -80,13 +88,13 @@ Template.dental_register.events({
         alertify.alert(fa("eye", "Register"), renderTemplate(Template.dental_registerShow, data));
     },
     'click .statusAction': function () {
-        if(this.status == "Active"){
-        var data = Dental.Collection.Register.findOne({_id: this._id});
-        alertify.statusAction(fa("pencil","Register"),renderTemplate(Template.dental_registerClosingDate,data));
+        if (this.status == "Active") {
+            var data = Dental.Collection.Register.findOne({_id: this._id});
+            alertify.statusAction(fa("pencil", "Register"), renderTemplate(Template.dental_registerClosingDate, data));
         }
     },
     'click .treatmentAction': function () {
-        if(this.status == "Active") {
+        if (this.status == "Active") {
             registerState(this);
             alertify.treatmentAction(
                 fa("medkit", "Treatment"),
@@ -95,7 +103,7 @@ Template.dental_register.events({
         }
     },
     'click .appointmentAction': function () {
-        if(this.status == "Active") {
+        if (this.status == "Active") {
             registerState(this);
             alertify.appointmentAction(
                 fa("clock-o", "Appointment"),
@@ -104,7 +112,7 @@ Template.dental_register.events({
         }
     },
     'click .depositAction': function () {
-        if(this.status == "Active") {
+        if (this.status == "Active") {
             registerState(this);
             alertify.depositAction(
                 fa("ticket", "Deposit"),
@@ -348,7 +356,7 @@ AutoForm.hooks({
             alertify.error(error.message);
         }
     },
-    dental_registerClosingDate:{
+    dental_registerClosingDate: {
         onSuccess: function (formType, result) {
             alertify.statusAction().close();
             alertify.success('Success');
