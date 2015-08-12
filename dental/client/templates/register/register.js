@@ -41,7 +41,6 @@ Template.dental_register.events({
     },
     'click .update': function () {
         var data = Dental.Collection.Register.findOne({_id: this._id});
-        //data.treatmentinfo = Dental.Collection.Treatment.find({_id: this.registerId});
 
         alertify.register(fa("pencil", "Register"), renderTemplate(Template.dental_registerUpdate, data)).maximize();
     },
@@ -87,42 +86,29 @@ Template.dental_register.events({
         }
     },
     'click .treatmentAction': function () {
-        registerState(this);
-        alertify.treatmentAction(
-            fa("medkit", "Treatment"),
-            renderTemplate(Template.dental_treatment)
-        ).maximize();
+        if(this.status == "Active") {
+            registerState(this);
+            alertify.treatmentAction(
+                fa("medkit", "Treatment"),
+                renderTemplate(Template.dental_treatment)
+            ).maximize();
+        }
     },
     'click .appointmentAction': function () {
-        registerState(this);
-
-        alertify.appointmentAction(
-            fa("clock-o", "Appointment"),
-            renderTemplate(Template.dental_calendarEvent)
-        ).maximize();
+        if(this.status == "Active") {
+            registerState(this);
+            alertify.appointmentAction(
+                fa("clock-o", "Appointment"),
+                renderTemplate(Template.dental_calendarEvent)
+            ).maximize();
+        }
     },
     'click .depositAction': function () {
-        registerState(this);
-
-        alertify.depositAction(
-            fa("ticket", "Deposit"),
-            renderTemplate(Template.dental_deposit)
-        ).maximize();
-    },
-    'click .invoiceAction': function () {
-        registerState(this);
-
-        // Check invoice exist
-        var invoiceExist = Dental.Collection.Invoice.findOne({registerId: this._id});
-        if (_.isUndefined(invoiceExist)) {
-            alertify.invoiceAction(
-                fa("plus", "Invoice Add New"),
-                renderTemplate(Template.dental_invoiceInsert)
-            ).maximize();
-        } else {
-            alertify.invoiceAction(
-                fa("pencil", "Invoice Update"),
-                renderTemplate(Template.dental_invoiceUpdate, invoiceExist)
+        if(this.status == "Active") {
+            registerState(this);
+            alertify.depositAction(
+                fa("ticket", "Deposit"),
+                renderTemplate(Template.dental_deposit)
             ).maximize();
         }
     },

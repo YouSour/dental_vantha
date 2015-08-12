@@ -1,0 +1,18 @@
+<!--Appointment Info-->
+<template name="dental_appointmentInfo">
+    <div class="panel panel-default">
+        <div class="panel-heading">Appointment Info</div>
+        <div class="panel-body">
+            <ul class="list-unstyled">
+                {{#each data}}
+                    <li><strong>Date:</strong> {{start}}</li>
+                    <li><strong>Doctor:</strong> {{doctor}}</li>
+                    <li><strong>Title:</strong> {{title}}</li>
+                    <li><strong>Status:</strong> {{status}}</li>
+                    <li style="border-bottom: 1px solid;">
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

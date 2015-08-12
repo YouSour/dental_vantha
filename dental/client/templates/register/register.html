@@ -29,37 +29,37 @@
 <!--Treatment-Link-Action-->
 <template name="dental_treatmentLinkAction">
     <div class="space-action treatmentAction">
-    <a href="#" class="treatmentAction">
-        {{#if _treatmentCount}}
-            {{_treatmentCount}}
-        {{else}}
-            0
-        {{/if}}
-    </a>
-        </div>
+        <a href="#" class="treatmentAction">
+            {{#if _treatmentCount}}
+                {{_treatmentCount}}
+            {{else}}
+                0
+            {{/if}}
+        </a>
+    </div>
 </template>
 <!--Appointment-Link-Action-->
 <template name="dental_appointmentLinkAction">
     <div class="space-action appointmentAction">
-    <a href="#" class="appointmentAction">
-        {{#if _appointmentCount}}
-            {{_appointmentCount}}
-        {{else}}
-            0
-        {{/if}}
-    </a>
+        <a href="#" class="appointmentAction">
+            {{#if _appointmentCount}}
+                {{_appointmentCount}}
+            {{else}}
+                0
+            {{/if}}
+        </a>
     </div>
 </template>
 <!--Deposit-Link-Action-->
 <template name="dental_depositLinkAction">
     <div class="space-action depositAction">
-    <a href="#" class="depositAction">
-        {{#if _depositCount}}
-            {{_depositCount}}
-        {{else}}
-            0
-        {{/if}}
-    </a>
+        <a href="#" class="depositAction">
+            {{#if _depositCount}}
+                {{_depositCount}}
+            {{else}}
+                0
+            {{/if}}
+        </a>
     </div>
 </template>
 
@@ -176,6 +176,11 @@
                     <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
                 </div>
             {{/autoForm}}
+        </div>
+        <div class="col-md-3">
+            {{> dental_treatmentInfo registerId=_id}}
+            {{> dental_appointmentInfo registerId=_id}}
+            {{> dental_depositInfo registerId=_id}}
         </div>
     </div>
 </template>
