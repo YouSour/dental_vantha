@@ -41,6 +41,7 @@ Template.dental_register.events({
     },
     'click .update': function () {
         var data = Dental.Collection.Register.findOne({_id: this._id});
+        //data.treatmentinfo = Dental.Collection.Treatment.find({_id: this.registerId});
 
         alertify.register(fa("pencil", "Register"), renderTemplate(Template.dental_registerUpdate, data)).maximize();
     },

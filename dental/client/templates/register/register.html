@@ -63,7 +63,6 @@
     </div>
 </template>
 
-
 <template name="dental_registerPrintAction">
     {{#tabularAction icon="print"}}
         <li><a style="cursor: pointer" class="treatmentPrintAction">{{fa "medkit"}} Treatment</a></li>
@@ -172,7 +171,7 @@
                 {{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}
 
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
+                    <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Update</button>
                     <button type="submit" class="btn btn-primary saveAndPrint">{{fa "floppy-o"}} Save & Print</button>
                     <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
                 </div>
