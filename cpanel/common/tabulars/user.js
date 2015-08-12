@@ -43,16 +43,16 @@ Cpanel.TabularTable.User = new Tabular.Table({
                 }
                 return null;
             }
-        },
-        {
-            data: "status.online", title: "Status",
-            render: function (val, type, doc) {
-                if (val == true) {
-                    return '<span class="label label-success">online</span>';
-                } else {
-                    return '<span class="label label-default">offline</span>';
-                }
-            }
         }
+        //{
+        //    data: "status.online", title: "Status",
+        //    render: function (val, type, doc) {
+        //        if (val == true) {
+        //            return '<span class="label label-success">online</span>';
+        //        } else {
+        //            return '<span class="label label-default">offline</span>';
+        //        }
+        //    }
+        //}
     ]
 });

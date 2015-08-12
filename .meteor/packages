@@ -19,7 +19,7 @@ erasaur:meteor-lodash
 twbs:bootstrap
 fortawesome:fontawesome
 ian:accounts-ui-bootstrap-3
-mizzao:user-status
+#mizzao:user-status
 255kb:meteor-status
 sacha:spin
 iron:router
@@ -87,6 +87,9 @@ vsivsi:file-collection
 meteorhacks:npm
 npm-container
 
+# Backup/Restore
+phirum:backup-restore
+
 ### Local ###
 theara:collection-cache
 theara:id-generator
@@ -97,3 +100,4 @@ theara:events
 theara:round-khr
 theara:lightbox-helpers
 theara:breadcrumb
+theara:call-async
