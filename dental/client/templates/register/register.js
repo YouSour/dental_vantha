@@ -420,7 +420,7 @@ function calculateTotal() {
     });
 
     // Set value on subtotal textbox
-    $('[name="subtotal"]').val(subtotal);
+    $('[name="subTotal"]').val(subtotal);
 
     // Cal total after deposit and sub discount
     var deposit = _.isEmpty($('[name="deposit"]').val()) ? 0 : parseFloat($('[name="deposit"]').val());

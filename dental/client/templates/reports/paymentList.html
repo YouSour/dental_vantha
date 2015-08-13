@@ -20,89 +20,92 @@
 
 <!--Generate-->
 <template name="dental_paymentListReportGen">
-    {{#with data}}
-        <!--Title-->
-        <div class="report-title">
-            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-            <span class="report-company-name">{{title.company.enName}}</span><br>
-            Date: {{title.date}}<br>
-            <u>Payment Report</u><br>
-            {{title.company.khAddress}}, {{title.company.telephone}}
-        </div>
+    {{#if data}}
+        {{#with data}}
+            <!--Title-->
+            <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                <span class="report-company-name">{{title.company.enName}}</span><br>
+                Date: {{title.date}}<br>
+                <u>Payment Report</u><br>
+                {{title.company.khAddress}}, {{title.company.telephone}}
+            </div>
 
-        <!--Header-->
-        <table width="100%" border="0">
-            {{#each header}}
+            <!--Header-->
+            <table width="100%" border="0">
+                {{#each header}}
+                    <tr>
+                        <td width="23%">{{col1}}</td>
+                        <td width="27%">{{col2}}</td>
+                        <td width="27%">{{col3}}</td>
+                        <td style="text-align: right">{{col4}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+
+            <!--Content-->
+
+            <table class="report-content">
+                <thead class="report-content-header">
                 <tr>
-                    <td width="23%">{{col1}}</td>
-                    <td width="27%">{{col2}}</td>
-                    <td width="27%">{{col3}}</td>
-                    <td style="text-align: right">{{col4}}</td>
+                    <th>N<sup>o</sup></th>
+                    <th>Payment Date</th>
+                    <th>Register ID</th>
+                    <th>Patient ID</th>
+                    <th>Patient</th>
+                    <th>Status</th>
+                    <th>Due Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Balance</th>
                 </tr>
-            {{/each}}
-        </table>
+                </thead>
 
-        <!--Content-->
+                <tbody class="report-content-body">
+                {{#each content}}
+                    <tr>
+                        <td>{{index}}</td>
+                        <td>{{paymentDate}}</td>
+                        <td>{{registerId}}</td>
+                        <td>{{patientId}}</td>
+                        <td>{{patient}}</td>
+                        <td>{{status}}</td>
+                        <td class="dueAmount">{{due}}</td>
+                        <td class="paidAmount">{{paid}}</td>
+                        <td class="balance">{{balance}}</td>
+                    </tr>
+                {{/each}}
 
-        <table class="report-content">
-            <thead class="report-content-header">
-            <tr>
-                <th>N<sup>o</sup></th>
-                <th>Invoice ID</th>
-                <th>Payment Date</th>
-                <th>Register ID</th>
-                <th>Patient ID</th>
-                <th>Patient</th>
-                <th>Status</th>
-                <th>Due Amount</th>
-                <th>Paid Amount</th>
-                <th>Balance</th>
-            </tr>
-            </thead>
-
-            <tbody class="report-content-body">
-            {{#each content}}
                 <tr>
-                    <td>{{index}}</td>
-                    <td>{{invoiceId}}</td>
-                    <td>{{paymentDate}}</td>
-                    <td>{{_invoice.registerId}}</td>
-                    <td>{{patientId}}</td>
-                    <td>{{patient}}</td>
-                    <td>{{status}}</td>
-                    <td class="dueAmount">{{due}}</td>
-                    <td class="paidAmount">{{paid}}</td>
-                    <td class="balance">{{balance}}</td>
-                </tr>
-            {{/each}}
-
-            <tr>
-                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>Grand
-                    Total USD</b></td>
+                    <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                        <b>Grand
+                            Total USD</b></td>
 
                     <td>{{content.totalDueAmountUsd}}</td>
                     <td>{{content.totalPaidAmountUsd}}</td>
                     <td>{{content.totalBalanceUsd}}</td>
-            </tr>
+                </tr>
 
-            <tr>
-                <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
-                    <b>KHR</b></td>
+                <tr>
+                    <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                        <b>KHR</b></td>
 
-                <td>{{content.totalDueAmountKhr}}</td>
-                <td>{{content.totalPaidAmountKhr}}</td>
-                <td>{{content.totalBalanceKhr}}</td>
-            </tr>
-            </tbody>
-        </table>
+                    <td>{{content.totalDueAmountKhr}}</td>
+                    <td>{{content.totalPaidAmountKhr}}</td>
+                    <td>{{content.totalBalanceKhr}}</td>
+                </tr>
+                </tbody>
+            </table>
 
 
-        <!--Footer-->
-        <p></p>
+            <!--Footer-->
+            <p></p>
 
-    {{/with}}
+        {{/with}}
 
-    <!--Sign-->
-    {{>signFooter}}
-
+        <!--Sign-->
+        {{>signFooter}}
+    {{else}}
+        {{> loading}}
+    {{/if}}
 </template>
