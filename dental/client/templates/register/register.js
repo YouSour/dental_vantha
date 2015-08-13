@@ -126,11 +126,6 @@ Template.dental_register.events({
         var url = 'treatmentReportGen?' + q;
         window.open(url);
     },
-    'click .depositPrintAction': function () {
-        var q = 'patient=' + this.patientId + '&register=' + this._id;
-        var url = 'depositReportGen?' + q;
-        window.open(url);
-    },
     'click .invoiceReportPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
         var url = 'invoiceReportGen?' + q;

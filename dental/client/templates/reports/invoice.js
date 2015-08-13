@@ -59,11 +59,11 @@ Template.dental_invoiceReportGen.helpers({
             });
 
         // Get invoice
-        var getInvoice = Dental.Collection.Invoice.findOne({registerId: self.register});
+        var getRegister = Dental.Collection.Register.findOne({_id: self.register});
         var index = 1;
-        if (!_.isUndefined(getInvoice)) {
+        if (!_.isUndefined(getRegister)) {
             // Content
-            _.each(getInvoice.disease, function (obj) {
+            _.each(getRegister.disease, function (obj) {
                 var itemDoc = Dental.Collection.DiseaseItem.findOne(obj.item);
                 obj.index = index;
                 obj.itemName = itemDoc.name;
@@ -78,11 +78,11 @@ Template.dental_invoiceReportGen.helpers({
 
             // Footer
             var footer = {};
-            footer.subtotal = numeral(getInvoice.subtotal).format('$0,0.00');
-            footer.deposit = numeral(getInvoice.deposit).format('$0,0.00');
-            footer.subDiscount = numeral(getInvoice.subDiscount).format('0,0.00');
-            footer.total = numeral(getInvoice.total).format('$0,0.00');
-            footer.totalKhr = "R"+numeral(getInvoice.total*exchange.rates.KHR).format('0,0.00');
+            footer.subtotal = numeral(getRegister.subtotal).format('$0,0.00');
+            footer.deposit = numeral(getRegister.deposit).format('$0,0.00');
+            footer.subDiscount = numeral(getRegister.subDiscount).format('0,0.00');
+            footer.total = numeral(getRegister.total).format('$0,0.00');
+            footer.totalKhr = "R"+numeral(getRegister.total*exchange.rates.KHR).format('0,0.00');
             data.footer = footer;
 
             return data;
