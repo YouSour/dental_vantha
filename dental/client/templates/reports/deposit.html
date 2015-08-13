@@ -18,75 +18,81 @@
 
 <!--Generate-->
 <template name="dental_depositReportGen">
-    {{#with data}}
-        <!--Title-->
-        <div class="report-title">
-            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-            <span class="report-company-name">{{title.company.enName}}</span><br>
-            <u> វិក្កយបត្រកក់ប្រាក់ (Deposit Invoice)</u><br>
-            {{title.company.khAddress}}, {{title.company.telephone}}
-        </div>
+    {{#if data}}
+        {{#with data}}
+            <!--Title-->
+            <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                <span class="report-company-name">{{title.company.enName}}</span><br>
+                <u> វិក្កយបត្រកក់ប្រាក់ (Deposit Invoice)</u><br>
+                {{title.company.khAddress}}, {{title.company.telephone}}
+            </div>
 
-        <!--Header-->
-        <div style="width: 100%">
-            {{#with header}}
-                <div style="width: 50%; padding-top: 12px; float: left;">
-                    <ul class="list-unstyled">
-                        <li><strong>លេខកូដអ្នកជំងឺ :</strong> {{patientId}}</li>
-                        <li><strong>ឈ្មោះ :</strong> {{_patient.name}}</li>
-                        <li><strong>ភេទ :</strong> {{_patient.gender}}</li>
-                        <li><strong>អាយុ :</strong> {{_patient.age}}</li>
-                    </ul>
-                </div>
-                <div style="width: 50%; padding-top: 12px; float: right;">
-                    <ul class="list-unstyled">
-                        <li><strong>លេខកូដចុះឈ្មោះ :  </strong> {{_id}}</li>
-                        <li><strong>កាលបរិច្ឆេទចុះឈ្មោះ : </strong> {{registerDate}}</li>
-                        <li><strong>ពិពណ៌នា :</strong> {{des}}</li>
-                        <li><strong>អាត្រាប្តូរប្រាក់ :</strong> {{exchange}}</li>
-                    </ul>
-                </div>
-            {{/with}}
-        </div>
+            <!--Header-->
+            <div style="width: 100%">
+                {{#with header}}
+                    <div style="width: 50%; padding-top: 12px; float: left;">
+                        <ul class="list-unstyled">
+                            <li><strong>លេខកូដអ្នកជំងឺ :</strong> {{patientId}}</li>
+                            <li><strong>ឈ្មោះ :</strong> {{_patient.name}}</li>
+                            <li><strong>ភេទ :</strong> {{_patient.gender}}</li>
+                            <li><strong>អាយុ :</strong> {{_patient.age}}</li>
+                        </ul>
+                    </div>
+                    <div style="width: 50%; padding-top: 12px; float: right;">
+                        <ul class="list-unstyled">
+                            <li><strong>លេខកូដចុះឈ្មោះ : </strong> {{_id}}</li>
+                            <li><strong>កាលបរិច្ឆេទចុះឈ្មោះ : </strong> {{registerDate}}</li>
+                            <li><strong>ពិពណ៌នា :</strong> {{des}}</li>
+                            <li><strong>អាត្រាប្តូរប្រាក់ :</strong> {{exchange}}</li>
+                        </ul>
+                    </div>
+                {{/with}}
+            </div>
 
-        <!--Content-->
-        <table class="report-content">
-            <thead class="report-content-header">
-            <tr>
-                <th>ល.រ</th>
-                <th>កាលបរិច្ឆេទកក់ប្រាក់</th>
-                <th>ទឹកប្រាក់</th>
-            </tr>
-            </thead>
-
-            <tbody class="report-content-body">
-            {{#each content}}
+            <!--Content-->
+            <table class="report-content">
+                <thead class="report-content-header">
                 <tr>
-                    <td>{{index}}</td>
-                    <td>{{depositDate}}</td>
-                    <td>{{amount}}</td>
+                    <th>ល.រ</th>
+                    <th>កាលបរិច្ឆេទកក់ប្រាក់</th>
+                    <th>ទឹកប្រាក់</th>
                 </tr>
-            {{/each}}
-            </tbody>
-        </table>
+                </thead>
 
-        <!--Footer-->
-        <div style="width: 100%">
-            {{#with footer}}
-                <div style="width: 50%; padding-top: 12px; float: right; text-align: right">
-                    <ul class="list-unstyled">
-                        <li><strong>ទឹកប្រាក់សរុប(ដុល្លា) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}</li>
-                        <li><strong>ទឹកប្រាក់សរុប(រៀល) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalKhr}}</li>
-                    </ul>
-                </div>
-            {{/with}}
-        </div>
-    {{/with}}
+                <tbody class="report-content-body">
+                {{#each content}}
+                    <tr>
+                        <td>{{index}}</td>
+                        <td>{{depositDate}}</td>
+                        <td>{{amount}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
 
+            <!--Footer-->
+            <div style="width: 100%">
+                {{#with footer}}
+                    <div style="width: 50%; padding-top: 12px; float: right; text-align: right">
+                        <ul class="list-unstyled">
+                            <li><strong>ទឹកប្រាក់សរុប(ដុល្លា) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
+                            </li>
+                            <li><strong>ទឹកប្រាក់សរុប(រៀល) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalKhr}}
+                            </li>
+                        </ul>
+                    </div>
+                {{/with}}
+            </div>
+        {{/with}}
     <!--Sign-->
     <div style="width: 40%; text-align: center; float: right; clear: both">
         <strong>រៀបចំដោយ</strong>
         <br><br><br><br><br><br><br>
         __________________<br>
     </div>
+    {{else}}
+        {{> loading}}
+    {{/if}}
 </template>

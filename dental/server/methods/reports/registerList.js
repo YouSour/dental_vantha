@@ -1,6 +1,6 @@
 Meteor.methods({
     dental_registerList: function (params) {
-        Meteor._sleepForMs(2000);
+        Meteor._sleepForMs(1000);
         var self = params;
         var data = {
             title: {},

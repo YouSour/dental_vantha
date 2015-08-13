@@ -142,7 +142,7 @@ Dental.Schema.Register = new SimpleSchema({
         decimal: true,
         defaultValue: 0
     },
-    subtotal: {
+    subTotal: {
         type: Number,
         decimal: true
     },

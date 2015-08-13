@@ -1,25 +1,10 @@
-Dental.ListForReportState = new ReactiveObj();
 /************ Form *************/
-Template.dental_registerListReport.onCreated(function () {
-    createNewAlertify('exchange');
-});
 
 Template.dental_registerListReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.dateRange(name);
 });
 
-Template.dental_registerListReport.events({
-    'click .exchangeAddon': function (e, t) {
-        alertify.exchange(fa("plus", "Exchange"), renderTemplate(Template.cpanel_exchangeInsert));
-    }
-    //,
-    //'change .patientId': function (e, t) {
-    //    var patientId = $(e.currentTarget).val();
-    //    return Dental.ListForReportState.set("patientId", patientId);
-    //}
-
-});
 
 /************ Generate *************/
 Template.dental_registerListReportGen.helpers({
