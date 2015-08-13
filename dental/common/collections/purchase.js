@@ -34,7 +34,7 @@ Dental.Schema.Purchase = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Dental.List.register();
+                return Dental.List.registerPurchase();
             }
         },
         optional: true
