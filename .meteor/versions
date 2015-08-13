@@ -79,7 +79,7 @@ localstorage@1.0.3
 logging@1.0.7
 manuelschoebel:wait-on-lib@0.3.0
 markdown@1.0.4
-matb33:collection-hooks@0.7.13
+matb33:collection-hooks@0.7.14
 matteodem:easy-search@1.6.2
 meteor@1.1.6
 meteor-platform@1.2.2
@@ -140,6 +140,7 @@ spacebars-compiler@1.0.6
 srp@1.0.3
 stylus@1.0.7
 templating@1.1.1
+theara:autoprint@0.0.5
 theara:breadcrumb@0.0.3
 theara:call-async@0.1.8
 theara:collection-cache@0.3.8

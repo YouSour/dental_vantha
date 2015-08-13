@@ -22,7 +22,7 @@ meteor add theara:call-async
 Template.hello.helpers({
   data: function () {
     var callId = 'add-5-5';
-    var call = Call(callId, 'add', 5, 5);
+    var call = Meteor.callAsync(callId, 'add', 5, 5);
 
     if(!call.ready()) {
       // method call has not finished yet
@@ -44,6 +44,10 @@ Template.hello.helpers({
 Meteor.methods({
   add: function(x, y){
     var sum = x + y;
+
+    // Sleep
+    Meteor._sleepForMs(2000);
+
     return sum;
   }
 })
