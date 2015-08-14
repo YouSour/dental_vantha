@@ -90,6 +90,18 @@ Template.dental_register.events({
     'click .statusAction': function () {
         if (this.status == "Active") {
             var data = Dental.Collection.Register.findOne({_id: this._id});
+            data.status = 'Close';
+
+            // Get total deposit
+            var totalDep = 0;
+            Dental.Collection.Deposit.find({registerId: this._id})
+                .forEach(function (obj) {
+                    totalDep += obj.amount;
+                });
+            data.deposit = totalDep;
+            data.total = data.total - totalDep;
+
+
             alertify.statusAction(fa("pencil", "Register"), renderTemplate(Template.dental_registerClosingDate, data));
         }
     },
@@ -140,7 +152,7 @@ Template.dental_register.events({
 Template.dental_registerClosingDate.onRendered(function () {
     datepicker();
     //open registerClosingDate status change value "Close"
-    $('[name="status"]').val("Close");
+    //$('[name="status"]').val("Close");
 });
 
 /**
@@ -167,6 +179,9 @@ Template.dental_registerInsert.events({
     },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    },
+    'click .saveAndPrint': function () {
+        Session.set('printInvoice', true);
     }
 });
 
@@ -350,6 +365,14 @@ AutoForm.hooks({
             $('select.item')[0].selectize.clear(true);
             $('select.doctor')[0].selectize.clear(true);
             $('select.laboratory')[0].selectize.clear(true);
+
+            var printSession = Session.get('printInvoice');
+            var data = Dental.Collection.Register.findOne(result);
+            if (printSession) {
+                var q = 'patient=' + data.patientId + '&register=' + data._id;
+                var url = '/dental/invoiceReportGen?' + q;
+                window.open(url);
+            }
 
             alertify.success("Success");
         },

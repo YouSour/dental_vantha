@@ -78,7 +78,7 @@ Template.dental_invoiceReportGen.helpers({
 
             // Footer
             var footer = {};
-            footer.subtotal = numeral(getRegister.subtotal).format('$0,0.00');
+            footer.subTotal = numeral(getRegister.subTotal).format('$0,0.00');
             footer.deposit = numeral(getRegister.deposit).format('$0,0.00');
             footer.subDiscount = numeral(getRegister.subDiscount).format('0,0.00');
             footer.total = numeral(getRegister.total).format('$0,0.00');

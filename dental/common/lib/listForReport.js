@@ -143,10 +143,10 @@ Dental.ListForReport = {
 
         return list;
     },
-    statusListForInvoice: function () {
+    statusListForRegister: function () {
         var list = [];
         list.push({label: "All", value: ""});
-        list.push({label: "Partial", value: "Partial"});
+        list.push({label: "Active", value: "Active"});
         list.push({label: "Close", value: "Close"});
 
         return list;

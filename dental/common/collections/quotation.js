@@ -17,7 +17,7 @@ Dental.Schema.Quotation = new SimpleSchema({
     quotationDate: {
         type: String,
         defaultValue: function () {
-            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
+            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD H:mm:ss');
             return currentDate;
         }
     },

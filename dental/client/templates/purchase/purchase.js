@@ -310,5 +310,5 @@ function calculateTotal() {
 
 var datepicker = function () {
     var purchaseDate = $('[name="purchaseDate"]');
-    DateTimePicker.date(purchaseDate);
+    DateTimePicker.dateTime(purchaseDate);
 };

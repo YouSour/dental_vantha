@@ -13,7 +13,7 @@ Dental.Schema.MaterialCost = new SimpleSchema({
         type: String,
         label: "Material Cost Date",
         defaultValue: function () {
-            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');
+            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD H:mm:ss');
             return currentDate;
         }
     },

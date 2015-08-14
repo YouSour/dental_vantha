@@ -13,7 +13,7 @@ Dental.Schema.Purchase = new SimpleSchema({
         type: String,
         label: "Purchase Date",
         defaultValue: function () {
-            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');
+            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD  H:mm:ss');
             return currentDate;
         }
     },

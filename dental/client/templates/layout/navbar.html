@@ -12,19 +12,14 @@
             </a>
             <ul class="dropdown-menu" role="menu">
 
-                <li class="dropdown-header">Quotation</li>
                 <li class="{{isActiveRoute name='dental.quotation'}}">
                     <a href="{{pathFor 'dental.quotation'}}">Quotation</a>
                 </li>
 
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Material Cost</li>
                 <li class="{{isActiveRoute name='dental.materialCost'}}">
                     <a href="{{pathFor 'dental.materialCost'}}">Material Cost</a>
                 </li>
 
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Purchase</li>
                 <li class="{{isActiveRoute name='dental.purchase'}}">
                     <a href="{{pathFor 'dental.purchase'}}">Purchase</a>
                 </li>
@@ -44,6 +39,9 @@
             <ul class="dropdown-menu multi-level" role="menu">
                 <li class="{{isActiveRoute name='dental.registerListReport'}}">
                     <a href="{{pathFor 'dental.registerListReport'}}">Register</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.registerClosedListReport'}}">
+                    <a href="{{pathFor 'dental.registerClosedListReport'}}">Register Closed</a>
                 </li>
                 <li class="{{isActiveRoute name='dental.appointmentListReport'}}">
                     <a href="{{pathFor 'dental.appointmentListReport'}}">Appointment</a>

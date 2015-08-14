@@ -6,7 +6,7 @@ Meteor.methods({
             title: {},
             header: [],
             content: [],
-            footer: [],
+            footer: {},
             deposit: []
         };
 
@@ -95,13 +95,13 @@ Meteor.methods({
             });
         }
 
-        content.totalDueAmountUsd = numeral(grandTotalDueAmountUsd).format('0,0.00');
-        content.totalPaidAmountUsd = numeral(grandTotalPaidAmountUsd).format('0,0.00');
-        content.totalBalanceUsd = numeral(grandTotalBalanceUsd).format('0,0.00');
+        data.footer.totalDueAmountUsd = numeral(grandTotalDueAmountUsd).format('0,0.00');
+        data.footer.totalPaidAmountUsd = numeral(grandTotalPaidAmountUsd).format('0,0.00');
+        data.footer.totalBalanceUsd = numeral(grandTotalBalanceUsd).format('0,0.00');
 
-        content.totalDueAmountKhr = numeral(grandTotalDueAmountKhr).format('0,0.00');
-        content.totalPaidAmountKhr = numeral(grandTotalPaidAmountKhr).format('0,0.00');
-        content.totalBalanceKhr = numeral(grandTotalBalanceKhr).format('0,0.00');
+        data.footer.totalDueAmountKhr = numeral(grandTotalDueAmountKhr).format('0,0.00');
+        data.footer.totalPaidAmountKhr = numeral(grandTotalPaidAmountKhr).format('0,0.00');
+        data.footer.totalBalanceKhr = numeral(grandTotalBalanceKhr).format('0,0.00');
 
         if (content.length > 0) {
             data.content = content;

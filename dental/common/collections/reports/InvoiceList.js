@@ -17,7 +17,7 @@ Dental.Schema.InvoiceListReport = new SimpleSchema({
         autoform: {
             type: "select2",
             options: function () {
-                return Dental.ListForReport.statusListForInvoice();
+                return Dental.ListForReport.statusListForRegister();
             }
         },
         optional:true
