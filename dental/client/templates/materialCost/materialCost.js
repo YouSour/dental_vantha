@@ -305,5 +305,5 @@ function calculateTotal() {
 
 var datepicker = function () {
     var materialCostDate = $('[name="materialCostDate"]');
-    DateTimePicker.date(materialCostDate);
+    DateTimePicker.dateTime(materialCostDate);
 };

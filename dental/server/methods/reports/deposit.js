@@ -1,6 +1,5 @@
 Meteor.methods({
     dental_deposit: function (params) {
-        Meteor._sleepForMs(1000);
 
         var self = params;
         var data = {

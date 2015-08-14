@@ -58,12 +58,6 @@ Template.dental_depositInsert.onRendered(function () {
     datepicker();
 });
 
-Template.dental_depositInsert.events({
-    'click .saveAndPrint': function () {
-        Session.set('printDeposit',true);
-    }
-});
-
 /**
  * Update
  */
@@ -88,14 +82,6 @@ AutoForm.hooks({
         },
         onSuccess: function (formType, result) {
             alertify.success("Success");
-
-            var printSession = Session.get('printDeposit');
-            var data=Dental.Collection.Deposit.findOne(result);
-            if(printSession){
-                var q = 'patient=' + data.patientId + '&register=' + data.registerId;
-                var url = '/dental/depositReportGen?' + q;
-                window.open(url);
-            }
         },
         onError: function (formType, error) {
             alertify.error(error.message);

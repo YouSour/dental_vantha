@@ -3,9 +3,8 @@
     {{#autoForm schema=Dental.Schema.RegisterListReport id="dental_registerListReport" action="registerListReportGen" target="_blank"}}
         <div class="row">
             <div class="col-md-6">
-                <!--{{> afQuickField name='patient' class="patientId"}}-->
                 {{> afQuickField name='branchId'}}
-
+                {{> afQuickField name='status'}}
             </div>
             <div class="col-md-6">
                 {{> afQuickField name='date'}}
@@ -15,7 +14,6 @@
         <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
     {{/autoForm}}
 </template>
-
 
 <!--Generate-->
 <template name="dental_registerListReportGen">
@@ -36,8 +34,7 @@
                 {{#each header}}
                     <tr>
                         <td width="33%">{{col1}}</td>
-                        <td width="33%">{{col2}}</td>
-                        <td>{{col3}}</td>
+                        <td style="text-align: right">{{col2}}</td>
                     </tr>
                 {{/each}}
             </table>

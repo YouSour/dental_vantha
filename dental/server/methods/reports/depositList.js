@@ -1,13 +1,12 @@
 Meteor.methods({
     dental_depositList: function (params) {
-        Meteor._sleepForMs(1000);
         
         var self = params;
         var data = {
             title: {},
             header: [],
             content: [],
-            footer: [],
+            footer: {},
             deposit: []
         };
 
@@ -72,8 +71,8 @@ Meteor.methods({
             });
         }
 
-        content.grandTotalUsd = numeral(grandTotalUsd).format('0,0.00');
-        content.grandTotalKhr = numeral(grandTotalKhr).format('0,0.00');
+        data.footer.grandTotalUsd = numeral(grandTotalUsd).format('0,0.00');
+        data.footer.grandTotalKhr = numeral(grandTotalKhr).format('0,0.00');
 
         if (content.length > 0) {
             data.content = content;

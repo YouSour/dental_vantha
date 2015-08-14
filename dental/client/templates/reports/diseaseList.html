@@ -18,63 +18,70 @@
 
 <!--Generate-->
 <template name="dental_diseaseListReportGen">
-    {{#with data}}
-        <!--Title-->
-        <div class="report-title">
-            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-            <span class="report-company-name">{{title.company.enName}}</span><br>
-            Date: {{title.date}}<br>
-            <u>Disease Report</u><br>
-            {{title.company.khAddress}}, {{title.company.telephone}}
-        </div>
+    {{#if data}}
+        {{#with data}}
+            <!--Title-->
+            <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                <span class="report-company-name">{{title.company.enName}}</span><br>
+                Date: {{title.date}}<br>
+                <u>Disease Report</u><br>
+                {{title.company.khAddress}}, {{title.company.telephone}}
+            </div>
 
-        <!--Header-->
-        <table width="100%" border="0">
-            {{#each header}}
+            <!--Header-->
+            <table width="100%" border="0">
+                {{#each header}}
+                    <tr>
+                        <td width="33%">{{col1}}</td>
+                        <td width="33%">{{col2}}</td>
+                        <td>{{col3}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+
+            <!--Content-->
+
+            <table class="report-content">
+                <thead class="report-content-header">
                 <tr>
-                    <td width="33%">{{col1}}</td>
-                    <td width="33%">{{col2}}</td>
-                    <td>{{col3}}</td>
+                    <th>N<sup>o</sup></th>
+                    <th>Disease</th>
+                    <th>Number</th>
                 </tr>
-            {{/each}}
-        </table>
+                </thead>
 
-        <!--Content-->
+                <tbody class="report-content-body">
+                {{#each content}}
+                    <tr>
+                        <td align="center">{{index}}</td>
+                        <td>{{name}}</td>
+                        <td align="center">{{qty}}</td>
+                    </tr>
+                {{/each}}
 
-        <table class="report-content">
-            <thead class="report-content-header">
-            <tr>
-                <th>N<sup>o</sup></th>
-                <th>Disease</th>
-                <th>Number</th>
-            </tr>
-            </thead>
-
-            <tbody class="report-content-body">
-            {{#each content}}
                 <tr>
-                    <td align="center">{{index}}</td>
-                    <td>{{name}}</td>
-                    <td align="center">{{qty}}</td>
+                    <td colspan="2" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                        <b>
+                            Total</b></td>
+                    <td align="center">{{footer.totalDisease}}</td>
                 </tr>
-            {{/each}}
 
-            <tr>
-                <td colspan="2" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>
-                    Total</b></td>
-                <td align="center">{{content.totalDisease}}</td>
-            </tr>
-
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
 
-        <!--Footer-->
-        <p></p>
+            <!--Footer-->
+            <p></p>
 
-    {{/with}}
+        {{/with}}
 
-    <!--Sign-->
-    {{> signFooter}}
+        <!--Sign-->
+        {{> signFooter}}
+
+    {{else}}
+        {{> loading}}
+    {{/if}}
 
 </template>
