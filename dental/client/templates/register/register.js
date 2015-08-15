@@ -180,7 +180,7 @@ Template.dental_registerInsert.events({
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
     },
-    'click .saveAndPrint': function () {
+    'click #saveAndPrint': function () {
         Session.set('printInvoice', true);
     }
 });
@@ -373,7 +373,7 @@ AutoForm.hooks({
                 var url = '/dental/invoiceReportGen?' + q;
                 window.open(url);
             }
-
+            Session.set('printInvoice',false);
             alertify.success("Success");
         },
         onError: function (fromType, error) {
