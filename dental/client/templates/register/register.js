@@ -48,9 +48,11 @@ Template.dental_register.events({
             .forEach(function (obj) {
                 totalDep += obj.amount;
             });
-        data.totalDep = totalDep;
+        data.deposit = totalDep;
 
-        alertify.register(fa("pencil", "Register"), renderTemplate(Template.dental_registerUpdate, data)).maximize();
+        Meteor.setTimeout(function () {
+            alertify.register(fa("pencil", "Register"), renderTemplate(Template.dental_registerUpdate, data)).maximize();
+        }, 1000);
     },
     'click .remove': function () {
         var id = this._id;
@@ -373,7 +375,7 @@ AutoForm.hooks({
                 var url = '/dental/invoiceReportGen?' + q;
                 window.open(url);
             }
-            Session.set('printInvoice',false);
+            Session.set('printInvoice', false);
             alertify.success("Success");
         },
         onError: function (fromType, error) {

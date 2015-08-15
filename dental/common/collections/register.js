@@ -144,7 +144,8 @@ Dental.Schema.Register = new SimpleSchema({
     },
     subTotal: {
         type: Number,
-        decimal: true
+        decimal: true,
+        defaultValue: 0
     },
     deposit: {
         type: Number,
@@ -154,8 +155,6 @@ Dental.Schema.Register = new SimpleSchema({
     subDiscount: {
         type: Number,
         decimal: true,
-        min: 0,
-        max: 100,
         defaultValue: 0
     },
     total: {
