@@ -2,9 +2,6 @@
     <ul class="nav navbar-nav">
 
         <li class="{{isActiveRoute name='dental.home'}}"><a href="{{pathFor 'dental.home'}}">Home</a></li>
-        <li class="{{isActiveRoute name='dental.patient'}}"><a href="{{pathFor 'dental.patient'}}">Patient</a></li>
-        <li class="{{isActiveRoute name='dental.register'}}"><a href="{{pathFor 'dental.register'}}">Register</a></li>
-        <li class="{{isActiveRoute name='dental.payment'}}"><a href="{{pathFor 'dental.payment'}}">Payment</a></li>
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -12,14 +9,24 @@
             </a>
             <ul class="dropdown-menu" role="menu">
 
+                <li class="{{isActiveRoute name='dental.patient'}}">
+                    <a href="{{pathFor 'dental.patient'}}">Patient</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.register'}}">
+                    <a href="{{pathFor 'dental.register'}}">Register</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.payment'}}">
+                    <a href="{{pathFor 'dental.payment'}}">Payment</a>
+                </li>
+
+                <li role="separator" class="divider"></li>
+
                 <li class="{{isActiveRoute name='dental.quotation'}}">
                     <a href="{{pathFor 'dental.quotation'}}">Quotation</a>
                 </li>
-
                 <li class="{{isActiveRoute name='dental.materialCost'}}">
                     <a href="{{pathFor 'dental.materialCost'}}">Material Cost</a>
                 </li>
-
                 <li class="{{isActiveRoute name='dental.purchase'}}">
                     <a href="{{pathFor 'dental.purchase'}}">Purchase</a>
                 </li>
@@ -62,35 +69,29 @@
                 <li class="{{isActiveRoute name='dental.purchaseListReport'}}">
                     <a href="{{pathFor 'dental.purchaseListReport'}}">Purchase</a>
                 </li>
-                <li class="{{isActiveRoute name='dental.invoiceListReport'}}">
-                    <a href="{{pathFor 'dental.invoiceListReport'}}">Invoice</a>
-                </li>
+                <!--<li class="{{isActiveRoute name='dental.invoiceListReport'}}">-->
+                <!--<a href="{{pathFor 'dental.invoiceListReport'}}">Invoice</a>-->
+                <!--</li>-->
                 <li class="{{isActiveRoute name='dental.sharedDoctorListReport'}} disabled">
                     <a href="{{pathFor 'dental.sharedDoctorListReport'}}">Shared Doctor</a>
                 </li>
 
-                <li class="dropdown-submenu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Summary</a>
-                    <ul class="dropdown-menu">
-                        <li class="{{isActiveRoute name='dental.diseaseListReport'}}">
-                            <a href="{{pathFor 'dental.diseaseListReport'}}">Disease</a>
-                        </li>
-                        <li class="{{isActiveRoute name='dental.analysisPatientListReport'}} disabled">
-                            <a href="{{pathFor 'dental.analysisPatientListReport'}}">Analysis Patient</a>
-                        </li>
-                    </ul>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Outstanding</li>
+                <li class="{{isActiveRoute name='dental.registerOutstandingListReport'}}">
+                    <a href="{{pathFor 'dental.registerOutstandingListReport'}}">Register</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.osForClosingRegisterReport'}}">
+                    <a href="{{pathFor 'dental.osForClosingRegisterReport'}}">Closing Register</a>
                 </li>
 
-                <li class="dropdown-submenu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Outstanding</a>
-                    <ul class="dropdown-menu">
-                        <li class="{{isActiveRoute name='dental.invoiceOutstandingListReport'}}">
-                            <a href="{{pathFor 'dental.invoiceOutstandingListReport'}}">Invoice</a>
-                        </li>
-                        <li class="{{isActiveRoute name='dental.registerOutstandingListReport'}}">
-                            <a href="{{pathFor 'dental.registerOutstandingListReport'}}">Register</a>
-                        </li>
-                    </ul>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Summary</li>
+                <li class="{{isActiveRoute name='dental.diseaseListReport'}}">
+                    <a href="{{pathFor 'dental.diseaseListReport'}}">Disease</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.analysisPatientListReport'}} disabled">
+                    <a href="{{pathFor 'dental.analysisPatientListReport'}}">Analysis Patient</a>
                 </li>
 
             </ul>

@@ -102,7 +102,7 @@ Template.dental_register.events({
             data.total = data.total - totalDep;
 
 
-            alertify.statusAction(fa("pencil", "Register"), renderTemplate(Template.dental_registerClosingDate, data));
+            alertify.statusAction(fa("pencil", "Register Closing"), renderTemplate(Template.dental_registerClosingDate, data));
         }
     },
     'click .treatmentAction': function () {
