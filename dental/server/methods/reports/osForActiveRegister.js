@@ -1,5 +1,5 @@
 Meteor.methods({
-    dental_osForClosingRegisterReport: function (params) {
+    dental_osForActiveRegisterReport: function (params) {
         var self = params;
         var data = {
             title: {},
@@ -41,9 +41,9 @@ Meteor.methods({
         var content = [];
         var selector = {};
 
-        selector.status = 'Close';
         var dateVal = self.date + ' 23:59:59';
-        selector.closingDate = {$lt: dateVal};
+        selector.registerDate = {$lte: dateVal};
+        selector.$or = [{closingDate: {$not: {$lte: dateVal}}}, {closingDate: {$eq: ''}}];
         if (self.branchId != "") {
             selector.branchId = self.branchId;
         }
@@ -59,30 +59,28 @@ Meteor.methods({
 
         if (!_.isUndefined(getRegister)) {
             getRegister.forEach(function (obj) {
-                //check last payment
-                var paymentDoc = Dental.Collection.Payment.findOne({
-                    registerId: obj._id,
-                    paymentDate: {$lte: dateVal}
-                }, {sort: {_id: -1}});
+                // Get total deposit
+                var totalDep = 0;
+                Dental.Collection.Deposit.find({registerId: obj._id})
+                    .forEach(function (obj) {
+                        totalDep += obj.amount;
+                    });
 
-                if (_.isUndefined(paymentDoc) || paymentDoc.status == "Partial") {
-                    obj.index = index;
-                    obj.patientGender = obj._patient.name + " (" + obj._patient.gender + ")";
-                    obj.lastPaidDate = paymentDoc.paymentDate;
+                obj.index = index;
+                obj.patientGender = obj._patient.name + " (" + obj._patient.gender + ")";
+                obj.subTotalFm = numeral(obj.subTotal).format('0,0.00');
+                obj.subDiscountFm = numeral(obj.subDiscount).format('0,0.00');
+                obj.depositFm = numeral(totalDep).format('0,0.00');
+                obj.total = math.round(obj.subTotal - (obj.subDiscount + totalDep));
+                obj.totalFm = numeral(obj.total).format('0,0.00');
 
-                    var dueAmount = math.round(obj.total - paymentDoc.balance);
-                    obj.totalFm = numeral(obj.total).format('0,0.00');
-                    obj.totalDueFm = numeral(dueAmount).format('0,0.00');
-                    obj.balanceFm = numeral(paymentDoc.balance).format('0,0.00');
+                //Grand Total USD
+                grandTotalUsd += math.round(obj.total);
+                grandTotalKhr += math.round(obj.total * exchange.rates.KHR);
 
-                    //Grand Total USD
-                    grandTotalUsd += math.round(paymentDoc.balance);
-                    grandTotalKhr += math.round(paymentDoc.balance * exchange.rates.KHR);
+                content.push(obj);
 
-                    content.push(obj);
-
-                    index += 1;
-                }
+                index += 1;
             });
         }
 
