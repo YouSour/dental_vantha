@@ -1,17 +1,17 @@
 /************ Form *************/
-Template.dental_registerOutstandingListReport.onCreated(function () {
+Template.dental_activeRegisterListReport.onCreated(function () {
     createNewAlertify('exchange');
 });
 
-Template.dental_registerOutstandingListReport.onRendered(function () {
+Template.dental_activeRegisterListReport.onRendered(function () {
     var name = $('[name="date"]');
     DateTimePicker.dateTime(name);
 });
 
-Template.dental_registerOutstandingListReport.events({});
+Template.dental_activeRegisterListReport.events({});
 
 /************ Generate *************/
-Template.dental_registerOutstandingListReportGen.helpers({
+Template.dental_activeRegisterListReportGen.helpers({
     data: function () {
         var self = this;
         var data = {
@@ -46,9 +46,13 @@ Template.dental_registerOutstandingListReportGen.helpers({
 
         var selector = {};
 
-        if (self.date != null) selector.registerDate = {$lte: self.date};
-        if (self.branchId != "") selector.branchId = self.branchId;
-
+        if (self.date != null) selector.registerDate = {$lte: self.date };
+        if(self.date!=null){
+            selector.closingDate= {$or:['',{$gt:self.date}]};
+        }
+        if (self.branchId != "" ) {
+            selector.branchId = self.branchId;
+        }
 
         // Get Register
         var getRegister = Dental.Collection.Register.find(selector);
@@ -58,15 +62,12 @@ Template.dental_registerOutstandingListReportGen.helpers({
         if (!_.isUndefined(getRegister)) {
             getRegister.forEach(function (obj) {
                 obj.index = index;
-                // checking this registerId make invoice or not
-                var invoiceDoc = Dental.Collection.Invoice.findOne({registerId: obj._id,invoiceDate: {$lte: self.date}});
 
-                if (_.isUndefined(invoiceDoc)) {
                     obj.patient = obj._patient.name + " (" + obj._patient.gender + ")";
 
                     content.push(obj);
                     index += 1;
-                }
+
 
             });
         }
