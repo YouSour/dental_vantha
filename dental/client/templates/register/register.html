@@ -19,48 +19,38 @@
 
 <!--Status-Link-Action-->
 <template name="dental_statusLinkAction">
-    <div class="space-status statusAction">
-        <a href="#">
-            {{status}}
-        </a>
-    </div>
+    <button type="button" class="btn btn-default btn-sm statusAction">{{status}}</button>
 </template>
 
 <!--Treatment-Link-Action-->
 <template name="dental_treatmentLinkAction">
-    <div class="space-action treatmentAction">
-        <a href="#" class="treatmentAction">
-            {{#if _treatmentCount}}
-                {{_treatmentCount}}
-            {{else}}
-                0
-            {{/if}}
-        </a>
-    </div>
+    <button type="button" class="btn btn-default btn-sm treatmentAction">
+        {{#if _treatmentCount}}
+            {{_treatmentCount}}
+        {{else}}
+            0
+        {{/if}}
+    </button>
 </template>
 <!--Appointment-Link-Action-->
 <template name="dental_appointmentLinkAction">
-    <div class="space-action appointmentAction">
-        <a href="#" class="appointmentAction">
-            {{#if _appointmentCount}}
-                {{_appointmentCount}}
-            {{else}}
-                0
-            {{/if}}
-        </a>
-    </div>
+    <button type="button" class="btn btn-default btn-sm appointmentAction">
+        {{#if _appointmentCount}}
+            {{_appointmentCount}}
+        {{else}}
+            0
+        {{/if}}
+    </button>
 </template>
 <!--Deposit-Link-Action-->
 <template name="dental_depositLinkAction">
-    <div class="space-action depositAction">
-        <a href="#" class="depositAction">
-            {{#if _depositCount}}
-                {{_depositCount}}
-            {{else}}
-                0
-            {{/if}}
-        </a>
-    </div>
+    <button type="button" class="btn btn-default btn-sm depositAction">
+        {{#if _depositCount}}
+            {{_depositCount}}
+        {{else}}
+            0
+        {{/if}}
+    </button>
 </template>
 
 <template name="dental_registerPrintAction">
