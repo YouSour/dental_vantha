@@ -42,17 +42,7 @@ Template.dental_register.events({
     'click .update': function () {
         var data = Dental.Collection.Register.findOne({_id: this._id});
 
-        // Get total deposit
-        var totalDep = 0;
-        Dental.Collection.Deposit.find({registerId: this._id})
-            .forEach(function (obj) {
-                totalDep += obj.amount;
-            });
-        data.deposit = totalDep;
-
-        Meteor.setTimeout(function () {
-            alertify.register(fa("pencil", "Register"), renderTemplate(Template.dental_registerUpdate, data)).maximize();
-        }, 1000);
+        alertify.register(fa("pencil", "Register"), renderTemplate(Template.dental_registerUpdate, data)).maximize();
     },
     'click .remove': function () {
         var id = this._id;
@@ -93,16 +83,6 @@ Template.dental_register.events({
         if (this.status == "Active") {
             var data = Dental.Collection.Register.findOne({_id: this._id});
             data.status = 'Close';
-
-            // Get total deposit
-            var totalDep = 0;
-            Dental.Collection.Deposit.find({registerId: this._id})
-                .forEach(function (obj) {
-                    totalDep += obj.amount;
-                });
-            data.deposit = totalDep;
-            data.total = data.total - totalDep;
-
 
             alertify.statusAction(fa("pencil", "Register Closing"), renderTemplate(Template.dental_registerClosingDate, data));
         }
@@ -564,12 +544,12 @@ var registerState = function (param) {
     }
 
     // Get deposit
-    var deposit = 0;
-    Dental.Collection.Deposit.find({registerId: param._id})
-        .forEach(function (obj) {
-            deposit += obj.amount;
-        });
-    registerDoc.deposit = deposit;
+    //var deposit = 0;
+    //Dental.Collection.Deposit.find({registerId: param._id})
+    //    .forEach(function (obj) {
+    //        deposit += obj.amount;
+    //    });
+    //registerDoc.deposit = deposit;
 
     // Get treatment
     var treatment = Dental.Collection.Treatment.find({registerId: param._id});

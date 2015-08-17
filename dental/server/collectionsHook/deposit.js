@@ -1,22 +1,27 @@
 Dental.Collection.Deposit.after.insert(function (userId, doc) {
     Meteor.defer(function () {
         var deposit = doc.amount;
-        Dental.Collection.Register.direct.update(doc.registerId, {$inc: {deposit: deposit, total: deposit}});
+        var total = deposit * (-1);
+        Dental.Collection.Register.direct.update(doc.registerId, {$inc: {deposit: deposit, total: total}});
     });
 });
 
 Dental.Collection.Deposit.after.update(function (userId, doc, fieldNames, modifier, options) {
-    Meteor.defer(function () {
-        modifier.$set = modifier.$set || {};
-        var deposit = this.previous.amount - modifier.$set.amount;
+    modifier.$set = modifier.$set || {};
+    var self = this;
 
-        Dental.Collection.Register.direct.update(doc.registerId, {$inc: {deposit: deposit, total: deposit}});
+    Meteor.defer(function () {
+        var deposit = (self.previous.amount - modifier.$set.amount) * (-1);
+        var total = deposit * (-1);
+
+        Dental.Collection.Register.direct.update(doc.registerId, {$inc: {deposit: deposit, total: total}});
     });
 });
 
 Dental.Collection.Deposit.after.remove(function (userId, doc) {
     Meteor.defer(function () {
         var deposit = doc.amount * (-1);
-        Dental.Collection.Register.direct.update(doc.registerId, {$inc: {deposit: deposit, total: deposit}});
+        var total = doc.amount;
+        Dental.Collection.Register.direct.update(doc.registerId, {$inc: {deposit: deposit, total: total}});
     });
 });

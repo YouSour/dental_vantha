@@ -60,18 +60,19 @@ Meteor.methods({
         if (!_.isUndefined(getRegister)) {
             getRegister.forEach(function (obj) {
                 // Get total deposit
-                var totalDep = 0;
-                Dental.Collection.Deposit.find({registerId: obj._id})
-                    .forEach(function (obj) {
-                        totalDep += obj.amount;
-                    });
+                //var totalDep = 0;
+                //Dental.Collection.Deposit.find({registerId: obj._id})
+                //    .forEach(function (obj) {
+                //        totalDep += obj.amount;
+                //    });
 
                 obj.index = index;
                 obj.patientGender = obj._patient.name + " (" + obj._patient.gender + ")";
                 obj.subTotalFm = numeral(obj.subTotal).format('0,0.00');
                 obj.subDiscountFm = numeral(obj.subDiscount).format('0,0.00');
-                obj.depositFm = numeral(totalDep).format('0,0.00');
-                obj.total = math.round(obj.subTotal - (obj.subDiscount + totalDep));
+                obj.depositFm = numeral(obj.depositFm).format('0,0.00');
+                //obj.depositFm = numeral(totalDep).format('0,0.00');
+                //obj.total = math.round(obj.subTotal - (obj.subDiscount + totalDep));
                 obj.totalFm = numeral(obj.total).format('0,0.00');
 
                 //Grand Total USD
