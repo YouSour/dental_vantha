@@ -43,7 +43,7 @@ Meteor.methods({
 
         selector.status = 'Close';
         var dateVal = self.date + ' 23:59:59';
-        selector.closingDate = {$lt: dateVal};
+        selector.closingDate = {$lte: dateVal};
         if (self.branchId != "") {
             selector.branchId = self.branchId;
         }
@@ -66,8 +66,12 @@ Meteor.methods({
                 }, {sort: {_id: -1}});
 
                 if (_.isUndefined(paymentDoc) || paymentDoc.status == "Partial") {
-                    var paymentDate = _.isUndefined(paymentDoc.paymentDate) ? 'null' : paymentDoc.paymentDate;
-                    var paymentBalance = _.isUndefined(paymentDoc.balance) ? 0 : paymentDoc.balance;
+                    var paymentDate = 'none';
+                    var paymentBalance = 0;
+                    if (!_.isUndefined(paymentDoc)) {
+                        paymentDate = paymentDoc.paymentDate;
+                        paymentBalance = paymentDoc.balance;
+                    }
 
                     obj.index = index;
                     obj.patientGender = obj._patient.name + " (" + obj._patient.gender + ")";
