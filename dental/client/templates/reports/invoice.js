@@ -83,6 +83,7 @@ Template.dental_invoiceReportGen.helpers({
             footer.subDiscount = numeral(getRegister.subDiscount).format('0,0.00');
             footer.total = numeral(getRegister.total).format('$0,0.00');
             footer.totalKhr = "R"+numeral(getRegister.total*exchange.rates.KHR).format('0,0.00');
+            footer.totalThb = "THB"+numeral(getRegister.total*exchange.rates.THB).format('0,0.00');
             data.footer = footer;
 
             return data;

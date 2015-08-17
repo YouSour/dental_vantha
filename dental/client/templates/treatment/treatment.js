@@ -157,6 +157,8 @@ AutoForm.hooks({
             }
         },
         onSuccess: function (formType, result) {
+            alertify.treatment().close();
+            //clear select2
             $('select').each(function(){
                 $(this).select2("val","");
             });

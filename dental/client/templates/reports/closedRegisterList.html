@@ -1,9 +1,8 @@
 <!--Form-->
-<template name="dental_registerClosedListReport">
-    {{#autoForm schema=Dental.Schema.RegisterClosedListReport id="dental_registerClosedListReport" action="registerClosedListReportGen" target="_blank"}}
+<template name="dental_closedRegisterListReport">
+    {{#autoForm schema=Dental.Schema.closedRegisterListReport id="dental_closedRegisterListReport" action="closedRegisterListReportGen" target="_blank"}}
         <div class="row">
             <div class="col-md-6">
-                <!--{{> afQuickField name='patient' class="patientId"}}-->
                 {{> afQuickField name='branchId'}}
 
             </div>
@@ -18,7 +17,7 @@
 
 
 <!--Generate-->
-<template name="dental_registerClosedListReportGen">
+<template name="dental_closedRegisterListReportGen">
     {{#if data}}
         {{#with data}}
             <!--Title-->
@@ -27,7 +26,7 @@
                       style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
                 <span class="report-company-name">{{title.company.enName}}</span><br>
                 Date: {{title.date}}<br>
-                <u>Register Report</u><br>
+                <u>Closed Register Report</u><br>
                 {{title.company.khAddress}}, {{title.company.telephone}}
             </div>
 

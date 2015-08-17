@@ -19,7 +19,7 @@ Template.dental_register.onCreated(function () {
         'treatmentAction',
         'appointmentAction',
         'depositAction',
-        'invoiceAction'
+        'paymentAction'
     ]);
 });
 
@@ -134,6 +134,14 @@ Template.dental_register.events({
             ).maximize();
         }
     },
+    'click .paymentAction': function () {
+        if (this.status == "Active") {
+            alertify.paymentAction(
+                fa("credit-card", "Payment"),
+                renderTemplate(Template.dental_payment)
+            ).maximize();
+        }
+    },
     // Print action
     'click .treatmentPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
@@ -153,8 +161,6 @@ Template.dental_register.events({
  */
 Template.dental_registerClosingDate.onRendered(function () {
     datepicker();
-    //open registerClosingDate status change value "Close"
-    //$('[name="status"]').val("Close");
 });
 
 /**

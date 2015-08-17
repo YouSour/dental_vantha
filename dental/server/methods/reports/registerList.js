@@ -21,7 +21,7 @@ Meteor.methods({
 
         console.log(self.patient);
 
-        var branch,status;
+        var branch;
 
         var branchDoc = Cpanel.Collection.Branch.findOne({_id: self.branchId});
 
@@ -31,10 +31,8 @@ Meteor.methods({
             branch = "All";
         }
 
-        if (self.status != "") {status = self.status;} else {status = 'All';}
-
         data.header = [
-            {col1: 'Branch: ' + branch ,col2:'Status: ' + status}
+            {col1: 'Branch: ' + branch}
         ];
 
         /********** Content & Footer **********/
@@ -46,7 +44,7 @@ Meteor.methods({
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
         if (fromDate != null && toDate != null) selector.registerDate = {$gte: fromDate, $lte: toDate};
         if (self.branchId != "") selector.branchId = self.branchId;
-        if (self.status != "") selector.status = self.status;
+
         // Get register
         var getRegister = Dental.Collection.Register.find(selector);
 

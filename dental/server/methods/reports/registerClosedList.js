@@ -1,5 +1,5 @@
 Meteor.methods({
-    dental_registerClosedList: function (params) {
+    dental_closedRegisterList: function (params) {
 
         var self = params;
         var data = {

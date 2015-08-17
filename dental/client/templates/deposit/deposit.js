@@ -81,6 +81,7 @@ AutoForm.hooks({
             }
         },
         onSuccess: function (formType, result) {
+            alertify.deposit().close();
             alertify.success("Success");
         },
         onError: function (formType, error) {

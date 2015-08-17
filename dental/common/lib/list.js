@@ -16,6 +16,7 @@ Dental.List = {
         var list = [];
         list.push({label: "(Select One)", value: ""});
         list.push({label: 'Admin', value: "Admin"});
+        list.push({label: 'Assistant', value: "Assistant"});
         list.push({label: 'Accountant', value: "Accountant"});
         list.push({label: 'Cashier', value: "Cashier"});
 
