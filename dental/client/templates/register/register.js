@@ -135,7 +135,7 @@ Template.dental_register.events({
         }
     },
     'click .paymentAction': function () {
-        if (this.status == "Active") {
+        if (this.status == "Close") {
             alertify.paymentAction(
                 fa("credit-card", "Payment"),
                 renderTemplate(Template.dental_payment)

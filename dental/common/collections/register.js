@@ -29,7 +29,8 @@ Dental.Schema.Register = new SimpleSchema({
     },
     des: {
         type: String,
-        label: "Description"
+        label: "Description",
+        optional:true
     },
     status: {
         type: String,
