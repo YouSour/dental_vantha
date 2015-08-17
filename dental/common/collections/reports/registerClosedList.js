@@ -1,7 +1,7 @@
 /**
  * Schema
  */
-Dental.Schema.RegisterClosedListReport = new SimpleSchema({
+Dental.Schema.closedRegisterListReport = new SimpleSchema({
     branchId: {
         type: String,
         autoform: {

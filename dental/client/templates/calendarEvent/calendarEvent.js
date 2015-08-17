@@ -87,6 +87,8 @@ AutoForm.hooks({
             }
         },
         onSuccess: function (formType, result) {
+            alertify.calendarEvent().close();
+            //clear select2
             $('select').each(function(){
                 $(this).select2("val","");
             });

@@ -8,4 +8,4 @@ Dental.Collection.Payment.cacheDoc('staff', Dental.Collection.Staff, ['name', 'g
     refField: "staffId"
 });
 
-Dental.Collection.Payment.cacheDoc('register', Dental.Collection.Register, ['disease', 'subTotal', 'deposit', 'subDiscount', 'total', 'doctorShare', 'doctorShareTotal', 'laboExpense', 'laboExpenseTotal', 'registerDate', 'des', 'status', 'closingDate']);
+Dental.Collection.Payment.cacheDoc('register', Dental.Collection.Register, ['subTotal', 'deposit', 'subDiscount', 'total','doctorShareTotal','laboExpenseTotal', 'registerDate', 'des', 'status', 'closingDate']);

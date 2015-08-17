@@ -52,7 +52,17 @@
         {{/if}}
     </button>
 </template>
-
+<!--Payment-Link-Action-->
+<template name="dental_paymentLinkAction">
+    <button type="button" class="btn btn-default btn-sm paymentAction">
+        {{#if _paymentCount}}
+            {{_paymentCount}}
+        {{else}}
+            0
+        {{/if}}
+    </button>
+</template>
+<!--Print-->
 <template name="dental_registerPrintAction">
     {{#tabularAction icon="print"}}
         <li><a style="cursor: pointer" class="treatmentPrintAction">{{fa "medkit"}} Treatment</a></li>
@@ -212,6 +222,12 @@
             <dd>{{_id}}</dd>
             <dt>Register Date</dt>
             <dd>{{registerDate}}</dd>
+            <dt>Closed Date</dt>
+            <dd>{{closingDate}}</dd>
+            <dt>Total</dt>
+            <dd>{{total}}</dd>
+            <dt>Status</dt>
+            <dd>{{status}}</dd>
             <dt>Description</dt>
             <dd>{{des}}</dd>
         </fieldset>

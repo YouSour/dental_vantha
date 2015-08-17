@@ -1,11 +1,13 @@
 <!--index-->
 <template name="dental_payment">
-    <div class="animated bounceInRight">
-        <p>
+    <div class="row">
+    <div class="col-md-12">
+        <p style="margin-bottom: 10px">
             <button class="btn btn-primary insert">{{fa "plus"}} Add New</button>
         </p>
 
         {{> tabular table=Dental.TabularTable.Payment class="table table-striped table-bordered table-condensed table-hover"}}
+    </div>
     </div>
 </template>
 
