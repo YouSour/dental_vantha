@@ -36,86 +36,91 @@
 
 <!--Generate-->
 <template name="dental_quotationReportGen">
-    {{#with data}}
-        <!--Title-->
-        <div class="report-title">
-            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-            <span class="report-company-name">{{title.company.enName}}</span><br>
-            <u>សម្រង់ (Quotation)</u><br>
-            {{title.company.khAddress}}, {{title.company.telephone}}
-        </div>
+    {{#if data}}
+        {{#with data}}
+            <!--Title-->
+            <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                <span class="report-company-name">{{title.company.enName}}</span><br>
+                <u>សម្រង់ (Quotation)</u><br>
+                {{title.company.khAddress}}, {{title.company.telephone}}
+            </div>
 
-        <!--Header-->
-        <div style="width: 100%">
-            {{#with header}}
-                <div style="width: 50%; float: left">
-                    <ul class="list-unstyled">
-                        <li><strong>Patient ID:</strong> {{patientId}}</li>
-                        <li><strong>Name:</strong> {{_patient.name}}</li>
-                        <li><strong>Gender:</strong> {{_patient.gender}}</li>
-                        <li><strong>Age:</strong> {{_patient.age}}</li>
-                    </ul>
-                </div>
-                <div style="width: 50%; float: right">
-                    <ul class="list-unstyled">
-                        <li><strong>Quotation ID:</strong> {{_id}}</li>
-                        <li><strong>Date:</strong> {{quotationDate}}</li>
-                        <li><strong>Description:</strong> {{des}}</li>
-                    </ul>
-                </div>
-            {{/with}}
-        </div>
+            <!--Header-->
+            <div style="width: 100%">
+                {{#with header}}
+                    <div style="width: 50%; float: left">
+                        <ul class="list-unstyled">
+                            <li><strong>Patient ID:</strong> {{patientId}}</li>
+                            <li><strong>Name:</strong> {{_patient.name}}</li>
+                            <li><strong>Gender:</strong> {{_patient.gender}}</li>
+                            <li><strong>Age:</strong> {{_patient.age}}</li>
+                        </ul>
+                    </div>
+                    <div style="width: 50%; float: right">
+                        <ul class="list-unstyled">
+                            <li><strong>Quotation ID:</strong> {{_id}}</li>
+                            <li><strong>Date:</strong> {{quotationDate}}</li>
+                            <li><strong>Description:</strong> {{des}}</li>
+                        </ul>
+                    </div>
+                {{/with}}
+            </div>
 
-        <!--Content-->
-        <table class="report-content">
-            <thead class="report-content-header">
-            <tr>
-                <th>No</th>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Price</th>
-                <th>Discount</th>
-                <th>Amount</th>
-            </tr>
-            </thead>
-
-            <tbody class="report-content-body">
-            {{#each content}}
+            <!--Content-->
+            <table class="report-content">
+                <thead class="report-content-header">
                 <tr>
-                    <td>{{index}}</td>
-                    <td>{{itemName}}</td>
-                    <td>{{qty}}</td>
-                    <td>{{price}}</td>
-                    <td>{{discount}}</td>
-                    <td>{{amount}}</td>
+                    <th>No</th>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Amount</th>
                 </tr>
-            {{/each}}
-            </tbody>
-        </table>
+                </thead>
 
-        <!--Footer-->
-        <div style="width: 100%;">
-            {{#with footer}}
-                <ul class="list-unstyled text-right">
-                    <li>
-                        <strong>Subtotal:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subtotal}}
-                    </li>
-                    <li>
-                        <strong>Sub
-                            Discount:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}
-                    </li>
-                    <li>
-                        <strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
-                    </li>
-                </ul>
-            {{/with}}
+                <tbody class="report-content-body">
+                {{#each content}}
+                    <tr>
+                        <td>{{index}}</td>
+                        <td>{{itemName}}</td>
+                        <td>{{qty}}</td>
+                        <td>{{price}}</td>
+                        <td>{{discount}}</td>
+                        <td>{{amount}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+
+            <!--Footer-->
+            <div style="width: 100%;">
+                {{#with footer}}
+                    <ul class="list-unstyled text-right">
+                        <li>
+                            <strong>Subtotal:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subtotal}}
+                        </li>
+                        <li>
+                            <strong>Sub
+                                Discount:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}
+                        </li>
+                        <li>
+                            <strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
+                        </li>
+                    </ul>
+                {{/with}}
+            </div>
+        {{/with}}
+
+        <!--Sign-->
+        <div style="width: 40%; text-align: center; float: right; clear: both">
+            <strong>Prepared By</strong>
+            <br><br><br><br><br><br><br>
+            __________________<br>
         </div>
-    {{/with}}
-
-    <!--Sign-->
-    <div style="width: 40%; text-align: center; float: right; clear: both">
-        <strong>Prepared By</strong>
-        <br><br><br><br><br><br><br>
-        __________________<br>
-    </div>
+    {{else}}
+        {{> loading}}
+    {{/if}}
 </template>
