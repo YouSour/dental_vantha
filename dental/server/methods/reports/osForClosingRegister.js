@@ -66,18 +66,21 @@ Meteor.methods({
                 }, {sort: {_id: -1}});
 
                 if (_.isUndefined(paymentDoc) || paymentDoc.status == "Partial") {
+                    var paymentDate = _.isUndefined(paymentDoc.paymentDate) ? 'null' : paymentDoc.paymentDate;
+                    var paymentBalance = _.isUndefined(paymentDoc.balance) ? 0 : paymentDoc.balance;
+
                     obj.index = index;
                     obj.patientGender = obj._patient.name + " (" + obj._patient.gender + ")";
-                    obj.lastPaidDate = paymentDoc.paymentDate;
+                    obj.lastPaidDate = paymentDate;
 
-                    var dueAmount = math.round(obj.total - paymentDoc.balance);
+                    var dueAmount = math.round(obj.total - paymentBalance);
                     obj.totalFm = numeral(obj.total).format('0,0.00');
                     obj.totalDueFm = numeral(dueAmount).format('0,0.00');
-                    obj.balanceFm = numeral(paymentDoc.balance).format('0,0.00');
+                    obj.balanceFm = numeral(paymentBalance).format('0,0.00');
 
                     //Grand Total USD
-                    grandTotalUsd += math.round(paymentDoc.balance);
-                    grandTotalKhr += math.round(paymentDoc.balance * exchange.rates.KHR);
+                    grandTotalUsd += math.round(paymentBalance);
+                    grandTotalKhr += math.round(paymentBalance * exchange.rates.KHR);
 
                     content.push(obj);
 

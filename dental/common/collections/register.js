@@ -30,15 +30,14 @@ Dental.Schema.Register = new SimpleSchema({
     des: {
         type: String,
         label: "Description",
-        optional:true
+        optional: true
     },
     status: {
         type: String,
         optional: true
     },
     closingDate: {
-        type: String,
-        optional: true
+        type: String
     },
     disease: {
         type: Array,

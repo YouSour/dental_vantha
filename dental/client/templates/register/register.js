@@ -46,7 +46,8 @@ Template.dental_register.events({
     },
     'click .remove': function () {
         var id = this._id;
-        alertify.confirm("Are you sure to delete [" + id + "] ?")
+        alertify.confirm(
+            "Are you sure to delete [" + id + "] ?")
             .set({
                 onok: function (result) {
                     Dental.Collection.Register.remove(id, function (error) {
@@ -80,11 +81,33 @@ Template.dental_register.events({
         alertify.alert(fa("eye", "Register"), renderTemplate(Template.dental_registerShow, data));
     },
     'click .statusAction': function () {
-        if (this.status == "Active") {
-            var data = Dental.Collection.Register.findOne({_id: this._id});
+        var self = this;
+        // Close register
+        if (self.status == "Active") {
+            var data = Dental.Collection.Register.findOne({_id: self._id});
             data.status = 'Close';
+            data.closingDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
             alertify.statusAction(fa("pencil", "Register Closing"), renderTemplate(Template.dental_registerClosingDate, data));
+        } else { // Reactive register
+            // Check payment
+            if (_.isUndefined(self._paymentCount) || self._paymentCount == 0) {
+                alertify.confirm(
+                    "Are you sure to reactive [" + self._id + "] ?")
+                    .set({
+                        onok: function (result) {
+                            Dental.Collection.Register.update(self._id, {
+                                $set: {
+                                    status: 'Active',
+                                    closingDate: 'none'
+                                }
+                            });
+                        }
+
+                    });
+            } else {
+                alertify.error('You can\'t reactive this, because it has been payment.');
+            }
         }
     },
     'click .treatmentAction': function () {
@@ -338,6 +361,8 @@ AutoForm.hooks({
                 var prefix = Session.get('currentBranch') + "-";
 
                 doc._id = idGenerator.genWithPrefix(Dental.Collection.Register, prefix, 9);
+                doc.status = "Active";
+                doc.closingDate = 'none';
                 doc.branchId = Session.get('currentBranch');
 
                 return doc;
