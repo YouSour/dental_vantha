@@ -20,41 +20,13 @@ Template.dental_treatmentReport.events({
 Template.dental_treatmentReportGen.helpers({
     data: function () {
         var self = this;
-        var data = {
-            title: {},
-            header: {},
-            content: []
-        };
+        var callId = JSON.stringify(self);
+        var call = Meteor.callAsync(callId, 'dental_treatment', self);
 
-        /********* Title *********/
-        var company = Cpanel.Collection.Company.findOne();
-        data.title = {
-            company: company
-        };
-
-        /********* Header ********/
-        var registerDoc = Dental.Collection.Register.findOne(self.register);
-        data.header = registerDoc;
-
-        /********** Content & Footer **********/
-        var content = [];
-
-        // Get invoice
-        var index = 1;
-        Dental.Collection.Treatment.find({registerId: self.register})
-            .forEach(function (obj) {
-                obj.index = index;
-                content.push(obj);
-
-                index += 1;
-            });
-
-        if (content.length > 0) {
-            data.content = content;
-            return data;
-        } else {
-            data.content.push({index: 'no results'});
-            return data;
+        if (!call.ready()) {
+            return false;
         }
+
+        return call.result();
     }
 });
