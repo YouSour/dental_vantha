@@ -6,7 +6,6 @@ Dental.TabularTable.Register = new Tabular.Table({
         {title: '<i class="fa fa-print"></i>', tmpl: Meteor.isClient && Template.dental_registerPrintAction},
         {data: "_id", title: "ID"},
         {data: "registerDate", title: "Register Date"},
-        {data: "des", title: "Description"},
         {data: "patientId", title: "Patient ID"},
         {data: "_patient.name", title: "Patient Name"},
         {
@@ -22,6 +21,7 @@ Dental.TabularTable.Register = new Tabular.Table({
             }
         },
         {data: "total", title: "Total"},
+        {data:"closingDate",title:"Closed Date"},
         {
             data: "status",
             title: "Status",
