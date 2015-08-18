@@ -41,8 +41,7 @@ Dental.Schema.Register = new SimpleSchema({
     },
     disease: {
         type: Array,
-        minCount: 0,
-        optional: true
+        minCount: 0
     },
     'disease.$': {
         type: Object
