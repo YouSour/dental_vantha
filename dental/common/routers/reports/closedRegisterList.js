@@ -2,9 +2,9 @@ Router.route('dental/closedRegisterListReport', function () {
     this.render('dental_closedRegisterListReport');
 }, {
     name: 'dental.closedRegisterListReport',
-    title: "Closed Register Report",
-    header: {title: 'Closed Register Report', sub: '', icon: 'file-text-o'},
-    breadcrumb: {title: 'Closed Register Report', parent: 'dental.home'}
+    title: "Closing Register Report",
+    header: {title: 'Closing Register Report', sub: '', icon: 'file-text-o'},
+    breadcrumb: {title: 'Closing Register Report', parent: 'dental.home'}
 });
 
 Router.route('dental/closedRegisterListReportGen', function () {
