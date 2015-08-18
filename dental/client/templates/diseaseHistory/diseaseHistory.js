@@ -31,7 +31,7 @@ Template.dental_diseaseHistory.events({
         );
     },
     'click .show': function () {
-        alertify.alert(fa("eye","Disease History"),renderTemplate(Template.dental_diseaseHistoryShow,this));
+        alertify.alert(fa("eye", "Disease History"), renderTemplate(Template.dental_diseaseHistoryShow, this));
     }
 });
 
