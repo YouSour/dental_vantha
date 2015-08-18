@@ -27,6 +27,10 @@
                 <li class="{{isActiveRoute name='dental.purchase'}}">
                     <a href="{{pathFor 'dental.purchase'}}">Purchase</a>
                 </li>
+
+                <li class="{{isActiveRoute name='cpanel.exchange'}}">
+                    <a href="{{pathFor 'cpanel.exchange'}}">Exchange</a>
+                </li>
             </ul>
         </li>
 
@@ -99,15 +103,14 @@
                 Setting <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li class="{{isActiveRoute name='cpanel.exchange'}}">
-                    <a href="{{pathFor 'cpanel.exchange'}}">Exchange</a>
-                </li>
-
                 <li class="{{isActiveRoute name='dental.staff'}}">
                     <a href="{{pathFor 'dental.staff'}}">Staff</a>
                 </li>
                 <li class="{{isActiveRoute name='dental.doctor'}}">
                     <a href="{{pathFor 'dental.doctor'}}">Doctor</a>
+                </li>
+                <li class="{{isActiveRoute name='dental.diseaseHistory'}}">
+                    <a href="{{pathFor 'dental.diseaseHistory'}}">Patient History</a>
                 </li>
 
                 <li role="separator" class="divider"></li>
@@ -117,9 +120,6 @@
                 </li>
                 <li class="{{isActiveRoute name='dental.diseaseItem'}}">
                     <a href="{{pathFor 'dental.diseaseItem'}}">Item</a>
-                </li>
-                <li class="{{isActiveRoute name='dental.diseaseHistory'}}">
-                    <a href="{{pathFor 'dental.diseaseHistory'}}">History</a>
                 </li>
 
                 <li role="separator" class="divider"></li>
