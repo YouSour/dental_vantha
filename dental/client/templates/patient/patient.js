@@ -20,9 +20,9 @@ Template.dental_patient.events({
     },
     'click .update': function (e, t) {
         var data = Dental.Collection.Patient.findOne({_id: this._id});
-
+        console.log(data.history);
         alertify.patient(fa("pencil", "Patient"), renderTemplate(Template.dental_patientUpdate, data))
-            .maximize();
+            .maximize();k
     },
     'click .remove': function (e, t) {
         var self = this;
