@@ -189,6 +189,18 @@ Template.dental_registerInsert.events({
 
         }
     },
+    'change .patientId':function(e){
+        var patient = $(e.currentTarget).val();
+        Session.set('patientId',patient);
+
+        var index = 0;
+        $('div.array-item').each(function () {
+            //clear selectize
+            $('select.item')[index].selectize.clear(true);
+            index++
+        });
+
+    },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
     },
@@ -221,6 +233,18 @@ Template.dental_registerUpdate.events({
 
         }
     },
+    'change .patientId':function(e){
+        var patient = $(e.currentTarget).val();
+        Session.set('patientId',patient);
+
+        var index = 0;
+        $('div.array-item').each(function () {
+            //clear selectize
+            $('select.item')[index].selectize.clear(true);
+            index++
+        });
+
+    },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
     }
@@ -234,10 +258,11 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
     'change .item': function (e, t) {
         var thisObj = $(e.currentTarget);
         var itemId = $(e.currentTarget).val();
+        var patient = Session.get('patientId');
 
         var qty, price, discount, amount;
 
-        if (itemId != "") {
+        if (itemId != "" && patient != "") {
             var itemDoc = Dental.Collection.DiseaseItem.findOne({_id: itemId});
             var checkingMemberPrice = Dental.Collection.Patient.findOne({_id: $('[name="patientId"]').val()}, {member: "Yes"});
             qty = 1;
