@@ -11,24 +11,23 @@ Dental.Collection.Payment = new Mongo.Collection('dental_payment');
 Dental.Schema.Payment = new SimpleSchema({
     patientId:{
         type: String,
-        label: 'Patient',
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.List.patient();
-            }
-        }
+        label: 'Patient'
+        //autoform: {
+        //    type: "select2",
+        //    options: function () {
+        //        return Dental.List.patient();
+        //    }
+        //}
     },
     registerId: {
         type: String,
-        label: 'Register ID',
-        max: 25,
-        autoform: {
-            type: "select2",
-            options: function () {
-                return Dental.List.register();
-            }
-        }
+        label: 'Register ID'
+        //autoform: {
+        //    type: "select2",
+        //    options: function () {
+        //        return Dental.List.register();
+        //    }
+        //}
     },
     staffId: {
         type: String,
@@ -43,7 +42,7 @@ Dental.Schema.Payment = new SimpleSchema({
     paymentDate: {
         type: String,
         defaultValue: function () {
-            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
+            var currentDate = moment(ReactiveMethod.call("currentDate"), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD H:mm:ss');
             return currentDate;
         },
         //custom: function () {
@@ -61,7 +60,7 @@ Dental.Schema.Payment = new SimpleSchema({
     paidAmount: {
         type: Number,
         decimal: true,
-        min: 0,
+        min: 0.01,
         custom: function () {
             if (this.value > this.field('dueAmount').value) {
                 return "biggerThan";
