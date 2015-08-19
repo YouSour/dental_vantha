@@ -42,18 +42,18 @@ Meteor.methods({
         var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
         var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
 
-        //selector.status = "Close";
-        //selectorDoctor.status = "Close";
-        //
-        //if (self.branchId != "All") {
-        //    selector.branchId = self.branchId;
-        //    selectorDoctor.branchId = self.branchId;
-        //}
-        //
-        //if (self.closingDate != null) {
-        //    selectorDoctor.closingDate = {$gte: fromDate, $lte: toDate};
-        //    selector.closingDate = {$gte: fromDate, $lte: toDate};
-        //}
+        selector.status = "Close";
+        selectorDoctor.status = "Close";
+
+        if (self.branchId != "") {
+            selector.branchId = self.branchId;
+            selectorDoctor.branchId = self.branchId;
+        }
+
+        if (self.date != null) {
+            selectorDoctor.closingDate = {$gte: fromDate, $lte: toDate};
+            selector.closingDate = {$gte: fromDate, $lte: toDate};
+        }
 
         var doctorList = Dental.Collection.Register.aggregate([
             {$unwind: "$doctorShare"},
@@ -68,7 +68,7 @@ Meteor.methods({
             },
             {$sort: {"_id.doctorId": 1}}
         ]);
-        console.log(doctorList);
+
         var content = [];
         doctorList.forEach(function (doctorObj) {
             selector['doctorShare.doctor'] = doctorObj._id.doctorId;
@@ -105,10 +105,13 @@ Meteor.methods({
         });
 
         if (content.length > 0) {
-            console.log(content);
             data.content = content;
+            return data;
+        } else {
+            data.content.push({registerId: 'no results'});
+            return data;
         }
-        return data;
+
         /*
          results.reduce(function(key,val){
 
@@ -130,4 +133,4 @@ Meteor.methods({
          */
 
     }
-})
+});

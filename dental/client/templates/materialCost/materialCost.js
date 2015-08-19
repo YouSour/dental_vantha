@@ -164,17 +164,21 @@ Template.dental_materialCostUpdate.events({
  */
 Template.dental_materialCostShow.helpers({
     materialCostDetailFormat: function () {
-        var purchaseDetail = "";
+        var materialCostDetail = "<ul>";
         var data = this.items;
         data.forEach(function (obj) {
-            purchaseDetail +=
-                "MaterialCostItem Id = " + obj.materialCostItemId +
-                ", Qty = " + obj.qty +
-                ", Price = " + obj.price +
-                ", Amount = " + obj.amount + "<br>";
+            materialCostDetail +=
+            "<li>"
+            + 'MaterialCostItem Id: ' + obj.materialCostItemId
+            + ' | Qty: ' + obj.qty
+            + ' | Price : ' + obj.price
+            + ' | Amount: ' + obj.amount
+            + '</li>';
         });
 
-        return new Spacebars.SafeString(purchaseDetail);
+        materialCostDetail += "</ul>";
+
+        return new Spacebars.SafeString(materialCostDetail);
     },
     materialCostDateFormat: function () {
         return moment(this.materialCostDate).format("YYYY-MM-DD");

@@ -8,30 +8,7 @@ Dental.TabularTable.Quotation = new Tabular.Table({
         {
             data: "disease", title: "Disease",
             render: function (val, type, doc) {
-                var items = '<table border="1" frame="void" style="border-collapse: collapse">' +
-                    '<thead>' +
-                    '<tr>' +
-                    '<th>Item</th>' +
-                    '<th>Qty</th>' +
-                    '<th>Price</th>' +
-                    '<th>Dis</th>' +
-                    '<th>Amount</th>' +
-                    '</tr>' +
-                    '</thead>';
-
-                _.each(val, function (obj) {
-                    var disease = Dental.Collection.DiseaseItem.findOne({_id: obj.item});
-                    items += '<tr>' +
-                        '<td>' + disease.name + '</td>' +
-                        '<td>' + obj.qty + '</td>' +
-                        '<td>' + obj.price + '</td>' +
-                        '<td>' + obj.discount + '</td>' +
-                        '<td>' + obj.amount + '</td>' +
-                        '</tr>';
-                });
-                items += '</table>';
-
-                return items;
+                return JSON.stringify(val).slice(1, JSON.stringify(val).length - 1);
             }
         },
         {
