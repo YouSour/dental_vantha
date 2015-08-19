@@ -18,7 +18,7 @@
 
 <!--Generate-->
 <template name="dental_sharedDoctorListReportGen">
-    <!--{{#if data}}{-->
+    {{#if data}}
         {{#with data}}
             <!--Title-->
             <div class="report-title">
@@ -35,8 +35,6 @@
                 {{#each header}}
                     <tr>
                         <td width="33%">{{col1}}</td>
-                        <!--<td width="33%">{{col2}}</td>-->
-                        <!--<td>{{col3}}</td>-->
                     </tr>
                 {{/each}}
             </table>
@@ -61,8 +59,8 @@
                 {{#each content}}
                     {{#if isHeader}}
                         <tr>
-                            <td colspan='7'>{{doctorId}}</td>
-                            <td>{{totalAmount}}</td>
+                            <td colspan='7'><b>{{doctorId}}</b></td>
+                            <td><b>{{totalAmount}}</b></td>
                         </tr>
                     {{else}}
                         <tr>
@@ -87,7 +85,7 @@
         {{/with}}
 
         <!--Sign-->
-    <!--{{else}}-->
-        <!--{{> loading}}-->
-    <!--{{/if}}-->
+    {{else}}
+        {{> loading}}
+    {{/if}}
 </template>

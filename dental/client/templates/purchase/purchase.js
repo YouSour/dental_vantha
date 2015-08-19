@@ -170,15 +170,18 @@ Template.dental_purchaseUpdate.events({
  */
 Template.dental_purchaseShow.helpers({
     purchaseDetailFormat: function () {
-        var purchaseDetail = "";
+        var purchaseDetail = "<ul>";
         var data = this.items;
         data.forEach(function (obj) {
             purchaseDetail +=
-                "OrderItem Id = " + obj.orderItemId +
-                ", Qty = " + obj.qty +
-                ", Price = " + obj.price +
-                ", Amount = " + obj.amount + "<br>";
+            "<li>"
+            + 'OrderItem Id: ' + obj.orderItemId
+            + ' | Qty: ' + obj.qty
+            + ' | Price : ' + obj.price
+            + ' | Amount: ' + obj.amount
+            + '</li>';
         });
+        purchaseDetail += "</ul>";
 
         return new Spacebars.SafeString(purchaseDetail);
     },
