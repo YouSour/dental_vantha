@@ -19,111 +19,13 @@ Template.dental_sharedDoctorListReport.events({
 Template.dental_sharedDoctorListReportGen.helpers({
     data: function () {
         var self = this;
-        var data = {
-            title: {},
-            header: [],
-            content: [],
-            footer: [],
-            deposit: []
-        };
+        var callId = JSON.stringify(self);
+        var call = Meteor.callAsync(callId, 'dental_sharedDoctor', self);
 
-        /********* Title *********/
-        var company = Cpanel.Collection.Company.findOne();
-        data.title = {
-            company: company,
-            date: self.date
-        };
-
-        /********* Header ********/
-
-        console.log(self.patient);
-
-        var branch;
-        //var patientDoc = Dental.Collection.Patient.findOne(self.patient);
-
-        if (self.branchId != "") {
-            branch = self.branchId;
-        } else {
-            branch = "All";
+        if (!call.ready()) {
+            return false;
         }
-        //console.log(JSON.stringify(patientDoc));
+        return call.result();
 
-        data.header = [
-            //{col1: 'Patient ID: ' + self.patient, col2: 'Patient Name: ' + patientDoc.name,
-            {col1: 'Branch: ' + branch}
-            //{col1: 'Name: ', col2: 'Age: ' , col3: 'Date: ' + self.date},
-        ];
-
-        /********** Content & Footer **********/
-        var content = [];
-
-        var selector = {};
-        var date = self.date.split(" To ");
-        var fromDate = moment(date[0] + " 00:00:00").format("YYYY-MM-DD HH:mm:ss");
-        var toDate = moment(date[1] + " 23:59:59").format("YYYY-MM-DD HH:mm:ss");
-        if (fromDate != null && toDate != null) selector.paymentDate = {$gte: fromDate, $lte: toDate};
-        //if (fromDate != null && toDate != null) selector.disease.item;
-        if (self.branchId != "") selector.branchId = self.branchId;
-
-        // Get Payment
-        var getPayment = Dental.Collection.Payment.find(selector);
-
-        var totalDisease = 0;
-        var index = 1;
-        var doctorList = [];
-
-        if (!_.isUndefined(getPayment)) {
-            getPayment.forEach(function (obj) {
-                obj.index = index;
-
-                //Loop Doctor
-                obj._invoice.doctorShare.forEach(function (objDoctor) {
-                    if (objDoctor != null) {
-                        objDoctor.name = Dental.Collection.Doctor.findOne(objDoctor.doctor).name;
-                        doctorList.push(objDoctor);
-                    }
-                });
-
-            });
-        }
-
-        console.log(doctorList);
-
-        //var result = [];
-        //diseaseList.reduce(function (key, val) {
-        //    if (!key[val.item]) {//val.itemId
-        //        key[val.item] = {//=group by
-        //            qty: 0,
-        //            name: val.name,
-        //            item: val.item,
-        //            price: val.price,
-        //            amount: val.amount,
-        //            index: index
-        //        };
-        //        index++;
-        //        result.push(key[val.item]);
-        //    } else {
-        //        key[val.item].amount += val.amount;
-        //    }
-        //    key[val.item].qty += val.qty;
-        //    totalDisease += val.qty;
-        //
-        //    return key;
-        //
-        //}, {});
-
-        if (content.length > 0) {
-            data.content = content;
-            //data.footer = [
-            //    {col1: 'Subtotal:', col2: numeral(getQuotation.subtotal).format('$0,0.00')},
-            //    {col1: 'Discount:', col2: numeral(getQuotation.subDiscount).format('0,0.00')},
-            //    {col1: 'Total:', col2: numeral(getQuotation.total).format('$0,0.00')}
-            //];
-
-            return data;
-        } else {
-            data.content.push({index: 'no results'});
-            return data;
-        }
     }
 });

@@ -1,41 +1,5 @@
-<!--Form-->
-<template name="dental_quotationReport">
-    {{#autoForm schema=Dental.Schema.QuotationReport id="dental_quotationReport" action="quotationReportGen" target="_blank"}}
-        <div class="row">
-            <div class="col-md-6">
-                {{> afQuickField name='patient' class="patientId"}}
-                {{> afQuickField name='quotation'}}
-            </div>
-            <div class="col-md-6">
-                {{> afQuickField name='date'}}
-
-                <!--{{> afQuickField name='exchange'}}-->
-                <!--<div class="form-group{{#if afFieldIsInvalid name='exchange'}} has-error{{/if}}" data-required="true">-->
-                <!--<label class="control-label" for="exchange">Exchange</label>-->
-
-                <!--<div class="input-group select2-bootstrap-append">-->
-                <!--{{> afFieldInput name='exchange'}}-->
-                <!--<span class="input-group-addon">-->
-                <!--<a href="#" class="exchangeAddon">-->
-                <!--{{fa "plus"}}-->
-                <!--</a>-->
-                <!--</span>-->
-                <!--</div>-->
-                    <!--{{#if afFieldIsInvalid name='exchange'}}-->
-                <!--<span class="help-block">{{afFieldMessage name='exchange'}}</span>-->
-                    <!--{{/if}}-->
-                <!--</div>-->
-
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>
-        <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
-    {{/autoForm}}
-</template>
-
-
 <!--Generate-->
-<template name="dental_quotationReportGen">
+<template name="dental_purchaseReportGen">
     {{#if data}}
         {{#with data}}
             <!--Title-->
@@ -43,7 +7,7 @@
                 <span class="report-company-name"
                       style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
                 <span class="report-company-name">{{title.company.enName}}</span><br>
-                <u>សម្រង់ (Quotation)</u><br>
+                <u>ការទិញ (Purchase)</u><br>
                 {{title.company.khAddress}}, {{title.company.telephone}}
             </div>
 
@@ -52,17 +16,16 @@
                 {{#with header}}
                     <div style="width: 50%; padding-top: 12px; float: left;">
                         <ul class="list-unstyled">
-                            <li><strong>លេខកូដអ្នកជំងឺ :</strong> {{patientId}}</li>
-                            <li><strong>ឈ្មោះ :</strong> {{_patient.name}}</li>
-                            <li><strong>ភេទ :</strong> {{_patient.gender}}</li>
-                            <li><strong>អាយុ :</strong> {{_patient.age}}</li>
+                            <li><strong>លេខកូដគ្រូពេទ្យ : </strong> {{supplierId}}</li>
+                            <li><strong>ឈ្មោះ : </strong>{{_supplier.name}}</li>
+                            <li><strong>លេខទូរស័ព្ទ : </strong> {{_supplier.telephone}}</li>
+                            <li><strong>អាស័យដ្ធាន : </strong> {{_supplier.address}}</li>
                         </ul>
                     </div>
                     <div style="width: 50%; padding-top: 12px; float: left;">
                         <ul class="list-unstyled">
-                            <li><strong>លេខកូដសម្រង់ :</strong> {{_id}}</li>
-                            <li><strong>កាលបរិច្ឆេទសម្រង់ : </strong> {{quotationDate}}</li>
-                            <li><strong>ពិពណ៌នា :</strong> {{des}}</li>
+                            <li><strong>លេខកូដ :</strong> {{_id}}</li>
+                            <li><strong>កាលបរិច្ឆេទ​ : </strong> {{purchaseDate}}</li>
                             <li><strong>អាត្រាប្តូរប្រាក់ :</strong> {{exchange}}</li>
                         </ul>
                     </div>
@@ -77,7 +40,6 @@
                     <th>បរិយាយ</th>
                     <th>ចំនួន</th>
                     <th>តម្លៃ</th>
-                    <th>បញ្ចុះតម្លៃរាយ</th>
                     <th>ទឹកប្រាក់</th>
                 </tr>
                 </thead>
@@ -89,7 +51,6 @@
                         <td>{{itemName}}</td>
                         <td>{{qty}}</td>
                         <td>{{price}}</td>
-                        <td>{{discount}}</td>
                         <td>{{amount}}</td>
                     </tr>
                 {{/each}}
@@ -100,12 +61,6 @@
             <div style="width: 50%; float: right; margin-top: 20px">
                 {{#with footer}}
                     <ul class="list-unstyled text-right">
-                        <li>
-                            <strong>ទឹកប្រាក់សរុប :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subtotal}}
-                        </li>
-                        <li>
-                            <strong>ទឹកប្រាក់កក់ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}
-                        </li>
                         <li>
                             <strong>ទឹកប្រាក់បង់(ដុល្លា) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
                         </li>

@@ -36,6 +36,11 @@ Template.dental_materialCost.events({
     },
     'click .show': function () {
         alertify.alert(fa("eye", "Material Cost"), renderTemplate(Template.dental_materialCostShow, this));
+    },
+    'click .materialCostPrintAction': function () {
+        var q = 'doctor=' + this.doctorId + '&materialCost=' + this._id;
+        var url = 'materialCostReportGen?' + q;
+        window.open(url);
     }
 });
 
