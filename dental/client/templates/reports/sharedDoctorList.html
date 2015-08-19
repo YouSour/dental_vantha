@@ -18,64 +18,76 @@
 
 <!--Generate-->
 <template name="dental_sharedDoctorListReportGen">
-    {{#with data}}
-        <!--Title-->
-        <div class="report-title">
-            <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-            <span class="report-company-name">{{title.company.enName}}</span><br>
-            Date: {{title.date}}<br>
-            <u>Shared Doctor Report</u><br>
-            {{title.company.khAddress}}, {{title.company.telephone}}
-        </div>
+    <!--{{#if data}}{-->
+        {{#with data}}
+            <!--Title-->
+            <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                <span class="report-company-name">{{title.company.enName}}</span><br>
+                Date: {{title.date}}<br>
+                <u>Shared Doctor Report</u><br>
+                {{title.company.khAddress}}, {{title.company.telephone}}
+            </div>
 
-        <!--Header-->
-        <table width="100%" border="0">
-            {{#each header}}
+            <!--Header-->
+            <table width="100%" border="0">
+                {{#each header}}
+                    <tr>
+                        <td width="33%">{{col1}}</td>
+                        <!--<td width="33%">{{col2}}</td>-->
+                        <!--<td>{{col3}}</td>-->
+                    </tr>
+                {{/each}}
+            </table>
+
+            <!--Content-->
+
+            <table class="report-content">
+                <thead class="report-content-header">
                 <tr>
-                    <td width="33%">{{col1}}</td>
-                    <td width="33%">{{col2}}</td>
-                    <td>{{col3}}</td>
+                    <th>Register ID</th>
+                    <th>Register Date</th>
+                    <th>Patient</th>
+                    <th>Sub Total</th>
+                    <th>Deposit</th>
+                    <th>Total</th>
+                    <th>Closed Date</th>
+                    <th>Shared Amount</th>
                 </tr>
-            {{/each}}
-        </table>
+                </thead>
 
-        <!--Content-->
-
-        <table class="report-content">
-            <thead class="report-content-header">
-            <tr>
-                <th>N<sup>o</sup></th>
-                <th>Paid Date</th>
-                <th>Invoice ID</th>
-                <th>Date</th>
-                <th>Patient</th>
-                <th>Amount Paid</th>
-                <th>Note</th>
-                <!--<th>Number</th>-->
-            </tr>
-            </thead>
-
-            <tbody class="report-content-body">
-            {{#each content}}
-                <tr>
-                    <td>{{index}}</td>
-                    <td>{{_id}}</td>
-                    <td>{{name}}</td>
-                    <td>{{name}}</td>
-                    <td>{{name}}</td>
-                    <td>{{name}}</td>
-                    <td>{{name}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
+                <tbody class="report-content-body">
+                {{#each content}}
+                    {{#if isHeader}}
+                        <tr>
+                            <td colspan='7'>{{doctorId}}</td>
+                            <td>{{totalAmount}}</td>
+                        </tr>
+                    {{else}}
+                        <tr>
+                            <td>{{registerId}}</td>
+                            <td>{{date}}</td>
+                            <td>{{patient}}</td>
+                            <td>{{subTotal}}</td>
+                            <td>{{deposit}}</td>
+                            <td>{{totalDue}}</td>
+                            <td>{{closedDate}}</td>
+                            <td>{{amount}}</td>
+                        </tr>
+                    {{/if}}
+                {{/each}}
+                </tbody>
+            </table>
 
 
-        <!--Footer-->
-        <p></p>
+            <!--Footer-->
+            <p></p>
 
-    {{/with}}
+        {{/with}}
 
-    <!--Sign-->
-
+        <!--Sign-->
+    <!--{{else}}-->
+        <!--{{> loading}}-->
+    <!--{{/if}}-->
 </template>

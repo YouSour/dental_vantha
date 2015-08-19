@@ -4,7 +4,7 @@ Dental.TabularTable.MaterialCost = new Tabular.Table({
     columns: [
         {
             title: "<i class='fa fa-bars'></i>",
-            tmpl: Meteor.isClient && Template.dental_purchaseAction
+            tmpl: Meteor.isClient && Template.dental_materialCostAction
         },
         {data: "_id", title: "ID"},
         {

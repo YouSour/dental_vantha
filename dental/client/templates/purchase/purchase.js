@@ -36,6 +36,11 @@ Template.dental_purchase.events({
     },
     'click .show': function () {
         alertify.alert(fa("eye", "Purchase"), renderTemplate(Template.dental_purchaseShow, this));
+    },
+    'click .purchasePrintAction': function () {
+        var q = 'supplier=' + this.supplierId + '&purchase=' + this._id;
+        var url = 'purchaseReportGen?' + q;
+        window.open(url);
     }
 });
 
