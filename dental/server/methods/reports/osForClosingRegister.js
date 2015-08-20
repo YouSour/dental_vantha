@@ -56,6 +56,7 @@ Meteor.methods({
         // Sub total
         var grandTotalUsd = 0;
         var grandTotalKhr = 0;
+        var grandTotalThb = 0;
 
         if (!_.isUndefined(getRegister)) {
             getRegister.forEach(function (obj) {
@@ -85,6 +86,7 @@ Meteor.methods({
                     //Grand Total USD
                     grandTotalUsd += math.round(paymentBalance);
                     grandTotalKhr += math.round(paymentBalance * exchange.rates.KHR);
+                    grandTotalThb += math.round(paymentBalance * exchange.rates.THB);
 
                     content.push(obj);
 
@@ -95,6 +97,7 @@ Meteor.methods({
 
         data.footer.grandTotalUsd = numeral(grandTotalUsd).format('0,0.00');
         data.footer.grandTotalKhr = numeral(grandTotalKhr).format('0,0.00');
+        data.footer.grandTotalThb = numeral(grandTotalThb).format('0,0.00');
 
         if (content.length > 0) {
             data.content = content;

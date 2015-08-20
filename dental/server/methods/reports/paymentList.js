@@ -69,6 +69,10 @@ Meteor.methods({
         var grandTotalDueAmountKhr = 0;
         var grandTotalPaidAmountKhr = 0;
         var grandTotalBalanceKhr = 0;
+        //Grand Total THB
+        var grandTotalDueAmountThb = 0;
+        var grandTotalPaidAmountThb = 0;
+        var grandTotalBalanceThb = 0;
 
         if (!_.isUndefined(getPayment)) {
             getPayment.forEach(function (obj) {
@@ -92,6 +96,11 @@ Meteor.methods({
                 grandTotalPaidAmountKhr += Math.round(obj.paidAmount * exchange.rates.KHR);
                 grandTotalBalanceKhr += Math.round(obj.balance * exchange.rates.KHR);
 
+                //Grand Total THB
+                grandTotalDueAmountThb += Math.round(obj.dueAmount * exchange.rates.THB);
+                grandTotalPaidAmountThb += Math.round(obj.paidAmount * exchange.rates.THB);
+                grandTotalBalanceThb += Math.round(obj.balance * exchange.rates.THB);
+
             });
         }
 
@@ -102,6 +111,10 @@ Meteor.methods({
         data.footer.totalDueAmountKhr = numeral(grandTotalDueAmountKhr).format('0,0.00');
         data.footer.totalPaidAmountKhr = numeral(grandTotalPaidAmountKhr).format('0,0.00');
         data.footer.totalBalanceKhr = numeral(grandTotalBalanceKhr).format('0,0.00');
+
+        data.footer.totalDueAmountThb = numeral(grandTotalDueAmountThb).format('0,0.00');
+        data.footer.totalPaidAmountThb = numeral(grandTotalPaidAmountThb).format('0,0.00');
+        data.footer.totalBalanceThb = numeral(grandTotalBalanceThb).format('0,0.00');
 
         if (content.length > 0) {
             data.content = content;

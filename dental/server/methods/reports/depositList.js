@@ -53,6 +53,8 @@ Meteor.methods({
         var grandTotalUsd = 0;
         //Grand Total KHR
         var grandTotalKhr = 0;
+        //Grand Total THB
+        var grandTotalThb = 0;
 
         if (!_.isUndefined(getDeposit)) {
             getDeposit.forEach(function (obj) {
@@ -67,12 +69,16 @@ Meteor.methods({
                 //Grand Total KHR
                 grandTotalKhr += Math.round(obj.amount * exchange.rates.KHR);
 
+                //Grand Total THB
+                grandTotalThb += Math.round(obj.amount * exchange.rates.THB);
+
                 index += 1;
             });
         }
 
         data.footer.grandTotalUsd = numeral(grandTotalUsd).format('0,0.00');
         data.footer.grandTotalKhr = numeral(grandTotalKhr).format('0,0.00');
+        data.footer.grandTotalThb = numeral(grandTotalThb).format('0,0.00');
 
         if (content.length > 0) {
             data.content = content;
