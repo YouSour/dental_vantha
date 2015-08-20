@@ -74,28 +74,6 @@
 <template name="dental_registerInsert">
     {{#autoForm collection=Dental.Collection.Register id="dental_registerInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
         <div class="row">
-            <div class="col-md-9">
-                <!--Disease Item-->
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <!--Doctor Share-->
-                        {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
-                    </div>
-                    <div class="col-sm-6">
-                        <!--Labo Expense-->
-                        {{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}
-                    </div>
-                </div>
-
-                <div class="text-right">
-                    <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
-                    <button type="submit" class="btn btn-primary" id="saveAndPrint">{{fa "floppy-o"}} Save & Print</button>
-                    <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
-                </div>
-            </div>
-
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">Register Info</div>
@@ -124,15 +102,6 @@
                 </div>
             </div>
 
-        </div>
-    {{/autoForm}}
-</template>
-
-<!--Update-->
-
-<template name="dental_registerUpdate">
-    {{#autoForm collection=Dental.Collection.Register id="dental_registerUpdate" doc=this type="update" afFieldInput-placeholder="schemaLabel"}}
-        <div class="row">
             <div class="col-md-9">
                 <!--Disease Item-->
                 {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
@@ -149,11 +118,21 @@
                 </div>
 
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Update</button>
+                    <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
+                    <button type="submit" class="btn btn-primary" id="saveAndPrint">{{fa "floppy-o"}} Save & Print</button>
                     <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
                 </div>
             </div>
 
+        </div>
+    {{/autoForm}}
+</template>
+
+<!--Update-->
+
+<template name="dental_registerUpdate">
+    {{#autoForm collection=Dental.Collection.Register id="dental_registerUpdate" doc=this type="update" afFieldInput-placeholder="schemaLabel"}}
+        <div class="row">
             <div class="col-md-3">
                 <!-- Register info-->
                 <div class="panel panel-default">
@@ -184,6 +163,28 @@
                 {{> dental_appointmentInfo registerId=_id}}
                 {{> dental_depositInfo registerId=_id}}
             </div>
+            
+            <div class="col-md-9">
+                <!--Disease Item-->
+                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!--Doctor Share-->
+                        {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
+                    </div>
+                    <div class="col-sm-6">
+                        <!--Labo Expense-->
+                        {{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Update</button>
+                    <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+                </div>
+            </div>
+
         </div>
     {{/autoForm}}
 </template>
