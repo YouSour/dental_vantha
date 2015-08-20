@@ -2,7 +2,7 @@ Router.route('dental/paymentListReport', function () {
     this.render('dental_paymentListReport');
 }, {
     name: 'dental.paymentListReport',
-    title: "Quotation List Report",
+    title: "Payment List Report",
     header: {title: 'Payment Report', sub: '', icon: 'file-text-o'},
     breadcrumb: {title: 'Payment Report', parent: 'dental.home'}
 });
