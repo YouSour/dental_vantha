@@ -91,6 +91,7 @@ Meteor.methods({
                 detailObj.patient = obj.patientId + ' : ' + obj._patient.name + ' (' + obj._patient.gender + ')';
                 detailObj.subTotal = obj.subTotal;
                 detailObj.deposit = obj.deposit;
+                detailObj.subDiscount = obj.subDiscount;
                 detailObj.totalDue = obj.total;
                 detailObj.closedDate = obj.closingDate;
                 obj.doctorShare.forEach(function (ob) {
