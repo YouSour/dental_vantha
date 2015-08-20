@@ -2,7 +2,7 @@ Router.route('dental/activeRegisterListReport', function () {
     this.render('dental_activeRegisterListReport');
 }, {
     name: 'dental.activeRegisterListReport',
-    title: "Active Register  List Report",
+    title: "Active Register List Report",
     header: {title: 'Active Register Report', sub: '', icon: 'file-text-o'},
     breadcrumb: {title: 'Active Register Report', parent: 'dental.home'}
 });

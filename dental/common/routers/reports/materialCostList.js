@@ -2,7 +2,7 @@ Router.route('dental/materialCostListReport', function () {
     this.render('dental_materialCostListReport');
 }, {
     name: 'dental.materialCostListReport',
-    title: "Material Cost Report",
+    title: "Material Cost List Report",
     header: {title: 'Material Cost Report', sub: '', icon: 'file-text-o'},
     breadcrumb: {title: 'Material Cost Report', parent: 'dental.home'}
 });
