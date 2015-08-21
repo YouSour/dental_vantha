@@ -279,7 +279,7 @@ function checkEventKeyupAndClick(e){
  */
 function calculateTotal() {
     var total = 0;
-    $('.amount').each(function () {
+    $('#purchase .amount').each(function () {
         var amount = $(this).val() == "" ? 0 : parseFloat($(this).val());
         total += amount;
     });

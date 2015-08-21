@@ -174,6 +174,7 @@ Template.dental_registerInsert.onRendered(function () {
     datepicker();
     statusAutoSelected();
     $('.btnAdd').attr('disabled', "disabled");
+
 });
 
 Template.dental_registerInsert.helpers({});
@@ -319,7 +320,7 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
         // Cal footer
         calculateTotal();
     },
-    'keyup [name="subDiscount"]': function (e, t) {
+    'keyup #subDiscountRegister, click #subDiscountRegister': function (e, t) {
         // Cal footer
         calculateTotal();
     }
@@ -476,7 +477,7 @@ function CalculateTotalAndAmount(e) {
 function calculateTotal() {
     // Cal subtotal by items amount
     var subtotal = math.round(0, 2);
-    $('.amount').each(function () {
+    $('#register .amount').each(function () {
         var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
         subtotal += amount;
     });
@@ -486,7 +487,7 @@ function calculateTotal() {
 
     // Cal total after deposit and sub discount
     var deposit = _.isEmpty($('[name="deposit"]').val()) ? 0 : parseFloat($('[name="deposit"]').val());
-    var subDiscount = _.isEmpty($('[name="subDiscount"]').val()) ? 0 : parseFloat($('[name="subDiscount"]').val());
+    var subDiscount = _.isEmpty($('#subDiscountRegister').val()) ? 0 : parseFloat($('#subDiscountRegister').val());
 
     subDiscount = math.round((subtotal - deposit) - subDiscount, 2);
 
@@ -494,7 +495,7 @@ function calculateTotal() {
 
 
     // Set value on total
-    $('[name="total"]').val(total);
+    $('#totalRegister').val(total);
 
     // Set value on total animate
     var decimal_places = 2;

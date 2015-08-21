@@ -129,7 +129,7 @@ Template.dental_quotationInsert.events({
         // Cal footer
         calculateTotal();
     },
-    'keyup [name="subDiscount"]': function (e, t) {
+    'keyup #subDiscount, click #subDiscount': function (e, t) {
         // Cal footer
         calculateTotal();
     }
@@ -209,7 +209,7 @@ Template.dental_quotationUpdate.events({
         // Cal footer
         calculateTotal();
     },
-    'keyup [name="subDiscount"]': function (e, t) {
+    'keyup #subDiscount, click #subDiscount': function (e, t) {
         // Cal footer
         calculateTotal();
     }
@@ -320,7 +320,7 @@ function CalculateTotalAndAmount(e) {
 function calculateTotal() {
     // Cal subtotal by items amount
     var subtotal = 0;
-    $('.amount').each(function () {
+    $('#quotation .amount').each(function () {
         var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
         subtotal += amount;
     });
@@ -330,14 +330,14 @@ function calculateTotal() {
 
     // Cal total after deposit and sub discount
     var deposit = _.isEmpty($('[name="deposit"]').val()) ? 0 : parseFloat($('[name="deposit"]').val());
-    var subDiscount = _.isEmpty($('[name="subDiscount"]').val()) ? 0 : parseFloat($('[name="subDiscount"]').val());
+    var subDiscount = _.isEmpty($('#subDiscount').val()) ? 0 : parseFloat($('#subDiscount').val());
 
     subDiscount = math.round((subtotal - deposit) - subDiscount, 2);
 
     var total = math.round(subDiscount, 2);
 
     // Set value on total
-    $('[name="total"]').val(total);
+    $('#total').val(total);
 
     // Set value on total animate
     var decimal_places = 2;
