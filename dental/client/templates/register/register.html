@@ -304,7 +304,7 @@
             {{/if}}
 
             {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
-                <div class="row array-item">
+                <div class="row array-item" id="register">
                     <div class="col-sm-1">
                         {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
                             <button type="button" class="btn btn-sm btn-danger autoform-remove-item btnRemove">
@@ -346,11 +346,11 @@
                 </div>
                 <!--Sub Discount-->
                 <div class="col-sm-2">
-                    {{> afQuickField name='subDiscount' template="bootstrap3" class="input-sm"}}
+                    {{> afQuickField name='subDiscount' id="subDiscountRegister" template="bootstrap3" class="input-sm"}}
                 </div>
                 <!--Total-->
                 <div class="col-sm-3">
-                    {{> afQuickField name='total' readonly="true" template="bootstrap3" class="input-sm"}}
+                    {{> afQuickField name='total' readonly="true" id="totalRegister" template="bootstrap3" class="input-sm"}}
                     <!--<p class="bg-primary"><strong class="total">0</strong></p>-->
                 </div>
             </div>

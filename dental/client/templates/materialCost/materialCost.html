@@ -149,7 +149,7 @@
             {{/if}}
 
             {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
-                <div class="row array-item">
+                <div class="row array-item" id="materialCost">
                     <div class="col-sm-1">
                         {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
                             <button type="button" class="btn btn-sm btn-danger autoform-remove-item btnRemove">
