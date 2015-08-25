@@ -51,6 +51,7 @@
                     <th>Deposit</th>
                     <th>Sub Discount</th>
                     <th>Total</th>
+                    <th>Paid Amount</th>
                     <th>Closed Date</th>
                     <th>Shared Amount</th>
                 </tr>
@@ -60,7 +61,7 @@
                 {{#each content}}
                     {{#if isHeader}}
                         <tr>
-                            <td colspan='8'><b>{{doctorId}}</b></td>
+                            <td colspan='9'><b>{{doctorId}}</b></td>
                             <td><b>{{totalAmount}}</b></td>
                         </tr>
                     {{else}}
@@ -72,6 +73,7 @@
                             <td>{{deposit}}</td>
                             <td>{{subDiscount}}</td>
                             <td>{{totalDue}}</td>
+                            <td>{{paidAmount}}</td>
                             <td>{{closedDate}}</td>
                             <td>{{amount}}</td>
                         </tr>

@@ -85,6 +85,7 @@ Meteor.methods({
             results.forEach(function (obj) {
                 var detailObj = {};
                 var totalAmount = 0;
+                var paidAmount = 0;
 
                 detailObj.registerId = obj._id;
                 detailObj.date = obj.registerDate;
@@ -93,6 +94,12 @@ Meteor.methods({
                 detailObj.deposit = obj.deposit;
                 detailObj.subDiscount = obj.subDiscount;
                 detailObj.totalDue = obj.total;
+
+                Dental.Collection.Payment.find({registerId:obj._id}).forEach(function(obj){
+                    paidAmount = obj.balance;
+                });
+                detailObj.paidAmount = obj.total - paidAmount;
+
                 detailObj.closedDate = obj.closingDate;
                 obj.doctorShare.forEach(function (ob) {
                     if (ob.doctor == doctorObj._id.doctorId) {
