@@ -71,7 +71,7 @@ Meteor.methods({
                 obj.patientGender = obj._patient.name + " (" + obj._patient.gender + ")";
                 obj.subTotalFm = numeral(obj.subTotal).format('0,0.00');
                 obj.subDiscountFm = numeral(obj.subDiscount).format('0,0.00');
-                obj.depositFm = numeral(obj.depositFm).format('0,0.00');
+                obj.depositFm = numeral(obj.deposit).format('0,0.00');
                 //obj.depositFm = numeral(totalDep).format('0,0.00');
                 //obj.total = math.round(obj.subTotal - (obj.subDiscount + totalDep));
                 obj.totalFm = numeral(obj.total).format('0,0.00');
