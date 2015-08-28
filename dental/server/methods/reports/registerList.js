@@ -55,6 +55,14 @@ Meteor.methods({
                 obj.index = index;
                 obj.patient = obj._patient.name + " (" + obj._patient.gender + ")";
 
+                if(!_.isUndefined(obj._patient.age)) {obj.age = obj._patient.age;}else{obj.age = "None";}
+
+                if(!_.isUndefined(obj._patient.address)) {obj.address = obj._patient.address;}else{obj.address = "None";}
+
+                if(!_.isUndefined(obj._patient.telephone)) {obj.telephone = obj._patient.telephone;}else{obj.telephone = "None";}
+
+                if(!_.isUndefined(obj.des)) {obj.description = obj.des;}else{obj.description = "None";}
+
                 content.push(obj);
 
                 index += 1;

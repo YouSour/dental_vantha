@@ -52,6 +52,7 @@
                     <th>Patient ID</th>
                     <th>Patient</th>
                     <th>Age</th>
+                    <th>Telephone</th>
                     <th>Closing Date</th>
                     <th>Due Amount</th>
                     <th>Paid Amount</th>
@@ -67,7 +68,8 @@
                         <td>{{registerDate}}</td>
                         <td>{{patientId}}</td>
                         <td>{{patientGender}}</td>
-                        <td>{{_patient.age}}</td>
+                        <td>{{age}}</td>
+                        <td>{{telephone}}</td>
                         <td>{{closingDate}}</td>
                         <td>{{totalFm}}</td>
                         <td>{{totalDueFm}}</td>
@@ -76,21 +78,21 @@
                 {{/each}}
 
                 <tr>
-                    <td colspan="9" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                    <td colspan="10" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                         <b>Grand Total USD</b>
                     </td>
                     <td>{{footer.grandTotalUsd}}</td>
                 </tr>
 
                 <tr>
-                    <td colspan="9" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                    <td colspan="10" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                         <b>KHR</b>
                     </td>
                     <td>{{footer.grandTotalKhr}}</td>
                 </tr>
 
                 <tr>
-                    <td colspan="9" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                    <td colspan="10" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                         <b>THB</b>
                     </td>
                     <td>{{footer.grandTotalThb}}</td>

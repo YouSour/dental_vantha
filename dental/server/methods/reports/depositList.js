@@ -60,9 +60,15 @@ Meteor.methods({
             getDeposit.forEach(function (obj) {
                 obj.index = index;
                 obj.patient = obj._register._patient.name + " (" + obj._register._patient.gender + ")";
+
+                if(!_.isUndefined(obj._register._patient.age)) {obj.age = obj._register._patient.age;}else{obj.age = "None";}
+
+                if(!_.isUndefined(obj._register.des)) {obj.des = obj._register.des;}else{obj.des = "None";}
+
                 content.push(obj);
 
                 obj.amount = numeral(obj.amount).format('0,0.00');
+
                 //Grand Total USD
                 grandTotalUsd += Math.round(obj.amount * exchange.rates.USD);
 

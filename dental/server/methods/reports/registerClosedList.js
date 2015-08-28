@@ -19,8 +19,6 @@ Meteor.methods({
 
         /********* Header ********/
 
-        console.log(self.patient);
-
         var branch;
 
         var branchDoc = Cpanel.Collection.Branch.findOne({_id: self.branchId});
@@ -54,7 +52,10 @@ Meteor.methods({
             getRegister.forEach(function (obj) {
                 obj.index = index;
                 obj.patient = obj._patient.name + " (" + obj._patient.gender + ")";
-                obj.totalDue = numeral(obj.total).format('0,0.00');
+
+                if (!_.isUndefined(obj._patient.age)) {obj.age = obj._patient.age;} else {obj.age = "None";}
+
+                if (!_.isUndefined(obj._patient.telephone)) {obj.telephone = obj._patient.telephone;} else {obj.telephone = "None";}
 
                 content.push(obj);
 

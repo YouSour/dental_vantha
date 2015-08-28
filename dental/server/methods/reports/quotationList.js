@@ -62,6 +62,8 @@ Meteor.methods({
                 obj.patient = obj._patient.name + " ("+obj._patient.gender+")";
                 obj.total = numeral(obj.total).format('0,0.00');
 
+                if(!_.isUndefined(obj._patient.age)) {obj.age = obj._patient.age;}else{obj.age = "None";}
+
                 content.push(obj);
 
                 index += 1;
