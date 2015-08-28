@@ -55,11 +55,9 @@ Meteor.methods({
                 obj.doctor = obj._doctor.name + " (" + obj._doctor.gender + ")";
                 obj.patient = obj._register._patient.name + " (" + obj._register._patient.gender + ")";
 
-                if(!_.isUndefined(obj._register._patient.telephone)) {
-                    obj.telephone = obj._register._patient.telephone;
-                }else{
-                    obj.telephone = "None";
-                }
+                if(!_.isUndefined(obj._register.des)) {obj.description = obj._register.des;}else{obj.description = "None";}
+
+                if(!_.isUndefined(obj._register._patient.telephone)) {obj.telephone = obj._register._patient.telephone;}else{obj.telephone = "None";}
 
                 content.push(obj);
 

@@ -78,6 +78,10 @@ Meteor.methods({
                     obj.patientGender = obj._patient.name + " (" + obj._patient.gender + ")";
                     obj.lastPaidDate = paymentDate;
 
+                    if(!_.isUndefined(obj._patient.age)){obj.age = obj._patient.age;}else{obj.age = "None";}
+
+                    if(!_.isUndefined(obj._patient.telephone)){obj.telephone = obj._patient.telephone;}else{obj.telephone = "None";}
+
                     var dueAmount = math.round(obj.total - paymentBalance);
                     obj.totalFm = numeral(obj.total).format('0,0.00');
                     obj.totalDueFm = numeral(dueAmount).format('0,0.00');
