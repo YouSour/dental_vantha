@@ -1,0 +1,125 @@
+<!--Generate-->
+<template name="dental_specialPaymentReportGen">
+<!--{{#if data}}-->
+    {{#with data}}
+        <!--Title-->
+        <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+            <span class="report-company-name">{{title.company.enName}}</span><br>
+            <u> វិក្កយបត្រ (Special Payment)</u><br>
+            {{title.company.khAddress}}, {{title.company.telephone}}
+        </div>
+
+        <!--Header-->
+        <div style="width: 100%">
+            {{#with header}}
+                <div style="width: 50%; padding-top: 12px; float: left;">
+                    <ul class="list-unstyled">
+                        <li><strong>លេខកូដអ្នកជំងឺ :</strong> {{patientId}}</li>
+                        <li><strong>ឈ្មោះ :</strong> {{_patient.name}}</li>
+                        <li><strong>ភេទ :</strong> {{_patient.gender}}</li>
+                        <li><strong>អាយុ :</strong> {{_patient.age}}</li>
+                    </ul>
+                </div>
+                <div style="width: 50%; padding-top: 12px; float: right;">
+                    <ul class="list-unstyled">
+                        <li><strong>លេខកូដចុះឈ្មោះ : </strong> {{specialRegisterId}}</li>
+                        <li><strong>កាលបរិច្ឆេទចុះឈ្មោះ : </strong> {{_specialRegister.registerDate}}</li>
+                        <li><strong>ពិពណ៌នា :</strong> {{_specialRegister.des}}</li>
+                        <li><strong>អាត្រាប្តូរប្រាក់ :</strong> {{exchange}}</li>
+                    </ul>
+                </div>
+            {{/with}}
+        </div>
+
+        <!--Content-->
+        <table class="report-content">
+            <thead class="report-content-header">
+            <tr>
+                <th>ល.រ</th>
+                <th>បរិយាយ</th>
+                <th>ចំនួន</th>
+                <th>តម្លៃ</th>
+                <th>បញ្ចុះតម្លៃរាយ</th>
+                <th>ទឹកប្រាក់</th>
+            </tr>
+            </thead>
+
+            <tbody class="report-content-body">
+            {{#each content}}
+                <tr>
+                    <td>{{index}}</td>
+                    <td>{{itemName}}</td>
+                    <td>{{qty}}</td>
+                    <td>{{price}}</td>
+                    <td>{{discount}}</td>
+                    <td>{{amount}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+
+        <!--Footer-->
+
+        <div style="width: 100%">
+            <!--Deposit-->
+            <div style="width: 100%; float: left;">
+                <table class="report-content">
+                    <caption>ពត៍មានរប្រៀបនៃការបង់ប្រាក់</caption>
+                    <thead class="report-content-header">
+                    <tr>
+                        <th>ល.រ</th>
+                        <th>កាលបរិច្ឆេទ</th>
+                        <th>ទឹកប្រាក់</th>
+                        <th>កាលបរិច្ឆេទបង់ប្រាក់</th>
+                        <th>ចំនួនទឹកប្រាក់បង់</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="report-content-body">
+                    {{#each paymentMethod}}
+                        <tr>
+                            <td>{{index}}</td>
+                            <td>{{paymentMethodDate}}</td>
+                            <td>{{amount}}</td>
+                            <td>{{paymentDate}}</td>
+                            <td>{{paidAmount}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <div style="width: 50%; float: right; margin-top: 20px">
+        <!--{{#with footer}}-->
+            <!--<ul class="list-unstyled text-right">-->
+            <!--<li>-->
+            <!--<strong>ទឹកប្រាក់សរុប :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subTotal}}-->
+            <!--</li>-->
+            <!--<li><strong>បញ្ចុះតម្លៃ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<strong>ទឹកប្រាក់បង់(ដុល្លារ) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}-->
+            <!--</li>-->
+            <!--<li><strong>ទឹកប្រាក់បង់(រៀល) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalKhr}}-->
+            <!--</li>-->
+            <!--<li><strong>ទឹកប្រាក់បង់(បាត) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalThb}}-->
+            <!--</li>-->
+
+            <!--</ul>-->
+                <!--{{/with}}-->
+        </div>
+    {{/with}}
+
+    <!--Note-->
+    <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">
+        <strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់បង់ មិនអាចយកវិញបានទេ).
+    </div>
+        <!--{{else}}-->
+    <!--{{> loading}}-->
+        <!--{{/if}}-->
+</template>

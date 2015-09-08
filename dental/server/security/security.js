@@ -101,6 +101,13 @@ Dental.Collection.Register.permit(['insert', 'update', 'remove'])
     .apply();
 
 /*
+ *Special Register
+ */
+Dental.Collection.SpecialRegister.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
+
+/*
  *Treatment
  */
 Dental.Collection.Treatment.permit(['insert', 'update', 'remove'])
@@ -128,14 +135,20 @@ Dental.Collection.Purchase.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
 
-/**
+/*
  * Payment
  */
 Dental.Collection.Payment.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
+/*
+ *Special Payment
+ */
+Dental.Collection.SpecialPayment.permit(['insert', 'update', 'remove'])
+    .dental_ifGeneral()
+    .apply();
 
-/**
+/*
  * Quotation
  */
 Dental.Collection.Quotation.permit(['insert', 'update', 'remove'])

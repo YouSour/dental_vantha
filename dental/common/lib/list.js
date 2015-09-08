@@ -208,13 +208,39 @@ Dental.List = {
         return list;
 
     },
+    paymentMethod: function (selectOne) {
+        var list = [];
+
+        if (!_.isEqual(selectOne, false)) {
+            list.push({label: "(Select One)", value: ""});
+        }
+
+        var specialPaymentDoc = Dental.RegisterState.get('data');
+
+        Dental.Collection.SpecialRegister.find({_id:specialPaymentDoc._id}).forEach(function (object) {
+
+            object.paymentMethod.forEach(function (obj) {
+                debugger;
+                var checkingPaymentMethodExist = Dental.Collection.SpecialPayment.findOne({paymentMethod: obj.index , status:"Close"});
+                    if (!checkingPaymentMethodExist) {
+                        list.push({
+                            label: obj.index + ": Date : " + obj.paymentMethodDate + " | Amount : " + obj.amount,
+                            value: obj.index + " | " + obj.amount
+                        });
+                    }
+            });
+        });
+
+        return list;
+
+    },
     register: function (selectOne) {
         var list = [];
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "(Select One)", value: ""});
         }
         var patientId = Dental.ListState.get('patientId');
-        Dental.Collection.Register.find({patientId: patientId,status:"Close"}).forEach(function (obj) {
+        Dental.Collection.Register.find({patientId: patientId, status: "Close"}).forEach(function (obj) {
             var patient = Dental.Collection.Patient.findOne({_id: obj.patientId});
             var payment = Dental.Collection.Payment.findOne({
                     registerId: obj._id,
@@ -244,7 +270,7 @@ Dental.List = {
 
         return list;
     },
-    branchForUser: function (selectOne,userId) {
+    branchForUser: function (selectOne, userId) {
         var list = [];
         if (!_.isEqual(selectOne, false)) {
             list.push({label: "All", value: ""});
@@ -257,12 +283,12 @@ Dental.List = {
             });
         return list;
     },
-    backupAndRestoreTypes:function(){
+    backupAndRestoreTypes: function () {
         return [
-            {value:'',label:'Select One'},
-            {value:'Setting',label:'Setting'},
-            {value:'Default',label:'Default'},
-            {value:'Setting,Default',label:'Setting And Default'}
+            {value: '', label: 'Select One'},
+            {value: 'Setting', label: 'Setting'},
+            {value: 'Default', label: 'Default'},
+            {value: 'Setting,Default', label: 'Setting And Default'}
         ];
     }
 

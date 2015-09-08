@@ -2,18 +2,18 @@
  *
  * @type {Mongo.Collection}
  */
-Dental.Collection.Payment = new Mongo.Collection('dental_payment');
+Dental.Collection.SpecialPayment = new Mongo.Collection('dental_specialPayment');
 
 /**
  *
  * @type {SimpleSchema}
  */
-Dental.Schema.Payment = new SimpleSchema({
-    patientId:{
+Dental.Schema.SpecialPayment = new SimpleSchema({
+    patientId: {
         type: String,
         label: 'Patient'
     },
-    registerId: {
+    specialRegisterId: {
         type: String,
         label: 'Register ID'
     },
@@ -40,6 +40,16 @@ Dental.Schema.Payment = new SimpleSchema({
         //},
         label: 'Payment Date'
     },
+    paymentMethod: {
+        type: Number,
+        label: "Payment Method",
+        autoform: {
+            type: "select2",
+            options: function () {
+                return Dental.List.paymentMethod();
+            }
+        }
+    },
     dueAmount: {
         type: Number,
         decimal: true,
@@ -61,11 +71,16 @@ Dental.Schema.Payment = new SimpleSchema({
         decimal: true,
         label: 'Balance'
     },
-    status: {
+    des: {
         type: String,
-        max: 50,
-        optional: true
+        label: "Description",
+        optional:true
     },
+    //status: {
+    //    type: String,
+    //    max: 50,
+    //    optional: true
+    //},
     branchId: {
         type: String
     }
@@ -74,7 +89,7 @@ Dental.Schema.Payment = new SimpleSchema({
 /**
  * attachSchema
  */
-Dental.Collection.Payment.attachSchema(Dental.Schema.Payment);
+Dental.Collection.SpecialPayment.attachSchema(Dental.Schema.SpecialPayment);
 
 /*
  * Custom Error Message

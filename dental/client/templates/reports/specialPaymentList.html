@@ -1,0 +1,120 @@
+<!--Form-->
+<template name="dental_specialPaymentListReport">
+    {{#autoForm schema=Dental.Schema.SpecialPaymentListReport id="dental_specialPaymentListReport" action="specialPaymentListReportGen" target="_blank"}}
+        <div class="row">
+            <div class="col-md-6">
+                {{> afQuickField name='branchId'}}
+                {{> afQuickField name='staff'}}
+                <!--{{> afQuickField name='status'}}-->
+            </div>
+            <div class="col-md-6">
+                {{> afQuickField name='exchange'}}
+                {{> afQuickField name='date'}}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>
+        <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+    {{/autoForm}}
+</template>
+
+
+<!--Generate-->
+<template name="dental_specialPaymentListReportGen">
+    {{#if data}}
+        {{#with data}}
+            <!--Title-->
+            <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                <span class="report-company-name">{{title.company.enName}}</span><br>
+                Date: {{title.date}}<br>
+                <u>Special Payment Report</u><br>
+                {{title.company.khAddress}}, {{title.company.telephone}}
+            </div>
+
+            <!--Header-->
+            <table width="100%" border="0">
+                {{#each header}}
+                    <tr>
+                        <td width="23%">{{col1}}</td>
+                        <td width="27%">{{col2}}</td>
+                        <td width="27%">{{col3}}</td>
+                        <td style="text-align: right">{{col4}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+
+            <!--Content-->
+
+            <table class="report-content">
+                <thead class="report-content-header">
+                <tr>
+                    <th>N<sup>o</sup></th>
+                    <th>Payment Date</th>
+                    <th>Special Register ID</th>
+                    <th>Patient ID</th>
+                    <th>Patient</th>
+                    <th>Status</th>
+                    <th>Due Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+
+                <tbody class="report-content-body">
+                {{#each content}}
+                    <tr>
+                        <td>{{index}}</td>
+                        <td>{{paymentDate}}</td>
+                        <td>{{specialRegisterId}}</td>
+                        <td>{{patientId}}</td>
+                        <td>{{patient}}</td>
+                        <td>{{status}}</td>
+                        <td class="dueAmount">{{due}}</td>
+                        <td class="paidAmount">{{paid}}</td>
+                        <td class="balance">{{balance}}</td>
+                    </tr>
+                {{/each}}
+
+                <tr>
+                    <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                        <b>Grand
+                            Total USD</b></td>
+
+                    <td>{{footer.totalDueAmountUsd}}</td>
+                    <td>{{footer.totalPaidAmountUsd}}</td>
+                    <td>{{footer.totalBalanceUsd}}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                        <b>KHR</b></td>
+
+                    <td>{{footer.totalDueAmountKhr}}</td>
+                    <td>{{footer.totalPaidAmountKhr}}</td>
+                    <td>{{footer.totalBalanceKhr}}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                        <b>THB</b></td>
+
+                    <td>{{footer.totalDueAmountThb}}</td>
+                    <td>{{footer.totalPaidAmountThb}}</td>
+                    <td>{{footer.totalBalanceThb}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <!--Footer-->
+            <p></p>
+
+        {{/with}}
+
+        <!--Sign-->
+        {{>signFooter}}
+    {{else}}
+        {{> loading}}
+    {{/if}}
+</template>

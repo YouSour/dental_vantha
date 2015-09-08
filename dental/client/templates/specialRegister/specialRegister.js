@@ -15,10 +15,10 @@ Template.dental_specialRegister.onCreated(function () {
     createNewAlertify([
         'register',
         'patientAddon',
+        'doctorAddon',
         'statusAction',
         'treatmentAction',
         'appointmentAction',
-        'depositAction',
         'paymentAction'
     ]);
 });
@@ -141,8 +141,8 @@ Template.dental_specialRegister.events({
         if (this.status == "Close") {
             registerState(this);
             alertify.paymentAction(
-                fa("credit-card", "Payment"),
-                renderTemplate(Template.dental_payment)
+                fa("credit-card", "Special Payment"),
+                renderTemplate(Template.dental_specialPayment)
             ).maximize();
         }
     },
@@ -152,9 +152,9 @@ Template.dental_specialRegister.events({
         var url = 'treatmentReportGen?' + q;
         window.open(url);
     },
-    'click .invoiceReportPrintAction': function () {
+    'click .specialInvoiceReportPrintAction': function () {
         var q = 'patient=' + this.patientId + '&register=' + this._id;
-        var url = 'invoiceReportGen?' + q;
+        var url = 'specialInvoiceReportGen?' + q;
         window.open(url);
     }
 });
@@ -190,9 +190,9 @@ Template.dental_specialRegisterInsert.events({
 
         }
     },
-    'change .patientId':function(e){
+    'change .patientId': function (e) {
         var patient = $(e.currentTarget).val();
-        Session.set('patientId',patient);
+        Session.set('patientId', patient);
 
         var index = 0;
         $('div.array-item').each(function () {
@@ -204,6 +204,9 @@ Template.dental_specialRegisterInsert.events({
     },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    },
+    'click .doctorAddon': function (e, t) {
+        alertify.doctorAddon(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert));
     },
     'click #saveAndPrint': function () {
         Session.set('printInvoice', true);
@@ -234,28 +237,31 @@ Template.dental_specialRegisterUpdate.events({
 
         }
     },
-    'change .patientId':function(e){
+    'change .patientId': function (e) {
         var patient = $(e.currentTarget).val();
-        Session.set('patientId',patient);
+        Session.set('patientId', patient);
 
         var index = 0;
         $('div.array-item').each(function () {
             //clear selectize
             $('select.item')[index].selectize.clear(true);
-            index++
+            index++;
         });
 
     },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
-    }
+    },
+    'click .doctorAddon': function (e, t) {
+        alertify.doctorAddon(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert));
+    },
 
 });
 
 /**
  * Disease Item
  */
-Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
+Template.afArrayField_customArrayFieldInvoiceForSpecialDiseaseItem.events({
     'change .item': function (e, t) {
         var thisObj = $(e.currentTarget);
         var itemId = $(e.currentTarget).val();
@@ -379,6 +385,39 @@ Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
 });
 
 /**
+ * Payment Method
+ */
+Template.afArrayField_customArrayFieldInvoiceForPaymentMethod.events({
+    'click .btnAddForPaymentMethod': function (e, t) {
+        Meteor.setTimeout(function() {
+                datepicker();
+            }
+        ,350);
+
+    },
+    'click .btnRemoveForPaymentMethod': function (e, t) {
+        setTimeout(function () {
+            var enable = true;
+            $('.labo-amount').each(function () {
+                var amount = $(this).val() == "" ? 0 : parseFloat($(this).val());
+                if (amount == 0) {
+                    enable = false;
+                    return false;
+                }
+                enable = true;
+            });
+
+            // Cal footer for payment method
+            calculateTotalForLaboExpense();
+        }, 300);
+    },
+    'keyup .paymentmethod-amount': function (e, t) {
+        // Cal footer for payment method
+        calculateTotalForPaymentMethod();
+    }
+});
+
+/**
  * Hook
  */
 AutoForm.hooks({
@@ -403,8 +442,8 @@ AutoForm.hooks({
 
             //clear selectize
             $('select.item')[0].selectize.clear(true);
-            $('select.doctor')[0].selectize.clear(true);
-            $('select.laboratory')[0].selectize.clear(true);
+            //$('select.doctor')[0].selectize.clear(true);
+            //$('select.laboratory')[0].selectize.clear(true);
 
             var printSession = Session.get('printInvoice');
             var data = Dental.Collection.SpecialRegister.findOne(result);
@@ -414,7 +453,7 @@ AutoForm.hooks({
                 window.open(url);
             }
             Session.set('printInvoice', false);
-            alertify.success("Success");
+            alertify.success('Success');
         },
         onError: function (fromType, error) {
             alertify.error(error.message);
@@ -446,10 +485,11 @@ AutoForm.hooks({
 var datepicker = function () {
     var registerDate = $('[name="registerDate"]');
     var closingDate = $('[name="closingDate"]');
-    var paymentMethodDate = $('[name="paymentMethodDate"]');
+    var paymentMethodDate = $('.paymentMethodDate');
+
+    DateTimePicker.date(paymentMethodDate);
     DateTimePicker.dateTime(registerDate);
     DateTimePicker.dateTime(closingDate);
-    DateTimePicker.dateTime(paymentMethodDate);
 };
 
 /**
@@ -559,14 +599,31 @@ function calculateTotalForLaboExpense() {
     $('[name="laboExpenseTotal"]').val(totalForLaboExpense);
 }
 
+/**
+ * Calculate total for payment method
+ */
+function calculateTotalForPaymentMethod() {
+    // Cal subtotal by items amount
+    var totalForPaymentMethod = 0;
+
+    $('.paymentmethod-amount').each(function () {
+        var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
+        totalForPaymentMethod += amount;
+    });
+
+    // Set value on subtotal textbox
+    $('[name="paymentMethodTotal"]').val(totalForPaymentMethod);
+}
+
 //AutoSelected
 var statusAutoSelected = function () {
     $('[name="status"]').val("Active").trigger("change");
 };
 
-//check register Clsoe update & remove hide
+//check register Close update & remove hide
 function checkRegisterClosing(self) {
-    var checkRegisterClosing = Dental.Collection.Register.findOne({_id: self._id});
+    debugger;
+    var checkRegisterClosing = Dental.Collection.SpecialRegister.findOne({_id: self._id});
     var registerClosing = checkRegisterClosing.status;
 
     if (registerClosing == "Active") {
@@ -582,7 +639,7 @@ function checkRegisterClosing(self) {
  * Register state
  */
 var registerState = function (param) {
-    var registerDoc = Dental.Collection.Register.findOne({_id: param._id});
+    var registerDoc = Dental.Collection.SpecialRegister.findOne({_id: param._id});
     /***** Patient *****/
     // History
     var history = [];
@@ -607,7 +664,7 @@ var registerState = function (param) {
     //registerDoc.deposit = deposit;
 
     // Get treatment
-    var treatment = Dental.Collection.Treatment.find({registerId: param._id});
+    var treatment = Dental.Collection.Treatment.find({specialRegisterId: param._id});
     registerDoc._treatment = treatment;
 
     // Set state for treatment

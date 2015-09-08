@@ -109,6 +109,13 @@ Meteor.publish('dental_register', function () {
 });
 
 /*
+ *Special Register
+ */
+Meteor.publish('dental_specialRegister', function () {
+    return Dental.Collection.SpecialRegister.find();
+});
+
+/*
  * Treatment
  */
 Meteor.publish('dental_treatment', function () {
@@ -141,6 +148,13 @@ Meteor.publish('dental_purchase', function () {
  */
 Meteor.publish('dental_payment',function(){
    return Dental.Collection.Payment.find();
+});
+
+/*
+ *Special Payment
+ */
+Meteor.publish('dental_specialPayment',function(){
+    return Dental.Collection.SpecialPayment.find();
 });
 
 /*
