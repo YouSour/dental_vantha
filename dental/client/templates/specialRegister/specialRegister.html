@@ -42,16 +42,6 @@
         {{/if}}
     </button>
 </template>
-<!--Deposit-Link-Action-->
-<template name="dental_specialDepositLinkAction">
-    <button type="button" class="btn btn-default btn-sm depositAction">
-        {{#if _depositCount}}
-            {{_depositCount}}
-        {{else}}
-            0
-        {{/if}}
-    </button>
-</template>
 <!--Payment-Link-Action-->
 <template name="dental_specialPaymentLinkAction">
     <button type="button" class="btn btn-default btn-sm paymentAction">
@@ -66,7 +56,7 @@
 <template name="dental_specialRegisterPrintAction">
     {{#tabularAction icon="print"}}
         <li><a style="cursor: pointer" class="treatmentPrintAction">{{fa "medkit"}} Treatment</a></li>
-        <li><a style="cursor: pointer" class="invoiceReportPrintAction">{{fa "money"}} Invoice</a></li>
+        <li><a style="cursor: pointer" class="specialInvoiceReportPrintAction">{{fa "money"}} Invoice</a></li>
     {{/tabularAction}}
 </template>
 
@@ -97,6 +87,23 @@
                             {{/if}}
                         </div>
 
+                        <div class="form-group{{#if afFieldIsInvalid name='doctorId'}} has-error{{/if}}"
+                             data-required="true">
+                            <label class="control-label" for="doctorId">Doctor</label>
+
+                            <div class="input-group  select2-bootstrap-append">
+                                {{> afFieldInput name='doctorId'  class='doctorId'}}
+                                <span class="input-group-addon">
+                                    <a href="#" class="doctorAddon">
+                                        {{fa "plus"}}
+                                    </a>
+                                </span>
+                            </div>
+                            {{#if afFieldIsInvalid name='doctorId'}}
+                                <span class="help-block">{{afFieldMessage name='doctorId'}}</span>
+                            {{/if}}
+                        </div>
+
                         {{> afQuickField name="des" rows=5}}
                     </div>
                 </div>
@@ -113,9 +120,9 @@
                     <!--</div>-->
                     <div class="col-sm-6">
                         <!--Labo Expense-->
-                        {{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}
+                        <!--{{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}-->
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                     <!--Payment Method-->
                     {{> afArrayField name="paymentMethod" id="paymentMethod" template="customArrayFieldInvoiceForPaymentMethod" subtemplate="customObjectFieldInvoiceForPaymentMethod"}}
                     </div>
@@ -159,13 +166,31 @@
                                 <span class="help-block">{{afFieldMessage name='patientId'}}</span>
                             {{/if}}
                         </div>
+
+                        <div class="form-group{{#if afFieldIsInvalid name='doctorId'}} has-error{{/if}}"
+                             data-required="true">
+                            <label class="control-label" for="doctorId">Doctor</label>
+
+                            <div class="input-group  select2-bootstrap-append">
+                                {{> afFieldInput name='doctorId'  class='doctorId'}}
+                                <span class="input-group-addon">
+                                    <a href="#" class="doctorAddon">
+                                        {{fa "plus"}}
+                                    </a>
+                                </span>
+                            </div>
+                            {{#if afFieldIsInvalid name='doctorId'}}
+                                <span class="help-block">{{afFieldMessage name='doctorId'}}</span>
+                            {{/if}}
+                        </div>
+
                         {{> afQuickField name="des"}}
                     </div>
                 </div>
 
                 {{> dental_treatmentInfo registerId=_id}}
                 {{> dental_appointmentInfo registerId=_id}}
-                {{> dental_depositInfo registerId=_id}}
+
             </div>
             
             <div class="col-md-9">
@@ -181,6 +206,11 @@
                         <!--&lt;!&ndash;Labo Expense&ndash;&gt;-->
                         <!--{{> afArrayField name="laboExpense" id="laboExpense" template="customArrayFieldInvoiceForLaboExpense" subtemplate="customObjectFieldInvoiceForLaboExpense"}}-->
                     <!--</div>-->
+
+                    <div class="col-sm-12">
+                        <!--Payment Method-->
+                        {{> afArrayField name="paymentMethod" id="paymentMethod" template="customArrayFieldInvoiceForPaymentMethod" subtemplate="customObjectFieldInvoiceForPaymentMethod"}}
+                    </div>
                 </div>
 
                 <div class="text-right">
@@ -227,16 +257,18 @@
             <dd>{{registerDate}}</dd>
             <dt>Sub Total</dt>
             <dd>{{subTotal}}</dd>
-            <dt>Deposit</dt>
-            <dd>{{deposit}}</dd>
+            <!--<dt>Deposit</dt>-->
+            <!--<dd>{{deposit}}</dd>-->
             <dt>Sub Discount</dt>
             <dd>{{subDiscount}}</dd>
             <dt>Total</dt>
             <dd>{{total}}</dd>
-            <dt>Doctor Share Total</dt>
-            <dd>{{doctorShareTotal}}</dd>
-            <dt>Labo Expense Total</dt>
-            <dd>{{laboExpenseTotal}}</dd>
+            <!--<dt>Doctor Share Total</dt>-->
+            <!--<dd>{{doctorShareTotal}}</dd>-->
+            <!--<dt>Labo Expense Total</dt>-->
+            <!--<dd>{{laboExpenseTotal}}</dd>-->
+            <dt>Payment Method Total</dt>
+            <dd>{{paymentMethodTotal}}</dd>
             <dt>Status</dt>
             <dd>{{status}}</dd>
             <dt>Closed Date</dt>
@@ -560,11 +592,11 @@
             {{/if}}
 
             {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
-                <div class="row array-item">
+                <div class="row array-item" id="paymentMethod">
                     <div class="col-sm-1">
                         {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
                             <button type="button"
-                                    class="btn btn-sm btn-danger autoform-remove-item btnRemoveForLaboExpense">
+                                    class="btn btn-sm btn-danger autoform-remove-item btnRemoveForPaymentMethod">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                         {{/if}}
@@ -578,7 +610,7 @@
                 <div class="row">
                     <!--Add more-->
                     <div class="col-sm-1">
-                        <button type="button" class="btn btn-primary autoform-add-item btn-sm btnAddForDoctorShare"
+                        <button type="button" class="btn btn-primary autoform-add-item btn-sm btnAddForPaymentMethod"
                                 data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}"
                                 data-autoform-maxCount="{{this.atts.maxCount}}">
                             <span class="glyphicon glyphicon-plus"></span>
@@ -607,6 +639,6 @@
         {{> afQuickField name=current.paymentMethodDate template="bootstrap3" label=false class="input-sm paymentMethodDate"}}
     </div>
     <div class="col-sm-5">
-        {{> afQuickField name=current.amount template="bootstrap3" label=false class="input-sm labo-amount"}}
+        {{> afQuickField name=current.amount template="bootstrap3" label=false class="input-sm paymentmethod-amount"}}
     </div>
 </template>

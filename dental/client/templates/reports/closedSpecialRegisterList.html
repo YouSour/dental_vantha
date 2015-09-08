@@ -1,0 +1,97 @@
+<!--Form-->
+<template name="dental_closedSpecialRegisterListReport">
+    {{#autoForm schema=Dental.Schema.ClosedSpecialRegisterListReport id="dental_closedSpecialRegisterListReport" action="closedSpecialRegisterListReportGen" target="_blank"}}
+        <div class="row">
+            <div class="col-md-6">
+                {{> afQuickField name='branchId'}}
+
+            </div>
+            <div class="col-md-6">
+                {{> afQuickField name='date'}}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>
+        <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+    {{/autoForm}}
+</template>
+
+
+<!--Generate-->
+<template name="dental_closedSpecialRegisterListReportGen">
+    {{#if data}}
+        {{#with data}}
+            <!--Title-->
+            <div class="report-title">
+                <span class="report-company-name"
+                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                <span class="report-company-name">{{title.company.enName}}</span><br>
+                Date: {{title.date}}<br>
+                <u>Closed Special Register Report</u><br>
+                {{title.company.khAddress}}, {{title.company.telephone}}
+            </div>
+
+            <!--Header-->
+            <table width="100%" border="0">
+                {{#each header}}
+                    <tr>
+                        <td width="33%">{{col1}}</td>
+                        <td width="33%">{{col2}}</td>
+                        <td>{{col3}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+
+            <!--Content-->
+
+            <table class="report-content">
+                <thead class="report-content-header">
+                <tr>
+                    <th>N<sup>o</sup></th>
+                    <th>Register Date</th>
+                    <th>Register ID</th>
+                    <th>Patient ID</th>
+                    <th>Patient</th>
+                    <th>Age</th>
+                    <th>Telephone</th>
+                    <th>Sub Total</th>
+                    <th>Deposit</th>
+                    <th>Sub Discount</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Closed Date</th>
+                </tr>
+                </thead>
+
+                <tbody class="report-content-body">
+                {{#each content}}
+                    <tr>
+                        <td>{{index}}</td>
+                        <td>{{registerDate}}</td>
+                        <td>{{_id}}</td>
+                        <td>{{patientId}}</td>
+                        <td>{{patient}}</td>
+                        <td>{{age}}</td>
+                        <td>{{telephone}}</td>
+                        <td>{{subTotal}}</td>
+                        <td>{{deposit}}</td>
+                        <td>{{subDiscount}}</td>
+                        <td>{{total}}</td>
+                        <td>{{status}}</td>
+                        <td>{{closingDate}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+
+
+            <!--Footer-->
+            <p></p>
+        {{/with}}
+
+        <!--Sign-->
+        {{>signFooter}}
+
+    {{else}}
+        {{> loading}}
+    {{/if}}
+</template>
