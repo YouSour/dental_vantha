@@ -111,8 +111,8 @@ Dental.Collection.SpecialRegister.permit(['insert', 'update', 'remove'])
  *Treatment
  */
 Dental.Collection.Treatment.permit(['insert', 'update', 'remove'])
-    .dental_ifGeneral().
-    apply();
+    .dental_ifGeneral()
+    .apply();
 
 /*
  *Deposit

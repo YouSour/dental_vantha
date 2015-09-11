@@ -153,7 +153,7 @@ Template.dental_specialRegister.events({
         window.open(url);
     },
     'click .specialInvoiceReportPrintAction': function () {
-        var q = 'patient=' + this.patientId + '&register=' + this._id;
+        var q = 'patient=' + this.patientId + '&specialRegister=' + this._id;
         var url = 'specialInvoiceReportGen?' + q;
         window.open(url);
     }

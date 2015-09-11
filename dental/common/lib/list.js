@@ -220,8 +220,7 @@ Dental.List = {
         Dental.Collection.SpecialRegister.find({_id:specialPaymentDoc._id}).forEach(function (object) {
 
             object.paymentMethod.forEach(function (obj) {
-                debugger;
-                var checkingPaymentMethodExist = Dental.Collection.SpecialPayment.findOne({paymentMethod: obj.index , status:"Close"});
+                var checkingPaymentMethodExist = Dental.Collection.SpecialPayment.findOne({paymentMethod: obj.index ,specialRegisterId:specialPaymentDoc._id, status:"Close"});
                     if (!checkingPaymentMethodExist) {
                         list.push({
                             label: obj.index + ": Date : " + obj.paymentMethodDate + " | Amount : " + obj.amount,
