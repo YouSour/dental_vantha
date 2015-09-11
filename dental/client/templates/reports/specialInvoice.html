@@ -1,39 +1,3 @@
-<!--Form-->
-<!--<template name="dental_specialInvoiceReport">-->
-    <!--{{#autoForm schema=Dental.Schema.InvoiceReport id="dental_invoiceReport" action="invoiceReportGen" target="_blank"}}-->
-        <!--<div class="row">-->
-            <!--<div class="col-md-6">-->
-                <!--{{> afQuickField name='patient' class="patientId"}}-->
-                <!--{{> afQuickField name='register'}}-->
-            <!--</div>-->
-            <!--<div class="col-md-6">-->
-                <!--{{> afQuickField name='date'}}-->
-
-                <!--&lt;!&ndash;{{> afQuickField name='exchange'}}&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="form-group{{#if afFieldIsInvalid name='exchange'}} has-error{{/if}}" data-required="true">&ndash;&gt;-->
-                <!--&lt;!&ndash;<label class="control-label" for="exchange">Exchange</label>&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<div class="input-group select2-bootstrap-append">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{> afFieldInput name='exchange'}}&ndash;&gt;-->
-                <!--&lt;!&ndash;<span class="input-group-addon">&ndash;&gt;-->
-                <!--&lt;!&ndash;<a href="#" class="exchangeAddon">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{fa "plus"}}&ndash;&gt;-->
-                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;</span>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;{{#if afFieldIsInvalid name='exchange'}}&ndash;&gt;-->
-                <!--&lt;!&ndash;<span class="help-block">{{afFieldMessage name='exchange'}}</span>&ndash;&gt;-->
-                    <!--&lt;!&ndash;{{/if}}&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-            <!--</div>-->
-        <!--</div>-->
-        <!--<button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>-->
-        <!--<button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>-->
-    <!--{{/autoForm}}-->
-<!--</template>-->
-
-
 <!--Generate-->
 <template name="dental_specialInvoiceReportGen">
     {{#if data}}
@@ -98,51 +62,56 @@
 
             <!--Footer-->
             <!--<div style="width: 100%">-->
-                <!--&lt;!&ndash;Deposit&ndash;&gt;-->
-                <!--<div style="width: 50%; float: left">-->
-                    <!--<table class="report-content">-->
-                        <!--<caption>ពត៍មានការកក់</caption>-->
-                        <!--<thead class="report-content-header">-->
-                        <!--<tr>-->
-                            <!--<th>ល.រ</th>-->
-                            <!--<th>កាលបរិច្ឆេទកក់ប្រាក់</th>-->
-                            <!--<th>ទឹកប្រាក់</th>-->
-                        <!--</tr>-->
-                        <!--</thead>-->
+            <!--&lt;!&ndash;Deposit&ndash;&gt;-->
+            <!--<div style="width: 50%; float: left">-->
+            <!--<table class="report-content">-->
+            <!--<caption>ពត៍មានការកក់</caption>-->
+            <!--<thead class="report-content-header">-->
+            <!--<tr>-->
+            <!--<th>ល.រ</th>-->
+            <!--<th>កាលបរិច្ឆេទកក់ប្រាក់</th>-->
+            <!--<th>ទឹកប្រាក់</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
 
-                        <!--<tbody class="report-content-body">-->
-                        <!--{{#each deposit}}-->
-                            <!--<tr>-->
-                                <!--<td>{{index}}</td>-->
-                                <!--<td>{{depositDate}}</td>-->
-                                <!--<td>{{amount}}</td>-->
-                            <!--</tr>-->
-                        <!--{{/each}}-->
-                        <!--</tbody>-->
-                    <!--</table>-->
-                <!--</div>-->
+            <!--<tbody class="report-content-body">-->
+                <!--{{#each deposit}}-->
+            <!--<tr>-->
+            <!--<td>{{index}}</td>-->
+            <!--<td>{{depositDate}}</td>-->
+            <!--<td>{{amount}}</td>-->
+            <!--</tr>-->
+                <!--{{/each}}-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <!--</div>-->
 
-                <!--Total-->
+            <!--Total-->
 
-                <!--</div>  -->
+            <!--</div>  -->
             <div style="width: 50%; float: right; margin-top: 20px">
-            {{#with footer}}
-                <ul class="list-unstyled text-right">
-                    <li>
-                        <strong>ទឹកប្រាក់សរុប :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subTotal}}
-                    </li>
-                    <li><strong>បញ្ចុះតម្លៃ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}
-                    </li>
-                    <li>
-                        <strong>ទឹកប្រាក់បង់(ដុល្លារ) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
-                    </li>
-                    <li><strong>ទឹកប្រាក់បង់(រៀល) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalKhr}}
-                    </li>
-                    <li><strong>ទឹកប្រាក់បង់(បាត) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalThb}}
-                    </li>
-
-                </ul>
-            {{/with}}
+                {{#with footer}}
+                    <ul class="list-unstyled text-right">
+                        <li>
+                            <strong>ទឹកប្រាក់សរុប
+                                :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subTotal}}
+                        </li>
+                        <li><strong>បញ្ចុះតម្លៃ
+                            :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}
+                        </li>
+                        <li><strong>ទឹកប្រាក់បានបង់ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{paidAmount}}
+                        </li>
+                        <div style=" margin-top: 20px;border-top:1px solid #000000; padding-top: 20px;">
+                            <li>
+                                <strong>ទឹកប្រាក់បង់(ដុល្លារ) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
+                            </li>
+                            <li><strong>ទឹកប្រាក់បង់(រៀល) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalKhr}}
+                            </li>
+                            <li><strong>ទឹកប្រាក់បង់(បាត) :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalThb}}
+                            </li>
+                        </div>
+                    </ul>
+                {{/with}}
             </div>
         {{/with}}
 

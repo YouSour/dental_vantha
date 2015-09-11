@@ -16,7 +16,7 @@ Meteor.methods({
         };
 
         /********* Header ********/
-        var registerDoc = Dental.Collection.SpecialRegister.findOne(self.register);
+        var registerDoc = Dental.Collection.SpecialRegister.findOne(self.specialRegister);
         var exchange = Cpanel.Collection.Exchange.findOne({dateTime:{$lte:moment().format("YYYY-MM-DD HH:mm:ss")}},{sort: {dateTime: -1}});
         data.header = registerDoc;
         data.header.exchange = numeral(exchange.rates.USD).format('$ 0,0.00') +" | "+ numeral(exchange.rates.KHR).format('0,0.00')+" R" + " | "+ numeral(exchange.rates.THB).format('0,0.00')+" B";
@@ -36,7 +36,7 @@ Meteor.methods({
         //    });
 
         // Get special invoice
-        var getRegister = Dental.Collection.SpecialRegister.findOne({_id: self.register});
+        var getRegister = Dental.Collection.SpecialRegister.findOne({_id: self.specialRegister});
         var index = 1;
         if (!_.isUndefined(getRegister)) {
             // Content
@@ -55,9 +55,14 @@ Meteor.methods({
 
             // Footer
             var footer = {};
+            var totalPaidAmount = 0;
+            Dental.Collection.SpecialPayment.find({specialRegisterId: self.specialRegister}).forEach(function(objPayment){
+                totalPaidAmount += objPayment.paidAmount;
+            });
             footer.subTotal = numeral(getRegister.subTotal).format('$0,0.00');
-            footer.subDiscount = numeral(getRegister.subDiscount).format('0,0.00');
-            footer.total = numeral(getRegister.total).format('$0,0.00');
+            footer.subDiscount = numeral(getRegister.subDiscount).format('$0,0.00');
+            footer.paidAmount = numeral(totalPaidAmount).format('$0,0.00');
+            footer.total = numeral(getRegister.total - totalPaidAmount).format('$0,0.00');
             footer.totalKhr = "R"+numeral(getRegister.total*exchange.rates.KHR).format('0,0.00');
             footer.totalThb = "THB"+numeral(getRegister.total*exchange.rates.THB).format('0,0.00');
             data.footer = footer;

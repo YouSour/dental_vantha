@@ -13,11 +13,12 @@ Dental.TabularTable.Treatment = new Tabular.Table({
         {
             data: "attachFile", title: "<i class='fa fa-paperclip'></i>",
             render: function (val, type, doc) {
+                //console.log(doc._doctor.name);
                 if (_.isUndefined(val)) {
                     return null;
                 } else {
                     var attacheFile = Files.findOne(val);
-                    return lightbox(attacheFile.url(), doc._id, doc._doctor.name, 'paperclip');
+                    return lightbox(attacheFile.url(), doc._id,doc.doctorId, 'paperclip');
                 }
             }
         }

@@ -60,7 +60,7 @@ Template.dental_specialPayment.events({
         alertify.alert(fa("eye", "Special Payment"), renderTemplate(Template.dental_specialPaymentShow, this));
     },
     'click .specialPaymentPrintAction': function () {
-        var q = 'paymentMethod=' + this.paymentMethod + '&specialRegister=' + this.specialRegisterId;
+        var q = 'specialRegister=' + this.specialRegisterId;
         var url = 'specialPaymentReportGen?' + q;
         window.open(url);
     }
