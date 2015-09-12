@@ -10,5 +10,5 @@ Dental.TabularTable.OrderCategory = new Tabular.Table({
     ],
     autoWidth: false,
     order: [["1", "desc"]],
-    columnDefs: [{"width": "12px", target: 0}]
+    columnDefs: [{"width": "12px", targets: 0}]
 });

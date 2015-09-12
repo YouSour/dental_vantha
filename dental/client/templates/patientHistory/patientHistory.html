@@ -1,15 +1,15 @@
 <!--Index-->
-<template name="dental_diseaseHistory">
+<template name="dental_patientHistory">
     <div class="animated bounceInRight">
         <p>
             <button class="btn btn-primary insert">{{fa "plus"}} Add New</button>
         </p>
-        {{> tabular table=Dental.TabularTable.DiseaseHistory class="table table-striped table-bordered table-condensed table-hover"}}
+        {{> tabular table=Dental.TabularTable.PatientHistory class="table table-striped table-bordered table-condensed table-hover"}}
     </div>
 </template>
 
 <!--Action-->
-<template name="dental_diseaseHistoryAction">
+<template name="dental_patientHistoryAction">
     {{#tabularAction}}
         <li><a href="#" class="update">{{fa "pencil"}} Update</a></li>
         <li><a href="#" class="remove">{{fa "remove"}} Remove</a></li>
@@ -18,8 +18,8 @@
 </template>
 
 <!--Insert-->
-<template name="dental_diseaseHistoryInsert">
-    {{#autoForm collection=Dental.Collection.DiseaseHistory id="dental_diseaseHistoryInsert" type="insert"}}
+<template name="dental_patientHistoryInsert">
+    {{#autoForm collection=Dental.Collection.PatientHistory id="dental_patientHistoryInsert" type="insert"}}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name="name"}}
@@ -34,8 +34,8 @@
 </template>
 
 <!--Update-->
-<template name="dental_diseaseHistoryUpdate">
-    {{#autoForm collection=Dental.Collection.DiseaseHistory id="dental_diseaseHistoryUpdate" doc=this type="update"}}
+<template name="dental_patientHistoryUpdate">
+    {{#autoForm collection=Dental.Collection.PatientHistory id="dental_patientHistoryUpdate" doc=this type="update"}}
         <div class="row">
             <div class="col-md-6">
                 {{> afQuickField name="name"}}
@@ -50,7 +50,7 @@
 </template>
 
 <!--Show-->
-<template name="dental_diseaseHistoryShow">
+<template name="dental_patientHistoryShow">
     <dl class="dl-horizontal">
         <dt>ID</dt>
         <dd>{{_id}}</dd>

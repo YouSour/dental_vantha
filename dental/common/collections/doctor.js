@@ -38,8 +38,7 @@ Dental.Schema.Doctor = new SimpleSchema({
     },
     telephone: {
         type: String,
-        max: 50,
-        optional: true
+        max: 50
     },
     des: {
         type: String,

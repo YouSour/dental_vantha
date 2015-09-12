@@ -2,13 +2,13 @@
  *
  * @type {Mongo.Collection}
  */
-Dental.Collection.DiseaseHistory = new Mongo.Collection('dental_diseaseHistory');
+Dental.Collection.PatientHistory = new Mongo.Collection('dental_patientHistory');
 
 /**
  *
  * @type {SimpleSchema}
  */
-Dental.Schema.DiseaseHistory = new SimpleSchema({
+Dental.Schema.PatientHistory = new SimpleSchema({
     name: {
         type: String
     },
@@ -23,4 +23,4 @@ Dental.Schema.DiseaseHistory = new SimpleSchema({
  * Attach Schema
  */
 
-Dental.Collection.DiseaseHistory.attachSchema(Dental.Schema.DiseaseHistory);
+Dental.Collection.PatientHistory.attachSchema(Dental.Schema.PatientHistory);

@@ -1,10 +1,10 @@
-Dental.TabularTable.DiseaseHistory = new Tabular.Table({
-    name: 'dentalDiseaseHistoryList',
-    collection: Dental.Collection.DiseaseHistory,
+Dental.TabularTable.PatientHistory = new Tabular.Table({
+    name: 'dentalPatientHistoryList',
+    collection: Dental.Collection.PatientHistory,
     columns: [
         {
             title: "<i class='fa fa-bars'></i>",
-            tmpl: Meteor.isClient && Template.dental_diseaseHistoryAction
+            tmpl: Meteor.isClient && Template.dental_patientHistoryAction
         },
         {data: "_id", title: "ID"},
         {data: "name", title: "Name"},
@@ -12,5 +12,5 @@ Dental.TabularTable.DiseaseHistory = new Tabular.Table({
     ],
     order: [["1", "desc"]],
     autoWidth: false,
-    columnsDef: [{"width": "12px", "targets": 0}]
+    columnDefs: [{"width": "12px", "targets": 0}]
 });

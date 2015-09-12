@@ -35,11 +35,11 @@ Meteor.publish('dental_diseaseItem', function () {
 });
 
 /*
- * Disease History
+ * Patient History
  */
-Meteor.publish('dental_diseaseHistory', function () {
+Meteor.publish('dental_patientHistory', function () {
     if (this.userId) {
-        return Dental.Collection.DiseaseHistory.find();
+        return Dental.Collection.PatientHistory.find();
     }
 });
 

@@ -49,7 +49,7 @@ Template.dental_patient.events({
         // History
         var history = [];
         _.each(data.history, function (val) {
-            var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
+            var historyDoc = Dental.Collection.PatientHistory.findOne(val);
             history.push(historyDoc.name);
         });
         data.historyVal = JSON.stringify(history, null, ' ');
