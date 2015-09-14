@@ -29,10 +29,10 @@ Dental.Collection.DiseaseItem.permit(['insert', 'update', 'remove'])
     .apply();
 
 /*
- * Disease History
+ * Patient History
  */
 
-Dental.Collection.DiseaseHistory.permit(['insert', 'update', 'remove'])
+Dental.Collection.PatientHistory.permit(['insert', 'update', 'remove'])
     .dental_ifGeneral()
     .apply();
 

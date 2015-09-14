@@ -10,7 +10,7 @@ Meteor.subscribe('dental_materialCostCategory');
 Meteor.subscribe('dental_materialCostItem');
 Meteor.subscribe('dental_orderCategory');
 Meteor.subscribe('dental_orderItem');
-Meteor.subscribe('dental_diseaseHistory');
+Meteor.subscribe('dental_patientHistory');
 Meteor.subscribe('dental_register');
 Meteor.subscribe('dental_specialRegister');
 Meteor.subscribe('dental_treatment');

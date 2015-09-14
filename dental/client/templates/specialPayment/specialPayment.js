@@ -18,10 +18,10 @@ Template.dental_specialPayment.helpers({
 });
 
 Template.dental_specialPayment.events({
-    'click .btn-link': function () {
-        var self = this;
-        checkLastPayment(self);
-    },
+    //'click .btn-link': function () {
+    //    var self = this;
+    //    checkLastPayment(self);
+    //},
     'click .insert': function () {
         var data = Dental.RegisterState.get('data');
 
@@ -178,7 +178,7 @@ function datepicker() {
 
 //check last payment
 function checkLastPayment(self) {
-    var checkingLastPayment = Dental.Collection.Payment.findOne({registerId: self.registerId}, {sort: {_id: -1}});
+    var checkingLastPayment = Dental.Collection.SpecialPayment.findOne({specialRegisterId: self.specialRegisterId}, {sort: {_id: -1}});
     var lastPayment = checkingLastPayment.paymentDate;
 
     if (lastPayment == self.paymentDate) {
