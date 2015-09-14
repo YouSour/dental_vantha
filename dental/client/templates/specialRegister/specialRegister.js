@@ -47,19 +47,18 @@ Template.dental_specialRegister.events({
     'click .remove': function () {
         var id = this._id;
         alertify.confirm(
-            "Are you sure to delete [" + id + "] ?")
-            .set({
-                onok: function (result) {
-                    Dental.Collection.SpecialRegister.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                }
+            fa("remove", "Special Register"),
+            "Are you sure to delete [" + id + "] ?",
+            function (result) {
+                Dental.Collection.SpecialRegister.remove(id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
 
-            })
+            }, null);
     },
     'click .show': function () {
         var data = Dental.Collection.SpecialRegister.findOne({_id: this._id});
@@ -67,7 +66,7 @@ Template.dental_specialRegister.events({
         // History
         var history = [];
         _.each(data._patient.history, function (val) {
-            var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
+            var historyDoc = Dental.Collection.PatientHistory.findOne(val);
             history.push(historyDoc.name);
         });
         data._patient.historyVal = JSON.stringify(history, null, ' ');
@@ -88,23 +87,21 @@ Template.dental_specialRegister.events({
             data.status = 'Close';
             data.closingDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
-            alertify.statusAction(fa("pencil", "Register Closing"), renderTemplate(Template.dental_specialRegisterClosingDate, data));
+            alertify.statusAction(fa("repeat", "Special Register Closing"), renderTemplate(Template.dental_specialRegisterClosingDate, data));
         } else { // Reactive register
             // Check payment
             if (_.isUndefined(self._paymentCount) || self._paymentCount == 0) {
                 alertify.confirm(
-                    "Are you sure to reactive [" + self._id + "] ?")
-                    .set({
-                        onok: function (result) {
-                            Dental.Collection.SpecialRegister.update(self._id, {
-                                $set: {
-                                    status: 'Active',
-                                    closingDate: 'none'
-                                }
-                            });
-                        }
-
-                    });
+                    fa("undo","Special Register Active"),
+                    "Are you sure to reactive [" + self._id + "] ?",
+                    function (result) {
+                        Dental.Collection.SpecialRegister.update(self._id, {
+                            $set: {
+                                status: 'Active',
+                                closingDate: 'none'
+                            }
+                        });
+                    }, null);
             } else {
                 alertify.error('You can\'t reactive this, because it has been payment.');
             }
@@ -389,10 +386,10 @@ Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
  */
 Template.afArrayField_customArrayFieldInvoiceForPaymentMethod.events({
     'click .btnAddForPaymentMethod': function (e, t) {
-        Meteor.setTimeout(function() {
+        Meteor.setTimeout(function () {
                 datepicker();
             }
-        ,350);
+            , 350);
 
     },
     'click .btnRemoveForPaymentMethod': function (e, t) {
@@ -644,7 +641,7 @@ var registerState = function (param) {
     // History
     var history = [];
     _.each(registerDoc._patient.history, function (val) {
-        var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
+        var historyDoc = Dental.Collection.PatientHistory.findOne(val);
         history.push(historyDoc.name);
     });
     registerDoc._patient.historyVal = JSON.stringify(history, null, ' ');

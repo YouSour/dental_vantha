@@ -47,7 +47,8 @@ Dental.Schema.Patient = new SimpleSchema({
     history: {
         type: [String],
         autoform: {
-            type: "select-multiple",
+            type: "select2",
+            multiple:"true",
             options: function () {
                 return Dental.List.history();
             }

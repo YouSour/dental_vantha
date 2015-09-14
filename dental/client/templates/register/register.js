@@ -47,19 +47,19 @@ Template.dental_register.events({
     'click .remove': function () {
         var id = this._id;
         alertify.confirm(
-            "Are you sure to delete [" + id + "] ?")
-            .set({
-                onok: function (result) {
-                    Dental.Collection.Register.remove(id, function (error) {
-                        if (error) {
-                            alertify.error(error.message);
-                        } else {
-                            alertify.success("Success");
-                        }
-                    });
-                }
-
-            })
+            fa("remove", "Register"),
+            "Are you sure to delete [" + id + "] ?",
+            function (closeEvent) {
+                Dental.Collection.Register.remove(id, function (error) {
+                    if (error) {
+                        alertify.error(error.message);
+                    } else {
+                        alertify.success("Success");
+                    }
+                });
+            },
+            null
+        );
     },
     'click .show': function () {
         var data = Dental.Collection.Register.findOne({_id: this._id});
@@ -67,7 +67,7 @@ Template.dental_register.events({
         // History
         var history = [];
         _.each(data._patient.history, function (val) {
-            var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
+            var historyDoc = Dental.Collection.PatientHistory.findOne(val);
             history.push(historyDoc.name);
         });
         data._patient.historyVal = JSON.stringify(history, null, ' ');
@@ -88,23 +88,23 @@ Template.dental_register.events({
             data.status = 'Close';
             data.closingDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
-            alertify.statusAction(fa("pencil", "Register Closing"), renderTemplate(Template.dental_registerClosingDate, data));
+            alertify.statusAction(fa("repeat", "Register Closing"), renderTemplate(Template.dental_registerClosingDate, data));
         } else { // Reactive register
             // Check payment
             if (_.isUndefined(self._paymentCount) || self._paymentCount == 0) {
                 alertify.confirm(
-                    "Are you sure to reactive [" + self._id + "] ?")
-                    .set({
-                        onok: function (result) {
+                    fa("undo","Register Active"),
+                    "Are you sure to reactive [" + self._id + "] ?",
+                    function (result) {
                             Dental.Collection.Register.update(self._id, {
                                 $set: {
                                     status: 'Active',
                                     closingDate: 'none'
                                 }
                             });
-                        }
 
-                    });
+
+                    },null);
             } else {
                 alertify.error('You can\'t reactive this, because it has been payment.');
             }
@@ -190,9 +190,9 @@ Template.dental_registerInsert.events({
 
         }
     },
-    'change .patientId':function(e){
+    'change .patientId': function (e) {
         var patient = $(e.currentTarget).val();
-        Session.set('patientId',patient);
+        Session.set('patientId', patient);
 
         var index = 0;
         $('div.array-item').each(function () {
@@ -234,9 +234,9 @@ Template.dental_registerUpdate.events({
 
         }
     },
-    'change .patientId':function(e){
+    'change .patientId': function (e) {
         var patient = $(e.currentTarget).val();
-        Session.set('patientId',patient);
+        Session.set('patientId', patient);
 
         var index = 0;
         $('div.array-item').each(function () {
@@ -584,7 +584,7 @@ var registerState = function (param) {
     // History
     var history = [];
     _.each(registerDoc._patient.history, function (val) {
-        var historyDoc = Dental.Collection.DiseaseHistory.findOne(val);
+        var historyDoc = Dental.Collection.PatientHistory.findOne(val);
         history.push(historyDoc.name);
     });
     registerDoc._patient.historyVal = JSON.stringify(history, null, ' ');

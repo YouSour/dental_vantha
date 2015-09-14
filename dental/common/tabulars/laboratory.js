@@ -9,5 +9,5 @@ Dental.TabularTable.Laboratory = new Tabular.Table({
     ],
     order: [["1", "desc"]],
     autoWidth: false,
-    columnDefs: [{"width": "12px", "target": 0}]
+    columnDefs: [{"width": "12px", "targets": 0}]
 });

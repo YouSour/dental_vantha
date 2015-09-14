@@ -99,7 +99,7 @@ Dental.List = {
     history: function () {
         var list = [];
 
-        Dental.Collection.DiseaseHistory.find()
+        Dental.Collection.PatientHistory.find()
             .forEach(function (obj) {
                 list.push({label: obj.name, value: obj._id});
             });

@@ -1,5 +1,5 @@
 Meteor.startup(function () {
-    if (Dental.Collection.DiseaseHistory.find().count() == 0) {
+    if (Dental.Collection.PatientHistory.find().count() == 0) {
         var data = [
             {
                 _id: "001",
@@ -16,7 +16,7 @@ Meteor.startup(function () {
         ];
 
         _.each(data, function (obj) {
-            Dental.Collection.DiseaseHistory.insert(obj);
+            Dental.Collection.PatientHistory.insert(obj);
         });
     }
 });
