@@ -377,22 +377,7 @@
                 </div>
                 <!--Deposit-->
                 <div class="col-sm-3">
-                    <div class="form-group{{#if afFieldIsInvalid name='deposit'}} has-error{{/if}}"
-                         data-required="true">
-                        <label class="control-label" for="deposit">Deposit</label>
-
-                        <div class="input-group  select2-bootstrap-append">
-                            {{> afFieldInput name='deposit' template="bootstrap3" class="input-sm" readonly="true"}}
-                            <span class="input-group-addon">
-                                <a href="#" class="depositAddon">
-                                    {{fa "plus"}}
-                                </a>
-                            </span>
-                        </div>
-                        {{#if afFieldIsInvalid name='deposit'}}
-                            <span class="help-block">{{afFieldMessage name='deposit'}}</span>
-                        {{/if}}
-                    </div>
+                    {{> afQuickField name='deposit' readonly="true" template="bootstrap3" class="input-sm"}}
                 </div>
                 <!--Sub Discount-->
                 <div class="col-sm-2">
