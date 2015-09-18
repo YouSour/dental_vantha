@@ -61,34 +61,36 @@
             </table>
 
             <!--Footer-->
-            <!--<div style="width: 100%">-->
-            <!--&lt;!&ndash;Deposit&ndash;&gt;-->
-            <!--<div style="width: 50%; float: left">-->
-            <!--<table class="report-content">-->
-            <!--<caption>ពត៍មានការកក់</caption>-->
-            <!--<thead class="report-content-header">-->
-            <!--<tr>-->
-            <!--<th>ល.រ</th>-->
-            <!--<th>កាលបរិច្ឆេទកក់ប្រាក់</th>-->
-            <!--<th>ទឹកប្រាក់</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
+            <div style="width: 100%">
+                <!--Payment Method-->
+                <div style="width: 100%; float: left;">
+                    <table class="report-content">
+                        <caption>ពត៍មានរប្រៀបនៃការបង់ប្រាក់</caption>
+                        <thead class="report-content-header">
+                        <tr>
+                            <th>ល.រ</th>
+                            <th>កាលបរិច្ឆេទ</th>
+                            <th>ទឹកប្រាក់</th>
+                            <th>កាលបរិច្ឆេទបង់ប្រាក់</th>
+                            <th>ចំនួនទឹកប្រាក់បង់</th>
+                        </tr>
+                        </thead>
 
-            <!--<tbody class="report-content-body">-->
-                <!--{{#each deposit}}-->
-            <!--<tr>-->
-            <!--<td>{{index}}</td>-->
-            <!--<td>{{depositDate}}</td>-->
-            <!--<td>{{amount}}</td>-->
-            <!--</tr>-->
-                <!--{{/each}}-->
-            <!--</tbody>-->
-            <!--</table>-->
-            <!--</div>-->
-
+                        <tbody class="report-content-body">
+                        {{#each paymentMethod}}
+                            <tr>
+                                <td>{{index}}</td>
+                                <td>{{paymentMethodDate}}</td>
+                                <td>{{amount}}</td>
+                                <td>{{paymentDate}}</td>
+                                <td>{{paidAmount}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+              </div>
             <!--Total-->
-
-            <!--</div>  -->
             <div style="width: 50%; float: right; margin-top: 20px">
                 {{#with footer}}
                     <ul class="list-unstyled text-right">
