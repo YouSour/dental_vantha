@@ -124,40 +124,83 @@ Template.dental_register.events({
       }
     }
   },
-  'click .treatmentAction': function() {
-    if (this.status == "Active") {
-      registerState(this);
-      alertify.treatmentAction(
-        fa("medkit", "Treatment"),
-        renderTemplate(Template.dental_treatment)
-      ).maximize();
+  'click .treatmentAction': function(e, t) {
+    var data = this;
+    if (data.status == "Active") {
+      if (e.ctrlKey) {
+        registerState(this);
+        alertify.treatmentAction(
+          fa("medkit", "Treatment"),
+          renderTemplate(Template.dental_treatment)
+        ).maximize();
+      } else {
+        alertify.treatmentAction(
+          fa("plus", "Treatment"),
+          renderTemplate(Template.dental_treatmentInsert, data)
+        );
+      }
     }
   },
-  'click .appointmentAction': function() {
-    if (this.status == "Active") {
-      registerState(this);
-      alertify.appointmentAction(
-        fa("clock-o", "Appointment"),
-        renderTemplate(Template.dental_calendarEvent)
-      ).maximize();
+  'click .appointmentAction': function(e, t) {
+    var data = this;
+    if (data.status == "Active") {
+      if (e.ctrlKey) {
+        registerState(this);
+        alertify.appointmentAction(
+          fa("clock-o", "Appointment"),
+          renderTemplate(Template.dental_calendarEvent)
+        ).maximize();
+      } else {
+        alertify.appointmentAction(
+          fa("plus", "Appointment"),
+          renderTemplate(Template.dental_calendarEventInsert, data)
+        );
+      }
     }
   },
-  'click .depositAction': function() {
-    if (this.status == "Active") {
-      registerState(this);
-      alertify.depositAction(
-        fa("ticket", "Deposit"),
-        renderTemplate(Template.dental_deposit)
-      ).maximize();
+  'click .depositAction': function(e, t) {
+    var data = this;
+    if (data.status == "Active") {
+      if (e.ctrlKey) {
+        registerState(this);
+        alertify.depositAction(
+          fa("ticket", "Deposit"),
+          renderTemplate(Template.dental_deposit)
+        ).maximize();
+      } else {
+        alertify.depositAction(
+          fa("plus", "Deposit"),
+          renderTemplate(Template.dental_depositInsert, data)
+        );
+      }
     }
   },
-  'click .paymentAction': function() {
-    if (this.status == "Close") {
-      registerState(this);
-      alertify.paymentAction(
-        fa("credit-card", "Payment"),
-        renderTemplate(Template.dental_payment)
-      ).maximize();
+  'click .paymentAction': function(e, t) {
+    var data = this;
+    if (data.status == "Close") {
+      if (e.ctrlKey) {
+        registerState(this);
+        alertify.paymentAction(
+          fa("credit-card", "Payment"),
+          renderTemplate(Template.dental_payment)
+        ).maximize();
+      } else {
+        // Check last balance
+        var paymentLast = Dental.Collection.Payment.findOne({
+          registerId: data._id
+        }, {
+          sort: {
+            _id: -1
+          }
+        });
+        if (!_.isUndefined(paymentLast)) {
+          data.total = paymentLast.balance;
+        }
+        alertify.paymentAction(
+          fa("plus", "Payment"),
+          renderTemplate(Template.dental_paymentInsert, data)
+        );
+      }
     }
   },
   // Print action
@@ -185,6 +228,9 @@ Template.dental_registerClosingDate.onRendered(function() {
  * Insert
  */
 Template.dental_registerInsert.onRendered(function() {
+  //reset value sharingRemain
+  Dental.RegisterState.set('sharingRemain', 0);
+
   datepicker();
   statusAutoSelected();
   $('.btnAdd').attr('disabled', "disabled");
@@ -244,6 +290,8 @@ Template.dental_registerUpdate.onRendered(function() {
 
   //run this function when on update get value for total
   calculateTotal();
+  //run this function when on update get value for sharingRemain
+  sharingRemain();
 });
 
 Template.dental_registerUpdate.helpers({});
@@ -270,6 +318,12 @@ Template.dental_registerUpdate.events({
       index++;
     });
 
+  },
+  'keyup .doctorShareAmount,.laboAmount': function(e, t) {
+    sharingRemain();
+  },
+  'change .item': function(e, t) {
+    sharingRemain();
   },
   'click .patientAddon': function(e, t) {
     alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
@@ -343,6 +397,7 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
 
       // Cal footer
       calculateTotal();
+      sharingRemain();
     }, 300);
 
   },
@@ -382,6 +437,8 @@ Template.afArrayField_customArrayFieldInvoiceForDoctorShare.events({
 
       // Cal footer for doc share
       calculateTotalForDoctorShare();
+      // Cal sharingRemain for doc share
+      sharingRemain();
     }, 300);
   },
   'keyup .doctorShareAmount': function(e, t) {
@@ -409,6 +466,8 @@ Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
 
       // Cal footer for labo expense
       calculateTotalForLaboExpense();
+      // Cal sharingRemain for labo expense
+      sharingRemain();
     }, 300);
   },
   'keyup .laboAmount': function(e, t) {

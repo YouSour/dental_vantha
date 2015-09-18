@@ -177,3 +177,8 @@
   height: 50px;
   width: 47px;
 }
+
+/* space li for help in register*/
+.space-li{
+  margin-bottom: 5px;
+}
