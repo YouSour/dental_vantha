@@ -33,19 +33,35 @@
     {{/autoForm}}
 </template>
 
-
 <!--Generate-->
 <template name="dental_invoiceReportGen">
     {{#if data}}
         {{#with data}}
             <!--Title-->
-            <div class="report-title">
+            <table class="report-title">
+                <tr>
+                    <td>
+                        <img src="/seng_ratha/Logo_converted.jpg">
+                    </td>
+                    <td>
+                  <span class="report-company-name"
+                        style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                        <span class="report-company-name">{{title.company.enName}}</span><br>
+                        <u> វិក្កយបត្រ (Invoice)</u><br>
+
+                        {{title.company.khAddress}}, {{title.company.telephone}}
+                    </td>
+                </tr>
+            </table>
+            <!-- <div class="report-title">
+
                 <span class="report-company-name"
                       style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
                 <span class="report-company-name">{{title.company.enName}}</span><br>
                 <u> វិក្កយបត្រ (Invoice)</u><br>
+
                 {{title.company.khAddress}}, {{title.company.telephone}}
-            </div>
+            </div> -->
 
             <!--Header-->
             <div style="width: 100%">
@@ -70,6 +86,7 @@
             </div>
 
             <!--Content-->
+            <img src="/seng_ratha/tooth.jpg" class="border-img">
             <table class="report-content">
                 <thead class="report-content-header">
                 <tr>
