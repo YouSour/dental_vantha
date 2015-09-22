@@ -100,6 +100,7 @@ momentjs:moment@2.10.6
 mongo@1.1.0
 mongo-livedata@1.0.8
 moonco:fixtures@0.1.6
+mpowaga:autoform-summernote@0.4.2
 multiply:iron-router-progress@1.0.1
 natestrauser:animate-css@3.2.6
 natestrauser:select2@3.5.1
@@ -139,6 +140,7 @@ spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
 stylus@1.0.7
+summernote:standalone@0.6.16
 templating@1.1.1
 theara:autoprint@0.0.5
 theara:breadcrumb@0.0.3
