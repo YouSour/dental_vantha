@@ -78,7 +78,6 @@ Template.dental_specialRegister.events({
       history.push(historyDoc.name);
     });
     data._patient.historyVal = JSON.stringify(history, null, ' ');
-
     // Photo
     data._patient.photoUrl = null;
     if (!_.isUndefined(data._patient.photo)) {
