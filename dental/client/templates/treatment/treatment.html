@@ -22,6 +22,11 @@
     {{/tabularAction}}
 </template>
 
+<!--Action-->
+<template name="dental_treatmentDesAction">
+  <button type="button" class="btn btn-sm btn-primary btn-block showDescription">{{fa "eye"}} Show</button>
+</template>
+
 <!--Insert-->
 <template name="dental_treatmentInsert">
     {{#autoForm collection=Dental.Collection.Treatment id="dental_treatmentInsert" type="insert"}}
@@ -31,7 +36,7 @@
                 {{> afQuickField name="patientId" type="hidden" value=patientId}}
                 {{> afQuickField name="registerId"  type="hidden" value=_id}}
                 {{> afQuickField name="treatmentDate"}}
-                
+
                 <div class="form-group{{#if afFieldIsInvalid name='doctorId'}} has-error{{/if}}" data-required="true">
                     <label class="control-label" for="doctorId">Doctor</label>
 
@@ -49,7 +54,7 @@
                 </div>
 
                 {{> afQuickField name="des" rows=3}}
-                {{> afQuickField name="attachFile"}}
+                <!-- {{> afQuickField name="attachFile"}} -->
 
             </div>
         </div>
@@ -92,7 +97,7 @@
                 </div>
 
                 {{> afQuickField name="des" rows=3}}
-                {{> afQuickField name="attachFile"}}
+                <!-- {{> afQuickField name="attachFile"}} -->
 
             </div>
         </div>
@@ -110,12 +115,27 @@
         <dt>Treatment Date</dt>
         <dd>{{treatmentDate}}</dd>
         <dt>Description</dt>
-        <dd>{{des}}</dd>
+        <dd>{{{des}}}</dd>
         <dt>Doctor ID</dt>
         <dd>{{doctorId}}</dd>
         <dt>Doctor Name</dt>
         <dd>{{_doctor.name}}</dd>
-        <dt>File</dt>
-        <dd>{{lightbox url=attachFileUrl title=_doctor.name icon="paperclip"}}</dd>
+        <!-- <dt>File</dt>
+        <dd>{{lightbox url=attachFileUrl title=_doctor.name icon="paperclip"}}</dd> -->
     </dl>
+</template>
+
+<!--Show Description-->
+<template name="dental_treatmentShowDescription">
+    <!-- <div class="bs-callout bs-callout-default" id="callout-tables-striped-ie8">
+    <h4>Description</h4>
+    <hr>
+    <p></p>
+  </div> -->
+
+  <div class="page-header">
+  <h1>Description</h1>
+  <hr>
+  <p>{{{des}}}</p>
+</div>
 </template>

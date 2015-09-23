@@ -33,7 +33,11 @@
             <div class="col-md-6">
                 {{> afQuickField name='history'}}
                 {{> afQuickField name='member'}}
+            </div>
+            <div class="col-md-3">
                 {{> afQuickField name='des'}}
+            </div>
+            <div class="col-md-3">
                 {{> afQuickField name='photo'}}
             </div>
         </div>
@@ -59,7 +63,11 @@
             <div class="col-md-6">
                 {{> afQuickField name='history'}}
                 {{> afQuickField name='member'}}
+            </div>
+            <div class="col-md-3">
                 {{> afQuickField name='des'}}
+            </div>
+            <div class="col-md-3">
                 {{> afQuickField name='photo'}}
             </div>
         </div>
@@ -90,7 +98,7 @@
         <dt>Member</dt>
         <dd>{{member}}</dd>
         <dt>Description</dt>
-        <dd>{{des}}</dd>
+        <dd>{{{des}}}</dd>
         <dt>Photo</dt>
         <dd>{{lightbox url=photoUrl title=name}}</dd>
     </dl>
