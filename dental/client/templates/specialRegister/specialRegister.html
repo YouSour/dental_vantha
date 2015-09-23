@@ -188,8 +188,8 @@
                     </div>
                 </div>
 
-                {{> dental_treatmentInfo registerId=_id}}
-                {{> dental_appointmentInfo registerId=_id}}
+                <!-- {{> dental_treatmentInfo registerId=_id}}
+                {{> dental_appointmentInfo registerId=_id}} -->
 
             </div>
 
@@ -297,7 +297,7 @@
                 <dt>Member</dt>
                 <dd>{{member}}</dd>
                 <dt>Description</dt>
-                <dd>{{des}}</dd>
+                <dd>{{{des}}}</dd>
                 <dt>Photo</dt>
                 <dd>{{lightbox url=photoUrl title=name}}</dd>
             {{/with}}

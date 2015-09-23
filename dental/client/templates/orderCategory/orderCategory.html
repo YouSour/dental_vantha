@@ -21,10 +21,10 @@
 <template name="dental_orderCategoryInsert">
     {{#autoForm collection=Dental.Collection.OrderCategory id="dental_orderCategoryInsert" type="insert"}}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{> afQuickField name="name"}}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{> afQuickField name="des"}}
             </div>
         </div>
@@ -37,10 +37,10 @@
 <template name="dental_orderCategoryUpdate">
     {{#autoForm collection=Dental.Collection.OrderCategory id="dental_orderCategoryUpdate" doc=this type="update"}}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{> afQuickField name="name"}}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{> afQuickField name="des"}}
             </div>
         </div>
@@ -57,6 +57,6 @@
         <dt>Name</dt>
         <dd>{{name}}</dd>
         <dt>Description</dt>
-        <dd>{{des}}</dd>
+        <dd>{{{des}}}</dd>
     </dl>
 </template>
