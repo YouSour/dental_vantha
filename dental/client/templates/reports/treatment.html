@@ -21,14 +21,20 @@
     {{#if data}}
         {{#with data}}
             <!--Title-->
-            <div class="report-title">
-                <span class="report-company-name"
-                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-                <span class="report-company-name">{{title.company.enName}}</span><br>
-                ព័ត៌មានលំអិត (Patient's Record)<br>
-                {{title.company.khAddress}}, {{title.company.telephone}}
-            </div>
-
+            <table class="report-title" style="width:719px;">
+                <tr>
+                    <td>
+                        <img src="/seng_ratha/Logo_converted.jpg">
+                    </td>
+                    <td>
+                      <span class="report-company-name"
+                            style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                      <span class="report-company-name">{{title.company.enName}}</span><br>
+                      ព័ត៌មានលំអិត (Patient's Record)<br>
+                      {{title.company.khAddress}}, {{title.company.telephone}}
+                    </td>
+                </tr>
+            </table>
             <!--Header-->
             <div style="width: 100%">
                 {{#with header}}
