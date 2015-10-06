@@ -8,7 +8,7 @@ Dental.Schema.CalendarEvent = new SimpleSchema({
   },
   start: {
     type: String,
-    label: 'Event date',
+    label: 'Event Date',
     defaultValue: function() {
       return moment().format('YYYY-MM-DD HH:mm:ss');
     }
