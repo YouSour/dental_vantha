@@ -36,7 +36,8 @@ Dental.Schema.SpecialRegister = new SimpleSchema({
       var currentDate = moment(ReactiveMethod.call("currentDate"),
         'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
       return currentDate;
-    }
+    },
+    label: "Register Date"
   },
   des: {
     type: String,

@@ -26,7 +26,8 @@ Dental.Schema.Register = new SimpleSchema({
       var currentDate = moment(ReactiveMethod.call("currentDate"),
         'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss');
       return currentDate;
-    }
+    },
+    label: "Register Date"
   },
   des: {
     type: String,
@@ -39,7 +40,8 @@ Dental.Schema.Register = new SimpleSchema({
     optional: true
   },
   closingDate: {
-    type: String
+    type: String,
+    label: "Closing Date"
   },
   disease: {
     type: Array,
