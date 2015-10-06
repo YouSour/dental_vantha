@@ -31,7 +31,8 @@ Dental.Schema.Doctor = new SimpleSchema({
       var currentDate = moment(ReactiveMethod.call("currentDate"),
         'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD');
       return currentDate;
-    }
+    },
+    label: "Start Date"
   },
   address: {
     type: String,
