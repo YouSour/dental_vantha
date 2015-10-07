@@ -102,7 +102,7 @@ Dental.Schema.Register = new SimpleSchema({
     min: 0.01,
     custom: function() {
       if (this.value > this.field('total').value) {
-        return "biggerThan";
+        return "greaterThan";
       }
     }
   },
@@ -136,7 +136,7 @@ Dental.Schema.Register = new SimpleSchema({
     min: 0.01,
     custom: function() {
       if (this.value > this.field('total').value) {
-        return "biggerThan";
+        return "greaterThan";
       }
     }
   },
@@ -178,6 +178,6 @@ Dental.Collection.Register.attachSchema(Dental.Schema.Register);
  * Custom Error Message
  */
 SimpleSchema.messages({
-  "biggerThan": "Amount Can't Be Greater Than Total",
+  "greaterThan": "Amount Can't Be Greater Than Total",
   "smallerThan": "Amount Can't Be Smaller Than Total"
 });
