@@ -15,7 +15,6 @@ Template.dental_register.onCreated(function() {
   createNewAlertify([
     'register',
     'patientAddon',
-    'depositAddon',
     'statusAction',
     'treatmentAction',
     'appointmentAction',
@@ -102,8 +101,8 @@ Template.dental_register.events({
 
       alertify.statusAction(fa("repeat", "Register Closing"),
         renderTemplate(Template.dental_registerClosingDate, data));
-    } else { // Reactive register
-      // Check payment
+    } else {
+      // Reactive register
       if (_.isUndefined(self._paymentCount) || self._paymentCount == 0) {
         alertify.confirm(
           fa("undo", "Register Active"),
@@ -271,10 +270,8 @@ Template.dental_registerInsert.events({
     sharingRemain();
   },
   'click .patientAddon': function(e, t) {
-    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
-  },
-  'click .depositAddon': function(e, t) {
-    alertify.depositAddon(fa("plus", "Deposit"), renderTemplate(Template.dental_depositInsert));
+    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
+      .maximize();
   },
   'click #saveAndPrint': function() {
     Session.set('printInvoice', true);
@@ -326,7 +323,8 @@ Template.dental_registerUpdate.events({
     sharingRemain();
   },
   'click .patientAddon': function(e, t) {
-    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
+      .maximize();
   }
 
 });
@@ -450,7 +448,23 @@ Template.afArrayField_customArrayFieldInvoiceForDoctorShare.events({
 /**
  * Laboratory Expense
  */
+Template.customObjectFieldInvoiceForLaboExpense.helpers({
+  // laboAmount: function() {
+  //   return Dental.RegisterState.get('laboPrice');
+  // }
+});
+
 Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
+  'change .laboratory': function(e, t) {
+    var laboId = $(e.currentTarget).val();
+    var laboDoc = Dental.Collection.Laboratory.findOne({
+      _id: laboId
+    });
+
+    Dental.RegisterState.set("laboPrice", laboDoc.price);
+    // Cal sharingRemain for labo expense
+    sharingRemain();
+  },
   'click .btnRemoveForLaboExpense': function(e, t) {
     setTimeout(function() {
       var enable = true;
