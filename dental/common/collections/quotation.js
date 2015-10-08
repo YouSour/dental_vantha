@@ -47,7 +47,8 @@ Dental.Schema.Quotation = new SimpleSchema({
   },
   'disease.$.qty': {
     type: Number,
-    min: 1
+    min: 1,
+    decimal: true
   },
   'disease.$.price': {
     type: Number,
