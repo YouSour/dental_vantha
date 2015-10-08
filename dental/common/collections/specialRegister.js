@@ -80,7 +80,8 @@ Dental.Schema.SpecialRegister = new SimpleSchema({
   'disease.$.discount': {
     type: Number,
     min: 0,
-    max: 100
+    max: 100,
+    decimal: true
   },
   'disease.$.amount': {
     type: Number,
