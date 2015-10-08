@@ -313,10 +313,10 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-sm-2-custom">
                     <p><b></b></p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-4-custom">
                     <p><b>Disease Item</b><span style="color:red">*</span></p>
                 </div>
                 <div class="col-md-1">
@@ -341,11 +341,16 @@
 
             {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
                 <div class="row array-item" id="register">
-                    <div class="col-sm-1">
+                    <div class="col-sm-2-custom">
                         {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
+                              <div class="btn-group" role="group">
                             <button type="button" class="btn btn-sm btn-danger autoform-remove-item btnRemove">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
+                            <button type="button" class="btn btn-sm btn-success btnFree">
+                              <span class="glyphicon glyphicon-gift"></span>
+                          </button>
+                        </div>
                         {{/if}}
                     </div>
 
@@ -397,7 +402,7 @@
 
 <!--Custom object field for disease item-->
 <template name="customObjectFieldInvoiceForSpecialDiseaseItem">
-    <div class="col-sm-4">
+    <div class="col-sm-4-custom">
         {{> afQuickField name=current.item template="bootstrap3" label=false class="input-sm item"}}
     </div>
     <div class="col-sm-1">
