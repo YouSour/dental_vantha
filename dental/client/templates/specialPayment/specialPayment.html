@@ -89,7 +89,7 @@
                     <!--{{/if}}-->
                 <!--</div>-->
 
-                {{> afQuickField name="des" rows=5}}
+                {{> afQuickField name="des"}}
             </div>
         </div>
 
@@ -163,7 +163,7 @@
                     <!--{{/if}}-->
                 <!--</div>-->
 
-                {{> afQuickField name="des" rows=5}}
+                {{> afQuickField name="des"}}
 
             </div>
         </div>
@@ -190,6 +190,8 @@
         <dd>{{paidAmount}}</dd>
         <dt>Balance</dt>
         <dd>{{balance}}</dd>
+        <dt>Description</dt>
+        <dd>{{{des}}}</dd>
         <dt>Status</dt>
         <dd>{{status}}</dd>
     </dl>
