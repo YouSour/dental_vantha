@@ -71,7 +71,8 @@ Dental.Schema.Register = new SimpleSchema({
   'disease.$.discount': {
     type: Number,
     min: 0,
-    max: 100
+    max: 100,
+    decimal: true
   },
   'disease.$.amount': {
     type: Number,
@@ -99,7 +100,7 @@ Dental.Schema.Register = new SimpleSchema({
   'doctorShare.$.amount': {
     type: Number,
     decimal: true,
-    min: 0.01,
+    min: 0,
     custom: function() {
       if (this.value > this.field('total').value) {
         return "greaterThan";
@@ -133,7 +134,7 @@ Dental.Schema.Register = new SimpleSchema({
   'laboExpense.$.amount': {
     type: Number,
     decimal: true,
-    min: 0.01,
+    min: 0,
     custom: function() {
       if (this.value > this.field('total').value) {
         return "greaterThan";
