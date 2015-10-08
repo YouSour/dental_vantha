@@ -15,7 +15,6 @@ Template.dental_register.onCreated(function() {
   createNewAlertify([
     'register',
     'patientAddon',
-    'depositAddon',
     'statusAction',
     'treatmentAction',
     'appointmentAction',
@@ -102,8 +101,8 @@ Template.dental_register.events({
 
       alertify.statusAction(fa("repeat", "Register Closing"),
         renderTemplate(Template.dental_registerClosingDate, data));
-    } else { // Reactive register
-      // Check payment
+    } else {
+      // Reactive register
       if (_.isUndefined(self._paymentCount) || self._paymentCount == 0) {
         alertify.confirm(
           fa("undo", "Register Active"),
@@ -271,10 +270,8 @@ Template.dental_registerInsert.events({
     sharingRemain();
   },
   'click .patientAddon': function(e, t) {
-    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
-  },
-  'click .depositAddon': function(e, t) {
-    alertify.depositAddon(fa("plus", "Deposit"), renderTemplate(Template.dental_depositInsert));
+    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
+      .maximize();
   },
   'click #saveAndPrint': function() {
     Session.set('printInvoice', true);
@@ -326,7 +323,8 @@ Template.dental_registerUpdate.events({
     sharingRemain();
   },
   'click .patientAddon': function(e, t) {
-    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
+      .maximize();
   }
 
 });
@@ -401,15 +399,32 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
     }, 300);
 
   },
-  'keyup .qty,.discount, click .qty,.discount': function(e, t) {
+  'click .btnFree': function(e, t) {
+    var thisObj = $(e.currentTarget);
+    thisObj.parents('div.array-item').find('.discount').val(100);
 
     CalculateTotalAndAmount(e);
     // Cal footer
     calculateTotal();
+    // Cal sharingRemain for doc share
+    sharingRemain();
+  },
+  'keyup .qty,.discount, click .qty,.discount': function(e, t) {
+
+    CalculateTotalAndAmount(e);
+
+    // Cal footer
+    calculateTotal();
+
+    // Cal sharingRemain for doc share
+    sharingRemain();
   },
   'keyup #subDiscountRegister, click #subDiscountRegister': function(e, t) {
     // Cal footer
     calculateTotal();
+
+    // Cal sharingRemain for doc share
+    sharingRemain();
   }
 });
 
@@ -451,6 +466,21 @@ Template.afArrayField_customArrayFieldInvoiceForDoctorShare.events({
  * Laboratory Expense
  */
 Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
+  'change .laboratory': function(e, t) {
+    var laboId = $(e.currentTarget).val();
+    var thisObj = $(e.currentTarget);
+    var laboDoc = Dental.Collection.Laboratory.findOne({
+      _id: laboId
+    });
+
+    //get price labo item
+    thisObj.parents('div.array-item').find('.laboAmount').val(laboDoc.price);
+    // Cal footer for labo expense
+    calculateTotalForLaboExpense();
+
+    // Cal sharingRemain for labo expense
+    sharingRemain();
+  },
   'click .btnRemoveForLaboExpense': function(e, t) {
     setTimeout(function() {
       var enable = true;

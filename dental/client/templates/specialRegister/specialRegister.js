@@ -206,15 +206,17 @@ Template.dental_specialRegisterInsert.events({
     $('div.array-item').each(function() {
       //clear selectize
       $('select.item')[index].selectize.clear(true);
-      index++
+      index++;
     });
 
   },
   'click .patientAddon': function(e, t) {
-    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
+      .maximize();
   },
   'click .doctorAddon': function(e, t) {
-    alertify.doctorAddon(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert));
+    alertify.doctorAddon(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert))
+      .maximize();
   },
   'click #saveAndPrint': function() {
     Session.set('printInvoice', true);
@@ -258,10 +260,12 @@ Template.dental_specialRegisterUpdate.events({
 
   },
   'click .patientAddon': function(e, t) {
-    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert));
+    alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
+      .maximize();
   },
   'click .doctorAddon': function(e, t) {
-    alertify.doctorAddon(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert));
+    alertify.doctorAddon(fa("plus", "Doctor"), renderTemplate(Template.dental_doctorInsert))
+      .maximize();
   },
 
 });
@@ -334,6 +338,14 @@ Template.afArrayField_customArrayFieldInvoiceForSpecialDiseaseItem.events({
       calculateTotal();
     }, 300);
 
+  },
+  'click .btnFree': function(e, t) {
+    var thisObj = $(e.currentTarget);
+    thisObj.parents('div.array-item').find('.discount').val(100);
+
+    CalculateTotalAndAmount(e);
+    // Cal footer
+    calculateTotal();
   },
   'keyup .qty,.discount, click .qty,.discount': function(e, t) {
 

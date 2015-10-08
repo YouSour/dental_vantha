@@ -84,7 +84,7 @@
                         <span class="help-block">{{afFieldMessage name='balance'}}</span>
                     {{/if}}
                 </div>
-
+                {{> afQuickField name="des"}}
             </div>
         </div>
 
@@ -157,6 +157,7 @@
                     {{/if}}
                 </div>
 
+                {{> afQuickField name="des"}}
             </div>
         </div>
 
@@ -184,5 +185,7 @@
         <dd>{{balance}}</dd>
         <dt>Status</dt>
         <dd>{{status}}</dd>
+        <dt>Description</dt>
+        <dd>{{{des}}}</dd>
     </dl>
 </template>

@@ -67,6 +67,28 @@ Dental.Schema.Payment = new SimpleSchema({
     max: 50,
     optional: true
   },
+  des: {
+    type: String,
+    label: "Description",
+    optional: true,
+    autoform: {
+      afFieldInput: {
+        type: 'summernote',
+        class: 'editor',
+        settings: {
+          height: 96,
+          toolbar: [
+            //[groupname, [button list]]
+            ['style', ['bold', 'italic', 'underline']],
+            ['font', ['strikethrough']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']]
+          ]
+        }
+      }
+    }
+  },
   branchId: {
     type: String
   }
