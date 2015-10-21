@@ -6,14 +6,15 @@
             <table class="report-title">
                 <tr>
                     <td>
-                        <img src="/seng_ratha/Logo_converted.jpg">
+                        <img src="/seng_ratha/logo.jpg">
                     </td>
                     <td>
+                      <div class="header-style">
                       <span class="report-company-name"
                             style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
                       <span class="report-company-name">{{title.company.enName}}</span><br>
                       <u> វិក្កយបត្របង់ប្រាក់ពិសេស (Special Payment)</u><br>
-                      {{title.company.khAddress}}, {{title.company.telephone}}
+                    </div>
                     </td>
                 </tr>
             </table>
@@ -23,18 +24,18 @@
                 {{#with header}}
                     <div style="width: 50%; padding-top: 12px; float: left;">
                         <ul class="list-unstyled">
-                            <li><strong>លេខកូដអ្នកជំងឺ :</strong> {{patientId}}</li>
-                            <li><strong>ឈ្មោះ :</strong> {{_patient.name}}</li>
-                            <li><strong>ភេទ :</strong> {{_patient.gender}}</li>
-                            <li><strong>អាយុ :</strong> {{_patient.age}}</li>
+                            <li><strong>Patient ID :</strong> {{patientId}}</li>
+                            <li><strong>Name :</strong> {{_patient.name}}</li>
+                            <li><strong>Gender :</strong> {{_patient.gender}}</li>
+                            <li><strong>Age :</strong> {{_patient.age}}</li>
                         </ul>
                     </div>
                     <div style="width: 50%; padding-top: 12px; float: right;">
                         <ul class="list-unstyled">
-                            <li><strong>លេខកូដចុះឈ្មោះ : </strong> {{specialRegisterId}}</li>
-                            <li><strong>កាលបរិច្ឆេទចុះឈ្មោះ : </strong> {{_specialRegister.registerDate}}</li>
-                            <li><strong>ពិពណ៌នា :</strong> {{_specialRegister.des}}</li>
-                            <li><strong>អាត្រាប្តូរប្រាក់ :</strong> {{exchange}}</li>
+                            <li><strong>Special Register ID :</strong> {{specialRegisterId}}</li>
+                            <li><strong>Special Register Date :</strong> {{_specialRegister.registerDate}}</li>
+                            <li><strong>Description :</strong> {{_specialRegister.des}}</li>
+                            <li><strong>exchange :</strong> {{exchange}}</li>
                         </ul>
                     </div>
                 {{/with}}
@@ -44,23 +45,23 @@
             <table class="report-content">
                 <thead class="report-content-header">
                 <tr>
-                    <th>ល.រ</th>
-                    <th>បរិយាយ</th>
-                    <th>ចំនួន</th>
-                    <th>តម្លៃ</th>
-                    <th>បញ្ចុះតម្លៃរាយ</th>
-                    <th>ទឹកប្រាក់</th>
+                    <th>N<sup>o</sup></th>
+                    <th>Items</th>
+                    <th>Qty</th>
+                    <th>Prcie</th>
+                    <th>Disc.</th>
+                    <th>Amount</th>
                 </tr>
                 </thead>
 
                 <tbody class="report-content-body">
                 {{#each content}}
-                    <tr>
-                        <td>{{index}}</td>
-                        <td>{{itemName}}</td>
-                        <td>{{qty}}</td>
+                    <tr class="td-custom">
+                        <td class="index-style">{{index}}</td>
+                        <td class="items-style">{{itemName}}</td>
+                        <td class="qty-style">{{qty}}</td>
                         <td>{{price}}</td>
-                        <td>{{discount}}</td>
+                        <td class="dis-style">{{discount}}</td>
                         <td>{{amount}}</td>
                     </tr>
                 {{/each}}
@@ -72,21 +73,21 @@
                 <!--Payment Method-->
                 <div style="width: 100%; float: left;">
                     <table class="report-content">
-                        <caption>ពត៍មានរប្រៀបនៃការបង់ប្រាក់</caption>
+                        <caption>Payment Method Information</caption>
                         <thead class="report-content-header">
                         <tr>
-                            <th>ល.រ</th>
-                            <th>កាលបរិច្ឆេទ</th>
-                            <th>ទឹកប្រាក់</th>
-                            <th>កាលបរិច្ឆេទបង់ប្រាក់</th>
-                            <th>ចំនួនទឹកប្រាក់បង់</th>
+                            <th>N<sup>o</sup></th>
+                            <th>Payment Method Date</th>
+                            <th>Amount</th>
+                            <th>Payment Date</th>
+                            <th>Paid Amount</th>
                         </tr>
                         </thead>
 
                         <tbody class="report-content-body">
                         {{#each paymentMethod}}
-                            <tr>
-                                <td>{{index}}</td>
+                            <tr class="td-custom">
+                                <td class="index-style">{{index}}</td>
                                 <td>{{paymentMethodDate}}</td>
                                 <td>{{amount}}</td>
                                 <td>{{paymentDate}}</td>
@@ -119,12 +120,13 @@
                 <!--</ul>-->
                     <!--{{/with}}-->
             </div>
-        {{/with}}
 
         <!--Note-->
         <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">
+  <strong>{{title.company.khAddress}}, {{title.company.telephone}}</strong><br>
             <strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់បង់ មិនអាចយកវិញបានទេ).
         </div>
+                {{/with}}
     {{else}}
         {{> loading}}
     {{/if}}
