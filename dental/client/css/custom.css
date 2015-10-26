@@ -172,6 +172,11 @@
   margin-bottom: 5px;
 }
 
+/*custom td patient history*/
+.td-cus-style{
+  width: 25%; 
+}
+
 /*Custom Columns*/
 .col-sm-2-custom,.col-md-2-custom {
   position: relative;
