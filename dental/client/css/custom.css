@@ -172,7 +172,6 @@
   margin-bottom: 5px;
 }
 
-<<<<<<< HEAD
 /*border Image*/
 .border-img {
   display: inline-block;
@@ -223,13 +222,12 @@
   width: 305px;
 }
 
-=======
+
 /*custom td patient history*/
 .td-cus-style{
-  width: 25%; 
+  width: 25%;
 }
 
->>>>>>> report_patientHistory
 /*Custom Columns*/
 .col-sm-2-custom,.col-md-2-custom {
   position: relative;
