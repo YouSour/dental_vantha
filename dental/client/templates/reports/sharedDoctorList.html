@@ -47,37 +47,55 @@
                     <th>Register ID</th>
                     <th>Register Date</th>
                     <th>Patient</th>
-                    <th>Sub Total</th>
-                    <th>Deposit</th>
-                    <th>Sub Discount</th>
-                    <th>Total</th>
-                    <th>Paid Amount</th>
                     <th>Closed Date</th>
+                    <th>Invoice Amount</th>
+                    <th>Invoice Share</th>
+                    <!-- <th>Sub Total</th> -->
+                    <th>Deposit</th>
+                    <!-- <th>Sub Discount</th> -->
+                    <!-- <th>Total</th> -->
+                    <th>Paid Amount</th>
+                    <th>Sum Of Shared</th>
                     <th>Shared Amount</th>
                 </tr>
                 </thead>
 
                 <tbody class="report-content-body">
                 {{#each content}}
-                    {{#if isHeader}}
+                    {{#if isHeader }}
+
                         <tr>
-                            <td colspan='9'><b>{{doctorId}}</b></td>
+                            <td colspan='10'><b>{{doctorId}}</b></td>
+                        </tr>
+
+                    {{else}}
+                        {{#if isFooter}}
+                        <tr>
+                             <td colspan='8' align="right"><b>Total</b></td>
+                            <td><b>{{totalAmountBeforeDateFinal}}</b></td>
                             <td><b>{{totalAmount}}</b></td>
                         </tr>
-                    {{else}}
+
+                        {{else}}
                         <tr>
                             <td>{{registerId}}</td>
                             <td>{{date}}</td>
                             <td>{{patient}}</td>
-                            <td>{{subTotal}}</td>
-                            <td>{{deposit}}</td>
-                            <td>{{subDiscount}}</td>
-                            <td>{{totalDue}}</td>
-                            <td>{{paidAmount}}</td>
                             <td>{{closedDate}}</td>
+                            <td>{{invoiceAmount}}</td>
+                            <td>{{invoiceShare}}</td>
+                            <!-- <td>{{subTotal}}</td> -->
+                            <td>{{deposit}}</td>
+                            <!-- <td>{{subDiscount}}</td> -->
+                            <!-- <td>{{totalDue}}</td> -->
+                            <td>{{paidAmount}}</td>
+                            <td>{{amountBeforeDate}}</td>
                             <td>{{amount}}</td>
                         </tr>
+                        {{/if}}
                     {{/if}}
+
+
                 {{/each}}
                 </tbody>
             </table>
