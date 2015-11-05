@@ -23,14 +23,26 @@
     {{#if data}}
         {{#with data}}
             <!--Title-->
-            <div class="report-title">
-                <span class="report-company-name"
-                      style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-                <span class="report-company-name">{{title.company.enName}}</span><br>
-                Date: {{title.date}}<br>
-                <u>Payment Report</u><br>
-                {{title.company.khAddress}}, {{title.company.telephone}}
-            </div>
+            <table class="report-title" style="width:100%;">
+                <tr align="center">
+
+                  <td colspan="2">
+                    <td>
+                      <img src="/seng_ratha/logo.jpg">
+                    </td>
+
+                    <td>
+                      <span class="report-company-name"
+                            style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+                      <span class="report-company-name">{{title.company.enName}}</span><br>
+                      Date: {{title.date}}<br>
+                      <u>Payment Report</u><br>
+                      {{title.company.khAddress}}, {{title.company.telephone}}
+                    </td>
+
+                  </td>
+                </tr>
+            </table>
 
             <!--Header-->
             <table width="100%" border="0">
@@ -55,6 +67,7 @@
                     <th>Patient ID</th>
                     <th>Patient</th>
                     <th>Status</th>
+                    <th>Description</th>
                     <th>Due Amount</th>
                     <th>Paid Amount</th>
                     <th>Balance</th>
@@ -70,6 +83,7 @@
                         <td>{{patientId}}</td>
                         <td>{{patient}}</td>
                         <td>{{status}}</td>
+                        <td>{{des}}</td>
                         <td class="dueAmount">{{due}}</td>
                         <td class="paidAmount">{{paid}}</td>
                         <td class="balance">{{balance}}</td>
@@ -77,7 +91,7 @@
                 {{/each}}
 
                 <tr>
-                    <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                    <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                         <b>Grand
                             Total USD</b></td>
 
@@ -87,7 +101,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                    <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                         <b>KHR</b></td>
 
                     <td>{{footer.totalDueAmountKhr}}</td>
@@ -96,7 +110,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="6" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
+                    <td colspan="7" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;">
                         <b>THB</b></td>
 
                     <td>{{footer.totalDueAmountThb}}</td>

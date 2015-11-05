@@ -40,6 +40,7 @@ Meteor.methods({
       })
       .forEach(function(obj) {
         obj.index = indexOfDeposit;
+        obj.price = numeral(obj.price).format('$0,0.00');
         obj.amount = numeral(obj.amount).format('$0,0.00');
 
         data.deposit.push(obj);
@@ -59,8 +60,8 @@ Meteor.methods({
         var itemDoc = Dental.Collection.DiseaseItem.findOne(obj.item);
         obj.index = index;
         obj.itemName = itemDoc.name;
-        obj.price = numeral(obj.price).format('0,0.00');
-        obj.amount = numeral(obj.amount).format('0,0.00');
+        obj.price = numeral(obj.price).format('$0,0.00');
+        obj.amount = numeral(obj.amount).format('$0,0.00');
 
         content.push(obj);
 
@@ -86,9 +87,10 @@ Meteor.methods({
         '$0,0.00');
       footer.totalKhr = "R" + numeral((getRegister.total -
         totalPaidAmount) * exchange.rates.KHR).format('0,0.00');
-      footer.totalThb = "THB" + numeral((getRegister.total -
-          totalPaidAmount) * exchange.rates
-        .THB).format('0,0.00');
+      footer
+        .totalThb = "THB" + numeral((getRegister.total -
+            totalPaidAmount) * exchange.rates
+          .THB).format('0,0.00');
       data.footer = footer;
 
       return data;
