@@ -86,9 +86,10 @@ Meteor.methods({
         '$0,0.00');
       footer.totalKhr = "R" + numeral((getRegister.total -
         totalPaidAmount) * exchange.rates.KHR).format('0,0.00');
-      footer.totalThb = "THB" + numeral((getRegister.total -
-          totalPaidAmount) * exchange.rates
-        .THB).format('0,0.00');
+      footer
+        .totalThb = "THB" + numeral((getRegister.total -
+            totalPaidAmount) * exchange.rates
+          .THB).format('0,0.00');
       data.footer = footer;
 
       return data;

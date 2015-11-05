@@ -1,0 +1,203 @@
+<!--Form-->
+<template name="dental_patientHistoryListReport">
+  {{#autoForm schema=Dental.Schema.PatientHistoryListReport id="dental_patientHistoryListReport" action="patientHistoryListReportGen" target="_blank"}}
+  <div class="row">
+    <div class="col-md-6">
+      {{> afQuickField name='branchId'}}
+    </div>
+    <div class="col-md-6">
+      {{> afQuickField name='patientId'}}
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">{{fa "file-text"}} Generate</button>
+  <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
+  {{/autoForm}}
+</template>
+
+<!--Generate-->
+<template name="dental_patientHistoryListReportGen">
+  {{#if data}} {{#with data}}
+  <!--Title-->
+
+  <!--Title-->
+  <table class="report-title" style="width:100%;">
+      <tr align="center">
+
+        <td colspan="2">
+          <td>
+              <img src="/seng_ratha/logo.jpg">
+          </td>
+
+          <td>
+            <span class="report-company-name"
+                  style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
+            <span class="report-company-name">{{title.company.enName}}</span><br>
+            <u>Patient History Report</u><br>
+            {{title.company.khAddress}}, {{title.company.telephone}}
+          </td>
+
+        </td>
+      </tr>
+  </table>
+
+  <!--Header Patient-->
+  <table width="100%" border="0">
+
+    <tr>
+      <h4><u>Patient Information</u> :</h4>
+    </tr>
+    {{#each header}}
+    <tr>
+      <td class="td-cus-style">{{{col1}}}</td>
+      <td class="td-cus-style" align="center">{{{col2}}}</td>
+      <td class="td-cus-style" align="center">{{{col3}}}</td>
+      <td class="td-cus-style" align="right">{{{col4}}}</td>
+    </tr>
+    <tr>
+      <td class="td-cus-style">{{{col5}}}</td>
+      <td class="td-cus-style" align="center">{{{col6}}}</td>
+      <td class="td-cus-style" align="center">{{{col7}}}</td>
+      <td class="td-cus-style" align="right">{{{col8}}}</td>
+    </tr>
+    {{/each}}
+
+  </table>
+
+  <!--Content-->
+  <table width="100%" border="0">
+
+      {{#each content}}
+      <!--Header Register-->
+      <tr>
+        <td>
+          <h4><u>Register Information</u> :</h4>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="td-cus-style"><b>Register ID :</b>{{_id}}</td>
+        <td class="td-cus-style" align="center"><b>Register Date :</b>{{registerDate}}</td>
+        <td class="td-cus-style" align="center"><b>Status :</b>{{status}}</td>
+        <td class="td-cus-style" align="right"><b>Closed Date :</b>{{closingDate}}</td>
+      </tr>
+
+      <!--Disease-->
+      <tr>
+        <td colspan="4">
+        <table class="report-content">
+            <thead class="report-content-header">
+            <tr>
+                <th>Items</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+
+            <tbody class="report-content-body">
+              {{{diseaseDoc}}}
+            </tbody>
+        </table>
+      </td>
+      </tr>
+
+      <!--Header Treatment-->
+      <tr>
+        <td>
+          <h4><u>Treatment Information</u> :</h4>
+        </td>
+      </tr>
+
+      <!--Treament-->
+      <tr>
+        <td colspan="4">
+        <table class="report-content">
+            <thead class="report-content-header">
+            <tr>
+                <th>Treatment ID</th>
+                <th>Treatment Date</th>
+                <th>Doctor ID</th>
+                <th>Doctor</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+
+            <tbody class="report-content-body">
+              {{{treamentDoc}}}
+            </tbody>
+        </table>
+      </td>
+      </tr>
+
+      <!--Header Deposit-->
+      <tr>
+        <td>
+          <h4><u>Deposit Information</u> :</h4>
+        </td>
+      </tr>
+
+      <!--Deposit-->
+      <tr>
+        <td colspan="4">
+        <table class="report-content">
+            <thead class="report-content-header">
+            <tr>
+                <th>Deposit ID</th>
+                <th>Deposit Date</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+
+            <tbody class="report-content-body">
+              {{{depositDoc}}}
+            </tbody>
+        </table>
+      </td>
+      </tr>
+
+      <!--Header Payment-->
+      <tr>
+        <td>
+          <h4><u>Payment Information</u> :</h4>
+        </td>
+      </tr>
+
+      <!--Payment-->
+      <tr>
+        <td colspan="4">
+        <table class="report-content">
+            <thead class="report-content-header">
+            <tr>
+                <th>Payment ID</th>
+                <th>Staff ID</th>
+                <th>Payment Date</th>
+                <th>Due Amount</th>
+                <th>Paid Amount</th>
+                <th>Balance</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody class="report-content-body">
+              {{{paymentDoc}}}
+            </tbody>
+        </table>
+      </td>
+      </tr>
+
+      <tr>
+        <td colspan="4" style="padding-top:25px;"></td>
+      </tr>
+
+      {{/each}}
+  </table>
+
+  <!--Footer-->
+  <p></p>
+  {{/with}}
+
+  <!--Sign-->
+  {{>signFooter}} {{else}} {{> loading}} {{/if}}
+</template>
