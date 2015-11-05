@@ -20,6 +20,7 @@ Template.dental_treatment.helpers({
 
 Template.dental_treatment.events({
   'click .insert': function() {
+    Session.set('closeTreatment', true);
     var data = Dental.RegisterState.get('data');
     alertify.treatment(fa("plus", "Treatment"), renderTemplate(Template.dental_treatmentInsert,
       data));
@@ -169,7 +170,9 @@ AutoForm.hooks({
       }
     },
     onSuccess: function(formType, result) {
-      alertify.treatment().close();
+      if (Session.get('closeTreatment')) {
+        alertify.treatment().close();
+      }
       //clear select2
       $('select').each(function() {
         $(this).select2("val", "");

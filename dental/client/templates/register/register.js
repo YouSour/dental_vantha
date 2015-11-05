@@ -124,6 +124,7 @@ Template.dental_register.events({
     }
   },
   'click .treatmentAction': function(e, t) {
+    Session.set('closeTreatment', false);
     var data = this;
     if (data.status == "Active") {
       if (e.ctrlKey) {
@@ -141,6 +142,7 @@ Template.dental_register.events({
     }
   },
   'click .appointmentAction': function(e, t) {
+    Session.set('closeAppointment', false);
     var data = this;
     if (data.status == "Active") {
       if (e.ctrlKey) {
@@ -158,6 +160,7 @@ Template.dental_register.events({
     }
   },
   'click .depositAction': function(e, t) {
+    Session.set('closeDeposit', false);
     var data = this;
     if (data.status == "Active") {
       if (e.ctrlKey) {
@@ -175,6 +178,7 @@ Template.dental_register.events({
     }
   },
   'click .paymentAction': function(e, t) {
+    Session.set('closePayment', false);
     var data = this;
     if (data.status == "Close") {
       if (e.ctrlKey) {
