@@ -347,6 +347,16 @@ Template.afArrayField_customArrayFieldInvoiceForSpecialDiseaseItem.events({
     // Cal footer
     calculateTotal();
   },
+  'click .btnNonFree': function(e, t) {
+    var thisObj = $(e.currentTarget);
+    thisObj.parents('div.array-item').find('.discount').val(0);
+
+    CalculateTotalAndAmount(e);
+    // Cal footer
+    calculateTotal();
+    // Cal sharingRemain for doc share
+    sharingRemain();
+  },
   'keyup .qty,.discount, click .qty,.discount': function(e, t) {
 
     CalculateTotalAndAmount(e);
