@@ -18,6 +18,7 @@
 
 <!--Generate-->
 <template name="dental_analysisPatientListReportGen">
+  {{#if data}}
     {{#with data}}
         <!--Title-->
         <div class="report-title">
@@ -57,22 +58,12 @@
             {{#each content}}
                 <tr>
                     <td align="center">{{index}}</td>
-                    <td>{{name}}</td>
-                    <td align="center">{{qty}}</td>
-                    <td align="center">0</td>
-                    <td align="center">0</td>
-                    <td align="center">0</td>
+                    <td>{{itemName}}</td>
+                    {{{extract typeOfPatient male female}}}
+                    <td align="center">{{total}}</td>
                 </tr>
             {{/each}}
 
-            <tr>
-                <td colspan="3" style="border-left-style: hidden;border-bottom-style: hidden; text-align: right;"><b>
-                    Total</b></td>
-                <td align="center">0</td>
-                <td align="center">0</td>
-                <td align="center">0</td>
-
-            </tr>
 
             </tbody>
         </table>
@@ -82,6 +73,9 @@
         <p></p>
 {{> signFooter}}
     {{/with}}
+    {{else}}
+    {{> loading}}
+    {{/if}}
 
     <!--Sign-->
 
