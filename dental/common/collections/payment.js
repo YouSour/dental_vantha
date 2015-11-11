@@ -52,7 +52,7 @@ Dental.Schema.Payment = new SimpleSchema({
     min: 0.01,
     custom: function() {
       if (this.value > this.field('dueAmount').value) {
-        return "greaterThan";
+        return "greaterThanDue";
       }
     },
     label: 'Paid Amount'
@@ -103,7 +103,7 @@ Dental.Collection.Payment.attachSchema(Dental.Schema.Payment);
  * Custom Error Message
  */
 SimpleSchema.messages({
-  "greaterThan": "Paid Amount Can't Be Greater Than Due Amount",
+  "greaterThanDue": "Paid Amount Can't Be Greater Than Due Amount",
   "date": "Payment Date Can't Smaller Than " + moment().format(
     'YYYY-MM-DD H:mm:ss')
 });
