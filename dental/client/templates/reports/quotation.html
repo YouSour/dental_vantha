@@ -44,7 +44,7 @@
       </td>
       <td>
         <div class="header-style">
-          <span class="report-company-name" style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span>
+          <span class="report-company-name" style="font-family: 'Khmer OS Muol'; font-size:18px;">{{title.company.khName}}</span>
           <br>
           <span class="report-company-name">{{title.company.enName}}</span>
           <br>
@@ -141,7 +141,9 @@
 
   <!--Note-->
   <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">
-    <strong>{{title.company.khAddress}}, {{title.company.telephone}}</strong>
+    <strong>{{title.company.khAddress}}</strong><br>
+    <strong>ទូរស័ព្ទ៖ {{title.company.telephone}}</strong>
+      <br>
   </div>
 
   {{/with}} {{else}} {{> loading}} {{/if}}
