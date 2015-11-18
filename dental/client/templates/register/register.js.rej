@@ -1,0 +1,11 @@
+--- dental/client/templates/register/register.js
++++ dental/client/templates/register/register.js
+@@ -137,7 +137,7 @@
+       alertify.treatmentAction(
+         fa("plus", "Treatment"),
+         renderTemplate(Template.dental_treatmentInsert, data)
+-      );
++      ).maximize();
+     }
+     // }
+   },
