@@ -6,6 +6,7 @@ Meteor.methods({
       header: {},
       content: [],
       deposit: [],
+      payment: [],
       footer: {}
     };
 
@@ -27,11 +28,26 @@ Meteor.methods({
       }
     });
     data.header = registerDoc;
+    data.header.registerDate = moment(registerDoc.registerDate).format(
+      "DD-MM-YYYY" + " (" + "HH:mm:ss" + ")");
     data.header.exchange = numeral(exchange.rates.USD).format('$ 0,0.00') +
       " | " + numeral(exchange.rates.KHR).format('0,0.00') + " R" + " | " +
       numeral(exchange.rates.THB).format('0,0.00') + " B";
     /********** Content & Footer **********/
     var content = [];
+
+    // Get Payment
+    Dental.Collection.Payment.find({
+        registerId: self.register
+      })
+      .forEach(function(obj) {
+        obj.paidAmount = numeral(obj.paidAmount).format('$0,0.00');
+        obj.balance = numeral(obj.balance).format('$0,0.00');
+
+        data.payment.push(obj);
+
+        indexOfDeposit += 1;
+      });
 
     // Get deposit
     var indexOfDeposit = 1;
@@ -83,7 +99,7 @@ Meteor.methods({
       footer.subDiscount = numeral(getRegister.subDiscount).format(
         '$0,0.00');
       footer.paidAmount = numeral(totalPaidAmount).format('$0,0.00');
-      footer.total = numeral(getRegister.total - totalPaidAmount).format(
+      footer.total = numeral(getRegister.total).format(
         '$0,0.00');
       footer.totalKhr = "R" + numeral((getRegister.total -
         totalPaidAmount) * exchange.rates.KHR).format('0,0.00');

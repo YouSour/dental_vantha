@@ -75,10 +75,6 @@
           <strong>លេខកូដចុះឈ្មោះ : </strong> {{_id}}</li>
         <li>
           <strong>កាលបរិច្ឆេទចុះឈ្មោះ : </strong> {{registerDate}}</li>
-        <li>
-          <strong>ពិពណ៌នា :</strong> {{des}}</li>
-        <li>
-          <strong>អត្រាប្តូរប្រាក់ :</strong> {{exchange}}</li>
       </ul>
     </div>
     {{/with}}
@@ -114,13 +110,13 @@
 
   <!--Footer-->
   <div style="width: 100%">
-    <!--Deposit-->
     <div style="width: 50%; float: left">
+
+          <!-- Deposit-->
       <table class="report-content">
-        <caption>ព័ត៌មានការកក់បា្រក់</caption>
+        <caption>ការកក់បា្រក់</caption>
         <thead class="report-content-header">
           <tr>
-            <th>ល.រ</th>
             <th>កាលបរិច្ឆេទ</th>
             <th>ទឹកប្រាក់</th>
           </tr>
@@ -129,56 +125,68 @@
         <tbody class="report-content-body">
           {{#each deposit}}
           <tr class="td-custom">
-            <td class="index-style">{{index}}</td>
             <td>{{depositDate}}</td>
             <td>{{amount}}</td>
           </tr>
           {{/each}}
         </tbody>
       </table>
-      <div style="width: 28%; margin-top: 20px">
-        <ul class="list-unstyled">
-          <li>
-            <strong>អ្នកគិតលុយ :</strong> __________________
-          </li>
-        </ul>
-      </div>
     </div>
 
     <!--Total-->
 
   </div>
+
   <div style="width: 50%; float: right; margin-top: 20px">
     {{#with footer}}
     <ul class="list-unstyled text-right">
       <li>
-        <strong>ប្រាក់សរុប :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subTotal}}
+        <strong>ប្រាក់សរុបបឋម :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subTotal}}
       </li>
       <li>
         <strong>បញ្ចុះតម្លៃ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{subDiscount}}
       </li>
       <li>
-        <strong>ប្រាក់កក់ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{deposit}}
+        <strong>ប្រាក់កក់សរុប :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{deposit}}
       </li>
       <li>
-        <strong>ប្រាក់បានបង់ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{paidAmount}}
+        <strong>សរុប :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
       </li>
 
-      <div style=" margin-top: 20px;border-top:1px solid #000000; padding-top: 20px;">
-        <li>
-          <strong>ប្រាក់នៅសល់ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{total}}
-        </li>
-        <li>
-          <strong>ប្រាក់នៅសល់ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalKhr}}
-        </li>
-        <!-- <li>
-          <strong>ប្រាក់នៅសល់ :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalThb}}
-        </li> -->
-      </div>
     </ul>
     {{/with}}
   </div>
 
+  <div style="width: 100%">
+<table class="report-content">
+    <!--Payment-->
+  <caption>ការបង់បា្រក់</caption>
+  <thead class="report-content-header">
+    <tr>
+      <th>កាលបរិច្ឆេទ</th>
+      <th>ប្រាក់បានបង់</th>
+      <th>ប្រាក់នៅសល់</th>
+    </tr>
+  </thead>
+
+  <tbody class="report-content-body">
+    {{#each payment}}
+    <tr class="td-custom">
+      <td>{{paymentDate}}</td>
+      <td>{{paidAmount}}</td>
+      <td>{{balance}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+  </div>
+  <div style="width: 100%; margin-top: 20px">
+    <ul class="list-unstyled">
+      <li>
+        <strong>អ្នកគិតលុយ :</strong> __________________
+      </li>
+    </ul>
+  </div>
   <!--Note-->
   <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">
     <strong>{{title.company.khAddress}}</strong><br>
