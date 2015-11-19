@@ -6,6 +6,9 @@
     color: #000000
 }
 
+.report-body-bg {
+}
+
 .report-body {
     font-family: Arial, Verdana, Geneva, sans-serif;
     font-size: 10px;
@@ -108,7 +111,7 @@
 }
 
 .report-content-header th {
-    background-color: #d0d2d0;
+    background-color: #d0d2d0 !important;
     padding: 3px;
     text-align: center;
     font-weight: bold;

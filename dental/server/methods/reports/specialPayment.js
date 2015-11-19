@@ -29,6 +29,8 @@ Meteor.methods({
       }
     });
     data.header = registerDoc;
+    data.header.registerDate = moment(registerDoc.registerDate).format(
+      "DD-MM-YYYY" + " (" + "HH:mm:ss" + ")");
     data.header.exchange = numeral(exchange.rates.USD).format('$ 0,0.00') +
       " | " + numeral(exchange.rates.KHR).format('0,0.00') + " R" + " | " +
       numeral(exchange.rates.THB).format('0,0.00') + " B";
