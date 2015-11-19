@@ -258,3 +258,9 @@
       width: 27%;
     }
     }
+
+/*custom table striped bootstrap*/
+    .table-striped-custom>tbody>tr:nth-child(odd)>td,
+  .table-striped-custom>tbody>tr:nth-child(odd)>th {
+     background-color: #EEECF3 !important;
+   }
