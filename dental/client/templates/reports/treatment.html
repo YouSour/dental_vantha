@@ -33,13 +33,6 @@
           <br>
         </div>
       </td>
-      <!-- <td>
-                      <span class="report-company-name"
-                            style="font-family: 'Khmer OS Muol">{{title.company.khName}}</span><br>
-                      <span class="report-company-name">{{title.company.enName}}</span><br>
-                      ព័ត៌មានលំអិត (Patient's Record)<br>
-                      {{title.company.khAddress}}, {{title.company.telephone}}
-                    </td> -->
     </tr>
   </table>
   <!--Header-->
@@ -94,13 +87,17 @@
   </table>
 
   <!--Sign-->
-  <div style="width: 30%; float: left; margin-top: 20px;">
-    <strong>រៀបចំដោយ :</strong> __________________
+  <div class="row">
+  <div style="width: 22%; float: right; margin-top: 20px; text-align:center;">
+    <strong>ថ្ងៃទី៌____ខែ______ឆ្នាំ______</strong><br><br>
+    <strong>រៀបចំដោយ</strong><br><br><br><br><br>_________________
   </div>
-
-  <div style="width: 70%; float: right; margin-top: 20px; text-align:right;">
-    <strong>{{title.company.khAddress}}, {{title.company.telephone}}</strong>
+</div>
+  <div class="row">
+  <div style="text-align:center; margin-top: 20px;">
+        <strong>{{title.company.khAddress}}, {{title.company.telephone}}</strong>
   </div>
+</div>
 
   {{/with}} {{else}} {{> loading}} {{/if}}
 </template>

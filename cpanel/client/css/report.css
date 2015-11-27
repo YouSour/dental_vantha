@@ -6,7 +6,10 @@
     color: #000000
 }
 
-.report-body-bg {
+.report-body-xbg {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  color: #000000
 }
 
 .report-body {
