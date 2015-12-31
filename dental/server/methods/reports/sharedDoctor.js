@@ -32,7 +32,7 @@ Meteor.methods({
     }
 
     data.header = [{
-      col1: 'Branch: ' + branch
+      col1: '<b>' + 'Branch: ' + '</b>' + branch
     }];
 
     /********** Content & Footer **********/
