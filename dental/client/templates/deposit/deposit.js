@@ -14,7 +14,7 @@ Template.dental_deposit.helpers({
 
     return {
       registerId: registerId
-    };
+    }
   }
 });
 
