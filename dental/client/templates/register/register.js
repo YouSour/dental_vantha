@@ -795,6 +795,7 @@ var sharingRemain = function() {
       laboAmount += parseFloat(this.value);
     }
   });
+
   if (totalRegister == 0) {
     totalAmount = (shareAmount + laboAmount) - totalRegister;
   } else {
