@@ -48,11 +48,12 @@ Dental.List = {
   },
   diseaseCategory: function() {
     var list = [];
+    var branchSession =  Session.get('currentBranch');
     list.push({
       label: "(Select One)",
       value: ""
     });
-    Dental.Collection.DiseaseCategory.find()
+    Dental.Collection.DiseaseCategory.find({branchId:branchSession})
       .forEach(function(obj) {
         list.push({
           label: obj.code + ' : ' + obj.name,
@@ -64,12 +65,13 @@ Dental.List = {
   },
   laboratoryItem: function() {
     var list = [];
+    var branchSession =  Session.get('currentBranch');
     list.push({
       label: "(Select One)",
       value: ""
     });
 
-    Dental.Collection.Laboratory.find().forEach(function(obj) {
+    Dental.Collection.Laboratory.find({branchId:branchSession}).forEach(function(obj) {
       list.push({
         label: obj._id + " : " + obj.name,
         value: obj._id
@@ -81,12 +83,13 @@ Dental.List = {
   },
   materialCostCategory: function() {
     var list = [];
+    var branchSession =  Session.get('currentBranch');
     list.push({
       label: "(Select One)",
       value: ""
     });
 
-    Dental.Collection.MaterialCostCategory.find()
+    Dental.Collection.MaterialCostCategory.find({branchId:branchSession})
       .forEach(function(obj) {
         list.push({
           label: obj._id + " : " + obj.name,
@@ -115,12 +118,13 @@ Dental.List = {
   },
   orderCategory: function() {
     var list = [];
+    var branchSession =  Session.get('currentBranch');
     list.push({
       label: "(Select One)",
       value: ""
     });
 
-    Dental.Collection.OrderCategory.find()
+    Dental.Collection.OrderCategory.find({branchId:branchSession})
       .forEach(function(obj) {
         list.push({
           label: obj._id + " : " + obj.name,
@@ -169,8 +173,9 @@ Dental.List = {
   },
   history: function() {
     var list = [];
+    var branchSession =  Session.get('currentBranch');
 
-    Dental.Collection.PatientHistory.find()
+    Dental.Collection.PatientHistory.find({branchId:branchSession})
       .forEach(function(obj) {
         list.push({
           label: obj.name,

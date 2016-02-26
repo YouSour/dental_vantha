@@ -21,9 +21,7 @@ Template.dental_patient.events({
       .maximize();
   },
   'click .update': function(e, t) {
-    var data = Dental.Collection.Patient.findOne({
-      _id: this._id
-    });
+    var data = this;
     alertify.patient(fa("pencil", "Patient"), renderTemplate(Template.dental_patientUpdate,
         data))
       .maximize();
@@ -48,7 +46,8 @@ Template.dental_patient.events({
     );
   },
   'click .show': function(e, t) {
-    var data = Dental.Collection.Patient.findOne(this._id);
+    var data = this;
+
     // History
     var history = [];
     _.each(data.history, function(val) {
@@ -71,8 +70,18 @@ Template.dental_patient.events({
 /**
  * Insert
  */
+ Template.dental_patientInsert.onCreated(function() {
+   Meteor.subscribe('dental_patientHistory');
+ });
 Template.dental_patientInsert.onRendered(function() {
   memberAutoSelected();
+});
+
+/**
+ * Update
+ */
+Template.dental_patientUpdate.onCreated(function() {
+  Meteor.subscribe('dental_patientHistory');
 });
 
 /**

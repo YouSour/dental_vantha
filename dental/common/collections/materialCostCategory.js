@@ -39,7 +39,10 @@ Dental.Schema.MaterialCostCategory = new SimpleSchema({
         }
       }
     }
-  }
+  },
+  branchId:{
+        type:String
+    }
 });
 
 /**

@@ -12,8 +12,8 @@ Template.dental_doctor.events({
       .maximize();
   },
   'click .update': function(e, t) {
-    var data = Dental.Collection.Doctor.findOne(this._id);
-
+    var data = this;
+    console.log(this);
     alertify.doctor(fa("pencil", "Doctor"), renderTemplate(Template.dental_doctorUpdate,
       data)).maximize();
   },
@@ -36,7 +36,7 @@ Template.dental_doctor.events({
     );
   },
   'click .show': function(e, t) {
-    var data = Dental.Collection.Doctor.findOne(this._id);
+    var data = this;
     data.photoUrl = null;
     if (!_.isUndefined(data.photo)) {
       data.photoUrl = Files.findOne(data.photo).url();

@@ -12,8 +12,7 @@ Template.dental_diseaseItem.events({
       Template.dental_diseaseItemInsert)).maximize();
   },
   'click .update': function(e, t) {
-    var data = Dental.Collection.DiseaseItem.findOne(this._id);
-
+    var data = this;
     alertify.diseaseItem(fa("pencil", "Disease Item"), renderTemplate(
       Template.dental_diseaseItemUpdate, data)).maximize();
   },
@@ -36,8 +35,7 @@ Template.dental_diseaseItem.events({
     );
   },
   'click .show': function(e, t) {
-    var data = Dental.Collection.DiseaseItem.findOne(this._id);
-
+    var data = this;
     alertify.alert(fa("eye", "Disease Item"), renderTemplate(Template.dental_diseaseItemShow,
       data));
   }
@@ -46,6 +44,10 @@ Template.dental_diseaseItem.events({
 /**
  * Insert
  */
+Template.dental_diseaseItemInsert.onCreated(function() {
+  Meteor.subscribe('dental_diseaseCategory');
+});
+
 Template.dental_diseaseItemInsert.events({
   'click .diseaseCategoryAddon': function(e, t) {
     alertify.diseaseCategory(fa("plus", "Disease Category"),
@@ -56,6 +58,10 @@ Template.dental_diseaseItemInsert.events({
 /**
  * Update
  */
+Template.dental_diseaseItemUpdate.onCreated(function() {
+  Meteor.subscribe('dental_diseaseCategory');
+});
+
 Template.dental_diseaseItemUpdate.events({
   'click .diseaseCategoryAddon': function(e, t) {
     alertify.diseaseCategory(fa("plus", "Disease Category"),
@@ -87,7 +93,6 @@ AutoForm.hooks({
     }
   },
   dental_diseaseItemUpdate: {
-
     onSuccess: function(formType, result) {
       alertify.diseaseItem().close();
       alertify.success('Success');
