@@ -2,7 +2,7 @@ Dental.ListState = new ReactiveObj();
 /*
  * Index
  */
-Template.dental_payment.onRendered(function() {
+Template.dental_payment.onCreated(function() {
   createNewAlertify(['payment', 'registerAddon', 'staffAddon',
     'patientAddon'
   ]);

@@ -1,6 +1,10 @@
 /**
  * Index
  */
+ Template.dental_materialCostItem.onCreated(function () {
+     Meteor.subscribe('dental_materialCostCategory');
+ });
+
 Template.dental_materialCostItem.onRendered(function () {
     createNewAlertify(['materialCostItem','materialCostCategoryAddon']);
 });
@@ -40,10 +44,6 @@ Template.dental_materialCostItem.events({
 /*
  * Insert
  */
-Template.dental_materialCostItemInsert.onCreated(function () {
-  Meteor.subscribe('dental_materialCostCategory');
-});
-
 Template.dental_materialCostItemInsert.events({
     'click .materialCostCategoryAddon': function () {
        alertify.materialCostCategoryAddon(fa("plus","Material Category"),renderTemplate(Template.dental_materialCostCategoryInsert));
@@ -53,9 +53,6 @@ Template.dental_materialCostItemInsert.events({
 /*
  * Update
  */
- Template.dental_materialCostItemUpdate.onCreated(function () {
-   Meteor.subscribe('dental_materialCostCategory');
- });
 Template.dental_materialCostItemUpdate.events({
     'click .materialCostCategoryAddon': function () {
         alertify.materialCostCategoryAddon(fa("pencil","Material Category"),renderTemplate(Template.dental_materialCostCategoryInsert));

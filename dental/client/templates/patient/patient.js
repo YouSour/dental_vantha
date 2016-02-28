@@ -33,7 +33,6 @@ Template.dental_patient.events({
       fa("remove", "Patient"),
       "Are you sure to delete [" + self._id + "] ?",
       function(closeEvent) {
-
         Dental.Collection.Patient.remove(self._id, function(error) {
           if (error) {
             alertify.error(error.message);
@@ -46,8 +45,8 @@ Template.dental_patient.events({
     );
   },
   'click .show': function(e, t) {
-    var data = this;
 
+    var data = this;
     // History
     var history = [];
     _.each(data.history, function(val) {

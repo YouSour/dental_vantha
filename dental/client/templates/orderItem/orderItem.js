@@ -1,6 +1,10 @@
 /**
  * Index
  */
+ Template.dental_orderItem.onCreated(function () {
+  Meteor.subscribe('dental_orderCategory');
+ });
+
 Template.dental_orderItem.onRendered(function () {
     createNewAlertify(['orderItem','orderCategoryAddon']);
 });
@@ -40,9 +44,6 @@ Template.dental_orderItem.events({
 /*
  * Insert
  */
-Template.dental_orderItemInsert.onCreated(function () {
-  Meteor.subscribe('dental_orderCategory');
-});
 Template.dental_orderItemInsert.events({
     'click .orderCategoryAddon': function () {
        alertify.orderCategoryAddon(fa("plus","Order Category"),renderTemplate(Template.dental_orderCategoryInsert));
@@ -52,9 +53,6 @@ Template.dental_orderItemInsert.events({
 /*
  * Update
  */
- Template.dental_orderItemUpdate.onCreated(function () {
-   Meteor.subscribe('dental_orderCategory');
- });
 Template.dental_orderItemUpdate.events({
     'click .orderCategoryAddon': function () {
         alertify.orderCategoryAddon(fa("pencil","Order Category"),renderTemplate(Template.dental_orderCategoryInsert));

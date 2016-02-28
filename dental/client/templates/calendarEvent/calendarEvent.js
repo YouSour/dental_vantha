@@ -29,9 +29,7 @@ Template.dental_calendarEvent.events({
       Template.dental_calendarEventInsert, data));
   },
   'click .update': function() {
-    var data = Dental.Collection.CalendarEvent.findOne({
-      _id: this._id
-    });
+    var data = this;
     alertify.calendarEvent(fa("pencil", "Calendar Event"), renderTemplate(
       Template.dental_calendarEventUpdate, data));
   },
@@ -54,7 +52,7 @@ Template.dental_calendarEvent.events({
     );
   },
   'click .show': function() {
-    var data = Dental.Collection.CalendarEvent.findOne(this._id);
+    var data = this;
     data.patientPhoto = null;
     if (!_.isUndefined(data._register._patient.photo)) {
       var image = Files.findOne(data._register._patient.photo).url();

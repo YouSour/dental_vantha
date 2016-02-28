@@ -9,6 +9,7 @@ Dental.TabularTable.CalendarEvent = new Tabular.Table({
         {data: "status", title: "Status"}
     ],
     order: [["1", "desc"]],
+    extraFields:["doctorId","_register._patient.name","_register._patient.photo"],
     autoWidth: false,
     columnDefs: [{"width": "12px", "targets": 0}]
 });

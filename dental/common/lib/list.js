@@ -105,8 +105,8 @@ Dental.List = {
       label: "(Select One)",
       value: ""
     });
-
-    Dental.Collection.MaterialCostItem.find().forEach(function(obj) {
+    var branchSession =  Session.get('currentBranch');
+    Dental.Collection.MaterialCostItem.find({branchId:branchSession}).forEach(function(obj) {
       list.push({
         label: obj._id + " : " + obj.name,
         value: obj._id
@@ -158,9 +158,9 @@ Dental.List = {
       value: ""
     });
 
-    var currentBranch = Session.get('currentBranch');
+    var branchSession = Session.get('currentBranch');
     Dental.Collection.Patient.find({
-        branchId: currentBranch
+        branchId: branchSession
       })
       .forEach(function(obj) {
         list.push({
@@ -174,7 +174,6 @@ Dental.List = {
   history: function() {
     var list = [];
     var branchSession =  Session.get('currentBranch');
-
     Dental.Collection.PatientHistory.find({branchId:branchSession})
       .forEach(function(obj) {
         list.push({
@@ -192,8 +191,8 @@ Dental.List = {
       label: "(Select One)",
       value: ""
     });
-
-    Dental.Collection.DiseaseItem.find()
+    var branchSession = Session.get('currentBranch');
+    Dental.Collection.DiseaseItem.find({branchId:branchSession})
       .forEach(function(obj) {
         var label = obj.name + ' (' + obj._diseaseCategory.name + ')' +
           ' | Price: ' + numeral(obj.price).format('0,0.00');
@@ -234,8 +233,8 @@ Dental.List = {
       label: "(Select One)",
       value: ""
     });
-
-    Dental.Collection.Staff.find()
+    var branchSession = Session.get('currentBranch');
+    Dental.Collection.Staff.find({branchId:branchSession})
       .forEach(function(obj) {
         list.push({
           label: obj._id + " : " + obj.name + ' (' + obj.position +
@@ -293,8 +292,8 @@ Dental.List = {
         value: ""
       });
     }
-
-    Dental.Collection.Register.find().forEach(function(obj) {
+    var branchSession = Session.get('currentBranch');
+    Dental.Collection.Register.find({branchId:branchSession}).forEach(function(obj) {
       list.push({
         label: obj._id + ": " + obj._patient.name + " (" + obj._patient
           .gender + ")",
@@ -312,7 +311,8 @@ Dental.List = {
         value: ""
       });
     }
-    Dental.Collection.Supplier.find().forEach(function(obj) {
+    var branchSession = Session.get('currentBranch');
+    Dental.Collection.Supplier.find({branchId:branchSession}).forEach(function(obj) {
       list.push({
         label: obj._id + " : " + obj.name,
         value: obj._id
@@ -327,8 +327,8 @@ Dental.List = {
       label: "(Select One)",
       value: ""
     });
-
-    Dental.Collection.OrderItem.find().forEach(function(obj) {
+    var branchSession = Session.get('currentBranch');
+    Dental.Collection.OrderItem.find({branchId:branchSession}).forEach(function(obj) {
       list.push({
         label: obj._id + " : " + obj.name,
         value: obj._id

@@ -1,6 +1,10 @@
 /**
  * Index
  */
+ Template.dental_diseaseItem.onCreated(function () {
+  Meteor.subscribe('dental_diseaseCategory');
+ });
+
 Template.dental_diseaseItem.onRendered(function() {
   // Create new  alertify
   createNewAlertify(["diseaseItem", 'diseaseCategory']);
@@ -44,10 +48,6 @@ Template.dental_diseaseItem.events({
 /**
  * Insert
  */
-Template.dental_diseaseItemInsert.onCreated(function() {
-  Meteor.subscribe('dental_diseaseCategory');
-});
-
 Template.dental_diseaseItemInsert.events({
   'click .diseaseCategoryAddon': function(e, t) {
     alertify.diseaseCategory(fa("plus", "Disease Category"),
@@ -58,10 +58,6 @@ Template.dental_diseaseItemInsert.events({
 /**
  * Update
  */
-Template.dental_diseaseItemUpdate.onCreated(function() {
-  Meteor.subscribe('dental_diseaseCategory');
-});
-
 Template.dental_diseaseItemUpdate.events({
   'click .diseaseCategoryAddon': function(e, t) {
     alertify.diseaseCategory(fa("plus", "Disease Category"),
