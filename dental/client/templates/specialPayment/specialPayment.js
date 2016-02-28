@@ -47,9 +47,7 @@ Template.dental_specialPayment.events({
     }, 500);
   },
   'click .update': function() {
-    var data = Dental.Collection.SpecialPayment.findOne({
-      _id: this._id
-    });
+    var data = this;
 
     alertify.payment(fa("pencil", "Special Payment"), renderTemplate(
       Template.dental_specialPaymentUpdate, data));

@@ -11,9 +11,7 @@ Template.dental_patientHistory.events({
       Template.dental_patientHistoryInsert));
   },
   'click .update': function() {
-    var data = Dental.Collection.PatientHistory.findOne({
-      _id: this._id
-    });
+    var data = this;
     alertify.patientHistory(fa("pencil", "Patient History"),
       renderTemplate(Template.dental_patientHistoryUpdate, data));
   },
@@ -36,8 +34,9 @@ Template.dental_patientHistory.events({
     );
   },
   'click .show': function() {
+    var data = this;
     alertify.alert(fa("eye", "Patient History"), renderTemplate(Template.dental_patientHistoryShow,
-      this));
+      data));
   }
 });
 

@@ -1,6 +1,10 @@
 /**
  * Index
  */
+ Template.dental_diseaseItem.onCreated(function () {
+  Meteor.subscribe('dental_diseaseCategory');
+ });
+
 Template.dental_diseaseItem.onRendered(function() {
   // Create new  alertify
   createNewAlertify(["diseaseItem", 'diseaseCategory']);
@@ -12,8 +16,7 @@ Template.dental_diseaseItem.events({
       Template.dental_diseaseItemInsert)).maximize();
   },
   'click .update': function(e, t) {
-    var data = Dental.Collection.DiseaseItem.findOne(this._id);
-
+    var data = this;
     alertify.diseaseItem(fa("pencil", "Disease Item"), renderTemplate(
       Template.dental_diseaseItemUpdate, data)).maximize();
   },
@@ -36,8 +39,7 @@ Template.dental_diseaseItem.events({
     );
   },
   'click .show': function(e, t) {
-    var data = Dental.Collection.DiseaseItem.findOne(this._id);
-
+    var data = this;
     alertify.alert(fa("eye", "Disease Item"), renderTemplate(Template.dental_diseaseItemShow,
       data));
   }
@@ -87,7 +89,6 @@ AutoForm.hooks({
     }
   },
   dental_diseaseItemUpdate: {
-
     onSuccess: function(formType, result) {
       alertify.diseaseItem().close();
       alertify.success('Success');

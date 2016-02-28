@@ -11,7 +11,7 @@ Template.dental_diseaseCategory.events({
         alertify.diseaseCategory(fa("plus", "Disease Category"), renderTemplate(Template.dental_diseaseCategoryInsert));
     },
     'click .update': function (e, t) {
-        var data = Dental.Collection.DiseaseCategory.findOne(this._id);
+        var data = this;
 
         alertify.diseaseCategory(fa("pencil", "Disease Category"), renderTemplate(Template.dental_diseaseCategoryUpdate, data));
     },
@@ -35,7 +35,7 @@ Template.dental_diseaseCategory.events({
         );
     },
     'click .show': function (e, t) {
-        var data = Dental.Collection.DiseaseCategory.findOne(this._id);
+        var data = this;
 
         alertify.alert(fa("eye", "Disease Category"),renderTemplate(Template.dental_diseaseCategoryShow, data));
     }
@@ -49,6 +49,7 @@ AutoForm.hooks({
         before: {
             insert: function (doc) {
                 doc._id = idGenerator.gen(Dental.Collection.DiseaseCategory, 3);
+                doc.branchId = Session.get('currentBranch');
                 return doc;
             }
         },

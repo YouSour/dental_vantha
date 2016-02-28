@@ -1,6 +1,10 @@
 /**
  * Index
  */
+ Template.dental_orderItem.onCreated(function () {
+  Meteor.subscribe('dental_orderCategory');
+ });
+
 Template.dental_orderItem.onRendered(function () {
     createNewAlertify(['orderItem','orderCategoryAddon']);
 });
@@ -10,7 +14,7 @@ Template.dental_orderItem.events({
         alertify.orderItem(fa("plus", "Order Item"), renderTemplate(Template.dental_orderItemInsert)).maximize();
     },
     'click .update': function () {
-        var data = Dental.Collection.OrderItem.findOne({_id: this._id});
+        var data = this;
         alertify.orderItem(fa("pencil", "Order Item"), renderTemplate(Template.dental_orderItemUpdate, data)).maximize();
     },
     'click .remove': function () {
@@ -32,8 +36,7 @@ Template.dental_orderItem.events({
         );
     },
     'click .show': function () {
-        var data = Dental.Collection.OrderItem.findOne({_id: this._id});
-
+        var data = this;
         alertify.alert(fa("eye", "Order Item"), renderTemplate(Template.dental_orderItemShow, data));
     }
 });
@@ -41,7 +44,6 @@ Template.dental_orderItem.events({
 /*
  * Insert
  */
-
 Template.dental_orderItemInsert.events({
     'click .orderCategoryAddon': function () {
        alertify.orderCategoryAddon(fa("plus","Order Category"),renderTemplate(Template.dental_orderCategoryInsert));
@@ -51,7 +53,6 @@ Template.dental_orderItemInsert.events({
 /*
  * Update
  */
-
 Template.dental_orderItemUpdate.events({
     'click .orderCategoryAddon': function () {
         alertify.orderCategoryAddon(fa("pencil","Order Category"),renderTemplate(Template.dental_orderCategoryInsert));
