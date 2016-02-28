@@ -1,6 +1,10 @@
 /**
  * Index
  */
+ Template.dental_materialCostItem.onCreated(function () {
+     Meteor.subscribe('dental_materialCostCategory');
+ });
+
 Template.dental_materialCostItem.onRendered(function () {
     createNewAlertify(['materialCostItem','materialCostCategoryAddon']);
 });
@@ -10,7 +14,7 @@ Template.dental_materialCostItem.events({
         alertify.materialCostItem(fa("plus", "Material Item"), renderTemplate(Template.dental_materialCostItemInsert)).maximize();
     },
     'click .update': function () {
-        var data = Dental.Collection.MaterialCostItem.findOne({_id: this._id});
+        var data = this;
         alertify.materialCostItem(fa("pencil", "Material Item"), renderTemplate(Template.dental_materialCostItemUpdate, data)).maximize();
     },
     'click .remove': function () {
@@ -32,8 +36,7 @@ Template.dental_materialCostItem.events({
         );
     },
     'click .show': function () {
-        var data = Dental.Collection.MaterialCostItem.findOne({_id: this._id});
-
+        var data = this;
         alertify.alert(fa("eye", "Material Item"), renderTemplate(Template.dental_materialCostItemShow, data));
     }
 });
@@ -41,7 +44,6 @@ Template.dental_materialCostItem.events({
 /*
  * Insert
  */
-
 Template.dental_materialCostItemInsert.events({
     'click .materialCostCategoryAddon': function () {
        alertify.materialCostCategoryAddon(fa("plus","Material Category"),renderTemplate(Template.dental_materialCostCategoryInsert));
@@ -51,7 +53,6 @@ Template.dental_materialCostItemInsert.events({
 /*
  * Update
  */
-
 Template.dental_materialCostItemUpdate.events({
     'click .materialCostCategoryAddon': function () {
         alertify.materialCostCategoryAddon(fa("pencil","Material Category"),renderTemplate(Template.dental_materialCostCategoryInsert));

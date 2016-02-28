@@ -26,9 +26,7 @@ Template.dental_specialTreatment.events({
         data)).maximize();
   },
   'click .update': function() {
-    var data = Dental.Collection.SpecialTreatment.findOne({
-      _id: this._id
-    });
+    var data = this;
 
     alertify.specialTreatment(fa("pencil", "Special Treatment"),
       renderTemplate(Template
@@ -54,12 +52,7 @@ Template.dental_specialTreatment.events({
     );
   },
   'click .show': function() {
-    var data = Dental.Collection.SpecialTreatment.findOne(this._id);
-    // data.attachFileUrl = null;
-    //
-    // if (!_.isUndefined(data.attachFile)) {
-    //   data.attachFileUrl = Files.findOne(data.attachFile).url();
-    // }
+    var data = this;
     alertify.alert(fa("eye", "Special Treatment"), renderTemplate(
       Template.dental_specialTreatmentShow,
       data));

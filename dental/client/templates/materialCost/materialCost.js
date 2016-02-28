@@ -1,10 +1,11 @@
 /*
  *Index
  */
-Template.dental_materialCost.onRendered(function() {
+Template.dental_materialCost.onCreated(function() {
+  Meteor.subscribe('dental_doctor');
+  Meteor.subscribe('dental_materialCostItem');
   createNewAlertify(['materialCost', 'doctorAddon']);
 });
-
 
 Template.dental_materialCost.helpers({});
 
@@ -14,9 +15,7 @@ Template.dental_materialCost.events({
       Template.dental_materialCostInsert)).maximize();
   },
   'click .update': function() {
-    var data = Dental.Collection.MaterialCost.findOne({
-      _id: this._id
-    });
+    var data = this;
     alertify.materialCost(fa("pencil", "Material Cost"), renderTemplate(
       Template.dental_materialCostUpdate, data)).maximize();
   },
