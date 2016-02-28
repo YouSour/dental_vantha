@@ -1,10 +1,15 @@
 <template name="dental_navbar">
-        <li class="{{isActiveRoute name='dental.home'}}"><a href="{{pathFor 'dental.home'}}">Home</a></li>
- {{#if isInRole 'data-insert,data-update,data-remove,data-patient-insert' 'Dental'}}
- <!--Data-->
+    <li class="{{isActiveRoute name='dental.home'}}"><a href="{{pathFor 'dental.home'}}">Home</a></li>
+    {{#if isInRole 'data-insert,data-update,data-remove,data-patient-insert' 'Dental'}}
+        <!--Data-->
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                Data <span class="caret"></span>
+            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">-->
+            <!--Data <span class="caret"></span>-->
+            <!--</a>-->
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <i class="fa fa-th-list"></i>Data <span
+                    class="label label-danger">{{getPublishedCount 'alertCalendarEvent'}}</span><span
+                    class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
 
@@ -39,13 +44,13 @@
 
         <!--Calendar-->
         <li class="{{isActiveRoute name='dental.calendar'}}"><a href="{{pathFor 'dental.calendar'}}">Calendar</a></li>
-
+        {{getPublishedCount 'alertCalendarEvent'}}
         <!--Alert Event Message-->
         {{> dental_alertEventMsg}}
-{{/if}}
+    {{/if}}
 
-        <!--Report-->
- {{#if isInRole 'reporter' 'Dental'}}
+    <!--Report-->
+    {{#if isInRole 'reporter' 'Dental'}}
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Reports <span class="caret"></span>
@@ -58,7 +63,7 @@
                     <a href="{{pathFor 'dental.closedRegisterListReport'}}">Closed Register</a>
                 </li>
                 <li class="{{isActiveRoute name='dental.registerByDiseaseListReport'}}">
-                <a href="{{pathFor 'dental.registerByDiseaseListReport'}}">Register By Disease</a>
+                    <a href="{{pathFor 'dental.registerByDiseaseListReport'}}">Register By Disease</a>
                 </li>
                 <li class="{{isActiveRoute name='dental.specialRegisterListReport'}}">
                     <a href="{{pathFor 'dental.specialRegisterListReport'}}">Special Register</a>
@@ -89,7 +94,7 @@
                     <a href="{{pathFor 'dental.purchaseListReport'}}">Purchase</a>
                 </li>
                 <li class="{{isActiveRoute name='dental.patientHistoryListReport'}}">
-                <a href="{{pathFor 'dental.patientHistoryListReport'}}">Patient History</a>
+                    <a href="{{pathFor 'dental.patientHistoryListReport'}}">Patient History</a>
                 </li>
                 <li class="{{isActiveRoute name='dental.sharedDoctorListReport'}}">
                     <a href="{{pathFor 'dental.sharedDoctorListReport'}}">Shared Doctor</a>
@@ -118,10 +123,10 @@
 
             </ul>
         </li>
-{{/if}}
+    {{/if}}
 
-<!--Setting-->
- {{#if isInRole 'setting' 'Dental'}}
+    <!--Setting-->
+    {{#if isInRole 'setting' 'Dental'}}
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Setting <span class="caret"></span>
@@ -175,5 +180,5 @@
 
             </ul>
         </li>
-{{/if}}
+    {{/if}}
 </template>
