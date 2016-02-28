@@ -8,4 +8,3 @@ Meteor.publish('alertCalendarEvent', function () {
 
     this.ready();
 });
-

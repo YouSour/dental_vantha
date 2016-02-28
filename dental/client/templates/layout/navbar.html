@@ -3,13 +3,8 @@
     {{#if isInRole 'data-insert,data-update,data-remove,data-patient-insert' 'Dental'}}
         <!--Data-->
         <li class="dropdown">
-            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">-->
-            <!--Data <span class="caret"></span>-->
-            <!--</a>-->
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <i class="fa fa-th-list"></i>Data <span
-                    class="label label-danger">{{getPublishedCount 'alertCalendarEvent'}}</span><span
-                    class="caret"></span>
+            Data<span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
 
@@ -44,7 +39,6 @@
 
         <!--Calendar-->
         <li class="{{isActiveRoute name='dental.calendar'}}"><a href="{{pathFor 'dental.calendar'}}">Calendar</a></li>
-        {{getPublishedCount 'alertCalendarEvent'}}
         <!--Alert Event Message-->
         {{> dental_alertEventMsg}}
     {{/if}}

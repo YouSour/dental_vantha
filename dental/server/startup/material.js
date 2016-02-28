@@ -16,6 +16,7 @@ Meteor.startup(function () {
                     _id: itemId,
                     materialCostCategoryId: cateId,
                     name: Fake.word(),
+                    brancdId:"001",
                     price: Fake.fromArray([10, 20, 30, 40, 50]),
                     unit: Fake.fromArray(['kg', 'package'])
                 });

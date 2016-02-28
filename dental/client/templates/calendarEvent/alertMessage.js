@@ -4,12 +4,8 @@ Template.dental_alertEventMsg.onRendered(function () {
     //$('.menu').slimScroll({
     //    height: '100%'
     //});
-
-    Meteor.setInterval(function () {
-        var data = appointmentEvent();
-
-        state.set('data', data);
-    }, 1000);
+    var data = appointmentEvent();
+       state.set('data', data);
 });
 
 
@@ -35,7 +31,7 @@ Template.dental_alertEventMsg.events({
     }
 });
 
-// Count event
+// get data event function
 function appointmentEvent(alertDate, endDate) {
     var data = {};
 
@@ -43,7 +39,6 @@ function appointmentEvent(alertDate, endDate) {
     var doc = Dental.Collection.CalendarEvent.find({start: {$lt: currentDate}, status: 'Enable'});
 
     if (doc.count() > 0) {
-        data.count = doc.count();
 
         var event = [];
         doc.forEach(function (obj) {
@@ -60,4 +55,3 @@ function appointmentEvent(alertDate, endDate) {
 
     return data;
 }
-
