@@ -119,6 +119,7 @@ Dental.Collection.MaterialCost.before.insert(function (userId, doc) {
     doc._id = idGenerator.genWithPrefix(Dental.Collection.MaterialCost, hello, 3);
 });
 //Purchase
+
 Dental.Collection.Purchase.before.insert(function (userId, doc) {
     var prefix = stateDental.get('dental');
     var dt = moment().format("YYYYMMDD");
