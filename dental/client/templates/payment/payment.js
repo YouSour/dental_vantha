@@ -134,12 +134,9 @@ AutoForm.hooks({
   dental_paymentInsert: {
     before: {
       insert: function(doc) {
-        var branchPre = Session.get('currentBranch') + '-' + moment().format(
-          "YYYYMMDD");
-        doc._id = idGenerator.genWithPrefix(Dental.Collection.Payment,
-          branchPre, 3);
         doc.branchId = Session.get('currentBranch');
-
+        var prefix = doc.branchId + '-';
+        Meteor.call('dental', prefix);
         return doc;
       }
     },

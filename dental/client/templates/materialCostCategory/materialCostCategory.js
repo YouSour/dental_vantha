@@ -48,9 +48,8 @@ AutoForm.hooks({
   dental_materialCostCategoryInsert: {
     before: {
       insert: function(doc) {
-        doc._id = idGenerator.gen(Dental.Collection.MaterialCostCategory,
-          3);
         doc.branchId = Session.get('currentBranch');
+        Meteor.call('dental');
         return doc;
       }
     },

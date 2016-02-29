@@ -546,14 +546,11 @@ AutoForm.hooks({
   dental_registerInsert: {
     before: {
       insert: function(doc) {
-        var prefix = Session.get('currentBranch') + "-";
-
-        doc._id = idGenerator.genWithPrefix(Dental.Collection.Register,
-          prefix, 9);
         doc.status = "Active";
         doc.closingDate = 'none';
         doc.branchId = Session.get('currentBranch');
-
+        var prefix = doc.branchId + '-';
+        Meteor.call('dental', prefix);
         return doc;
       }
     },
