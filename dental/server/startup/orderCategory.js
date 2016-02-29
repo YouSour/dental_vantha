@@ -4,17 +4,17 @@ Meteor.startup(function() {
       "_id": "001",
       "name": "Water",
       "des": "Testing",
-      "brancdId": "001",
+      "branchId": "001",
     }, {
       "_id": "002",
       "name": "Internet",
       "des": "testing",
-      "brancdId": "001",
+      "branchId": "001",
     }, {
       "_id": "003",
       "name": "Food",
       "des": "testing",
-      "brancdId": "001",
+      "branchId": "001",
     }];
 
     _.each(data, function(obj) {

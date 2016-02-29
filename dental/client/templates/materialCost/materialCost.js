@@ -199,11 +199,15 @@ AutoForm.hooks({
   dental_materialCostInsert: {
     before: {
       insert: function(doc) {
-        var materialCostPrefix = Session.get('currentBranch') + '-' +
-          moment($('.materialCostDate').val()).format("YYYYMMDD");
-        doc._id = idGenerator.genWithPrefix(Dental.Collection.MaterialCost,
-          materialCostPrefix, 3);
+        //var materialCostPrefix = Session.get('currentBranch') + '-' +
+        //  moment($('.materialCostDate').val()).format("YYYYMMDD");
+        //doc._id = idGenerator.genWithPrefix(Dental.Collection.MaterialCost,
+        //  materialCostPrefix, 3);
+        //doc.branchId = Session.get('currentBranch');
+        //return doc;
         doc.branchId = Session.get('currentBranch');
+        var prefix = doc.branchId + '-';
+        Meteor.call('dental', prefix);
         return doc;
       }
     },

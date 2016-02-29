@@ -66,7 +66,7 @@ AutoForm.hooks({
     dental_orderItemInsert: {
         before: {
             insert: function (doc) {
-                doc._id = idGenerator.gen(Dental.Collection.OrderItem, 6);
+                Meteor.call('dental');
                 return doc;
             }
         },

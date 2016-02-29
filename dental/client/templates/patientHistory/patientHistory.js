@@ -48,7 +48,7 @@ AutoForm.hooks({
   dental_patientHistoryInsert: {
     before: {
       insert: function(doc) {
-        doc._id = idGenerator.gen(Dental.Collection.PatientHistory, 3);
+        Meteor.call('dental');
         return doc;
       }
     },

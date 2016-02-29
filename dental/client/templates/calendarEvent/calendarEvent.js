@@ -85,12 +85,12 @@ AutoForm.hooks({
   dental_calendarEventInsert: {
     before: {
       insert: function(doc) {
-        var currentBranch = Session.get('currentBranch');
-        doc._id = idGenerator.genWithPrefix(Dental.Collection.CalendarEvent,
-          currentBranch + '-', 12);
-        doc.branchId = currentBranch;
-
+        doc.branchId = Session.get('currentBranch');
+        var prefix = doc.branchId + '-';
+        Meteor.call('dental', prefix);
         return doc;
+
+
       }
     },
     onSuccess: function(formType, result) {

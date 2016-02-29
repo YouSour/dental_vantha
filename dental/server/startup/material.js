@@ -7,7 +7,7 @@ Meteor.startup(function () {
                 _id: cateId,
                 name: Fake.word(),
                 des: Fake.word(),
-                branchId:"001",
+                branchId:"001"
             });
 
             // Item
