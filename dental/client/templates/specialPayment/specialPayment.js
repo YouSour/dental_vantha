@@ -147,12 +147,9 @@ AutoForm.hooks({
     dental_specialPaymentInsert: {
         before: {
             insert: function (doc) {
-                //var branchPre = Session.get('currentBranch') + '-' + moment().format(
-                //        "YYYYMMDD");
                 var paymentMethod = $("select.paymentMethod").val();
                 var getIndex = paymentMethod.split(" | ");
                 var index = getIndex[0];
-                //doc._id = branchPre;
                 doc.paymentMethod = index;
                 doc.branchId = Session.get('currentBranch');
                 var prefix = doc.branchId + '-';

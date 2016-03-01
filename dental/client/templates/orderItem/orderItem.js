@@ -66,6 +66,7 @@ AutoForm.hooks({
     dental_orderItemInsert: {
         before: {
             insert: function (doc) {
+                doc.branchId = Session.get('currentBranch');
                 Meteor.call('dental');
                 return doc;
             }

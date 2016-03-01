@@ -21,4 +21,3 @@ Meteor.subscribe('dental_payment');
 Meteor.subscribe('dental_specialPayment');
 Meteor.subscribe('dental_specialTreatment');
 //Meteor.subscribe('dental_quotation');
-Meteor.subscribe('alertCalendarEvent');

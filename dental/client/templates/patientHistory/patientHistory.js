@@ -48,6 +48,7 @@ AutoForm.hooks({
   dental_patientHistoryInsert: {
     before: {
       insert: function(doc) {
+        doc.branchId = Session.get('currentBranch');
         Meteor.call('dental');
         return doc;
       }
