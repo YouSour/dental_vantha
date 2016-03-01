@@ -82,7 +82,7 @@ Template.dental_specialTreatmentInsert.events({
     alertify.doctorAddon(
       fa("plus", "Doctor"),
       renderTemplate(Template.dental_doctorInsert)
-    );
+    ).maximize();
   },
   'click #saveAndPrint': function(e, t) {
     return Session.set('printSpecialTreatment', true);

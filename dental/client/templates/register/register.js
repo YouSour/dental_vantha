@@ -22,11 +22,13 @@ Template.dental_register.onCreated(function() {
   createNewAlertify([
     'register',
     'patientAddon',
+    'doctorAddon',
     'statusAction',
     'treatmentAction',
     'appointmentAction',
     'depositAction',
-    'paymentAction'
+    'paymentAction',
+    'staffAddon'
   ]);
 });
 
