@@ -1,18 +1,12 @@
-var state = new ReactiveObj();
-
 Template.dental_alertEventMsg.onRendered(function () {
-    //$('.menu').slimScroll({
-    //    height: '100%'
-    //});
-    var data = appointmentEvent();
-       state.set('data', data);
+    $('.menu').slimScroll({
+       height: '100%'
+    });
 });
 
 
 Template.dental_alertEventMsg.helpers({
-    data: function () {
-        return state.get('data');
-    }
+    data: appointmentEvent
 });
 
 Template.dental_alertEventMsg.events({
@@ -37,7 +31,6 @@ function appointmentEvent(alertDate, endDate) {
 
     var currentDate = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss');
     var doc = Dental.Collection.CalendarEvent.find({start: {$lt: currentDate}, status: 'Enable'});
-
     if (doc.count() > 0) {
 
         var event = [];
@@ -50,6 +43,7 @@ function appointmentEvent(alertDate, endDate) {
 
             event.push(obj);
         });
+
         data.event = event;
     }
 

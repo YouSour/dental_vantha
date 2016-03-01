@@ -55,34 +55,12 @@ Template.dental_doctorInsert.onRendered(function() {
 
 Template.dental_doctorInsert.rendered = function() {};
 
-//Template.dental_doctorInsert.events({
-//    'click .addressInsertAddon': function (e, t) {
-//
-//        alertify.addressAddon(renderTemplate(Template.sample_addressInsertAddon))
-//            .set({
-//                title: fa("plus", "Address")
-//            });
-//
-//    }
-//});
-
 /**
  * Update
  */
 Template.dental_doctorUpdate.onRendered(function() {
   datePicker();
 });
-
-//Template.sample_customerUpdate.events({
-//    'click .addressInsertAddon': function (e, t) {
-//
-//        alertify.addressAddon(renderTemplate(Template.sample_addressInsertAddon))
-//            .set({
-//                title: fa("plus", "Address")
-//            });
-//
-//    }
-//});
 
 /**
  * Hook
