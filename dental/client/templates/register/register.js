@@ -253,10 +253,6 @@ Template.dental_registerInsert.onRendered(function() {
 
 });
 
-Template.dental_registerInsert.helpers({
-
-});
-
 Template.dental_registerInsert.events({
   'click .btnAdd': function(e) {
     var orderItemId = $(e.currentTarget).val();
@@ -305,11 +301,11 @@ Template.dental_registerUpdate.onRendered(function() {
 
   //run this function when on update get value for total
   calculateTotal();
+  calculateTotalForDoctorShare();
+  calculateTotalForLaboExpense();
   //run this function when on update get value for sharingRemain
   sharingRemain();
 });
-
-Template.dental_registerUpdate.helpers({});
 
 Template.dental_registerUpdate.events({
   'click .btnAdd': function(e) {
@@ -397,7 +393,9 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
     calculateTotal();
   },
   'click .btnRemove': function(e, t) {
-    setTimeout(function() {
+    var thisValue= $(e.currentTarget).closest('.register').find('.amount').val();
+    thisValue=parseFloat(thisValue);
+
       var enable = true;
       $('.amount').each(function() {
         var amount = $(this).val() == "" ? 0 : parseFloat($(this)
@@ -413,14 +411,11 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
         $('.btnAdd').attr('disabled', false);
       } else {
         $('.btnAdd').attr('disabled', true);
-
       }
 
       // Cal footer
-      calculateTotal();
+      calculateTotal(thisValue);
       sharingRemain();
-    }, 300);
-
   },
   'click .btnFree': function(e, t) {
     var thisObj = $(e.currentTarget);
@@ -471,7 +466,8 @@ Template.afArrayField_customArrayFieldInvoiceForDoctorShare.helpers({
 });
 Template.afArrayField_customArrayFieldInvoiceForDoctorShare.events({
   'click .btnRemoveForDoctorShare': function(e, t) {
-    setTimeout(function() {
+    var thisValueDoctorShared = $(e.currentTarget).closest('.doctorShared').find('.doctorShareAmount').val();
+    thisValueDoctorShared=parseFloat(thisValueDoctorShared);
       var enable = true;
       $('.doctorShareAmount').each(function() {
         var amount = $(this).val() == "" ? 0 : parseFloat($(this)
@@ -484,10 +480,9 @@ Template.afArrayField_customArrayFieldInvoiceForDoctorShare.events({
       });
 
       // Cal footer for doc share
-      calculateTotalForDoctorShare();
+      calculateTotalForDoctorShare(thisValueDoctorShared);
       // Cal sharingRemain for doc share
-      sharingRemain();
-    }, 300);
+      sharingRemain(thisValueDoctorShared);
   },
   'keyup .doctorShareAmount': function(e, t) {
     // Cal footer for doc share
@@ -517,7 +512,8 @@ Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
     sharingRemain();
   },
   'click .btnRemoveForLaboExpense': function(e, t) {
-    setTimeout(function() {
+      var thisValuelabo = $(e.currentTarget).closest('.labo').find('.laboAmount').val();
+      thisValuelabo=parseFloat(thisValuelabo);
       var enable = true;
       $('.laboAmount').each(function() {
         var amount = $(this).val() == "" ? 0 : parseFloat($(this)
@@ -530,10 +526,10 @@ Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
       });
 
       // Cal footer for labo expense
-      calculateTotalForLaboExpense();
+      calculateTotalForLaboExpense(thisValuelabo);
       // Cal sharingRemain for labo expense
-      sharingRemain();
-    }, 300);
+      sharingRemain(thisValuelabo);
+
   },
   'keyup .laboAmount': function(e, t) {
     // Cal footer for labo expense
@@ -551,6 +547,9 @@ AutoForm.hooks({
         doc.status = "Active";
         doc.closingDate = 'none';
         doc.branchId = Session.get('currentBranch');
+        doc.total = $('.total').val();
+        doc.doctorShareTotal = $('.doctorShareTotal').val();
+        doc.laboExpenseTotal = $('.laboExpenseTotal').val();
         var prefix = doc.branchId + '-';
         Meteor.call('dental', prefix);
         return doc;
@@ -582,6 +581,14 @@ AutoForm.hooks({
     }
   },
   dental_registerClosingDate: {
+    before:{
+      update:function(doc){
+        doc.$set.total = $('.total').val();
+        doc.$set.doctorShareTotal = $('.doctorShareTotal').val();
+        doc.$set.laboExpenseTotal = $('.laboExpenseTotal').val();
+        return doc;
+      }
+    },
     onSuccess: function(formType, result) {
       alertify.statusAction().close();
       alertify.success('Success');
@@ -635,13 +642,16 @@ function CalculateTotalAndAmount(e) {
 /**
  * Calculate total for disease items
  */
-function calculateTotal() {
+function calculateTotal(minusValue) {
+  minusValue=minusValue==null?0:minusValue;
+  minusValue=math.round(minusValue, 2);
   // Cal subtotal by items amount
   var subtotal = math.round(0, 2);
-  $('#register .amount').each(function() {
+  $('.register .amount').each(function() {
     var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
     subtotal += amount;
   });
+  subtotal = subtotal- minusValue;
 
   // Set value on subtotal textbox
   $('[name="subTotal"]').val(subtotal);
@@ -652,44 +662,18 @@ function calculateTotal() {
   var subDiscount = _.isEmpty($('#subDiscountRegister').val()) ? 0 : parseFloat(
     $('#subDiscountRegister').val());
 
-  subDiscount = math.round((subtotal - deposit) - subDiscount, 2);
-
-  var total = math.round(subDiscount, 2);
-
+  var total = math.round((subtotal - deposit) - subDiscount, 2);
 
   // Set value on total
-  $('#totalRegister').val(total);
-
-  // Set value on total animate
-  var decimal_places = 2;
-  var decimal_factor = decimal_places === 0 ? 1 : decimal_places * 10;
-  $('.total')
-    .animateNumber({
-        number: total * decimal_factor,
-
-        numberStep: function(now, tween) {
-          var floored_number = Math.floor(now) / decimal_factor,
-            target = $(tween.elem);
-
-          if (decimal_places > 0) {
-            // force decimal places even if they are 0
-            floored_number = floored_number.toFixed(decimal_places);
-
-            // replace '.' separator with ','
-            floored_number = floored_number.toString().replace('.', ',');
-          }
-
-          target.text('$' + floored_number);
-        }
-      },
-      200
-    );
+  $('.total').val(total);
 }
 
 /**
  * Calculate total for income by doctor
  */
-function calculateTotalForDoctorShare() {
+function calculateTotalForDoctorShare(minusValueDrShared) {
+  minusValueDrShared=minusValueDrShared==null?0:minusValueDrShared;
+  minusValueDrShared=math.round(minusValueDrShared, 2);
   // Cal subtotal by items amount
   var totalForDoctorShare = 0;
 
@@ -697,15 +681,18 @@ function calculateTotalForDoctorShare() {
     var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
     totalForDoctorShare += amount;
   });
-
+  totalForDoctorShare = totalForDoctorShare - minusValueDrShared;
   // Set value on subtotal textbox
-  $('[name="doctorShareTotal"]').val(totalForDoctorShare);
+  $('.doctorShareTotal').val(totalForDoctorShare);
 }
 
 /**
  * Calculate total for laboratory expense
  */
-function calculateTotalForLaboExpense() {
+function calculateTotalForLaboExpense(minusValueLabo) {
+  minusValueLabo=minusValueLabo==null?0:minusValueLabo;
+  minusValueLabo=math.round(minusValueLabo, 2);
+
   // Cal subtotal by items amount
   var totalForLaboExpense = 0;
 
@@ -713,9 +700,9 @@ function calculateTotalForLaboExpense() {
     var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
     totalForLaboExpense += amount;
   });
-
+  totalForLaboExpense = totalForLaboExpense - minusValueLabo;
   // Set value on subtotal textbox
-  $('[name="laboExpenseTotal"]').val(totalForLaboExpense);
+  $('.laboExpenseTotal').val(totalForLaboExpense);
 }
 
 //AutoSelected
@@ -762,14 +749,6 @@ var registerState = function(param) {
       .url();
   }
 
-  // Get deposit
-  //var deposit = 0;
-  //Dental.Collection.Deposit.find({registerId: param._id})
-  //    .forEach(function (obj) {
-  //        deposit += obj.amount;
-  //    });
-  //registerDoc.deposit = deposit;
-
   // Get treatment
   var treatment = Dental.Collection.Treatment.find({
     registerId: param._id
@@ -780,10 +759,16 @@ var registerState = function(param) {
   Dental.RegisterState.set('data', registerDoc);
 };
 
-var sharingRemain = function() {
+var sharingRemain = function(minusValueDrShared,minusValueLabo) {
+  minusValueDrShared=minusValueDrShared==null?0:minusValueDrShared;
+  minusValueDrShared=math.round(minusValueDrShared, 2);
+
+  minusValueLabo=minusValueLabo==null?0:minusValueLabo;
+  minusValueLabo=math.round(minusValueLabo, 2);
+
   var shareAmount = 0;
   var laboAmount = 0;
-  var totalRegister = $('#totalRegister').val();
+  var totalRegister = $('.total').val();
   totalRegister = totalRegister == '' ? 0 : parseFloat(totalRegister);
   var totalAmount;
   $('.doctorShareAmount').each(function() {
@@ -791,11 +776,13 @@ var sharingRemain = function() {
       shareAmount += parseFloat(this.value);
     }
   });
+  shareAmount = shareAmount - minusValueDrShared;
   $('.laboAmount').each(function() {
     if (this.value != '') {
       laboAmount += parseFloat(this.value);
     }
   });
+  laboAmount = laboAmount - minusValueLabo;
 
   if (totalRegister == 0) {
     totalAmount = (shareAmount + laboAmount) - totalRegister;

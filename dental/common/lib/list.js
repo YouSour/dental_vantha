@@ -66,10 +66,10 @@ Dental.List = {
   laboratoryItem: function() {
     var list = [];
     var branchSession =  Session.get('currentBranch');
-    list.push({
-      label: "(Select One)",
-      value: ""
-    });
+    // list.push({
+    //   label: "(Select One)",
+    //   value: ""
+    // });
 
     Dental.Collection.Laboratory.find({branchId:branchSession}).forEach(function(obj) {
       list.push({
@@ -187,10 +187,10 @@ Dental.List = {
   diseaseItem: function() {
 
     var list = [];
-    list.push({
-      label: "(Select One)",
-      value: ""
-    });
+    // list.push({
+    //   label: "(Select One)",
+    //   value: ""
+    // });
     var branchSession = Session.get('currentBranch');
     Dental.Collection.DiseaseItem.find({branchId:branchSession})
       .forEach(function(obj) {
@@ -248,10 +248,10 @@ Dental.List = {
 
   doctor: function() {
     var list = [];
-    list.push({
-      label: "(Select One)",
-      value: ""
-    });
+    // list.push({
+    //   label: "(Select One)",
+    //   value: ""
+    // });
 
     Dental.Collection.Doctor.find()
       .forEach(function(obj) {
