@@ -1,10 +1,3 @@
-Template.dental_alertEventMsg.onRendered(function () {
-    $('.menu').slimScroll({
-       height: '100%'
-    });
-});
-
-
 Template.dental_alertEventMsg.helpers({
     data: appointmentEvent
 });
