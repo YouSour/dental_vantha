@@ -10,10 +10,10 @@ Template.dental_payment.onCreated(function() {
 
 Template.dental_payment.helpers({
   register: function() {
-    return Dental.RegisterState.get('data');
+    return Dental.ListState.get('data');
   },
   selector: function() {
-    var registerId = Dental.RegisterState.get('data')._id;
+    var registerId = Dental.ListState.get('data')._id;
 
     return {
       registerId: registerId
@@ -28,7 +28,7 @@ Template.dental_payment.events({
   },
   'click .insert': function() {
     Session.set('closePayment', true);
-    var data = Dental.RegisterState.get('data');
+    var data = Dental.ListState.get('data');
 
     // Check last balance
     var paymentLast = Dental.Collection.Payment.findOne({
@@ -97,6 +97,7 @@ Template.dental_paymentInsert.events({
     calculateBalance();
   },
   'click #saveAndPrint': function() {
+    Meteor.subscribe('dental_payment');
     Session.set('printInvoicePayment', true);
   },
   'click .btnFree': function(e, t) {
@@ -146,13 +147,15 @@ AutoForm.hooks({
       }
 
       var printSession = Session.get('printInvoicePayment');
-      var data = Dental.Collection.Payment.findOne(result);
-      if (printSession) {
-        var q = 'patient=' + data.patientId + '&register=' + data.registerId;
-        var url = '/dental/invoiceReportGen?' + q;
-        window.open(url);
-      }
-      Session.set('printInvoicePayment', false);
+      Meteor.call('getPaymentId', result, function (err, result) {
+        var data = Dental.Collection.Payment.findOne(result);
+          if (printSession) {
+            var q = 'patient=' + data.patientId + '&register=' + data.registerId;
+            var url = '/dental/invoiceReportGen?' + q;
+            window.open(url);
+          }
+          Session.set('printInvoicePayment', false);
+      });
       alertify.success('Success');
     },
     onError: function(formType, error) {
