@@ -10,10 +10,10 @@ Template.dental_specialPayment.onRendered(function () {
 
 Template.dental_specialPayment.helpers({
     register: function () {
-        return Dental.RegisterState.get('data');
+        return Dental.ListState.get('data');
     },
     selector: function () {
-        var registerId = Dental.RegisterState.get('data')._id;
+        var registerId = Dental.ListState.get('data')._id;
         return {
             specialRegisterId: registerId
         };
@@ -27,7 +27,7 @@ Template.dental_specialPayment.events({
     },
     'click .insert': function () {
         Session.set('closeSpecialPayment', true);
-        var data = Dental.RegisterState.get('data');
+        var data = Dental.ListState.get('data');
 
         // Check last balance
         var paymentLast = Dental.Collection.Payment.findOne({
@@ -48,7 +48,6 @@ Template.dental_specialPayment.events({
     },
     'click .update': function () {
         var data = this;
-
         alertify.payment(fa("pencil", "Special Payment"), renderTemplate(
             Template.dental_specialPaymentUpdate, data));
     },
@@ -98,7 +97,8 @@ Template.dental_specialPaymentInsert.events({
         alertify.staffAddon(fa("plus", "Staff"), renderTemplate(Template.dental_staffInsert));
     },
     'click #saveAndPrint': function () {
-        Session.set('printSpecialPayment', true);
+      Meteor.subscribe('dental_specialPayment');
+      Session.set('printSpecialInvoicePayment', true);
     },
     'change .paymentMethod': function (e) {
         var getAmount = $(e.currentTarget).val();
@@ -162,10 +162,11 @@ AutoForm.hooks({
                 alertify.payment().close();
             }
 
-            Meteor.call('getSpecialPayment', result, function (err, result) {
-                var printSession = Session.get('printSpecialPayment');
+            Meteor.call('getSpecialRegisterIdForPayment', result, function (err, result) {
+                var printSession = Session.get('printSpecialInvoicePayment');
                 if (printSession) {
-                    var q = 'specialRegister=' + result;
+                    var specialRegisterId = Dental.Collection.SpecialPayment.findOne(result).specialRegisterId;
+                    var q = 'specialRegister=' + specialRegisterId;
                     var url = 'specialPaymentReportGen?' + q;
                     window.open(url);
                 }
