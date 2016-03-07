@@ -4,6 +4,7 @@ Template.dental_paymentListReport.onCreated(function () {
 });
 
 Template.dental_paymentListReport.onRendered(function () {
+    Meteor.subscribe('dental_staff');
     var name = $('[name="date"]');
     DateTimePicker.dateRange(name);
 });

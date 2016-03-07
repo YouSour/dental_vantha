@@ -1,9 +1,7 @@
 /************ Form *************/
-
-// Template.dental_patientHistoryListReport.onRendered(function () {
-//     var name = $('[name="date"]');
-//     DateTimePicker.dateRange(name);
-// });
+Template.dental_patientHistoryListReport.onRendered(function () {
+  Meteor.subscribe('dental_patient');
+});
 
 
 /************ Generate *************/
