@@ -1,4 +1,5 @@
 /************ Form *************/
+
 Template.dental_patientHistoryListReport.onRendered(function () {
   Meteor.subscribe('dental_patient');
 });

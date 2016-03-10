@@ -101,10 +101,10 @@ Dental.List = {
   },
   materialCostItem: function() {
     var list = [];
-    list.push({
-      label: "(Select One)",
-      value: ""
-    });
+    // list.push({
+    //   label: "(Select One)",
+    //   value: ""
+    // });
     var branchSession =  Session.get('currentBranch');
     Dental.Collection.MaterialCostItem.find({branchId:branchSession}).forEach(function(obj) {
       list.push({
@@ -245,13 +245,29 @@ Dental.List = {
 
     return list;
   },
-
   doctor: function() {
     var list = [];
     // list.push({
     //   label: "(Select One)",
     //   value: ""
     // });
+
+    Dental.Collection.Doctor.find()
+      .forEach(function(obj) {
+        list.push({
+          label: obj._id + " : " + obj.name + ' (' + obj.gender + ')',
+          value: obj._id
+        });
+      });
+
+    return list;
+  },
+  doctorForOther: function() {
+    var list = [];
+    list.push({
+      label: "(Select One)",
+      value: ""
+    });
 
     Dental.Collection.Doctor.find()
       .forEach(function(obj) {
@@ -323,10 +339,10 @@ Dental.List = {
   },
   orderItem: function() {
     var list = [];
-    list.push({
-      label: "(Select One)",
-      value: ""
-    });
+    // list.push({
+    //   label: "(Select One)",
+    //   value: ""
+    // });
     var branchSession = Session.get('currentBranch');
     Dental.Collection.OrderItem.find({branchId:branchSession}).forEach(function(obj) {
       list.push({

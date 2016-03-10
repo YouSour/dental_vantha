@@ -212,7 +212,7 @@ AutoForm.hooks({
       });
       //clear selectize
       $('select.materialCostItemId')[0].selectize.clear(true);
-
+      var printSession = Session.get('printInvoiceMaterialCost');
       Meteor.call('getMaterialCostId', result, function (err, result) {
           var data = Dental.Collection.MaterialCost.findOne(result);
             if (printSession) {
