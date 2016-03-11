@@ -180,10 +180,29 @@ Template.dental_specialRegisterClosingDate.onRendered(function () {
  * Insert
  */
 Template.dental_specialRegisterInsert.onRendered(function () {
+    Meteor.typeahead.inject();
+    Dental.ListState.set('sharingRemain', 0);
     datepicker();
     statusAutoSelected();
     $('.btnAdd').attr('disabled', "disabled");
 
+});
+Template.dental_specialRegisterInsert.helpers({
+    search: function (query, sync, callback) {
+        Meteor.call('searchPatient', query, {}, function (err, res) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(res);
+        });
+    },
+    selected: function (event, suggestion, dataSetName) {
+        // TODO your event handler here
+        var id = suggestion._id;
+        $('[name="search"]').typeahead('val', suggestion._id + ' | ' + suggestion.name + " | " + suggestion.age);
+        $('.patientId').val(id);
+    }
 });
 
 Template.dental_specialRegisterInsert.events({
@@ -209,6 +228,16 @@ Template.dental_specialRegisterInsert.events({
         });
 
     },
+    'change .item': function (e, t) {
+        if ($('.patientId').val() == '') {
+            alertify.error("Please , Select PatientId");
+            $('[name="search"]').focus()
+        } else {
+            sharingRemain();
+        }
+
+
+    },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
             .maximize();
@@ -218,8 +247,8 @@ Template.dental_specialRegisterInsert.events({
             .maximize();
     },
     'click #saveAndPrint': function () {
-      Meteor.subscribe('dental_specialRegister');
-      Session.set('printSpecialInvoice', true);
+        Meteor.subscribe('dental_specialRegister');
+        Session.set('printSpecialInvoice', true);
     }
 });
 
@@ -229,11 +258,33 @@ Template.dental_specialRegisterInsert.events({
  */
 Template.dental_specialRegisterUpdate.onRendered(function () {
     datepicker();
+    Meteor.typeahead.inject();
+    $('[name="search"]').typeahead('val', this.data.patientId + " | " + this.data._patient.name + " | " + this.data._patient.gender);
 
     //run this function when on update get value for total
     calculateTotal();
     calculateTotalForPaymentMethod();
 });
+
+
+Template.dental_specialRegisterUpdate.helpers({
+    search: function (query, sync, callback) {
+        Meteor.call('searchPatient', query, {}, function (err, res) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(res);
+        });
+    },
+    selected: function (event, suggestion, dataSetName) {
+        // TODO your event handler here
+        var id = suggestion._id;
+        $('[name="search"]').typeahead('val', suggestion._id + ' | ' + suggestion.name + " | " + suggestion.age);
+        $('.patientId').val(id);
+    }
+});
+
 
 Template.dental_specialRegisterUpdate.events({
     'click .btnAdd': function (e) {
@@ -258,6 +309,16 @@ Template.dental_specialRegisterUpdate.events({
         });
 
     },
+    'change .item': function (e, t) {
+        if ($('.patientId').val() == '') {
+            alertify.error("Please , Select PatientId");
+            $('[name="search"]').focus()
+        } else {
+            sharingRemain();
+        }
+
+
+    },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
             .maximize();
@@ -274,6 +335,7 @@ Template.dental_specialRegisterUpdate.events({
  */
 Template.afArrayField_customArrayFieldInvoiceForSpecialDiseaseItem.events({
     'change .item': function (e, t) {
+
         var thisObj = $(e.currentTarget);
         var itemId = $(e.currentTarget).val();
         var patient = Session.get('patientId');
@@ -314,28 +376,28 @@ Template.afArrayField_customArrayFieldInvoiceForSpecialDiseaseItem.events({
         calculateTotal();
     },
     'click .btnRemove': function (e, t) {
-      var thisValueSpecialRegister= $(e.currentTarget).closest('.specialRegister').find('.amount').val();
-      thisValueSpecialRegister=parseFloat(thisValueSpecialRegister);
-            var enable = true;
-            $('.amount').each(function () {
-                var amount = $(this).val() == "" ? 0 : parseFloat($(this)
-                    .val());
-                if (amount == 0) {
-                    enable = false;
-                    return false;
-                }
-                enable = true;
-            });
-
-            if (enable) {
-                $('.btnAdd').attr('disabled', false);
-            } else {
-                $('.btnAdd').attr('disabled', true);
-
+        var thisValueSpecialRegister = $(e.currentTarget).closest('.specialRegister').find('.amount').val();
+        thisValueSpecialRegister = parseFloat(thisValueSpecialRegister);
+        var enable = true;
+        $('.amount').each(function () {
+            var amount = $(this).val() == "" ? 0 : parseFloat($(this)
+                .val());
+            if (amount == 0) {
+                enable = false;
+                return false;
             }
+            enable = true;
+        });
 
-            // Cal footer
-            calculateTotal(thisValueSpecialRegister);
+        if (enable) {
+            $('.btnAdd').attr('disabled', false);
+        } else {
+            $('.btnAdd').attr('disabled', true);
+
+        }
+
+        // Cal footer
+        calculateTotal(thisValueSpecialRegister);
     },
     'click .btnFree': function (e, t) {
         var thisObj = $(e.currentTarget);
@@ -378,21 +440,21 @@ Template.afArrayField_customArrayFieldInvoiceForPaymentMethod.events({
 
     },
     'click .btnRemoveForPaymentMethod': function (e, t) {
-       var thisValuePaymentMethod= $(e.currentTarget).closest('.paymentMethod').find('.paymentmethod-amount').val();
-       thisValuePaymentMethod=parseFloat(thisValuePaymentMethod);
-            var enable = true;
-            $('.labo-amount').each(function () {
-                var amount = $(this).val() == "" ? 0 : parseFloat($(this)
-                    .val());
-                if (amount == 0) {
-                    enable = false;
-                    return false;
-                }
-                enable = true;
-            });
+        var thisValuePaymentMethod = $(e.currentTarget).closest('.paymentMethod').find('.paymentmethod-amount').val();
+        thisValuePaymentMethod = parseFloat(thisValuePaymentMethod);
+        var enable = true;
+        $('.labo-amount').each(function () {
+            var amount = $(this).val() == "" ? 0 : parseFloat($(this)
+                .val());
+            if (amount == 0) {
+                enable = false;
+                return false;
+            }
+            enable = true;
+        });
 
-            // Cal footer for payment method
-            calculateTotalForPaymentMethod(thisValuePaymentMethod);
+        // Cal footer for payment method
+        calculateTotalForPaymentMethod(thisValuePaymentMethod);
     },
     'keyup .paymentmethod-amount': function (e, t) {
         // Cal footer for payment method
@@ -430,13 +492,13 @@ AutoForm.hooks({
 
             var printSession = Session.get('printSpecialInvoice');
             Meteor.call('getSpecialRegisterId', result, function (err, result) {
-              var data = Dental.Collection.SpecialRegister.findOne(result);
-                 if (printSession) {
-                   var q = 'patient=' + data.patientId + '&specialRegister=' + data._id;
-                   var url = '/dental/specialInvoiceReportGen?' + q;
-                   window.open(url);
-                 }
-             Session.set('printSpecialInvoice', false);
+                var data = Dental.Collection.SpecialRegister.findOne(result);
+                if (printSession) {
+                    var q = 'patient=' + data.patientId + '&specialRegister=' + data._id;
+                    var url = '/dental/specialInvoiceReportGen?' + q;
+                    window.open(url);
+                }
+                Session.set('printSpecialInvoice', false);
             });
             alertify.success('Success');
         },
@@ -454,12 +516,12 @@ AutoForm.hooks({
         }
     },
     dental_specialRegisterUpdate: {
-        before:{
-          update:function (doc) {
-            doc.$set.total = $('.totalSpecialRegister').val();
-            doc.$set.paymentMethodTotal = $('.paymentMethodTotal').val();
-            return doc;
-          }
+        before: {
+            update: function (doc) {
+                doc.$set.total = $('.totalSpecialRegister').val();
+                doc.$set.paymentMethodTotal = $('.paymentMethodTotal').val();
+                return doc;
+            }
         },
         onSuccess: function (formType, result) {
             alertify.register().close();
@@ -510,15 +572,15 @@ function CalculateTotalAndAmount(e) {
  */
 
 function calculateTotal(minusValue) {
-    minusValue=minusValue==null?0:minusValue;
-    minusValue=math.round(minusValue, 2);
+    minusValue = minusValue == null ? 0 : minusValue;
+    minusValue = math.round(minusValue, 2);
     // Cal subtotal by items amount
     var subtotal = math.round(0, 2);
     $('.specialRegister .amount').each(function () {
         var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
         subtotal += amount;
     });
-    subtotal= subtotal - minusValue;
+    subtotal = subtotal - minusValue;
 
     // Set value on subtotal textbox
     $('[name="subTotal"]').val(subtotal);
@@ -539,8 +601,8 @@ function calculateTotal(minusValue) {
  * Calculate total for payment method
  */
 function calculateTotalForPaymentMethod(minusValuePaymentMethod) {
-    minusValuePaymentMethod=minusValuePaymentMethod==null?0:minusValuePaymentMethod;
-    minusValuePaymentMethod=math.round(minusValuePaymentMethod, 2);
+    minusValuePaymentMethod = minusValuePaymentMethod == null ? 0 : minusValuePaymentMethod;
+    minusValuePaymentMethod = math.round(minusValuePaymentMethod, 2);
     // Cal subtotal by items amount
     var totalForPaymentMethod = 0;
 

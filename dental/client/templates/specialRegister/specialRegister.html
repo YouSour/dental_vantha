@@ -75,7 +75,13 @@
                             <label class="control-label" for="patientId">Patient</label>
 
                             <div class="input-group  select2-bootstrap-append">
-                                {{> afFieldInput name='patientId'  class='patientId'}}
+                                <input class="form-control typeahead input-sm" name="search" type="text"
+                                       placeholder="Type Patient's Name" autocomplete="on" spellcheck="off"
+                                       data-source="search" data-select='selected' data-highlight=true
+                                       data-template='repo' style="width: 287px;height: 37px;"/>
+
+                                {{> afFieldInput name='patientId' class='patientId' type="hidden"}}
+
                                 <span class="input-group-btn">
                                     <a href="#" class="patientAddon btn btn-default">
                                         {{fa "plus"}}
@@ -155,7 +161,13 @@
                             <label class="control-label" for="patientId">Patient</label>
 
                             <div class="input-group  select2-bootstrap-append">
-                                {{> afFieldInput name='patientId'  class='patientId'}}
+                                <input class="form-control typeahead input-sm" name="search" type="text"
+                                       placeholder="Type Patient's Name" autocomplete="on" spellcheck="off"
+                                       data-source="search" data-select='selected' data-highlight=true
+                                       data-template='repo' style="width: 287px;height: 37px;"/>
+
+                                {{> afFieldInput name='patientId' class='patientId' type="hidden"}}
+
                                 <span class="input-group-btn">
                                 <a href="#" class="patientAddon btn btn-default">
                                     {{fa "plus"}}
