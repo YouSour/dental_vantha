@@ -35,7 +35,7 @@ Template.dental_patientHistory.events({
   },
   'click .show': function() {
     var data = this;
-    alertify.alert(fa("eye", "Patient History"), renderTemplate(Template.dental_patientHistoryShow,
+    alertify.patientHistory(fa("eye", "Patient History"), renderTemplate(Template.dental_patientHistoryShow,
       data));
   }
 });

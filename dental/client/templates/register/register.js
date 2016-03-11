@@ -101,7 +101,7 @@ Template.dental_register.events({
       data._patient.photoUrl = Files.findOne(data._patient.photo).url();
     }
 
-    alertify.alert(fa("eye", "Register"), renderTemplate(Template.dental_registerShow,
+    alertify.register(fa("eye", "Register"), renderTemplate(Template.dental_registerShow,
       data));
   },
   'click .statusAction': function() {

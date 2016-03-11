@@ -72,7 +72,7 @@ Template.dental_payment.events({
     );
   },
   'click .show': function() {
-    alertify.alert(fa("eye", "Payment"), renderTemplate(Template.dental_paymentShow,
+    alertify.payment(fa("eye", "Payment"), renderTemplate(Template.dental_paymentShow,
       this));
   },
   'click .paymentPrintAction': function() {
