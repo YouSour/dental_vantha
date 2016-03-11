@@ -36,7 +36,7 @@ Template.dental_quotation.events({
     );
   },
   'click .show': function() {
-    alertify.alert(fa("eye", "Quotation"), renderTemplate(Template.dental_quotationShow,
+    alertify.quotation(fa("eye", "Quotation"), renderTemplate(Template.dental_quotationShow,
       this));
   },
   'click .quotationPrintAction': function() {

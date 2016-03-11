@@ -35,7 +35,7 @@ Template.dental_supplier.events({
     },
     'click .show': function () {
         var data = this;
-        alertify.alert(fa("eye", "Suppiler"), renderTemplate(Template.dental_supplierShow,
+        alertify.supplier(fa("eye", "Suppiler"), renderTemplate(Template.dental_supplierShow,
             data));
     }
 });

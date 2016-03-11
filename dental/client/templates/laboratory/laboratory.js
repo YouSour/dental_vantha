@@ -33,7 +33,7 @@ Template.dental_laboratory.events({
     },
     'click .show': function () {
         var data = this;
-        alertify.alert(fa("eye", "Laboratory Item"), renderTemplate(Template.dental_laboratoryShow, data));
+        alertify.laboratory(fa("eye", "Laboratory Item"), renderTemplate(Template.dental_laboratoryShow, data));
     }
 });
 

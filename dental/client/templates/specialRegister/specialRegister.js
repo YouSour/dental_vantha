@@ -85,7 +85,7 @@ Template.dental_specialRegister.events({
             data._patient.photoUrl = Files.findOne(data._patient.photo).url();
         }
 
-        alertify.alert(fa("eye", "Special Register"), renderTemplate(Template
+        alertify.specialRegister(fa("eye", "Special Register"), renderTemplate(Template
             .dental_specialRegisterShow, data));
     },
     'click .statusAction': function () {
