@@ -42,10 +42,8 @@ Template.dental_payment.events({
       data.total = paymentLast.balance;
     }
 
-    Meteor.setTimeout(function() {
       alertify.payment(fa("plus", "Payment"), renderTemplate(Template
         .dental_paymentInsert, data));
-    }, 500);
   },
   'click .update': function() {
     var data = Dental.Collection.Payment.findOne({
@@ -97,7 +95,6 @@ Template.dental_paymentInsert.events({
     calculateBalance();
   },
   'click #saveAndPrint': function() {
-    Meteor.subscribe('dental_payment');
     Session.set('printInvoicePayment', true);
   },
   'click .btnFree': function(e, t) {

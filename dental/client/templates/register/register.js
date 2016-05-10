@@ -14,6 +14,7 @@ Dental.ListState = new ReactiveObj();
 Template.dental_register.onCreated(function () {
     Meteor.subscribe('dental_doctor');
     Meteor.subscribe('dental_register');
+    Meteor.subscribe('dental_payment');
     Meteor.subscribe('dental_treatment');
     Meteor.subscribe('dental_deposit');
     Meteor.subscribe('dental_staff');
@@ -55,6 +56,7 @@ Template.dental_register.events({
             .maximize();
     },
     'click .update': function () {
+        Dental.ListState.set('updateWork', true);
         var data = this;
         alertify.register(fa("pencil", "Register"), renderTemplate(Template.dental_registerUpdate,
             data)).maximize();
@@ -334,6 +336,7 @@ Template.dental_registerUpdate.onRendered(function () {
     calculateTotalForLaboExpense();
     //run this function when on update get value for sharingRemain
     sharingRemain();
+    Dental.ListState.set('sharingRemain', 0);
 });
 
 //helper by piseth
@@ -829,6 +832,7 @@ var sharingRemain = function (minusValueDrShared, minusValueLabo) {
     var shareAmount = 0;
     var laboAmount = 0;
     var totalRegister = $('.total').val();
+    var subtotalRegister = $('.subTotal').val();
     totalRegister = totalRegister == '' ? 0 : parseFloat(totalRegister);
     var totalAmount;
     $('.doctorShareAmount').each(function () {
@@ -847,7 +851,11 @@ var sharingRemain = function (minusValueDrShared, minusValueLabo) {
     if (totalRegister == 0) {
         totalAmount = (shareAmount + laboAmount) - totalRegister;
     } else {
-        totalAmount = totalRegister - (shareAmount + laboAmount);
+      if (Dental.ListState.get('updateWork')) {
+          totalAmount = subtotalRegister - (shareAmount + laboAmount);
+        } else {
+          totalAmount = totalRegister - (shareAmount + laboAmount);
+      }
     }
     return Dental.ListState.set('sharingRemain', totalAmount);
 };
