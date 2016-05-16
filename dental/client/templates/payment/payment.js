@@ -43,7 +43,7 @@ Template.dental_payment.events({
     data.paymentDate = moment(Date()).format("YYYY-MM-DD HH:mm:ss");
 
     if (!_.isUndefined(paymentLast)) {
-      data.total = paymentLast.balance;
+       data.credit = paymentLast.balance;
     }
 
       alertify.payment(fa("plus", "Payment"), renderTemplate(Template
