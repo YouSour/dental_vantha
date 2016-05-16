@@ -179,12 +179,14 @@ Template.dental_specialRegisterClosingDate.onRendered(function () {
  */
 Template.dental_specialRegisterInsert.onRendered(function () {
     Meteor.typeahead.inject();
-    Dental.ListState.set('sharingRemain', 0);
+    //$('.patientId').hide();
+    // $('.item').attr('disabled', "disabled");
     datepicker();
     statusAutoSelected();
     $('.btnAdd').attr('disabled', "disabled");
 
 });
+
 Template.dental_specialRegisterInsert.helpers({
     search: function (query, sync, callback) {
         Meteor.call('searchPatient', query, {}, function (err, res) {
@@ -196,11 +198,21 @@ Template.dental_specialRegisterInsert.helpers({
         });
     },
     selected: function (event, suggestion, dataSetName) {
+        // event - the jQuery event object
+        // suggestion - the suggestion object
+        // datasetName - the name of the dataset the suggestion belongs to
         // TODO your event handler here
         var id = suggestion._id;
         $('[name="search"]').typeahead('val', suggestion._id + ' | ' + suggestion.name + " | " + suggestion.age);
         $('.patientId').val(id);
+        var patient = $('.patientId').val(id);
+        if (patient) {
+            $('.item').removeAttr('disabled');
+        }
+
+
     }
+
 });
 
 Template.dental_specialRegisterInsert.events({
@@ -227,14 +239,13 @@ Template.dental_specialRegisterInsert.events({
 
     },
     'change .item': function (e, t) {
-        if ($('.patientId').val() == '') {
-            alertify.error("Please , Select PatientId");
-            $('[name="search"]').focus()
-        } else {
-            sharingRemain();
-        }
-
-
+      var patient = $('.patientId').val();
+      if(patient ==''){
+        alertify.error('Please , Select Patient !');
+        $('[name="search"]').focus();
+      }else{
+        sharingRemain();
+      }
     },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
@@ -255,15 +266,15 @@ Template.dental_specialRegisterInsert.events({
  * Update
  */
 Template.dental_specialRegisterUpdate.onRendered(function () {
-    datepicker();
     Meteor.typeahead.inject();
     $('[name="search"]').typeahead('val', this.data.patientId + " | " + this.data._patient.name + " | " + this.data._patient.gender);
+
+    datepicker();
 
     //run this function when on update get value for total
     calculateTotal();
     calculateTotalForPaymentMethod();
 });
-
 
 Template.dental_specialRegisterUpdate.helpers({
     search: function (query, sync, callback) {
@@ -276,14 +287,22 @@ Template.dental_specialRegisterUpdate.helpers({
         });
     },
     selected: function (event, suggestion, dataSetName) {
+        // event - the jQuery event object
+        // suggestion - the suggestion object
+        // datasetName - the name of the dataset the suggestion belongs to
         // TODO your event handler here
         var id = suggestion._id;
         $('[name="search"]').typeahead('val', suggestion._id + ' | ' + suggestion.name + " | " + suggestion.age);
         $('.patientId').val(id);
+        var patient = $('.patientId').val(id);
+        if (patient) {
+            $('.item').removeAttr('disabled');
+        }
+
+
     }
+
 });
-
-
 Template.dental_specialRegisterUpdate.events({
     'click .btnAdd': function (e) {
         var orderItemId = $(e.currentTarget).val();
@@ -308,14 +327,13 @@ Template.dental_specialRegisterUpdate.events({
 
     },
     'change .item': function (e, t) {
-        if ($('.patientId').val() == '') {
-            alertify.error("Please , Select PatientId");
-            $('[name="search"]').focus()
-        } else {
-            sharingRemain();
-        }
-
-
+      var patient = $('.patientId').val();
+      if(patient ==''){
+        alertify.error('Please , Select Patient !');
+        $('[name="search"]').focus();
+      }else{
+        sharingRemain();
+      }
     },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
@@ -333,7 +351,6 @@ Template.dental_specialRegisterUpdate.events({
  */
 Template.afArrayField_customArrayFieldInvoiceForSpecialDiseaseItem.events({
     'change .item': function (e, t) {
-
         var thisObj = $(e.currentTarget);
         var itemId = $(e.currentTarget).val();
         var patient = Session.get('patientId');
@@ -376,6 +393,7 @@ Template.afArrayField_customArrayFieldInvoiceForSpecialDiseaseItem.events({
     'click .btnRemove': function (e, t) {
         var thisValueSpecialRegister = $(e.currentTarget).closest('.specialRegister').find('.amount').val();
         thisValueSpecialRegister = parseFloat(thisValueSpecialRegister);
+
         var enable = true;
         $('.amount').each(function () {
             var amount = $(this).val() == "" ? 0 : parseFloat($(this)
@@ -391,7 +409,6 @@ Template.afArrayField_customArrayFieldInvoiceForSpecialDiseaseItem.events({
             $('.btnAdd').attr('disabled', false);
         } else {
             $('.btnAdd').attr('disabled', true);
-
         }
 
         // Cal footer
@@ -435,7 +452,6 @@ Template.afArrayField_customArrayFieldInvoiceForPaymentMethod.events({
         Meteor.setTimeout(function () {
             datepicker();
         }, 350);
-
     },
     'click .btnRemoveForPaymentMethod': function (e, t) {
         var thisValuePaymentMethod = $(e.currentTarget).closest('.paymentMethod').find('.paymentmethod-amount').val();
@@ -485,8 +501,6 @@ AutoForm.hooks({
 
             //clear selectize
             // $('select.item')[0].selectize.clear(true);
-            //$('select.doctor')[0].selectize.clear(true);
-            //$('select.laboratory')[0].selectize.clear(true);
 
             var printSession = Session.get('printSpecialInvoice');
             Meteor.call('getSpecialRegisterId', result, function (err, result) {
@@ -608,11 +622,9 @@ function calculateTotalForPaymentMethod(minusValuePaymentMethod) {
         var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
         totalForPaymentMethod += amount;
     });
-
     totalForPaymentMethod = totalForPaymentMethod - minusValuePaymentMethod;
-
     // Set value on subtotal textbox
-    $('[name="paymentMethodTotal"]').val(totalForPaymentMethod);
+    $('.paymentMethodTotal').val(totalForPaymentMethod);
 }
 
 //AutoSelected
