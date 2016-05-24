@@ -81,7 +81,6 @@
   </div>
 
   <!--Content-->
-  <!-- <img src="/dental/tooth_invoice.jpg" class="border-img"> -->
   <div class="background-img">
   <table class="report-content table-striped-custom report-body-xbg">
     <thead class="report-content-header">
@@ -181,22 +180,30 @@
   </tbody>
 </table>
   </div>
-  <div style="width: 31%; margin-top: 20px; float:right; text-align:center;">
+
+  <div style="width: 33%; margin-top: 20px; float:right; font-size: 10px; text-align:center;">
     <ul class="list-unstyled">
       <li>
         <strong>ថ្ងៃទី៌____ខែ______ឆ្នាំ______</strong><br><br>
-        <strong>រៀបចំដោយ</strong><br><br><br><br><br>_________________
+        <strong>រៀបចំដោយ</strong><br><br><br>_________________
       </li>
     </ul>
   </div>
-  </div>
   <!--Note-->
-  <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">
+  <div style="width: 67%; margin-top: 20px; font-size: 10px;">
     <strong>{{title.company.khAddress}}</strong><br>
     <strong>ទូរស័ព្ទ៖ {{title.company.telephone}}</strong>
       <br>
     <strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់ដែលបានបង់ មិនអាចយកវិញបានទេ).
   </div>
+
+  </div>
+  <!-- <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">
+    <strong>{{title.company.khAddress}}</strong><br>
+    <strong>ទូរស័ព្ទ៖ {{title.company.telephone}}</strong>
+      <br>
+    <strong><u>Note:</u></strong> All payments will not refundable (ទឹកប្រាក់ដែលបានបង់ មិនអាចយកវិញបានទេ).
+  </div> -->
 
   {{/with}}
   {{else}} {{> loading}} {{/if}}
