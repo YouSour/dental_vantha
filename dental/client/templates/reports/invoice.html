@@ -64,7 +64,7 @@
         <li>
           <strong>ឈ្មោះ :</strong> {{_patient.name}}</li>
         <li>
-          <strong>ភេទ :</strong> {{_patient.gender}}</li>
+          <strong>ភេទ :</strong> {{genderWithKh}}</li>
         <li>
           <strong>អាយុ :</strong> {{_patient.age}}</li>
       </ul>
@@ -74,14 +74,15 @@
         <li>
           <strong>លេខកូដចុះឈ្មោះ : </strong> {{_id}}</li>
         <li>
-          <strong>កាលបរិច្ឆេទចុះឈ្មោះ : </strong> {{registerDate}}</li>
+          <strong>កាលបរិច្ឆេទ : </strong> {{registerDate}}</li>
       </ul>
     </div>
     {{/with}}
   </div>
 
   <!--Content-->
-  <img src="/dental/tooth_invoice.jpg" class="border-img">
+  <!-- <img src="/dental/tooth_invoice.jpg" class="border-img"> -->
+  <div class="background-img">
   <table class="report-content table-striped-custom report-body-xbg">
     <thead class="report-content-header">
       <tr>
@@ -187,6 +188,7 @@
         <strong>រៀបចំដោយ</strong><br><br><br><br><br>_________________
       </li>
     </ul>
+  </div>
   </div>
   <!--Note-->
   <div style="clear: both; width: 100%; text-align: center; margin-top: 20px">

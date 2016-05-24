@@ -637,6 +637,7 @@ AutoForm.hooks({
                 }
                 Session.set('printInvoice', false);
             });
+            alertify.register().close();
             alertify.success("Success");
         },
         onError: function (fromType, error) {

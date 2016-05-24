@@ -512,6 +512,7 @@ AutoForm.hooks({
                 }
                 Session.set('printSpecialInvoice', false);
             });
+            alertify.specialRegister().close();
             alertify.success('Success');
         },
         onError: function (fromType, error) {
@@ -536,7 +537,7 @@ AutoForm.hooks({
             }
         },
         onSuccess: function (formType, result) {
-            alertify.register().close();
+            alertify.specialRegister().close();
             alertify.success('Success');
         },
         onError: function (formType, error) {

@@ -17,6 +17,12 @@ Meteor.methods({
 
     /********* Header ********/
     var registerDoc = Dental.Collection.SpecialRegister.findOne(self.specialRegister);
+    if(registerDoc._patient.gender == "F"){
+      registerDoc.genderWithKh = registerDoc._patient.gender +" | ស្រី"
+    }else {
+      registerDoc.genderWithKh = registerDoc._patient.gender +" | ប្រុស"
+    }
+
     var exchange = Cpanel.Collection.Exchange.findOne({
       dateTime: {
         $lte: moment().format("YYYY-MM-DD HH:mm:ss")
