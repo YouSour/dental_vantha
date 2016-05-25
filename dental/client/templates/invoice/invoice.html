@@ -1,5 +1,5 @@
 <!--Insert-->
-<template name="dental_invoiceInsert">
+<!-- <template name="dental_invoiceInsert">
     <div class="row">
         <div class="col-md-9">
             {{#autoForm collection=Dental.Collection.Invoice id="dental_invoiceInsert" type="insert" afFieldInput-placeholder="schemaLabel"}}
@@ -14,14 +14,14 @@
                     <div class="col-md-8">
                         {{> afQuickField name="des"}}
                     </div>
-                </div>
+                </div> -->
 
                 <!--Disease Item-->
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+                <!-- {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}} -->
                 <!--Doctor Share-->
-                {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
+                <!-- {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}} -->
 
-                <div class="text-right">
+                <!-- <div class="text-right">
                     <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Save</button>
                     <button type="submit" class="btn btn-primary saveAndPrint">{{fa "floppy-o"}} Save & Print</button>
                     <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
@@ -33,10 +33,10 @@
             {{> dental_treatmentInfo register._treatment}}
         </div>
     </div>
-</template>
+</template> -->
 
 <!--Update-->
-<template name="dental_invoiceUpdate">
+<!-- <template name="dental_invoiceUpdate">
     <div class="row">
         <div class="col-md-9">
             {{#autoForm collection=Dental.Collection.Invoice id="dental_invoiceUpdate" type="update" doc=this afFieldInput-placeholder="schemaLabel"}}
@@ -51,14 +51,14 @@
                     <div class="col-md-8">
                         {{> afQuickField name="des"}}
                     </div>
-                </div>
+                </div> -->
 
                 <!--Disease-->
-                {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}}
+                <!-- {{> afArrayField name="disease" id="disease" template="customArrayFieldInvoiceForDiseaseItem" subtemplate="customObjectFieldInvoiceForDiseaseItem"}} -->
                 <!--Doctor Share-->
-                {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}}
+                <!-- {{> afArrayField name="doctorShare" id="doctorShare" template="customArrayFieldInvoiceForDoctorShare" subtemplate="customObjectFieldInvoiceForDoctorShare"}} -->
 
-                <div class="text-right">
+                <!-- <div class="text-right">
                     <button type="submit" class="btn btn-primary">{{fa "floppy-o"}} Update</button>
                     <button type="button" class="btn btn-danger remove">{{fa "remove"}} Remove</button>
                     <button type="reset" class="btn btn-default">{{fa "refresh"}} Reset</button>
@@ -66,11 +66,11 @@
             {{/autoForm}}
         </div>
         <div class="col-md-3">
-            <!--{{> dental_registerInfo register}}-->
-            <!--{{> dental_treatmentInfo register._treatment}}-->
+            {{> dental_registerInfo register}}
+            {{> dental_treatmentInfo register._treatment}}
         </div>
     </div>
-</template>
+</template> -->
 
 <!--Custom array field for disease item-->
 <!--<template name="afArrayField_customArrayFieldInvoiceForDiseaseItem">-->
