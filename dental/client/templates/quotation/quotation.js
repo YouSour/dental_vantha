@@ -52,7 +52,7 @@ Template.dental_quotation.events({
 Template.dental_quotationInsert.onRendered(function () {
     Meteor.typeahead.inject();
     datepicker();
-    $('.btnAdd').attr('disabled', "disabled");
+    // $('.btnAdd').attr('disabled', "disabled");
 });
 Template.dental_quotationInsert.helpers({
     search: function (query, sync, callback) {
@@ -125,10 +125,11 @@ Template.dental_quotationInsert.events({
             discount = 0;
             amount = math.round(qty * price, 2);
 
-            $('.btnAdd').attr('disabled', false);
-        } else {
-            $('.btnAdd').attr('disabled', true);
+            // $('.btnAdd').attr('disabled', false);
         }
+        // else {
+        //     $('.btnAdd').attr('disabled', true);
+        // }
 
         thisObj.parents('div.array-item').find('.qty').val(qty);
         thisObj.parents('div.array-item').find('.price').val(price);
@@ -138,36 +139,36 @@ Template.dental_quotationInsert.events({
         // Cal footer
         calculateTotal();
     },
-    'click .btnAdd': function (e) {
-        var orderItemId = $(e.currentTarget).val();
-
-        if (orderItemId != "") {
-            $('.btnAdd').removeAttr('disabled');
-        } else {
-            $('.btnAdd').attr('disabled', "disabled");
-
-        }
-    },
+    // 'click .btnAdd': function (e) {
+    //     var orderItemId = $(e.currentTarget).val();
+    //
+    //     if (orderItemId != "") {
+    //         $('.btnAdd').removeAttr('disabled');
+    //     } else {
+    //         $('.btnAdd').attr('disabled', "disabled");
+    //
+    //     }
+    // },
     'click .btnRemove': function (e, t) {
         var thisValueQuotation = $(e.currentTarget).closest('.quotation').find('.amount').val();
         thisValueQuotation = parseFloat(thisValueQuotation);
-        var enable = true;
-        $('.amount').each(function () {
-            var amount = $(this).val() == "" ? 0 : parseFloat($(this)
-                .val());
-            if (amount == 0) {
-                enable = false;
-                return false;
-            }
-            enable = true;
-        });
-
-        if (enable) {
-            $('.btnAdd').attr('disabled', false);
-        } else {
-            $('.btnAdd').attr('disabled', true);
-
-        }
+        // var enable = true;
+        // $('.amount').each(function () {
+        //     var amount = $(this).val() == "" ? 0 : parseFloat($(this)
+        //         .val());
+        //     if (amount == 0) {
+        //         enable = false;
+        //         return false;
+        //     }
+        //     enable = true;
+        // });
+        //
+        // if (enable) {
+        //     $('.btnAdd').attr('disabled', false);
+        // } else {
+        //     $('.btnAdd').attr('disabled', true);
+        //
+        // }
 
         // Cal footer
         calculateTotal(thisValueQuotation);
@@ -211,10 +212,11 @@ Template.dental_quotationUpdate.events({
             discount = 0;
             amount = math.round(qty * price, 2);
 
-            $('.btnAdd').attr('disabled', false);
-        } else {
-            $('.btnAdd').attr('disabled', true);
+            // $('.btnAdd').attr('disabled', false);
         }
+        // else {
+        //     $('.btnAdd').attr('disabled', true);
+        // }
 
         thisObj.parents('div.array-item').find('.qty').val(qty);
         thisObj.parents('div.array-item').find('.price').val(price);
@@ -224,36 +226,36 @@ Template.dental_quotationUpdate.events({
         // Cal footer
         calculateTotal();
     },
-    'click .btnAdd': function (e) {
-        var orderItemId = $(e.currentTarget).val();
-
-        if (orderItemId != "") {
-            $('.btnAdd').removeAttr('disabled');
-        } else {
-            $('.btnAdd').attr('disabled', "disabled");
-
-        }
-    },
+    // 'click .btnAdd': function (e) {
+    //     var orderItemId = $(e.currentTarget).val();
+    //
+    //     if (orderItemId != "") {
+    //         $('.btnAdd').removeAttr('disabled');
+    //     } else {
+    //         $('.btnAdd').attr('disabled', "disabled");
+    //
+    //     }
+    // },
     'click .btnRemove': function (e, t) {
         var thisValueQuotation = $(e.currentTarget).closest('.quotation').find('.amount').val();
         thisValueQuotation = parseFloat(thisValueQuotation);
-        var enable = true;
-        $('.amount').each(function () {
-            var amount = $(this).val() == "" ? 0 : parseFloat($(this)
-                .val());
-            if (amount == 0) {
-                enable = false;
-                return false;
-            }
-            enable = true;
-        });
-
-        if (enable) {
-            $('.btnAdd').attr('disabled', false);
-        } else {
-            $('.btnAdd').attr('disabled', true);
-
-        }
+        // var enable = true;
+        // $('.amount').each(function () {
+        //     var amount = $(this).val() == "" ? 0 : parseFloat($(this)
+        //         .val());
+        //     if (amount == 0) {
+        //         enable = false;
+        //         return false;
+        //     }
+        //     enable = true;
+        // });
+        //
+        // if (enable) {
+        //     $('.btnAdd').attr('disabled', false);
+        // } else {
+        //     $('.btnAdd').attr('disabled', true);
+        //
+        // }
 
         // Cal footer
         calculateTotal(thisValueQuotation);
@@ -369,11 +371,11 @@ function CalculateTotalAndAmount(e) {
 
     thisObj.parents('div.array-item').find('.amount').val(amountAfterDiscount);
 
-    if (qty > 0 && (discount >= 0 && discount <= 100)) {
-        $('.btnAdd').removeAttr('disabled');
-    } else {
-        $('.btnAdd').attr('disabled', "disabled");
-    }
+    // if (qty > 0 && (discount >= 0 && discount <= 100)) {
+    //     $('.btnAdd').removeAttr('disabled');
+    // } else {
+    //     $('.btnAdd').attr('disabled', "disabled");
+    // }
 }
 
 /**

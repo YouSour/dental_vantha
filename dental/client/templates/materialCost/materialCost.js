@@ -54,7 +54,7 @@ Template.dental_materialCost.events({
  */
 Template.dental_materialCostInsert.onRendered(function() {
   datepicker();
-  $('.btnAdd').attr('disabled', "disabled");
+  // $('.btnAdd').attr('disabled', "disabled");
 });
 
 Template.dental_materialCostInsert.helpers({});
@@ -71,37 +71,37 @@ Template.dental_materialCostInsert.events({
     var thisValueMaterialCost= $(e.currentTarget).closest('.materialCost').find('.amount').val();
      thisValueMaterialCost=parseFloat(thisValueMaterialCost);
 
-      var enable = true;
-      $('.amount').each(function() {
-        var amount = $(this).val() == "" ? 0 : parseFloat($(this)
-          .val());
-        if (amount == 0) {
-          enable = false;
-          return false;
-        }
-        enable = true;
-      });
-
-      if (enable) {
-        $('.btnAdd').attr('disabled', false);
-      } else {
-        $('.btnAdd').attr('disabled', true);
-
-      }
+      // var enable = true;
+      // $('.amount').each(function() {
+      //   var amount = $(this).val() == "" ? 0 : parseFloat($(this)
+      //     .val());
+      //   if (amount == 0) {
+      //     enable = false;
+      //     return false;
+      //   }
+      //   enable = true;
+      // });
+      //
+      // if (enable) {
+      //   $('.btnAdd').attr('disabled', false);
+      // } else {
+      //   $('.btnAdd').attr('disabled', true);
+      //
+      // }
 
       calculateTotal(thisValueMaterialCost);
   },
-  'click .btnAdd': function(e) {
-
-    var materialCostItemId = $(e.currentTarget).val();
-
-    if (materialCostItemId != "") {
-      $('.btnAdd').removeAttr('disabled');
-    } else {
-      $('.btnAdd').attr('disabled', "disabled");
-
-    }
-  },
+  // 'click .btnAdd': function(e) {
+  //
+  //   var materialCostItemId = $(e.currentTarget).val();
+  //
+  //   if (materialCostItemId != "") {
+  //     $('.btnAdd').removeAttr('disabled');
+  //   } else {
+  //     $('.btnAdd').attr('disabled', "disabled");
+  //
+  //   }
+  // },
   'keyup .price ,.qty , click .price ,.qty ': function(e) {
     checkEventKeyupAndClick(e);
   },
@@ -133,36 +133,36 @@ Template.dental_materialCostUpdate.events({
   'click .btnRemove': function(e) {
     var thisValueMaterialCost= $(e.currentTarget).closest('.materialCost').find('.amount').val();
       thisValueMaterialCost=parseFloat(thisValueMaterialCost);
-      var enable = true;
-      $('.amount').each(function() {
-        var amount = $(this).val() == "" ? 0 : parseFloat($(this)
-          .val());
-        if (amount == 0) {
-          enable = false;
-          return false;
-        }
-        enable = true;
-      });
-
-      if (enable) {
-        $('.btnAdd').attr('disabled', false);
-      } else {
-        $('.btnAdd').attr('disabled', true);
-
-      }
+      // var enable = true;
+      // $('.amount').each(function() {
+      //   var amount = $(this).val() == "" ? 0 : parseFloat($(this)
+      //     .val());
+      //   if (amount == 0) {
+      //     enable = false;
+      //     return false;
+      //   }
+      //   enable = true;
+      // });
+      //
+      // if (enable) {
+      //   $('.btnAdd').attr('disabled', false);
+      // } else {
+      //   $('.btnAdd').attr('disabled', true);
+      //
+      // }
 
       calculateTotal(thisValueMaterialCost);
   },
-  'click .btnAdd': function(e) {
-    var materialCostItemId = $(e.currentTarget).val();
-
-    if (materialCostItemId != "") {
-      $('.btnAdd').removeAttr('disabled');
-    } else {
-      $('.btnAdd').attr('disabled', "disabled");
-
-    }
-  },
+  // 'click .btnAdd': function(e) {
+  //   var materialCostItemId = $(e.currentTarget).val();
+  //
+  //   if (materialCostItemId != "") {
+  //     $('.btnAdd').removeAttr('disabled');
+  //   } else {
+  //     $('.btnAdd').attr('disabled', "disabled");
+  //
+  //   }
+  // },
   'keyup .price ,.qty , click .price ,.qty ': function(e) {
     checkEventKeyupAndClick(e);
   }
@@ -262,10 +262,11 @@ function onChangeMaterialCostItemId(e) {
     price = math.round(materialCostItemDoc.price, 2);
     amount = math.round(qty * price, 2);
 
-    $('.btnAdd').attr('disabled', false);
-  } else {
-    $('.btnAdd').attr('disabled', true);
+    // $('.btnAdd').attr('disabled', false);
   }
+  // else {
+  //   $('.btnAdd').attr('disabled', true);
+  // }
 
   thisObj.parents('div.array-item').find('.qty').val(qty);
   thisObj.parents('div.array-item').find('.price').val(price);
@@ -287,11 +288,11 @@ function checkEventKeyupAndClick(e) {
   calculateTotal();
 
 
-  if (price != 0 && qty != 0) {
-    $('.btnAdd').removeAttr('disabled');
-  } else {
-    $('.btnAdd').attr('disabled', "disabled");
-  }
+  // if (price != 0 && qty != 0) {
+  //   $('.btnAdd').removeAttr('disabled');
+  // } else {
+  //   $('.btnAdd').attr('disabled', "disabled");
+  // }
 }
 
 /**
