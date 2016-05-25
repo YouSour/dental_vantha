@@ -20,9 +20,9 @@ Meteor.methods({
     var registerDoc = Dental.Collection.Register.findOne(self.register);
 
     if(registerDoc._patient.gender == "F"){
-      registerDoc.genderWithKh = registerDoc._patient.gender +" | ស្រី"
+      registerDoc.genderWithKh = registerDoc._patient.gender +" (ស្រី)"
     }else {
-      registerDoc.genderWithKh = registerDoc._patient.gender +" | ប្រុស"
+      registerDoc.genderWithKh = registerDoc._patient.gender +" (ប្រុស)"
     }
 
     var exchange = Cpanel.Collection.Exchange.findOne({
