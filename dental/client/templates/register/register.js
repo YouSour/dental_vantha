@@ -8,31 +8,31 @@ Dental.ListState = new ReactiveObj();
 //    }
 //});
 
-/**
+/***
  * Index
- **/
+ */
 Template.dental_register.onCreated(function () {
-    Meteor.subscribe('dental_doctor');
-    Meteor.subscribe('dental_register');
-    Meteor.subscribe('dental_payment');
-    Meteor.subscribe('dental_treatment');
-    Meteor.subscribe('dental_deposit');
-    Meteor.subscribe('dental_staff');
-    Meteor.subscribe('dental_patientHistory');
-    Meteor.subscribe('dental_patient');
-    Meteor.subscribe('dental_diseaseItem');
-    Meteor.subscribe('dental_laboratory');
+  Meteor.subscribe('dental_doctor');
+  Meteor.subscribe('dental_register');
+  Meteor.subscribe('dental_payment');
+  Meteor.subscribe('dental_treatment');
+  Meteor.subscribe('dental_deposit');
+  Meteor.subscribe('dental_staff');
+  Meteor.subscribe('dental_patientHistory');
+  Meteor.subscribe('dental_patient');
+  Meteor.subscribe('dental_diseaseItem');
+  Meteor.subscribe('dental_laboratory');
 
     createNewAlertify([
         'register',
         'patientAddon',
-        'doctorAddon',
         'statusAction',
         'treatmentAction',
         'appointmentAction',
         'depositAction',
         'paymentAction',
-        'staffAddon'
+        "staffAddon",
+        "doctorAddon"
     ]);
 });
 
@@ -78,12 +78,13 @@ Template.dental_register.events({
         );
     },
     'click .show': function () {
+        Dental.ListState.set('showWork', true);
         var data = this;
-
         // Doctor
+
         var doctor = [];
         _.each(data.doctorShare, function (val) {
-            var doctorDoc = Dental.Collection.Doctor.findOne({_id: val.doctor});
+            var doctorDoc = Dental.Collection.Doctor.findOne(val.doctor);
             doctor.push(doctorDoc.name);
         });
         data.doctor = JSON.stringify(doctor, null, '');
@@ -248,12 +249,18 @@ Template.dental_registerClosingDate.onRendered(function () {
  */
 Template.dental_registerInsert.onRendered(function () {
     Meteor.typeahead.inject();
+    //$('.patientId').hide();
+    // $('.item').attr('disabled', "disabled");
+    //reset value sharingRemain
     Dental.ListState.set('sharingRemain', 0);
+
     datepicker();
     statusAutoSelected();
     $('.btnAdd').attr('disabled', "disabled");
 
 });
+
+
 Template.dental_registerInsert.helpers({
     search: function (query, sync, callback) {
         Meteor.call('searchPatient', query, {}, function (err, res) {
@@ -265,13 +272,45 @@ Template.dental_registerInsert.helpers({
         });
     },
     selected: function (event, suggestion, dataSetName) {
+        // event - the jQuery event object
+        // suggestion - the suggestion object
+        // datasetName - the name of the dataset the suggestion belongs to
         // TODO your event handler here
         var id = suggestion._id;
         $('[name="search"]').typeahead('val', suggestion._id + ' | ' + suggestion.name + " | " + suggestion.age);
         $('.patientId').val(id);
-    }
-});
+        var patient = $('.patientId').val(id);
+        if (patient) {
+            $('.item').removeAttr('disabled');
+        }
 
+    },
+    item: function (query, sync, callback) {
+        Meteor.call('searchItem', query, {}, function (err, res) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(res);
+        });
+    },
+    Item: function (event, suggestion, dataSetName) {
+        // event - the jQuery event object
+        // suggestion - the suggestion object
+        // datasetName - the name of the dataset the suggestion belongs to
+        // TODO your event handler here
+        //var id = suggestion._id;
+        $('[name="item"]').typeahead('val', suggestion._id + ' | ' + suggestion.name)
+        //$('.patientId').val(id);
+        //var patient = $('.patientId').val(id);
+        //if (patient) {
+        //    $('.item').removeAttr('disabled');d
+        //}
+
+
+    }
+
+});
 Template.dental_registerInsert.events({
     'click .btnAdd': function (e) {
         var orderItemId = $(e.currentTarget).val();
@@ -286,7 +325,6 @@ Template.dental_registerInsert.events({
     'change .patientId': function (e) {
         var patient = $(e.currentTarget).val();
         Session.set('patientId', patient);
-
         var index = 0;
         $('div.array-item').each(function () {
             //clear selectize
@@ -294,18 +332,18 @@ Template.dental_registerInsert.events({
             $(cssSelector)[0].selectize.clear(true);
             index++;
         });
-
     },
     'keyup .doctorShareAmount,.laboAmount': function (e, t) {
         sharingRemain();
     },
     'change .item': function (e, t) {
-        if ($('.patientId').val() == '') {
-            alertify.error("Please , Select PatientId");
-            $('[name="search"]').focus()
-        } else {
-            sharingRemain();
-        }
+      var patient = $('.patientId').val();
+      if(patient ==''){
+        alertify.error('Please , Select Patient !');
+        $('[name="search"]').focus();
+      }else{
+        sharingRemain();
+      }
     },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
@@ -335,11 +373,13 @@ Template.dental_registerUpdate.onRendered(function () {
     calculateTotalForLaboExpense();
     //run this function when on update get value for sharingRemain
     sharingRemain();
-    Dental.ListState.set('sharingRemain', 0);
 });
 
 //helper by piseth
 Template.dental_registerUpdate.helpers({
+    //typeAhead: function () {
+    //    return data.patientId
+    //},
 
     search: function (query, sync, callback) {
         Meteor.call('searchPatient', query, {}, function (err, res) {
@@ -351,10 +391,18 @@ Template.dental_registerUpdate.helpers({
         });
     },
     selected: function (event, suggestion, dataSetName) {
+        // event - the jQuery event object
+        // suggestion - the suggestion object
+        // datasetName - the name of the dataset the suggestion belongs to
         // TODO your event handler here
         var id = suggestion._id;
         $('[name="search"]').typeahead('val', suggestion._id + ' | ' + suggestion.name + " | " + suggestion.age);
         $('.patientId').val(id);
+        var patient = $('.patientId').val(id);
+        if (patient) {
+            $('.item').removeAttr('disabled');
+        }
+
 
     }
 });
@@ -370,31 +418,22 @@ Template.dental_registerUpdate.events({
 
         }
     },
-    'change .patientId': function (e) {
-        var patient = $(e.currentTarget).val();
-        Session.set('patientId', patient);
-
-        var index = 0;
-        $('div.array-item').each(function () {
-            //clear selectize
-            $('select.item')[index].selectize.clear(true);
-            index++;
-        });
+    'keyup .patientId': function (e) {
+        $('[name="search"]').show();
+        $('.patientId').hide();
 
     },
     'keyup .doctorShareAmount,.laboAmount': function (e, t) {
         sharingRemain();
     },
     'change .item': function (e, t) {
-        if ($('.patientId').val() == '') {
-            alertify.error("Please , Select PatientId");
-            $('[name="search"]').focus();
-            //$('[name="search"]').css("border", "1px solid #ccc");
-        } else {
-            sharingRemain();
-        }
-
-
+      var patient = $('.patientId').val();
+      if(patient ==''){
+        alertify.error('Please , Select Patient !');
+        $('[name="search"]').focus();
+      }else{
+        sharingRemain();
+      }
     },
     'click .patientAddon': function (e, t) {
         alertify.patientAddon(fa("plus", "Patient"), renderTemplate(Template.dental_patientInsert))
@@ -471,6 +510,7 @@ Template.afArrayField_customArrayFieldInvoiceForDiseaseItem.events({
             $('.btnAdd').attr('disabled', false);
         } else {
             $('.btnAdd').attr('disabled', true);
+
         }
 
         // Cal footer
@@ -567,7 +607,6 @@ Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
         }
         // Cal footer for labo expense
         calculateTotalForLaboExpense();
-
         // Cal sharingRemain for labo expense
         sharingRemain();
     },
@@ -589,7 +628,6 @@ Template.afArrayField_customArrayFieldInvoiceForLaboExpense.events({
         calculateTotalForLaboExpense(thisValuelabo);
         // Cal sharingRemain for labo expense
         sharingRemain(thisValuelabo);
-
     },
     'keyup .laboAmount': function (e, t) {
         // Cal footer for labo expense
@@ -637,7 +675,6 @@ AutoForm.hooks({
                 }
                 Session.set('printInvoice', false);
             });
-            alertify.register().close();
             alertify.success("Success");
         },
         onError: function (fromType, error) {
@@ -645,15 +682,6 @@ AutoForm.hooks({
         }
     },
     dental_registerClosingDate: {
-        before: {
-            update: function (doc) {
-                doc.$set.credit = $('.credit').val();
-                doc.$set.total = $('.total').val();
-                doc.$set.doctorShareTotal = $('.doctorShareTotal').val();
-                doc.$set.laboExpenseTotal = $('.laboExpenseTotal').val();
-                return doc;
-            }
-        },
         onSuccess: function (formType, result) {
             alertify.statusAction().close();
             alertify.success('Success');
@@ -663,6 +691,15 @@ AutoForm.hooks({
         }
     },
     dental_registerUpdate: {
+        before: {
+            update: function (doc) {
+                doc.$set.credit = $('.credit').val();
+                doc.$set.total = $('.total').val();
+                doc.$set.doctorShareTotal = $('.doctorShareTotal').val();
+                doc.$set.laboExpenseTotal = $('.laboExpenseTotal').val();
+                return doc;
+            }
+        },
         onSuccess: function (formType, result) {
             alertify.register().close();
             alertify.success('Success');
@@ -718,18 +755,17 @@ function calculateTotal(minusValue) {
     });
     subtotal = subtotal - minusValue;
 
-    // Set value on subtotal textbox
-    $('[name="subTotal"]').val(subtotal);
-
     // Cal total after deposit and sub discount
     var deposit = _.isEmpty($('[name="deposit"]').val()) ? 0 : parseFloat($(
         '[name="deposit"]').val());
-    var subDiscount = _.isEmpty($('#subDiscountRegister').val()) ? 0 : parseFloat(
-        $('#subDiscountRegister').val());
+    var subDiscount = _.isEmpty($('[name="subDiscount"]').val()) ? 0 : parseFloat(
+        $('[name="subDiscount"]').val());
 
     var credit = math.round((subtotal - deposit) - subDiscount, 2);
     var total = math.round((subtotal - subDiscount), 2);
 
+    // Set value on subtotal textbox
+    $('[name="subTotal"]').val(subtotal);
     // Set value on total
     $('.credit').val(credit);
     $('.total').val(total);
@@ -742,7 +778,7 @@ function calculateTotalForDoctorShare(minusValueDrShared) {
     minusValueDrShared = minusValueDrShared == null ? 0 : minusValueDrShared;
     minusValueDrShared = math.round(minusValueDrShared, 2);
     // Cal subtotal by items amount
-    var totalForDoctorShare = 0;
+    var totalForDoctorShare = math.round(0, 2);
 
     $('.doctorShareAmount').each(function () {
         var amount = _.isEmpty($(this).val()) ? 0 : parseFloat($(this).val());
@@ -759,7 +795,6 @@ function calculateTotalForDoctorShare(minusValueDrShared) {
 function calculateTotalForLaboExpense(minusValueLabo) {
     minusValueLabo = minusValueLabo == null ? 0 : minusValueLabo;
     minusValueLabo = math.round(minusValueLabo, 2);
-
     // Cal subtotal by items amount
     var totalForLaboExpense = 0;
 
@@ -777,7 +812,7 @@ var statusAutoSelected = function () {
     $('[name="status"]').val("Active").trigger("change");
 };
 
-//check register Clsoe update & remove hide
+//check register Close update & remove hide
 function checkRegisterClosing(self) {
     var checkRegisterClosing = Dental.Collection.Register.findOne({
         _id: self._id
@@ -837,7 +872,7 @@ var sharingRemain = function (minusValueDrShared, minusValueLabo) {
     var laboAmount = 0;
     var totalRegister = $('.total').val();
     var subtotalRegister = $('.subTotal').val();
-    totalRegister = totalRegister == '' ? 0 : parseFloat(totalRegister);
+    totalRegister = totalRegister == null ? 0 : parseFloat(totalRegister);
     var totalAmount;
     $('.doctorShareAmount').each(function () {
         if (this.value != '') {
@@ -845,6 +880,7 @@ var sharingRemain = function (minusValueDrShared, minusValueLabo) {
         }
     });
     shareAmount = shareAmount - minusValueDrShared;
+
     $('.laboAmount').each(function () {
         if (this.value != '') {
             laboAmount += parseFloat(this.value);
@@ -857,5 +893,6 @@ var sharingRemain = function (minusValueDrShared, minusValueLabo) {
     } else {
         totalAmount = totalRegister - (shareAmount + laboAmount);
     }
+
     return Dental.ListState.set('sharingRemain', totalAmount);
 };
