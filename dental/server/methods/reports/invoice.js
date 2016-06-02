@@ -102,13 +102,13 @@ Meteor.methods({
         totalPaidAmount += objPayment.paidAmount;
       });
 
-      // totalTemp = (getRegister.total - totalPaidAmount) - getRegister.deposit;
+      totalTemp = (getRegister.subTotal - getRegister.deposit) - getRegister.subDiscount;
 
       footer.subTotal = numeral(getRegister.subTotal).format('$0,0.00');
       footer.deposit = numeral(getRegister.deposit).format('$0,0.00');
       footer.subDiscount = numeral(getRegister.subDiscount).format('$0,0.00');
       footer.paidAmount = numeral(totalPaidAmount).format('$0,0.00');
-      footer.total = numeral(getRegister.total).format('$0,0.00');
+      footer.total = numeral(totalTemp).format('$0,0.00');
       footer.totalKhr = "R" + numeral(totalTemp * exchange.rates.KHR).format('0,0.00');
       footer.totalThb = "THB" + numeral(totalTemp * exchange.rates.THB).format('0,0.00');
       data.footer = footer;
