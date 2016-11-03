@@ -214,17 +214,17 @@
 }
 
 .background-img::after {
-     content: "";
-     background: url('/dental/teeth-big-size.png') center center no-repeat !important;
-     position: absolute;
-     width: 100%;
-     height: auto;
-     z-index: -1;
-     top: 0;
-     bottom: 0;
-     left: 0;
-     right: 0;
-     opacity: 0.1;
+    content: "";
+    background: url('/dental/teeth-big-size.png') center center no-repeat !important;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.1;
 }
 
 /*custom style td*/
@@ -263,16 +263,6 @@
     text-align: left;
 }
 
-/*custom style doctor*/
-
-width:
-
-150
-px
-
-;
-
-}
 
 /*header style*/
 .header-style {
@@ -347,4 +337,16 @@ px
 
 .input-desc {
     background-color: red;
+}
+
+.border-img {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    padding: 1px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
