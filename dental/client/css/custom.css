@@ -215,7 +215,7 @@
 
 .background-img::after {
     content: "";
-    background: url('/dental/teeth-big-size.png') center center no-repeat !important;
+    /*background: url('/dental/teeth-big-size.png') center center no-repeat !important;*/
     position: absolute;
     width: 100%;
     height: auto;
